@@ -1,0 +1,81 @@
+body{
+    background: gainsboro;
+}
+.main-green{
+    background-color: #26848c;
+}
+
+#running .col{
+    padding: 0;
+}
+
+.accent-green{
+    background-color: #06bf3d;
+}
+.slight-black-text{
+    color: #424242;
+}
+
+#men .col{
+    padding: 0;
+}
+
+.pin-top{
+    position: relative;
+}
+
+.pin-bottom{
+    position: relative;
+}
+
+.pinned{
+    position: fixed !important;
+}
+
+.tabs .tab a .active{
+    color: #06bf3d;
+    border-bottom-color: #06bf3d;
+}
+
+.tabs .tab{
+    text-transform: capitalize
+}
+
+.collection-item{
+    font-weight: 300;
+    font-size: 0.9rem;
+}
+
+.collection{
+    border: none;
+}
+
+.collection .collection-item{
+    padding: 15px 20px;
+}
+
+#guarantees{
+    margin-bottom: 0;
+}
+/*.divider {*/
+    /*border-color: rgba(0, 0, 0, 0.12);*/
+    /*margin: 10px 0;*/
+    /*width: 100%;*/
+    /*border-bottom: 1px solid rgba(0,0,0,0.12);*/
+/*}*/
+
+.link-header{
+    font-weight: 300;
+}
+
+.link-text{
+    font-weight: 200;
+    font-size: 13px;
+    margin: 10px 0;
+}
+.link-holder{
+    margin: 7px 0;
+}
+
+#footer .col{
+}

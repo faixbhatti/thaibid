@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="thai">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="materialize/css/materialize.css">
+    <link rel="stylesheet" href="materialize/css/style.css">
+</head>
+<body>
+<header>
+    <div class="navbar-fixed">
+
+        <nav class="nav-extended main-green z-depth-3">
+            <div class="nav-wrapper">
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <div class="container">
+                    <a class="brand-logo slight-black-text" href="#">Logo</a>
+
+                    <form class="hide">
+                        <div class="input-field">
+                            <input id="search" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </div>
+                    </form>
+
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+                        <li><a href="#" class="waves-effect"><i class="material-icons left">shopping_cart</i>My Cart</a>
+                        </li>
+                        <li><a href="#" class="waves-effect"><i class="material-icons left">gavel</i> Auctions</a></li>
+                        <li><a href="#" class="waves-effect"><img src="image/elliot.jpg" height="30" width="30"
+                                                                  style="margin-top: 11px; margin-right: 5px"
+                                                                  class="circle responsive-img left"> Nick
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                        </li>
+                        <li>
+                            <a href="#" class="waves-effect">
+                                <i class="material-icons">more_vert</i>
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <div class="nav-content" style="padding-left: 90px">
+
+                <ul class="tabs tabs-transparent hide-on-med-and-down">
+                    <li class="tab"><a href="#test1" class=""><i class="material-icons left">timer</i>Ending</a></li>
+                    <li class="tab"><a class="active" href="#test2" class=""><i
+                            class="material-icons left">accessibility</i>Men</a></li>
+                    <li class="tab"><a href="#test3" class=""><i
+                            class="material-icons left">pregnant_woman</i>Ladies</a>
+                    </li>
+                    <li class="tab"><a href="#test4" class=""><i class="material-icons left">home</i>Home/Garden</a>
+                    </li>
+                    <li class="tab"><a href="#" class=""><i class="material-icons left">child_friendly</i>Kids/Toys</a>
+                    </li>
+                    <li class="tab"><a href="#" class=""><i
+                            class="material-icons left">lightbulb_outline</i>Elec/Gadgets</a></li>
+                    <li class="tab"><a href="#" class=""><i class="material-icons left">flight_takeoff</i>Travel/Sports</a>
+                    </li>
+                    <li class="tab"><a href="#" class=""><i class="material-icons left">fitness_center</i>Health/Beauty</a>
+                    </li>
+                    <li class="tab"><a href="#" class=""><i class="material-icons left">directions_car</i>Car/Moto</a>
+                    </li>
+                    <li class="tab"><a href="#" class=""><i class="material-icons left">build</i>Tools</a></li>
+                </ul>
+
+            </div>
+
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="#"><i class="material-icons">shopping_cart</i>My Cart</a></li>
+                <li><a href="#"><i class="material-icons">gavel</i>My Auctions</a></li>
+                <li><a href="#"><i class="material-icons">forward</i>Sign In</a></li>
+            </ul>
+
+        </nav>
+
+    </div>
+</header>
+<main ng-controller="productCtrl">
+    <div class="teal lighten-3 hide-on-small-and-down" style="height: auto; margin-top: -30px; padding: 30px 70px
+; background: url('image/header-bg.png');">
+
+        <h3 class="white-text" style="padding-top: 60px; font-weight: 200; font-size: 3.4rem; line-height: 1.25">Shop
+            online with the best deals and offers</h3>
+
+        <h5 class="white-text" style="font-size: 1.5rem; font-weight: 200;">We want you to avail the best quality
+            products from the best sellers in the country, and get
+            them delivered to your doorstep as quick as possible</h5>
+    </div>
+
+
+    <div class="row" style="margin-top: 14px">
+        <div class="col l2 m12 s12 hide-on-small-and-down">
+
+            <ul class="collection with-header">
+                <li class="collection-header"><h5 class="teal-text text-darken-2" style="font-size: 16px; font-weight: 700">
+                    Categories</h5></li>
+                <li class="collection-item"><i class="material-icons left">timer</i>Ending</li>
+                <li class="collection-item"><i class="material-icons left">pregnant_woman</i>Ladies</li>
+                <li class="collection-item"><i class="material-icons left">accessibility</i>Gentlemen</li>
+                <li class="collection-item"><i class="material-icons left">home</i>Home/Garden</li>
+                <li class="collection-item"><i class="material-icons left">child_friendly</i>Kids/Toys</li>
+                <li class="collection-item"><i class="material-icons left">lightbulb_outline</i>Elec/Gadgets</li>
+                <li class="collection-item"><i class="material-icons left">flight_takeoff</i>Travel/Sports</li>
+                <li class="collection-item"><i class="material-icons left">fitness_center</i>Health/Beauty</li>
+                <li class="collection-item"><i class="material-icons left">directions_car</i>Car/Motor</li>
+                <li class="collection-item"><i class="material-icons left">build</i>Tools</li>
+
+
+            </ul>
+
+        </div>
+
+        <div class="col l10 m12 s12">
+            <div class="row">
+                <div class="col l3 m6 s12" ng-repeat="product in products">
+                    <a href="#">
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="{{product.image}}">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title black-text" style="font-size: 13px; font-weight: 700"> {{product.name}} <i
+                                        class="material-icons waves-effect right teal-text text-darken-2">gavel</i></span>
+                                <span class="subheader grey-text" style="font-weight: 700; font-size: 12px">${{product.price}}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row grey lighten-4" style="padding: 30px 0" id="guarantees">
+        <div class="col l3 m6 s6">
+            <div class="promo center" style="text-align: center; padding: 15px">
+                <i class="material-icons center medium indigo-text">vpn_lock</i>
+                <h5 style="font-weight: 700">Buyer Protection</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">We will refund if the item is not
+                    as described or is of poor quality
+                </h6>
+            </div>
+        </div>
+        <div class="col l3 m6 s6">
+            <div class="promo center" style="text-align: center; padding: 15px">
+                <i class="material-icons center medium red-text">redeem</i>
+                <h5 style="font-weight: 700">Delivery Guarantee</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">You will get a refund if you do not receive
+                    your order
+                </h6>
+            </div>
+        </div>
+
+        <div class="col l3 m6 s6">
+            <div class="promo center" style="text-align: center; padding: 15px">
+                <i class="material-icons center medium light-green-text">payment</i>
+                <h5 style="font-weight: 700">Safe Payment</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">Pay with popular and secure methods</h6>
+            </div>
+        </div>
+        <div class="col l3 m6 s6">
+            <div class="promo center" style="text-align: center; padding: 15px">
+                <i class="material-icons center medium deep-orange-text">visibility</i>
+                <h5 style="font-weight: 700">Chinese Brands Selection</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">100% Brand Suppliers</h6>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="page-footer teal darken-2" style="margin-bottom: 0">
+    <div class="container">
+        <div class="row" id="footer">
+            <div class="col l2 m6 s12">
+                <h6 class="link-header white-text">INFORMATION</h6>
+                <ul>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">About Us</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Delivery Information</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Contact Us</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Site Map</a></li>
+                </ul>
+            </div>
+            <div class="col l2 m6 s12">
+                <h6 class="link-header white-text">HELP & SUPPORT</h6>
+                <ul>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">FAQs & Contact</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Specials</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Returns</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Product Ideas</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Fashion Glossary</a></li>
+                </ul>
+            </div>
+            <div class="col l2 m6 s12">
+                <h6 class="link-header white-text">MY ACCOUNT</h6>
+                <ul>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">My Account</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Personal Information</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Addresses</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Discount</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Vouchers</a></li>
+                </ul>
+            </div>
+            <div class="col l6 m12 s12 right">
+                <h6 class="link-header center white-text">STAY IN TOUCH</h6>
+                <p class="link-text center grey-text text-lighten-3">Sign up for our newsletters, and don't worry
+                    they're awesome.</p>
+
+                <form class="col s12 center">
+                    <div class="row">
+                        <div class="input-field col s8">
+                            <input id="mail" type="email" class="validate">
+                            <label for="mail">Mail</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <button class="btn waves-effect blue">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+        <div class="divider grey lighten-3" style="opacity:0.5;"></div>
+
+        <div class="row">
+            <div class="col l2 m3 s6">
+                <ul>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
+                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
+                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                </ul>
+            </div>
+            <div class="col l2 m3 s6">
+                <ul>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
+                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
+                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                </ul>
+            </div>
+            <div class="col l2 m3 s6">
+                <ul>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
+                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
+                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                </ul>
+            </div>
+            <div class="col l2 m3 s6">
+                <ul>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
+                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
+                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                </ul>
+            </div>
+            <div class="col l2 m3 s6">
+                <ul>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
+                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
+                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                </ul>
+            </div>
+            <div class="col l2 m3 s6">
+                <ul>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
+                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
+                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
+                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom: 0">
+            <div class="col l12">
+                <h6 class="center white-text" style="font-weight: 600; font-size: 14px">©2017 Thaibid All rights reserved</h6>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="materialize/js/jquery-3.1.1.js"></script>
+<script src="materialize/js/materialize.js"></script>
+<script src="app/app.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+//        $('.with-header').pushpin({
+//            top: $('.with-header').offset().top,
+//            offset: 100,
+//            bottom: 2100
+//        });
+//
+//        alert($('.with-header').offset().top)
+
+        $('.button-collapse').sideNav()
+    });
+
+</script>
+</body>
+</html>
