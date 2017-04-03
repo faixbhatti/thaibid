@@ -2,73 +2,94 @@
 <html lang="en" ng-app="thai">
 <head>
     <meta charset="UTF-8">
+    <!--<base href="/">-->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="materialize/css/materialize.css">
+    <link rel="stylesheet" href="animate.css">
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+    <link rel="stylesheet" href="bower_components/flag-icon-css/css/flag-icon.css">
     <link rel="stylesheet" href="materialize/css/style.css">
 </head>
-<body>
+<body ng-cloak ng-controller="navCtrl">
 <header>
     <div class="navbar-fixed">
+        <ul class="dropdown-content" id="profile">
+            <li><a href="" class="black-text">My profile</a></li>
+            <li><a href="" class="black-text">Auctions</a></li>
+            <li><a href="" class="black-text">Settings</a></li>
+            <li><a href="" class="black-text">Logout</a></li>
+        </ul>
 
-        <nav class="nav-extended main-green z-depth-3">
+        <ul class="dropdown-content" id="languages">
+            <li><a href="" class="black-text"><span class="flag-icon flag-icon-gb"></span> English</a></li>
+            <li><a href="" class="black-text"><span class="flag-icon flag-icon-th"></span> Thai</a></li>
+        </ul>
+        <nav class="nav-extended main-green" ng-hide="search">
             <div class="nav-wrapper">
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <div class="container">
-                    <a class="brand-logo slight-black-text" href="#">Logo</a>
-
-                    <form class="hide">
-                        <div class="input-field">
-                            <input id="search" type="search" required>
-                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                            <i class="material-icons">close</i>
-                        </div>
-                    </form>
+                    <a class="brand-logo slight-black-text" href="#!/home"><img
+                            src="http://demo.boostcc.com/wp-content/uploads/BidXelSVG.svg" style="height:30px;" alt="Logo"></a>
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-
-                        <li><a href="#" class="waves-effect"><i class="material-icons left">shopping_cart</i>My Cart</a>
+                        <li><a class="waves-effect nav-item" ng-click="searching()"><i class="material-icons left">search</i></a>
                         </li>
-                        <li><a href="#" class="waves-effect"><i class="material-icons left">gavel</i> Auctions</a></li>
-                        <li><a href="#" class="waves-effect"><img src="image/elliot.jpg" height="30" width="30"
-                                                                  style="margin-top: 11px; margin-right: 5px"
-                                                                  class="circle responsive-img left"> Nick
+                        <li><a href="" class="waves-effect nav-item"><i class="material-icons left">shopping_cart</i>My
+                            Cart</a>
+                        </li>
+                        <li><a href="" class="lang-button waves-effect nav-item" data-activates="languages"><i
+                                class="material-icons right">arrow_drop_down</i><span class="flag-icon flag-icon-gb"
+                                                                                      style="margin-top: 15px;"></span>
+                        </a></li>
+                        <li><a href="#" class="dropdown-button waves-effect nav-item" data-activates="profile"><img
+                                src="image/elliot.jpg" height="30" width="30"
+                                style="margin-top: 11px; margin-right: 5px"
+                                class="circle responsive-img left"> Nick
                             <i class="material-icons right">arrow_drop_down</i>
                         </a>
-                        </li>
-                        <li>
-                            <a href="#" class="waves-effect">
-                                <i class="material-icons">more_vert</i>
-                            </a>
                         </li>
                     </ul>
 
                 </div>
             </div>
 
-            <div class="nav-content" style="padding-left: 90px">
+            <div class="nav-content" style="padding: 0 20px">
 
-                <ul class="tabs tabs-transparent hide-on-med-and-down">
-                    <li class="tab"><a href="#test1" class=""><i class="material-icons left">timer</i>Ending</a></li>
-                    <li class="tab"><a class="active" href="#test2" class=""><i
-                            class="material-icons left">accessibility</i>Men</a></li>
-                    <li class="tab"><a href="#test3" class=""><i
-                            class="material-icons left">pregnant_woman</i>Ladies</a>
+                <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down">
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a
+                            href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a
+                             href="" class=""><i
+                            class="material-icons left icons">accessibility</i>Men</a></li>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a
+                            href="" class=""><i
+                            class="material-icons left icons">pregnant_woman</i>Ladies</a>
                     </li>
-                    <li class="tab"><a href="#test4" class=""><i class="material-icons left">home</i>Home/Garden</a>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Home/Garden" ng-click="location('/home-garden')"><a
+                            href="" class=""><i class="material-icons left icons">home</i>Home/Garden</a>
                     </li>
-                    <li class="tab"><a href="#" class=""><i class="material-icons left">child_friendly</i>Kids/Toys</a>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a
+                            href="" class=""><i class="material-icons left icons">child_friendly</i>Kids/Toys</a>
                     </li>
-                    <li class="tab"><a href="#" class=""><i
-                            class="material-icons left">lightbulb_outline</i>Elec/Gadgets</a></li>
-                    <li class="tab"><a href="#" class=""><i class="material-icons left">flight_takeoff</i>Travel/Sports</a>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Elec/Gadgets" ng-click="location('/elec-gadgets')"><a
+                            href="" class=""><i
+                            class="material-icons left icons">lightbulb_outline</i>Elec/Gadgets</a></li>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Travel/Sports" ng-click="location('/travel-sports')"><a
+                            href="#" class=""><i class="material-icons left icons">flight_takeoff</i>Travel/Sports</a>
                     </li>
-                    <li class="tab"><a href="#" class=""><i class="material-icons left">fitness_center</i>Health/Beauty</a>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Health/Beauty" ng-click="location('/health-beauty')"><a
+                            href="#" class=""><i class="material-icons left icons">fitness_center</i>Health/Beauty</a>
                     </li>
-                    <li class="tab"><a href="#" class=""><i class="material-icons left">directions_car</i>Car/Moto</a>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Car/Moto" ng-click="location('/car-moto')"><a
+                            href="" class=""><i class="material-icons left icons">directions_car</i>Car/Moto</a>
                     </li>
-                    <li class="tab"><a href="#" class=""><i class="material-icons left">build</i>Tools</a></li>
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
+                            class="material-icons left icons">build</i>Tools</a></li>
                 </ul>
 
             </div>
@@ -81,78 +102,37 @@
 
         </nav>
 
+        <nav class="teal lighten-3" ng-show="search">
+            <div class="nav-wrapper">
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons waves-effect" ng-click="search = !search">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+
     </div>
 </header>
-<main ng-controller="productCtrl">
-    <div class="teal lighten-3 hide-on-small-and-down" style="height: auto; margin-top: -30px; padding: 30px 70px
-; background: url('image/header-bg.png');">
-
-        <h3 class="white-text" style="padding-top: 60px; font-weight: 200; font-size: 3.4rem; line-height: 1.25">Shop
-            online with the best deals and offers</h3>
-
-        <h5 class="white-text" style="font-size: 1.5rem; font-weight: 200;">We want you to avail the best quality
-            products from the best sellers in the country, and get
-            them delivered to your doorstep as quick as possible</h5>
-    </div>
-
-
-    <div class="row" style="margin-top: 14px">
-        <div class="col l2 m12 s12 hide-on-small-and-down">
-
-            <ul class="collection with-header">
-                <li class="collection-header"><h5 class="teal-text text-darken-2" style="font-size: 16px; font-weight: 700">
-                    Categories</h5></li>
-                <li class="collection-item"><i class="material-icons left">timer</i>Ending</li>
-                <li class="collection-item"><i class="material-icons left">pregnant_woman</i>Ladies</li>
-                <li class="collection-item"><i class="material-icons left">accessibility</i>Gentlemen</li>
-                <li class="collection-item"><i class="material-icons left">home</i>Home/Garden</li>
-                <li class="collection-item"><i class="material-icons left">child_friendly</i>Kids/Toys</li>
-                <li class="collection-item"><i class="material-icons left">lightbulb_outline</i>Elec/Gadgets</li>
-                <li class="collection-item"><i class="material-icons left">flight_takeoff</i>Travel/Sports</li>
-                <li class="collection-item"><i class="material-icons left">fitness_center</i>Health/Beauty</li>
-                <li class="collection-item"><i class="material-icons left">directions_car</i>Car/Motor</li>
-                <li class="collection-item"><i class="material-icons left">build</i>Tools</li>
-
-
-            </ul>
-
-        </div>
-
-        <div class="col l10 m12 s12">
-            <div class="row">
-                <div class="col l3 m6 s12" ng-repeat="product in products">
-                    <a href="#">
-                        <div class="card hoverable">
-                            <div class="card-image">
-                                <img src="{{product.image}}">
-                            </div>
-                            <div class="card-content">
-                                <span class="card-title black-text" style="font-size: 13px; font-weight: 700"> {{product.name}} <i
-                                        class="material-icons waves-effect right teal-text text-darken-2">gavel</i></span>
-                                <span class="subheader grey-text" style="font-weight: 700; font-size: 12px">${{product.price}}</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row grey lighten-4" style="padding: 30px 0" id="guarantees">
+<main ng-click="search=false">
+    <ng-view></ng-view>
+    <div class="row blue-grey" style="padding: 30px 0; border-bottom: 2px solid white;" id="guarantees">
         <div class="col l3 m6 s6">
             <div class="promo center" style="text-align: center; padding: 15px">
                 <i class="material-icons center medium indigo-text">vpn_lock</i>
-                <h5 style="font-weight: 700">Buyer Protection</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">We will refund if the item is not
-                    as described or is of poor quality
+                <h5 style="font-weight: 700" class="white-text">Buyer Protection</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">We will refund if the item is of poor
+                    quality
                 </h6>
             </div>
         </div>
         <div class="col l3 m6 s6">
             <div class="promo center" style="text-align: center; padding: 15px">
                 <i class="material-icons center medium red-text">redeem</i>
-                <h5 style="font-weight: 700">Delivery Guarantee</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">You will get a refund if you do not receive
+                <h5 style="font-weight: 700" class="white-text">Delivery Guarantee</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">You will get a refund if you do not receive
                     your order
                 </h6>
             </div>
@@ -161,21 +141,21 @@
         <div class="col l3 m6 s6">
             <div class="promo center" style="text-align: center; padding: 15px">
                 <i class="material-icons center medium light-green-text">payment</i>
-                <h5 style="font-weight: 700">Safe Payment</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">Pay with popular and secure methods</h6>
+                <h5 style="font-weight: 700" class="white-text">Safe Payment</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">Pay with popular and secure methods</h6>
             </div>
         </div>
         <div class="col l3 m6 s6">
             <div class="promo center" style="text-align: center; padding: 15px">
                 <i class="material-icons center medium deep-orange-text">visibility</i>
-                <h5 style="font-weight: 700">Chinese Brands Selection</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.5;">100% Brand Suppliers</h6>
+                <h5 style="font-weight: 700" class="white-text">Chinese Brands Selection</h5>
+                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">100% Brand Suppliers</h6>
             </div>
         </div>
     </div>
 </main>
 
-<footer class="page-footer teal darken-2" style="margin-bottom: 0">
+<footer class="page-footer blue-grey" style="margin-bottom: 0">
     <div class="container">
         <div class="row" id="footer">
             <div class="col l2 m6 s12">
@@ -213,18 +193,18 @@
                 </ul>
             </div>
             <div class="col l6 m12 s12 right">
-                <h6 class="link-header center white-text">STAY IN TOUCH</h6>
-                <p class="link-text center grey-text text-lighten-3">Sign up for our newsletters, and don't worry
+                <h6 class="link-header white-text">STAY IN TOUCH</h6>
+                <p class="link-text grey-text text-lighten-3">Sign up for our newsletters, and don't worry
                     they're awesome.</p>
 
-                <form class="col s12 center">
+                <form class="col s12">
                     <div class="row">
                         <div class="input-field col s8">
                             <input id="mail" type="email" class="validate">
                             <label for="mail">Mail</label>
                         </div>
                         <div class="input-field col s2">
-                            <button class="btn waves-effect blue">Register</button>
+                            <button class="btn-floating waves-effect blue btn"><ng-md-icon icon="mail" style="fill:white" class="icon"></ng-md-icon></button>
                         </div>
                     </div>
                 </form>
@@ -237,63 +217,42 @@
         <div class="row">
             <div class="col l2 m3 s6">
                 <ul>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
-                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
-                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text white-text">Computers</li>
+                    <li class="link-text white-text">Software</li>
+                    <li class="link-text white-text">Monitors</li>
+                    <li class="link-text white-text">Laptops</li>
                 </ul>
             </div>
             <div class="col l2 m3 s6">
                 <ul>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
-                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
-                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li class="link-text white-text"><a href="" class="white-text">
+                        <ng-md-icon icon="facebook" style="fill:white" size="20"></ng-md-icon>
+                        Facebook</a></li>
+                    <li class="link-text white-text"><a href="" class="white-text">
+                        <ng-md-icon icon="twitter" style="fill: white" size="20"></ng-md-icon>
+                        Twitter</a></li>
+                    <li class="link-text white-text"><a href="" class="white-text">
+                        <ng-md-icon icon="google-plus" style="fill: white" size="20"></ng-md-icon>
+                        Google Plus</a></li>
+                    <li class="link-text white-text"><a href="" class="white-text">
+                        <ng-md-icon icon="call" style="fill: white" size="20"></ng-md-icon>
+                        +233848838</a></li>
                 </ul>
             </div>
-            <div class="col l2 m3 s6">
+        </div>
+
+        <div class="row">
+            <div class="col l4 m6 s12">
                 <ul>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
-                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
-                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                </ul>
-            </div>
-            <div class="col l2 m3 s6">
-                <ul>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
-                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
-                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                </ul>
-            </div>
-            <div class="col l2 m3 s6">
-                <ul>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
-                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
-                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                </ul>
-            </div>
-            <div class="col l2 m3 s6">
-                <ul>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
-                    <li class="link-text grey-text text-lighten-3">COMPUTERS</li>
-                    <li class="link-text grey-text text-lighten-3">SOFTWARE</li>
-                    <li class="link-text grey-text text-lighten-3">MONITORS</li>
-                    <li class="link-text grey-text text-lighten-3">LAPTOPS</li>
+                    <li></li>
                 </ul>
             </div>
         </div>
 
         <div class="row" style="margin-bottom: 0">
             <div class="col l12">
-                <h6 class="center white-text" style="font-weight: 600; font-size: 14px">©2017 Thaibid All rights reserved</h6>
+                <h6 class="center white-text" style="font-size: 12px">Copyright © 2017 Thaibid All rights
+                    reserved</h6>
             </div>
         </div>
     </div>
@@ -301,22 +260,47 @@
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="materialize/js/jquery-3.1.1.js"></script>
+<script src="bower_components/angular-route.js"></script>
+<script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+<script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/moment/min/locales.min.js"></script>
+<script src="bower_components/humanize-duration/humanize-duration.js"></script>
+<script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+<script src="bower_components/progressbar.js/dist/progressbar.js"></script>
+<script src="angular-progressbar/dist/angular-progressbar.js"></script>
 <script src="materialize/js/materialize.js"></script>
 <script src="app/app.js"></script>
+<script src="app/config/app.config.js"></script>
+<script src="app/home/nav.controller.js"></script>
+<script src="app/home/home-controller.js"></script>
+<script src="app/categories/categories.component.js"></script>
+<script src="app/products/product-service.js"></script>
+<script src="app/products/product.component.js"></script>
+<script src="app/product-category/product-category.component.js"></script>
+<script src="app/product-detail/product-detail.component.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
 
-//        $('.with-header').pushpin({
-//            top: $('.with-header').offset().top,
-//            offset: 100,
-//            bottom: 2100
-//        });
-//
-//        alert($('.with-header').offset().top)
+        $('.home > .with-header').pushpin({
+            top: $('.with-header').offset().top,
+            offset: 100,
+            bottom: 950
+        }); 
+
+            $('.materialboxed').materialbox();
+
+        $(".dropdown-button").dropdown();
+
 
         $('.button-collapse').sideNav()
-    });
+
+        $('.lang-button').dropdown()
+        
+        $('ul.tabs').tabs();
+    })
+        ;
 
 </script>
 </body>

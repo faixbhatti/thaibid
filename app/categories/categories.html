@@ -1,0 +1,15 @@
+<ul class="collection with-header">
+    <li class="collection-header" style="background-color: #EEEEEE; padding: 5px 10px; border-bottom: none">
+        <p class="teal-text text-darken-2"> Categories {{$ctrl.ctive}}<i class="material-icons waves-effect waves-light right">menu</i></p>
+    </li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'ending'}"><a href="#!/ending" ng-class="{'black-text': $ctrl.active !== 'ending','white-text': $ctrl.active === 'ending'}"><i class="material-icons left">timer</i>Ending</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'ladies'}"><a href="#!/ladies" ng-class="{'black-text': $ctrl.active !== 'ladies','white-text': $ctrl.active === 'ladies'}"><i class="material-icons left">pregnant_woman</i>Ladies</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'gentlemen'}"><a href="#!/gentlemen" ng-class="{'black-text': $ctrl.active !== 'gentlemen','white-text': $ctrl.active === 'gentlemen'}"><i class="material-icons left">accessibility</i>Gentlemen</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'home-garden'}"><a href="#!/home-garden" ng-class="{'black-text': $ctrl.active !== 'home-garden','white-text': $ctrl.active === 'home-garden'}"><i class="material-icons left">home</i>Home/Garden</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'kids-toys'}"><a href="#!/kids-toys" ng-class="{'black-text': $ctrl.active !== 'kids-toys','white-text': $ctrl.active === 'kids-toys'}"><i class="material-icons left">child_friendly</i>Kids/Toys</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'elec-gadgets'}"><a href="#!/elec-gadgets" ng-class="{'black-text': $ctrl.active !== 'elec-gadgets','white-text': $ctrl.active === 'elec-gadgets'}"><i class="material-icons left">lightbulb_outline</i>Elec/Gadgets</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'travel-sports'}"><a href="#!/travel-sports" ng-class="{'black-text': $ctrl.active !== 'travel-sports','white-text': $ctrl.active === 'travel-sports'}"><i class="material-icons left">flight_takeoff</i>Travel/Sports</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'health-beauty'}"><a href="#!/health-beauty" ng-class="{'black-text': $ctrl.active !== 'health-beauty','white-text': $ctrl.active === 'health-beauty'}"><i class="material-icons left">fitness_center</i>Health/Beauty</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'car-moto'}"><a href="#!/car-moto" ng-class="{'black-text': $ctrl.active !== 'car-moto','white-text': $ctrl.active === 'car-moto'}"><i class="material-icons left">directions_car</i>Car/Motor</a></li>
+    <li class="collection-item" ng-class="{'teal': $ctrl.active === 'tools'}"><a href="#!/tools" ng-class="{'black-text': $ctrl.active !== 'tools','white-text': $ctrl.active === 'tools'}"><i class="material-icons left">build</i>Tools</a></li>
+</ul>

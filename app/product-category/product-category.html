@@ -1,0 +1,108 @@
+<div class="separator"></div>
+<div class="row">
+	<div class="col l2 m12 s12">
+		<all-categories active="category" class="category"></all-categories>
+
+		<div>
+			<ul class="collection with-header">
+				<li class="collection-header"
+					style="background-color: #EEEEEE; padding: 5px 10px; border-bottom: none">
+					<p class="teal-text text-darken-2">
+						Advanced Search <i
+							class="material-icons waves-effect waves-light right">filter_list</i>
+					</p>
+				</li>
+				<li class="collection-item"><p class="input-field inline">
+						<input name="group1" type="checkbox" id="new" /> <label for="new"
+							class="black-text">New Product</label>
+					</p></li>
+				<li class="collection-item"><p class="input-field inline">
+						<input name="group1" type="checkbox" id="use" /> <label for="use"
+							class="black-text">Products Used</label>
+					</p></li>
+				<li class="collection-item"><p class="input-field inline">
+						<input name="group1" type="checkbox" id="dis" /> <label for="dis"
+							class="black-text">Discount shipping</label>
+					</p></li>
+				<li class="collection-item"><p class="input-field inline">
+						<input name="group1" type="checkbox" id="ship" /> <label
+							for="ship" class="black-text">Shipping</label>
+					</p></li>
+				<li class="collection-item"><p class="input-field inline">
+						<input name="group1" type="checkbox" id="sale" /> <label
+							for="sale" class="black-text">Wholesale</label>
+					</p></li>
+				<li class="collection-header teal-text text-darken-3"
+					style="padding: 5px 10px;">Price Range</li>
+				<li class="collection-item"><p class="range-field">
+						<input type="range" id="test5" min="0" max="100" ng-model="price" />
+					</p> <span class="right-aligned black-text"
+					style="font-size: 14px; font-weight: 500; opacity: 0.75">{{price
+						| currency:'฿'}}</span></li>
+				<li class="collection-item"><a href=""></a></li>
+				<li class="collection-item">
+					<button class="btn btn-floating waves-effect tooltipped"
+						data-position="top" data-delay="50" data-tooltip="Ok">
+						<i class="material-icons">thumb_up</i>
+					</button>
+					<button class="btn btn-floating waves-effect red tooltipped"
+						style="margin-left: 25px;" data-delay="50" data-position="top"
+						data-tooltip="Remove All">
+						<i class="material-icons">delete_forever</i>
+					</button>
+				</li>
+
+			</ul>
+
+
+		</div>
+	</div>
+	<div class="col l10 m12 s12">
+		<ul class="tabs tabs-transparent tabs-fixed-width main-green">
+			<li class="tab"><a href="#test5">Top</a></li>
+			<li class="tab"><a href="#test">Latest</a></li>
+			<li class="tab"><a href="#test4">Bestsellers</a></li>
+			<li class="tab"><a href="#test2">Price</a></li>
+			<li class="tab"><a href="#test1">Suggestions</a></li>
+		</ul>
+		<div style="min-height: 600px">
+		    <div class="preloader-wrapper active loader" ng-if="loading">
+                <div class="spinner-layer spinner-teal-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+
+			<div ng-show="!loading">
+			<product-list products="products" columns="3" height="170"></product-list>
+			<product-list products="products" columns="3" height="170"></product-list>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col l8 m12 s12">
+				<ul class="pagination center-align right">
+					<li class="waves-effect pag"><a href="#!"><i
+							class="material-icons">chevron_left</i></a></li>
+					<li class="teal pag"><a href="#!">1</a></li>
+					<li class="waves-effect pag"><a href="#!">2</a></li>
+					<li class="waves-effect pag"><a href="#!">3</a></li>
+					<li class="waves-effect pag"><a href="#!">4</a></li>
+					<li class="waves-effect pag"><a href="#!">...</a></li>
+					<li class="waves-effect pag"><a href="#!"><i
+							class="material-icons">chevron_right</i></a></li>
+				</ul>
+
+			</div>
+		</div>
+
+	</div>
+</div>
+</div>
