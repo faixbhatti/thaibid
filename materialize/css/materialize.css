@@ -5513,11 +5513,10 @@ button.btn-floating {
   right: 0;
   background-color: #fafafa;
   padding: 0;
-  max-height: 70%;
-  width: 55%;
+  width: 35%;
   margin: auto;
   overflow-y: auto;
-  border-radius: 2px;
+  border-radius: 0;
   will-change: top, opacity;
 }
 

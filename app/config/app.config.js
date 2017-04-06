@@ -17,8 +17,11 @@
             .when('/product/:productId', {
                 template: "<product-detail></product-detail>"
             })
-            .when('/:category',{
+            .when('/category/:category',{
                 template: "<category></category>"
+            })
+            .when('/user/:name',{
+                template: "<user-profile></user-profile>"
             })
             .otherwise('/home')
 

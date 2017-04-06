@@ -1,0 +1,78 @@
+<div id="modal2" class="modal modal-fixed-footer">
+    <div class="modal-content grey lighten-4">
+        <div class="row" ng-hide="register">
+            <div class="col s12">
+                <div style="text-align: center">
+                    <img src="http://demo.boostcc.com/wp-content/uploads/BidXelSVG.svg" alt="Logo"
+                         height="60px" width="280px" class="teal">
+                </div>
+                <h4 class="description-text center">Login to your account</h4>
+                <div class="row">
+                    <form class="col l7 m12 s12 push-l3" id="login-holder" ng-submit="$ctrl.login()">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="username" type="text" class="validate" ng-model="$ctrl.username">
+                                <label for="username" data-error="Please enter a valid username" data-success="Correct">Username</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" type="password">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <p class="col s12 center">
+                                <input type="checkbox" class="filled-in center" id="filled-in-box"/>
+                                <label for="filled-in-box">Remember me</label>
+                            </p>
+                        </div>
+
+                        <button class="btn wave-effect waves-light waves-ripple green white-text center"
+                                style="width: 100%" ng-click="$ctrl.user = !$ctrl.user">Submit
+                        </button>
+                        <p style="font-size: 13px; opacity: 0.75; cursor: pointer" class="center" ng-click="register = !register">Or create new account</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-show="register">
+            <div class="col s12">
+                <div style="text-align: center">
+                    <img src="http://demo.boostcc.com/wp-content/uploads/BidXelSVG.svg" alt="Logo"
+                         height="60px" width="280px" class="teal">
+                </div>
+                <h4 class="description-text center">Create your free account</h4>
+                <div class="row">
+                    <form class="col l7 m12 s12 push-l3" id="reg-holder" ng-submit="$ctrl.register()">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="user" type="text" class="validate" ng-model="$ctrl.userame">
+                                <label for="user" data-error="Please enter a valid username" data-success="Correct">Username</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="pass" type="password">
+                                <label for="pass">Password</label>
+                            </div>
+                        </div>
+
+                        <button class="btn wave-effect waves-light waves-ripple green white-text center"
+                                style="width: 100%">Create account
+                        </button>
+                        <p style="font-size: 13px; opacity: 0.75;">By clicking above, you are agreeing to the Terms of Service</p>
+                        <p style="font-size: 13px; opacity: 0.75; cursor: pointer" class="center" ng-click="register = !register">Have an account? Log in</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>

@@ -16,7 +16,28 @@
 
         $scope.location = function (url) {
             $location.url(url)
+        };
+
+        $scope.loggedIn = false;
+
+        $scope.username = "";
+
+        $scope.signIn = function () {
+            $scope.loggedIn = true;
+            $('.modal').modal('close')
+            setTimeout(function () {
+                Materialize.toast('Welcome back ' + $scope.username,4000)
+            },1000)
         }
+
+         $scope.signUp = function () {
+            $scope.loggedIn = true;
+            $('.modal').modal('close')
+            setTimeout(function () {
+                Materialize.toast('Hello ' + $scope.username + '!. Your new account has been created',4000)
+            },1000)
+        }
+
 
         $scope.url = $routeParams.category
     })
