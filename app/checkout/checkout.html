@@ -1,0 +1,55 @@
+<nav class="grey lighten-5 checkout-nav">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
+        <div class="container">
+            <a href="#" class="brand-logo checkout-brand center black-text">Checkout</a>
+            <ul id="nav-mobile" class="left checkout-li">
+                <li><a href="{{previousPage}}"><i class="material-icons teal-text" style="font-weight: 600; height: 50px; line-height: 50px;">arrow_back</i></a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<div class="container" id="checkout-con">
+    <div class="row">
+        <div class="col s12">
+            <ul class="collection z-depth-1">
+                <li class="collection-item avatar item with-avatar" ng-repeat="item in items" style="cursor: unset; border-bottom: 1px solid grey">
+                    <img src="{{item.image}}" alt="{{item.name}}" class="circle list-circ">
+                    <span class="black-text" style="font-size: 16px">{{item.name}}</span>
+                    <p class="item-subtitle black-text" style="font-size: 14px">
+                        <div class="increment">
+                            <div class="negative" ng-click="decrement(item)">-</div>
+                            <input value="1" name="" class="" ng-model="item.quantity">
+                            <div class="positive" ng-click="increment(item)">+</div>
+                        </div>
+                        Product options: Color - <span class="green-text">Green</span>, Size - <span class="grey-text">XL</span><br>
+                        <p class="red-text link-text" style="margin-top: -14px">{{item.price | currency: '฿'}}</p>
+                    </p>
+
+                    <a class="secondary-content" style="line-height: 83px">
+                        <p>
+                            <input type="checkbox" class="filled-in" ng-checked="all" />
+                            <label for="">Add</label>
+                        </p>
+                    </a>
+                </li>
+                <li class="collection-item item" style="height: 20px; padding: 0 16px; text-align: center; cursor: unset">
+                    <p style="font-size: 13px; line-height: 20px">Discount on shipping with order of minimum ฿250</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="payment white z-depth-1">
+        <p class="left">
+            <input type="checkbox" class="filled-in" id="accep" ng-click="all=!all" ng-checked="all" />
+            <label for="accep" class="black-text">Select all</label>
+        </p>
+
+        <p class="right">
+            Total: <span class="red-text">{{getTotal() | currency: '฿'}}</span>
+            <button class="btn btn-mini green nav-button">Payment</button>
+        </p>
+    </div>
+</div>

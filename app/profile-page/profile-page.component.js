@@ -1,14 +1,14 @@
 /**
  * Created by Afro on 4/5/2017.
  */
-(function () {
+(function() {
     'use strict';
 
     var app = angular.module('thai');
 
     app.component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
-        controller: function ($scope, $routeParams, $http) {
+        controller: function($scope, $routeParams, $http) {
             $scope.name = $routeParams.name;
 
             $scope.templates = {
@@ -16,11 +16,17 @@
                 "auctions": "app/profile-page/auctions.html",
                 "purchases": "app/profile-page/purchases.html",
                 "orders": "app/profile-page/orders.html",
-                "cart": "app/profile-page/cart.html"
+                "cart": "app/profile-page/cart.html",
+                "rewards": "app/profile-page/rewards.html"
             };
 
-            $scope.auctions = [
-                {
+            $scope.currentInfo = '';
+
+            $scope.displayInfo = function(info) {
+                $scope.currentInfo = info;
+            }
+
+            $scope.auctions = [{
                     "id": 5,
                     "name": "When it goes down",
                     "price": 20.34,
@@ -58,16 +64,16 @@
             $scope.template = $scope.templates.auctions;
 
 
-            $scope.switchTab = function (tab) {
+            $scope.switchTab = function(tab) {
                 $scope.template = $scope.templates[tab];
 
                 if (tab === "editProfile") {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         $('select').material_select();
 
                         var data = {};
 
-                        $http.get('https://restcountries.eu/rest/v2/all').then(function (response) {
+                        $http.get('https://restcountries.eu/rest/v2/all').then(function(response) {
                             var places = response.data;
 
                             for (var i = 0; i < places.length; i++) {
@@ -82,26 +88,25 @@
                         });
                     }, 500)
 
+                } else if (tab === 'purchases') {
+                    setTimeout(function() {
+                        $('.tooltipped').tooltip({ delay: 50 });
+                    }, 500)
+                } else if (tab === 'auctions') {
+                    setTimeout(function() {
+                        $('.tooltipped').tooltip({ delay: 50 });
+                    }, 500)
                 }
 
-                else if (tab === 'purchases') {
-                    setTimeout(function () {
-                        $('.tooltipped').tooltip({delay: 50});
-                    },500)
-                }
-
-                else if (tab === 'auctions') {
-                    setTimeout(function () {
-                        $('.tooltipped').tooltip({delay: 50});
-                    },500)
-                }
-
-                $(document).ready(function () {
+                $(document).ready(function() {
                     $('#profile').pushpin({
                         top: 50,
                         bottom: 1000,
                         offset: 0
                     });
+
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
                 });
             };
 

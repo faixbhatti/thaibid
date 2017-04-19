@@ -2,10 +2,8 @@
 <div class="row" style="padding: 5px 5px">
     <div class="col l3 m12 s12" style="padding: 0 8px;" id="profile">
         <div class="card">
-            <div class="grey lighten-4"
-                 style="background: url('image/header-bg.png'); text-align: center; padding: 20px 0">
-                <img src="image/elliot.jpg" class="responsive-img center"
-                     style="height: 80px; width: 80px; border-radius: 24px">
+            <div class="grey lighten-4" style="background: url('image/header-bg.png'); text-align: center; padding: 20px 0">
+                <img src="image/elliot.jpg" class="responsive-img center" style="height: 80px; width: 80px; border-radius: 24px">
                 <h4 class="display-name grey-text darken-2">{{name}}</h4>
                 <p style="font-size: 14px; font-weight: 400; letter-spacing: .04em;" class=" grey-text darken-2">Last seen: 2017-03-21</p>
             </div>
@@ -13,25 +11,29 @@
             <div class="card-content" style="padding: 2px 10px">
                 <ul class="collection">
                     <li class="collection-item item" ng-click="switchTab('auctions')">
-                        <div>Auctions<a href="" class="secondary-content orange colored"><i class="material-icons colored-icons white-text">gavel</i></a></div>
+                        <div> <span class="name">Auctions</span><a href="" class="secondary-content ebony-blue colored"><i class="material-icons colored-icons white-text">gavel</i></a></div>
                     </li>
                     <div class="divider"></div>
                     <li class="collection-item item" ng-click="switchTab('purchases')">
-                        <div> Purchases<a href="" class="secondary-content blue colored"><i class="material-icons colored-icons white-text">label</i> </a></div>
+                        <div> <span class="name">Purchases</span><a href="" class="secondary-content green-dark colored"><i class="material-icons colored-icons white-text">label</i> </a></div>
                     </li>
                     <div class="divider"></div>
                     <li class="collection-item item" ng-click="switchTab('orders')">
-                        <div> Orders<a href="" class="secondary-content yellow colored"><i class="material-icons colored-icons white-text">assignment</i></a></div>
+                        <div> <span class="name">Orders</span><a href="" class="secondary-content green-steel colored"><i class="material-icons colored-icons white-text">assignment</i></a></div>
                     </li>
                     <div class="divider"></div>
                     <li class="collection-item item" ng-click="switchTab('cart')">
-                        <div> Cart<a href="" class="secondary-content red colored"><i class="material-icons colored-icons white-text">shopping_cart</i></a></div>
+                        <div> <span class="name">Cart</span><a href="" class="secondary-content grey-silver colored"><i class="material-icons colored-icons white-text">shopping_cart</i></a></div>
+                    </li>
+                    <div class="divider"></div>
+                    <li class="collection-item item" ng-click="switchTab('rewards')">
+                        <div> <span class="name">Rewards</span><a href="" class="secondary-content blue colored"><i class="material-icons colored-icons white-text">loyalty</i></a></div>
                     </li>
                 </ul>
             </div>
 
             <div class="card-menu">
-                <div class="edit-user waves-effect waves-grey waves-dark" data-delay="50" data-position="top" data-tooltip="Edit profile"  ng-click="switchTab('editProfile')">
+                <div class="edit-user waves-effect waves-grey waves-dark" data-delay="50" data-position="top" data-tooltip="Edit profile" ng-click="switchTab('editProfile')">
                     <i class="material-icons">mode_edit</i>
                 </div>
             </div>
@@ -43,4 +45,6 @@
             <div ng-include="template"></div>
         </div>
     </div>
+
+    <purchase-modal info="currentInfo"></purchase-modal>
 </div>

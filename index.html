@@ -1,476 +1,535 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="thai">
+
 <head>
     <meta charset="UTF-8">
     <!--<base href="/">-->
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+
     <link rel="stylesheet" href="materialize/css/materialize.css">
     <link rel="stylesheet" href="animate.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/flag-icon-css/css/flag-icon.css">
+    <link rel="stylesheet" href="materialize/extras/nouislider.css">
     <link rel="stylesheet" href="materialize/css/style.css">
 </head>
+
 <body ng-cloak ng-controller="navCtrl">
-<header>
-    <div class="navbar-fixed">
-        <ul class="dropdown-content" id="profile">
-            <li><a href="#!/user/{{username}}" class="black-text">My profile</a></li>
-            <li><a href="" class="black-text">Auctions</a></li>
-            <li><a href="" class="black-text">Settings</a></li>
-            <li><a href="" class="black-text">Logout</a></li>
-        </ul>
+    <header ng-show="showNav">
+        <div class="navbar-fixed" id="table">
+            <ul class="dropdown-content" id="profile">
+                <li><a href="#!/user/{{username}}" class="black-text">My profile</a></li>
+                <li><a href="" class="black-text">Auctions</a></li>
+                <li><a href="" class="black-text">Settings</a></li>
+                <li><a href="" class="black-text">Logout</a></li>
+            </ul>
 
-        <ul class="dropdown-content" id="languages">
-            <li><a href="" class="black-text"><span class="flag-icon flag-icon-gb"></span> English</a></li>
-            <li><a href="" class="black-text"><span class="flag-icon flag-icon-th"></span> Thai</a></li>
-        </ul>
-        <nav class="nav-extended main-green" ng-hide="search">
-            <div class="nav-wrapper">
-                <a href="#" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
-                <div class="container">
-                    <a class="brand-logo slight-black-text" href="#!/home"><img
-                            src="http://demo.boostcc.com/wp-content/uploads/BidXelSVG.svg" style="height:50px; margin-top: 15px"
-                            alt="Logo"></a>
+            <ul class="dropdown-content" id="cart">
+                <li ng-repeat="item in itemsInCart" ng-show="itemsInCart.length">
+                    <a href="" class="" style="display: inline-flex; padding-right: 10px; width: 100%"><img src="{{item.image}}" alt="" class="circle dropdown-img">
+                        <p class="black-text">{{item.name}} - <span class="blue-grey-text">{{item.price | currency: '฿'}}</span>
+                        </p>
+                        <i class="material-icons right red-text waves-effect waves-light" ng-click="removeFromCart($index)" style="height: 32px; width: 32px; margin: 13px 10px; position: absolute; right: 7px; top: 10px;">delete_forever</i>
+                    </a>
+                </li>
 
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a class="waves-effect nav-item" ng-click="searching()"><i class="material-icons left">search</i></a>
-                        </li>
-                        <li><a href="" class="waves-effect nav-item"><i class="material-icons left">shopping_cart</i>My
-                            Cart</a>
-                        </li>
+                <li class="" ng-show="itemsInCart.length">
+                    <a href="">
+                        Total:  <span class="red-text">{{getTotal() | currency:'฿'}}</span>
+                    </a>
+                </li>
 
-                        <li><a href="" class="lang-button waves-effect nav-item" data-activates="languages"><i
+                <li class="" ng-show="itemsInCart.length">
+                    <a href="#!/checkout" class="btn nav-btn waves-effect waves-light teal z-depth-0 white-text right" style="font-size: 12px;">
+                        proceed to checkout
+                    </a>
+                </li>
+
+                <li class="" ng-if="!itemsInCart.length" style="padding: 15px">
+                    <a href="" class="center">
+                        <i class="material-icons center">shopping_cart</i> Cart is empty
+                    </a>
+                </li>
+            </ul>
+
+
+
+            <ul class="dropdown-content" id="languages">
+                <li><a href="" class="black-text"><span class="flag-icon flag-icon-gb"></span> English</a></li>
+                <li><a href="" class="black-text"><span class="flag-icon flag-icon-th"></span> Thai</a></li>
+            </ul>
+            <nav class="nav-extended main-green" ng-hide="search" id="nav">
+                <div class="nav-wrapper">
+                    <a href="#" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <div class="container">
+                        <a class="brand-logo slight-black-text" href="#!/home"><img src="http://demo.boostcc.com/wp-content/uploads/BidXelSVG.svg" style="height:40px; margin-top: 10px" alt="Logo"></a>
+
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a class="waves-effect nav-item" ng-click="searching()"><i class="material-icons left">search</i></a>
+                            </li>
+                            <li>
+                                <a href="" class="dropdown-button waves-effect nav-item" data-activates="cart" data-constrainwidth="false" ropdown data-hover="true">
+                                    <p class="cart-badge teal-text">{{itemsInCart.length}}</p><i class="material-icons left">shopping_cart</i>My Cart </a>
+                            </li>
+
+                            <li><a href="javascript:void(0)" class="dropdown-button waves-effect nav-item" data-activates="languages" dropdown data-hover="true"><i
                                 class="material-icons right">arrow_drop_down</i><span class="flag-icon flag-icon-gb"
                                                                                       style="margin-top: 15px;"></span>
                         </a></li>
-                        <li ng-show="loggedIn"><a href="#" class="dropdown-button waves-effect nav-item"
-                                                  data-activates="profile"><img
-                                src="image/elliot.jpg" height="30" width="30"
-                                style="margin-top: 11px; margin-right: 5px"
-                                class="circle responsive-img left"> {{username}}
-                            <i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                        </li>
-                        <li ng-hide="loggedIn">
-                            <button data-target="login-modal"
-                                    class="btn waves-effect waves-teal waves-dark white teal-text nav-button z-depth-2">
+                            <li ng-show="loggedIn">
+                                <a href="#" class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" dropdown data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
+                                    <i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                            </li>
+                            <li ng-hide="loggedIn">
+                                <button data-target="login-modal" class="btn waves-effect waves-teal waves-dark white teal-text nav-button z-depth-2">
                                 Log In
                             </button>
-                        </li>
-                    </ul>
-
-                    <ul class="right hide-on-large-only">
-                        <li><a class="waves-effect nav-item" ng-click="searching()"><i class="material-icons left">search</i></a>
-                        </li>
-                    </ul>
-
-                </div>
-            </div>
-
-            <div class="nav-content" style="padding: 0 20px">
-
-                <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down">
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending"
-                        ng-click="location('/ending')"><a
-                            href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men"
-                        ng-click="location('/gentlemen')"><a
-                            href="" class=""><i
-                            class="material-icons left icons">accessibility</i>Men</a></li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies"
-                        ng-click="location('/ladies')"><a
-                            href="" class=""><i
-                            class="material-icons left icons">pregnant_woman</i>Ladies</a>
-                    </li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Home/Garden"
-                        ng-click="location('/home-garden')"><a
-                            href="" class=""><i class="material-icons left icons">home</i>Home/Garden</a>
-                    </li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys"
-                        ng-click="location('/kids-toys')"><a
-                            href="" class=""><i class="material-icons left icons">child_friendly</i>Kids/Toys</a>
-                    </li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Elec/Gadgets"
-                        ng-click="location('/elec-gadgets')"><a
-                            href="" class=""><i
-                            class="material-icons left icons">lightbulb_outline</i>Elec/Gadgets</a></li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Travel/Sports"
-                        ng-click="location('/travel-sports')"><a
-                            href="#" class=""><i class="material-icons left icons">flight_takeoff</i>Travel/Sports</a>
-                    </li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Health/Beauty"
-                        ng-click="location('/health-beauty')"><a
-                            href="#" class=""><i class="material-icons left icons">fitness_center</i>Health/Beauty</a>
-                    </li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Car/Moto"
-                        ng-click="location('/car-moto')"><a
-                            href="" class=""><i class="material-icons left icons">directions_car</i>Car/Moto</a>
-                    </li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools"
-                        ng-click="location('/tools')"><a href="" class=""><i
-                            class="material-icons left icons">build</i>Tools</a></li>
-                </ul>
-
-            </div>
-        </nav>
-
-        <nav class="teal lighten-3" ng-show="search">
-            <div class="nav-wrapper">
-                <form>
-                    <div class="input-field">
-                        <input id="search" type="search" required>
-                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons waves-effect" ng-click="search = !search">close</i>
-                    </div>
-                </form>
-            </div>
-        </nav>
-
-    </div>
-</header>
-<main ng-click="search=false">
-    <ul class="side-nav" id="sidy">
-        <li>
-            <div class="userView">
-                <div class="background">
-                    <img src="image/pattern.jpg">
-                </div>
-                <a href=""><img src="image/elliot.jpg" class="circle"></a>
-                <a href=""><span class="white-text name">{{username}}</span> </a>
-                <a href=""><span class="white-text email">{{username}}@thai.com</span> </a>
-            </div>
-        </li>
-        <li><a class="subheader">Profile</a></li>
-        <li class="no-padding">
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                <li><a href="" class="collapsible-header waves-effect waves-teal waves-light"><i class="material-icons">person</i>Profile</a>
-                    <div class="collapsible-body">
-                        <ul>
-                            <li><a href="#"><i class="material-icons">shopping_cart</i>My Cart</a></li>
-                            <li><a href="#"><i class="material-icons">gavel</i>My Auctions</a></li>
-                            <li><a href="#"><i class="material-icons">forward</i>Log out</a></li>
+                            </li>
                         </ul>
-                    </div>
-                </li>
-            </ul>
-        </li>
 
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a class="subheader">Categories</a></li>
-        <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">timer</i>Ending</a>
-        </li>
-        <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">accessibility</i>Men</a>
-        </li>
-        <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">pregnant_woman</i>Ladies</a></li>
-        <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">home</i>Home/Garden</a>
-        </li>
-        <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">child_friendly</i>Kids/Toys</a>
-        </li>
-        <li class="waves-effect waves-ripple waves-teal waves-light"><a href=""><i class="material-icons">lightbulb_outline</i>Elec/Gadgets</a>
-        </li>
-        <li><a href="#" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">flight_takeoff</i>Travel/Sports</a>
-        </li>
-        <li><a href="#" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">fitness_center</i>Health/Beauty</a>
-        </li>
-        <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">directions_car</i>Car/Moto</a>
-        </li>
-        <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">build</i>Tools</a>
-        </li>
-    </ul>
+                        <ul class="right hide-on-large-only">
+                            <li><a class="waves-effect nav-item" ng-click="searching()"><i class="material-icons left">search</i></a>
+                            </li>
+                        </ul>
 
-    <div id="login-modal" class="modal">
-        <div class="modal-content grey lighten-4" style="padding: 10px">
-            <div class="row" ng-hide="register" style="margin-bottom: 0">
-                <div class="col s12">
-                    <h4 class="description-text center" style="font-size: 1.33em; text-transform: uppercase; margin-bottom: 1.23em">Log In</h4>
-                    <button class="btn btn-large light-blue darken-2 z-depth-0" style="width: 100%;">Continue with Facebook</button>
-                    <p style="font-size: 13px; font-weight: 400; opacity: 0.75" class="center">We won't post without your permission</p>
-                    <div class="divider" style="margin: 10px 0 8px 0"></div>
-                    <p style="font-size: 16px; opacity:0.75; margin: 0 0" class="center">OR</p>
-                    <div class="row">
-                        <form class="col l12 m12 s12" id="login-holder" ng-submit="signIn()">
-                            <div class="row" style="margin-bottom: 0">
-                                <div class="input-field col s12">
-                                    <input id="username" type="text" class="validate" ng-model="username">
-                                    <label for="username" data-error="Please enter a valid username"
-                                           data-success="Correct">Username</label>
-                                </div>
-                            </div>
-
-                            <div class="row" style="margin-bottom: 0">
-                                <div class="input-field col s12">
-                                    <input id="password" type="password">
-                                    <label for="password">Password</label>
-                                </div>
-                            </div>
-
-                            <div class="row" style="margin-bottom: 10px">
-                                <p class="col s12 center">
-                                    <input type="checkbox" class="filled-in center" id="filled-in-box"/>
-                                    <label for="filled-in-box">Remember me</label>
-                                </p>
-                            </div>
-
-                            <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 teal"
-                                    style="width: 100%; margin-bottom: 5px;">Submit
-                            </button>
-                            <p style="font-size: 14px; opacity: 0.75; cursor: pointer" class="center"
-                               ng-click="register = !register">Need an account? <span style="color: #BE3F3F;">Create new account</span></p>
-                        </form>
                     </div>
                 </div>
-            </div>
 
-            <div class="row" ng-show="register" style="margin-bottom: 0">
-                <div class="col s12">
-                    <h4 class="description-text center" style="font-size: 1.33em; text-transform: uppercase; margin-bottom: 1.23em">Create an account</h4>
-                    <button class="btn btn-large light-blue darken-2 z-depth-0" style="width: 100%;">Sign Up with Facebook</button>
-                    <p style="font-size: 13px; font-weight: 400; opacity: 0.75" class="center">We won't post without your permission</p>
-                    <div class="divider" style="margin: 10px 0 8px 0"></div>
-                    <p style="font-size: 16px; opacity:0.75; margin: 0 0" class="center">OR</p>
-                    <div class="row">
-                        <form class="col l12 m12 s12" id="register-holder" ng-submit="signUp()">
-                            <div class="row" style="margin-bottom: 0">
-                                <div class="input-field col s12">
-                                    <input id="user" type="text" class="validate" ng-model="username">
-                                    <label for="user" data-error="Please enter a valid username"
-                                           data-success="Correct">Username</label>
-                                </div>
-                            </div>
+                <div class="nav-content" style="padding: 0 20px">
 
-                            <div class="row" style="margin-bottom: 10px">
-                                <div class="input-field col s12">
-                                    <input id="pass" type="password">
-                                    <label for="pass">Password</label>
-                                </div>
-                            </div>
+                    <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down">
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
+                            class="material-icons left icons">accessibility</i>Men</a></li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
+                            class="material-icons left icons">pregnant_woman</i>Ladies</a>
+                        </li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Home/Garden" ng-click="location('/home-garden')"><a href="" class=""><i class="material-icons left icons">home</i>Home/Garden</a>
+                        </li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a href="" class=""><i class="material-icons left icons">child_friendly</i>Kids/Toys</a>
+                        </li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Elec/Gadgets" ng-click="location('/elec-gadgets')"><a href="" class=""><i
+                            class="material-icons left icons">lightbulb_outline</i>Elec/Gadgets</a></li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Travel/Sports" ng-click="location('/travel-sports')"><a href="#" class=""><i class="material-icons left icons">flight_takeoff</i>Travel/Sports</a>
+                        </li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Health/Beauty" ng-click="location('/health-beauty')"><a href="#" class=""><i class="material-icons left icons">fitness_center</i>Health/Beauty</a>
+                        </li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Car/Moto" ng-click="location('/car-moto')"><a href="" class=""><i class="material-icons left icons">directions_car</i>Car/Moto</a>
+                        </li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
+                            class="material-icons left icons">build</i>Tools</a></li>
+                    </ul>
 
-                            <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 teal"
-                                    style="width: 100%; margin-bottom: 5px;">Create Account
-                            </button>
-                            <p style="font-size: 14px; opacity: 0.75; cursor: pointer" class="center"
-                               ng-click="register = !register">Already have an account? <span style="color: #BE3F3F;">Sign In</span></p>
-                        </form>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+            </nav>
 
-    <ng-view></ng-view>
-    <div class="row blue-grey" style="padding: 30px 0; border-bottom: 2px solid white;" id="guarantees">
-        <div class="col l3 m6 s6">
-            <div class="promo center" style="text-align: center; padding: 15px">
-                <i class="material-icons center medium indigo-text">vpn_lock</i>
-                <h5 style="font-weight: 700" class="white-text">Buyer Protection</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">We will refund if the
-                    item is of poor
-                    quality
-                </h6>
-            </div>
-        </div>
-        <div class="col l3 m6 s6">
-            <div class="promo center" style="text-align: center; padding: 15px">
-                <i class="material-icons center medium red-text">redeem</i>
-                <h5 style="font-weight: 700" class="white-text">Delivery Guarantee</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">You will get a refund if
-                    you do not receive
-                    your order
-                </h6>
-            </div>
-        </div>
-
-        <div class="col l3 m6 s6">
-            <div class="promo center" style="text-align: center; padding: 15px">
-                <i class="material-icons center medium light-green-text">payment</i>
-                <h5 style="font-weight: 700" class="white-text">Safe Payment</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">Pay with popular and
-                    secure methods</h6>
-            </div>
-        </div>
-        <div class="col l3 m6 s6">
-            <div class="promo center" style="text-align: center; padding: 15px">
-                <i class="material-icons center medium deep-orange-text">visibility</i>
-                <h5 style="font-weight: 700" class="white-text">Chinese Brands Selection</h5>
-                <h6 style="font-size: 12px; font-weight: 700; opacity:0.75;" class="white-text">100% Brand
-                    Suppliers</h6>
-            </div>
-        </div>
-    </div>
-</main>
-
-<footer class="page-footer blue-grey" style="margin-bottom: 0">
-    <div class="container">
-        <div class="row" id="footer">
-            <div class="col l2 m6 s12">
-                <h6 class="link-header white-text">INFORMATION</h6>
-                <ul>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">About Us</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Delivery Information</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Contact Us</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Site Map</a></li>
-                </ul>
-            </div>
-            <div class="col l2 m6 s12">
-                <h6 class="link-header white-text">HELP & SUPPORT</h6>
-                <ul>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">FAQs & Contact</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Specials</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Returns</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Product Ideas</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Fashion Glossary</a></li>
-                </ul>
-            </div>
-            <div class="col l2 m6 s12">
-                <h6 class="link-header white-text">MY ACCOUNT</h6>
-                <ul>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">My Account</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Personal Information</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Addresses</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Discount</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
-                    <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Vouchers</a></li>
-                </ul>
-            </div>
-            <div class="col l6 m12 s12 right">
-                <h6 class="link-header white-text">STAY IN TOUCH</h6>
-                <p class="link-text grey-text text-lighten-3">Sign up for our newsletters, and don't worry
-                    they're awesome.</p>
-
-                <form class="col s12">
-                    <div class="row">
-                        <div class="input-field col s8">
-                            <input id="mail" type="email" class="validate">
-                            <label for="mail">Mail</label>
+            <nav class="teal lighten-3" ng-show="search">
+                <div class="nav-wrapper">
+                    <form>
+                        <div class="input-field">
+                            <input id="search" type="search" required>
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons waves-effect" ng-click="search = !search">close</i>
                         </div>
-                        <div class="input-field col s2">
-                            <button class="btn-floating waves-effect blue btn">
+                    </form>
+                </div>
+            </nav>
+
+        </div>
+    </header>
+    <main ng-click="search=false">
+        <ul class="side-nav" id="sidy">
+            <li>
+                <div class="userView">
+                    <div class="background">
+                        <img src="image/pattern.jpg">
+                    </div>
+                    <a href=""><img src="image/elliot.jpg" class="circle"></a>
+                    <a href=""><span class="white-text name">{{username}}</span> </a>
+                    <a href=""><span class="white-text email">{{username}}@thai.com</span> </a>
+                </div>
+            </li>
+            <li><a class="subheader">Profile</a></li>
+            <li class="no-padding">
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <li><a href="" class="collapsible-header waves-effect waves-teal waves-light"><i class="material-icons">person</i>Profile</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="#"><i class="material-icons">shopping_cart</i>My Cart</a></li>
+                                    <li><a href="#"><i class="material-icons">gavel</i>My Auctions</a></li>
+                                    <li><a href="#"><i class="material-icons">forward</i>Log out</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                </ul>
+                </li>
+
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li><a class="subheader">Categories</a></li>
+                <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">timer</i>Ending</a>
+                </li>
+                <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
+                class="material-icons">accessibility</i>Men</a>
+                </li>
+                <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
+                class="material-icons">pregnant_woman</i>Ladies</a></li>
+                <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">home</i>Home/Garden</a>
+                </li>
+                <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
+                class="material-icons">child_friendly</i>Kids/Toys</a>
+                </li>
+                <li class="waves-effect waves-ripple waves-teal waves-light"><a href=""><i class="material-icons">lightbulb_outline</i>Elec/Gadgets</a>
+                </li>
+                <li><a href="#" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">flight_takeoff</i>Travel/Sports</a>
+                </li>
+                <li><a href="#" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">fitness_center</i>Health/Beauty</a>
+                </li>
+                <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
+                class="material-icons">directions_car</i>Car/Moto</a>
+                </li>
+                <li><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">build</i>Tools</a>
+                </li>
+        </ul>
+
+        <div id="login-modal" class="modal">
+
+            <div class="modal-content grey lighten-4" style="padding: 18px 10px">
+
+                <div class="card-menu">
+                    <i class="material-icons grey-text modal-close" style="font-size: 33px">close</i>
+                </div>
+
+                <div class="row" ng-hide="register || forgotPassword" style="margin-bottom: 0; padding-top: 15px">
+                    <div class="col s12">
+                        <h4 class="register-text description-text center">Log In</h4>
+
+                        <button class="btn btn-large facebook-color z-depth-0" id="fb" style="width: 100%;"><ng-md-icon icon="facebook" class="social icon"></ng-md-icon>Continue with Facebook</button>
+
+                        <p class="center social-assure">We won't post without your permission</p>
+
+                        <div class="divider" style="margin: 10px 0 8px 0; opacity: 0.5"></div>
+
+                        <p class="center or">OR</p>
+
+                        <div class="row">
+                            <form class="col l12 m12 s12" id="login-holder" ng-submit="signIn()">
+
+                                <div class="row" style="margin-bottom: 0">
+                                    <div class="input-field col s12">
+                                        <input id="username" type="text" class="validate" ng-model="username" placeholder="Username">
+                                        <label for="username" data-error="Please enter a valid username" data-success="Correct"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-bottom: 0">
+                                    <div class="input-field col s12">
+                                        <input id="password" type="password" placeholder="Password">
+                                        <label for="password"></label>
+                                    </div>
+                                </div>
+
+                                <div ng-click="forgotPassword = !forgotPassword">
+                                    <h6 class="right forgot-pass">Forgot your password?</h6>
+                                </div>
+
+                                <button class="btn btn-large wave-effect waves-light waves-ripple waves-red white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;">Submit
+                            </button>
+                                <p class="center other-option grey-text">Need an account? <span class="new-log" ng-click="register = !register">Create new account</span></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="register" style="margin-bottom: 0; padding-top: 15px">
+                    <div class="col s12">
+                        <h4 class="register-text description-text center">Create your free account!</h4>
+
+                        <button class="btn btn-large facebook-color z-depth-0" style="width: 100%;"><ng-md-icon icon="facebook" class="social icon"></ng-md-icon>Sign Up with Facebook</button>
+
+                        <p class="center social-assure">We won't post without your permission</p>
+
+                        <div class="divider" style="margin: 10px 0 8px 0; opacity: 0.5"></div>
+
+                        <p class="center or" style="margin: 0">OR</p>
+
+                        <div class="row">
+                            <form class="col l12 m12 s12" id="register-holder" ng-submit="signUp()">
+
+                                <div class="row" style="margin-bottom: 0">
+                                    <div class="input-field col s12">
+                                        <input id="user" type="text" class="validate" ng-model="username" placeholder="Username">
+                                        <label for="user" data-error="Please enter a valid username" data-success="Correct"></label>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-bottom: 10px">
+                                    <div class="input-field col s12">
+                                        <input id="pass" type="password" placeholder="Password">
+                                        <label for="pass"></label>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;">Create Account
+                            </button>
+                                <p class="center other-option grey-text">Already have an account? <span class="new-log" ng-click="register = !register">Sign In</span></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-show="forgotPassword" style="padding-top: 15px; margin-bottom: 0">
+                    <div class="card-menu left" style="left:12px;">
+                        <i class="material-icons grey-text" style="font-size: 32px" ng-click="forgotPassword = false; register= false;">arrow_back</i>
+                    </div>
+                    <p class="center register-text description-text">Reset your password</<p>
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="col s12 input-field">
+                                        <input type="text" name="forgot" id="forgot" placeholder="Enter your email.">
+                                    </div>
+                                    <div class="col s12 input-field">
+                                        <button class="btn btn-large waves-effect waves-light mcs-color z-index-0" style="width: 100%; font-size:21px; font-weight: 300">
+                                            Send Mail                    
+                                    </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-view></ng-view>
+        <div class="row white" style="padding: 15px 0; border-bottom: 2px solid white;" id="guarantees" ng-show="showNav">
+            <div class="col l3 m6 s6">
+                <div class="promo center" style="text-align: center; padding: 15px">
+                    <div class="assure-icon">
+                        <i class="material-icons center medium teal-text">vpn_lock</i>
+                    </div>
+                    <div class="assure-title">Buyer Protection</div>
+                    <div class="assurance">We will refund if the item is of poor quality
+                    </div>
+                </div>
+            </div>
+            <div class="col l3 m6 s6">
+                <div class="promo center" style="text-align: center; padding: 15px">
+                    <div class="assure-icon">
+                        <i class="material-icons center medium teal-text">redeem</i>
+                    </div>
+                    <div class="assure-title">Delivery Guarantee</div>
+                    <div class="assurance">You will get a refund if you do not receive your order
+                    </div>
+                </div>
+            </div>
+
+            <div class="col l3 m6 s6">
+                <div class="promo center" style="text-align: center; padding: 15px">
+                    <div class="assure-icon">
+                        <i class="material-icons center medium teal-text">payment</i>
+                    </div>
+                    <div class="assure-title">Safe Payment</div>
+                    <div class="assurance">Pay with popular and secure methods</div>
+                </div>
+            </div>
+            <div class="col l3 m6 s6">
+                <div class="promo center" style="text-align: center; padding: 15px">
+                    <div class="assure-icon">
+                        <i class="material-icons center medium teal-text">visibility</i>
+                    </div>
+                    <div class="assure-title">Chinese Brands Selection</div>
+                    <div class="assurance">100% Brand Suppliers
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer footer-color" style="margin-bottom: 0" ng-show="showNav">
+        <div style="padding: 2px 40px">
+            <div class="row" id="footer">
+                <div class="col l2 m6 s12">
+                    <h6 class="link-header white-text">INFORMATION</h6>
+                    <ul>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">About Us</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Delivery Information</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Contact Us</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Site Map</a></li>
+                    </ul>
+                </div>
+                <div class="col l2 m6 s12">
+                    <h6 class="link-header white-text">HELP & SUPPORT</h6>
+                    <ul>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">FAQs & Contact</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Specials</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Returns</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Product Ideas</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Fashion Glossary</a></li>
+                    </ul>
+                </div>
+                <div class="col l2 m6 s12">
+                    <h6 class="link-header white-text">MY ACCOUNT</h6>
+                    <ul>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">My Account</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Personal Information</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Addresses</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Discount</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Vouchers</a></li>
+                    </ul>
+                </div>
+                <div class="col l6 m12 s12 right">
+                    <h6 class="link-header white-text">STAY IN TOUCH</h6>
+                    <p class="link-text grey-text text-lighten-3">Sign up for our newsletters, and don't worry they're awesome.</p>
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="col l8 m12 s12" style="padding: 0; height: 70px">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s8">
+                                        <input id="mail" type="email" class="validate">
+                                        <label for="mail">Mail</label>
+                                    </div>
+                                    <div class="input-field col s2">
+                                        <button class="btn-floating waves-effect blue btn">
                                 <ng-md-icon icon="mail" style="fill:white" class="icon"></ng-md-icon>
                             </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
+
+
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="col l12 m12 s12">
+                            <ul style="display: inline-flex" class="social-list">
+                                <li class="link-text white-text">
+                                    <a href="" class="btn btn-floating btn-mini social-icon waves-effect waves-light white-text" style="font-size: 12px;">
+                                        <ng-md-icon icon="facebook" style="fill:white; margin-top: -2px" size="18" class="icon"></ng-md-icon>
+                                    </a>
+                                </li>
+                                <li class="link-text white-text">
+                                    <a href="" class="btn btn-floating btn-mini social-icon waves-effect waves-light white-text" style="font-size: 12px">
+                                        <ng-md-icon icon="twitter" style="fill: white; margin-top: 0" size="18"></ng-md-icon>
+                                    </a>
+                                </li>
+                                <li class="link-text white-text">
+                                    <a href="" class="btn btn-floating btn-mini social-icon waves-effect waves-light white-text" style="font-size: 12px">
+                                        <ng-md-icon icon="google-plus" style="fill: white; margin-top: 0" size="18"></ng-md-icon>
+                                    </a>
+                                </li>
+                                <li class="link-text white-text">
+                                    <a href="" class="btn btn-floating btn-mini waves-effect waves-light social-icon white-text" style="font-size: 12px">
+                                        <ng-md-icon icon="call" style="fill: white; margin-top: 0" size="18"></ng-md-icon>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="row" style="margin-bottom: 0">
+                    <div class="col l12">
+                        <h6 class="center white-text" style="font-size: 12px">Copyright © 2017 Thaibid All rights reserved
+                        </h6>
+                    </div>
+                </div>
             </div>
+    </footer>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="materialize/js/jquery-3.1.1.js"></script>
+    <script src="bower_components/angular-route.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="materialize/extras/nouislider.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
+    <script src="bower_components/headroom.js/dist/headroom.js"></script>
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/moment/min/locales.min.js"></script>
+    <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+    <script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+    <script src="bower_components/progressbar.js/dist/progressbar.js"></script>
+    <script src="bower_components/localforage/dist/localforage.js"></script>
+    <script src="bower_components/angular-localforage/dist/angular-localForage.js"></script>
+    <script src="angular-progressbar/dist/angular-progressbar.js"></script>
+    <script src="bower_components/headroom.js/dist/jQuery.headroom.js"></script>
+    <script src="materialize/js/materialize.js"></script>
+    <script src="bower_components\angular-materialize\src\angular-materialize.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/config/app.config.js"></script>
+    <script src="app/home/nav.controller.js"></script>
+    <script src="app/home/home-controller.js"></script>
+    <script src="app/categories/categories.component.js"></script>
+    <script src="app/products/product-service.js"></script>
+    <script src="app/products/product.component.js"></script>
+    <script src="app/product-category/product-category.component.js"></script>
+    <script src="app/product-detail/product-detail.component.js"></script>
+    <script src="app/login/login-component.js"></script>
+    <script src="app/profile-page/profile-page.component.js"></script>
+    <script src="app/profile-page/modal/purchase-modal.component.js"></script>
+    <script src="app/checkout/checkout.component.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            //        $('.home > .with-header').pushpin({
+            //            top: $('.with-header').offset().top,
+            //            offset: 100,
+            //            bottom: 950
+            //        });
+
+            $('.materialboxed').materialbox();
+            $('.collapsible').collapsible();
+
+            $('.modal').modal()
+
+            $('.tooltipped').tooltip()
 
 
-        </div>
-        <div class="divider grey lighten-3" style="opacity:0.5;"></div>
-
-        <div class="row">
-            <div class="col l2 m3 s6">
-                <ul>
-                    <li class="link-text white-text">Computers</li>
-                    <li class="link-text white-text">Software</li>
-                    <li class="link-text white-text">Monitors</li>
-                    <li class="link-text white-text">Laptops</li>
-                </ul>
-            </div>
-            <div class="col l2 m3 s6">
-                <ul>
-                    <li class="link-text white-text"><a href="" class="white-text">
-                        <ng-md-icon icon="facebook" style="fill:white" size="20"></ng-md-icon>
-                        Facebook</a></li>
-                    <li class="link-text white-text"><a href="" class="white-text">
-                        <ng-md-icon icon="twitter" style="fill: white" size="20"></ng-md-icon>
-                        Twitter</a></li>
-                    <li class="link-text white-text"><a href="" class="white-text">
-                        <ng-md-icon icon="google-plus" style="fill: white" size="20"></ng-md-icon>
-                        Google Plus</a></li>
-                    <li class="link-text white-text"><a href="" class="white-text">
-                        <ng-md-icon icon="call" style="fill: white" size="20"></ng-md-icon>
-                        +233848838</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col l4 m6 s12">
-                <ul>
-                    <li></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row" style="margin-bottom: 0">
-            <div class="col l12">
-                <h6 class="center white-text" style="font-size: 12px">Copyright © 2017 Thaibid All rights
-                    reserved</h6>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="bower_components/angular/angular.js"></script>
-<script src="materialize/js/jquery-3.1.1.js"></script>
-<script src="bower_components/angular-route.js"></script>
-<script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
-<script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
-<script src="bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/moment/min/locales.min.js"></script>
-<script src="bower_components/humanize-duration/humanize-duration.js"></script>
-<script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
-<script src="bower_components/progressbar.js/dist/progressbar.js"></script>
-<script src="angular-progressbar/dist/angular-progressbar.js"></script>
-<script src="materialize/js/materialize.js"></script>
-<script src="app/app.js"></script>
-<script src="app/config/app.config.js"></script>
-<script src="app/home/nav.controller.js"></script>
-<script src="app/home/home-controller.js"></script>
-<script src="app/categories/categories.component.js"></script>
-<script src="app/products/product-service.js"></script>
-<script src="app/products/product.component.js"></script>
-<script src="app/product-category/product-category.component.js"></script>
-<script src="app/product-detail/product-detail.component.js"></script>
-<script src="app/login/login-component.js"></script>
-<script src="app/profile-page/profile-page.component.js"></script>
-<script type="text/javascript">
-
-    $(document).ready(function () {
-
-//        $('.home > .with-header').pushpin({
-//            top: $('.with-header').offset().top,
-//            offset: 100,
-//            bottom: 950
-//        });
-
-        $('.materialboxed').materialbox();
-        $('.collapsible').collapsible();
-
-        $('.modal').modal()
+            $(".dropdown-button").dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                constrainWidth: false
+            });
 
 
-        $(".dropdown-button").dropdown();
+            $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 300
+                edge: 'left', // Choose the horizontal origin
+                closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screens
+            })
 
+            // $('.lang-button').dropdown()
 
-        $('.button-collapse').sideNav({
-            menuWidth: 300, // Default is 300
-            edge: 'left', // Choose the horizontal origin
-            closeOnClick: false, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: true // Choose whether you can drag to open on touch screens
-        })
+            $('ul.tabs').tabs();
 
-        $('.lang-button').dropdown()
-
-        $('ul.tabs').tabs();
-    })
-    ;
-
-</script>
+            $("#table").headroom({
+                "offset": 80,
+                "tolerance": 2,
+                "classes": {
+                    "initial": "animated",
+                    "pinned": "appear",
+                    "unpinned": "dismiss"
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

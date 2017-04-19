@@ -1,4 +1,4 @@
-<div class="col l{{$ctrl.columns}} m4 s12" ng-repeat="product in $ctrl.products" >
+<div class="col l{{$ctrl.columns}} m4 s12" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit">
 
     <div class="card hoverable" style="height: 90%">
         <a href="#!/product/{{product.id}}">
@@ -9,12 +9,12 @@
             </div>
         </a>
         <div class="card-content">
-                <span class="card-title black-text" style="font-size: 13px; font-weight: 700"> {{product.name | limitTo : 15}}<span
-                        ng-if="product.name.length >= 15">...</span> <span
-                        class="timer{{product.id}} right"></span></span>
+            <span class="card-title black-text" style="font-size: 13px; font-weight: 700"> {{product.name | limitTo : 15}}<span
+                        ng-if="product.name.length >= 15">...</span> <span class="timer{{product.id}} right"></span></span>
             <span class="subheader grey-text text-darken-2" style="font-size: 20px"><span
-                    style="font-size: 15px"></span>{{product.price | currency : '฿'}} <timer
-                    class="right" end-time="product.timer">{{millis | date:'mm:ss'}}</timer></span>
+                    style="font-size: 15px"></span>{{product.price | currency : '฿'}}
+            <timer class="right" end-time="product.timer">{{millis | date:'mm:ss'}}</timer>
+            </span>
         </div>
     </div>
 </div>
