@@ -1,31 +1,38 @@
 /**
  * Created by Afro on 4/4/2017.
  */
-(function () {
+(function() {
     'use strict';
 
     var app = angular.module('thai');
 
     app.component('loginRegister', {
         bindings: {
-            username: '<'
+            username: '=',
+            loggedin: '='
         },
         templateUrl: 'app/login/login.html',
-        controller: function () {
+        controller: function() {
             var ctrl = this;
             ctrl.person = {};
 
-            ctrl.login = function () {
-                $('#modal1').modal('close');
-
-            };
-
-            ctrl.register = function () {
-                ctrl.username = ctrl.person.user;
-                ctrl.user = true;
+            ctrl.signIn = function() {
+                ctrl.loggedin = true;
+                $('.modal').modal('close')
+                setTimeout(function() {
+                    Materialize.toast(`Welcome back ${ctrl.username}`, 4000)
+                }, 1000)
             }
 
-            $(document).ready(function () {
+            ctrl.signUp = function() {
+                ctrl.loggedin = true;
+                $('.modal').modal('close')
+                setTimeout(function() {
+                    Materialize.toast(`Hello ${ctrl.username}!. Your new account has been created`, 4000)
+                }, 1000)
+            }
+
+            $(document).ready(function() {
                 $('.modal').modal()
             })
 

@@ -26,6 +26,15 @@
             .when('/checkout', {
                 template: '<checkout></checkout>'
             })
+            .when('/privacy', {
+                template: '<privacy></privacy>'
+            })
+            .when('/terms', {
+                template: '<terms-conditions></terms-conditions>'
+            })
+            .when('/about', {
+                template: '<about></about>'
+            })
             .otherwise('/home')
 
         cfpLoadingBarProvider.includeSpinner = false;

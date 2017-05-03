@@ -1,9 +1,13 @@
-<div class="separator"></div>
+<div class="separator hide-on-med-and-down"></div>
 <div class="row" style="padding: 5px 5px">
     <div class="col l3 m12 s12" style="padding: 0 8px;" id="profile">
         <div class="card">
             <div class="grey lighten-4" style="background: url('image/header-bg.png'); text-align: center; padding: 20px 0">
-                <img src="image/elliot.jpg" class="responsive-img center" style="height: 80px; width: 80px; border-radius: 24px">
+                <div class="prof-holder" ng-mouseenter="blurImg()" ng-mouseleave="blurImg()">
+                    <i class="material-icons new-img tooltipped" ng-click="uploadImg()" data-delay="50" data-position="bottom" data-tooltip="Change profile image">add</i>
+                    <img src="image/elliot.jpg" class="responsive-img center prof-img">
+                    <input type="file" class="imgUpload">
+                </div>
                 <h4 class="display-name grey-text darken-2">{{name}}</h4>
                 <p style="font-size: 14px; font-weight: 400; letter-spacing: .04em;" class=" grey-text darken-2">Last seen: 2017-03-21</p>
             </div>

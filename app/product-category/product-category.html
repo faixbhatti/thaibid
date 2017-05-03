@@ -1,7 +1,51 @@
-<div class="separator"></div>
+<div class="teal lighten-3 waterfall" style="background: url('image/header-bg.png'); padding: 25px 15px; text-align: center">
+    <h3 class="white-text waterfall-header"><span style="text-transform: capitalize">{{category}}</span> Category</h3>
+</div>
+
 <div class="row">
-    <div class="col l2 m12 s12">
-        <all-categories active="category" class="category"></all-categories>
+    <div class="col l10 m12 s12 push-l2" style="margin-top: 15px">
+        <div style="min-height: 400px">
+            <div class="preloader-wrapper active loader" ng-if="loading">
+                <div class="spinner-layer spinner-teal-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="!loading">
+                <product-list products="products" columns="3" limit="limit"></product-list>
+                <product-list products="products" columns="3" limit="limit"></product-list>
+            </div>
+        </div>
+
+        <div class="row" ng-show="!loading">
+            <div class="col l8 m12 s12">
+                <ul class="pagination center-align right">
+                    <li class="waves-effect pag"><a href="#!"><i
+							class="material-icons">chevron_left</i></a></li>
+                    <li class="teal pag"><a href="#!" class="white-text">1</a></li>
+                    <li class="waves-effect pag"><a href="#!">2</a></li>
+                    <li class="waves-effect pag"><a href="#!">3</a></li>
+                    <li class="waves-effect pag"><a href="#!">4</a></li>
+                    <li class="waves-effect pag"><a href="#!">...</a></li>
+                    <li class="waves-effect pag"><a href="#!"><i
+							class="material-icons">chevron_right</i></a></li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col l2 m12 s12 pull-l10">
+        <all-categories active="category" class="category hide-on-small-and-down"></all-categories>
 
         <div>
             <ul class="collection with-header">
@@ -56,52 +100,4 @@
 
         </div>
     </div>
-    <div class="col l10 m12 s12">
-        <ul class="tabs tabs-transparent tabs-fixed-width main-green">
-            <li class="tab"><a href="#test5">Top</a></li>
-            <li class="tab"><a href="#test">Latest</a></li>
-            <li class="tab"><a href="#test4">Bestsellers</a></li>
-            <li class="tab"><a href="#test2">Price</a></li>
-            <li class="tab"><a href="#test1">Suggestions</a></li>
-        </ul>
-        <div style="min-height: 600px">
-            <div class="preloader-wrapper active loader" ng-if="loading">
-                <div class="spinner-layer spinner-teal-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div ng-show="!loading">
-                <product-list products="products" columns="3" limit="limit"></product-list>
-                <product-list products="products" columns="3" limit="limit"></product-list>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col l8 m12 s12">
-                <ul class="pagination center-align right">
-                    <li class="waves-effect pag"><a href="#!"><i
-							class="material-icons">chevron_left</i></a></li>
-                    <li class="teal pag"><a href="#!" class="white-text">1</a></li>
-                    <li class="waves-effect pag"><a href="#!">2</a></li>
-                    <li class="waves-effect pag"><a href="#!">3</a></li>
-                    <li class="waves-effect pag"><a href="#!">4</a></li>
-                    <li class="waves-effect pag"><a href="#!">...</a></li>
-                    <li class="waves-effect pag"><a href="#!"><i
-							class="material-icons">chevron_right</i></a></li>
-                </ul>
-
-            </div>
-        </div>
-
-    </div>
-</div>
 </div>

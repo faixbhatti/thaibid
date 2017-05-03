@@ -1,55 +1,116 @@
+<!--- Navbar ---->
 <nav class="grey lighten-5 checkout-nav">
     <div class="nav-wrapper">
-        <a href="#" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
         <div class="container">
-            <a href="#" class="brand-logo checkout-brand center black-text">Checkout</a>
+            <a href="" class="brand-logo checkout-brand center black-text">Checkout</a>
             <ul id="nav-mobile" class="left checkout-li">
-                <li><a href="{{previousPage}}"><i class="material-icons teal-text" style="font-weight: 600; height: 50px; line-height: 50px;">arrow_back</i></a></li>
+                <li><a href="" ng-click="goBack()"><i class="material-icons teal-text" style="font-weight: 600; height: 50px; line-height: 50px;">arrow_back</i></a></li>
             </ul>
         </div>
 
     </div>
 </nav>
+<!---- Navbar Ends ---->
+
+<!--- Container ---->
 <div class="container" id="checkout-con">
     <div class="row">
-        <div class="col s12">
-            <ul class="collection z-depth-1">
-                <li class="collection-item avatar item with-avatar" ng-repeat="item in items" style="cursor: unset; border-bottom: 1px solid grey">
-                    <img src="{{item.image}}" alt="{{item.name}}" class="circle list-circ">
-                    <span class="black-text" style="font-size: 16px">{{item.name}}</span>
-                    <p class="item-subtitle black-text" style="font-size: 14px">
-                        <div class="increment">
-                            <div class="negative" ng-click="decrement(item)">-</div>
-                            <input value="1" name="" class="" ng-model="item.quantity">
-                            <div class="positive" ng-click="increment(item)">+</div>
-                        </div>
-                        Product options: Color - <span class="green-text">Green</span>, Size - <span class="grey-text">XL</span><br>
-                        <p class="red-text link-text" style="margin-top: -14px">{{item.price | currency: '฿'}}</p>
-                    </p>
+        <div class="col l6 m12 s12 push-l3" ng-hide="nextStep">
+            <h5 class="teal-text center checkout-header"><i class="material-icons checkout teal white-text">shopping_cart</i> Cart</h5>
 
-                    <a class="secondary-content" style="line-height: 83px">
-                        <p>
-                            <input type="checkbox" class="filled-in" ng-checked="all" />
-                            <label for="">Add</label>
+            <!--- Items In Cart ---->
+            <ul class="collection">
+                <li class="collection-item avatar item with-avatar row" ng-repeat="item in items" style="padding: 10px 7px; margin: 15px 0; opacity: 1">
+                    <!--- Item Img -->
+                    <div class="col l2 m2 s12 img-space">
+                        <img src="{{item.image}}" alt="{{item.name}}" class="list-circ responsive-img" style="width: 100% !important; height: auto !important">
+                    </div>
+                    <div class="col l10 m10 s12 details-space">
+                        <!--- Item Name -->
+                        <span class="black-text" style="font-size: 16px">{{item.name}}</span>
+
+                        <p class="item-subtitle black-text" style="font-size: 14px">
+
+                            <!--- Plus/Minus Buttons -->
+                            <div>
+                                <div class="increment">
+                                    <div class="negative" ng-click="decrement(item)" ng-class="{'not-allowed': item.quantity === 1}">-</div>
+                                    <input value="1" name="" class="" ng-model="item.quantity">
+                                    <div class="positive" ng-click="increment(item)" ng-class="{'not-allowed': item.quantity === 3}">+</div>
+                                </div>
+                            </div>
+                            <!---- Ends Plus/Minus Buttons -->
+                            <div>
+                                Product options: Color - <span class="green-text">Green</span>, Size - <span class="grey-text">XL</span><br>
+                            </div>
+                            <p class="link-text amount-badge blue lighten-2">{{item.price * item.quantity | currency: '฿'}}</p>
+
                         </p>
-                    </a>
+                        <a class="secondary-content" style="line-height: 83px">
+                            <p>
+                                <input type="checkbox" class="filled-in" ng-checked="all" />
+                                <label for=""></label>
+                            </p>
+                        </a>
+                    </div>
                 </li>
-                <li class="collection-item item" style="height: 20px; padding: 0 16px; text-align: center; cursor: unset">
-                    <p style="font-size: 13px; line-height: 20px">Discount on shipping with order of minimum ฿250</p>
+                <!--- End Items In Cart ---->
+
+                <li class="collection-item item" style="height: 84px; padding: 0 16px; cursor: unset;" ng-show="car">
+                    <p style="font-size: 13px; line-height: 20px">
+                        <span class="left">Total: {{getTotal() | currency : '฿'}}</span>
+                        <span class="right">Discount on shipping with order of minimum ฿250</span>
+                    </p>
                 </li>
             </ul>
+            <div>
+                <div class="divider" style="opacity: 1"></div>
+                <h4 class="total">Total: {{getTotal() | currency : '฿'}}</h4>
+                <button class="btn btn-block btn-flat green lighten-3 waves-effect waves-green checkout-button" ng-click="nextStep = true">Checkout</button>
+            </div>
+        </div>
+
+        <div class="col l6 m12 s12 push-l3" ng-show="nextStep">
+            <h5 class="blue-text center checkout-header"><i class="material-icons checkout blue white-text">local_shipping</i>Order</h5>
+            <div class="white" style="padding: 15px 0; border-radius: 2px;">
+
+                <!--- Delivery Options Stepper ---->
+                <div class="stepper">
+                    <div style="flex: 0 0 auto" ng-show="step === 0">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="oneFinished">check</i>
+                        <span class="circle-icon blue" style="font-size: 12px;" ng-hide="oneFinished">1</span> <span style="padding-left: 8px">Billing Address</span>
+                        </span>
+                    </div>
+
+                    <div style="flex: 1 1 auto; height: 52px" ng-show="never">
+                        <span class="step-margin"></span>
+                    </div>
+
+                    <div style="flex: 0 0 auto" ng-show="step === 1">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="twoFinished">check</i>
+                        <span class="circle-icon blue" style="font-size: 12px;" ng-hide="twoFinished">2</span> <span style="padding-left: 8px">Delivery Options</span>
+                        </span>
+                    </div>
+
+                    <div style="flex: 1 1 auto; height: 52px" ng-show="never">
+                        <span class="step-margin"></span>
+                    </div>
+
+                    <div style="flex: 0 0 auto" ng-show="step === 2">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="finished">check</i>
+                        <span class="circle-icon blue" style="font-size: 12px;" ng-hide="finished">3</span> <span style="padding-left: 8px">Order Status</span>
+                        </span>
+                    </div>
+
+                    <!--- End Stepper ---->
+
+                </div>
+                <div ng-include="template"></div>
+            </div>
         </div>
     </div>
-
-    <div class="payment white z-depth-1">
-        <p class="left">
-            <input type="checkbox" class="filled-in" id="accep" ng-click="all=!all" ng-checked="all" />
-            <label for="accep" class="black-text">Select all</label>
-        </p>
-
-        <p class="right">
-            Total: <span class="red-text">{{getTotal() | currency: '฿'}}</span>
-            <button class="btn btn-mini green nav-button">Payment</button>
-        </p>
-    </div>
 </div>
+<!--- End Checkout Container --->

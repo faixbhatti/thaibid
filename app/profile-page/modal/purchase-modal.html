@@ -1,7 +1,8 @@
 <div id="purchase-modal" class="modal" style="overflow: visible; min-height: 50%; top: 20%">
-    <div class="modal-content">
+    <div class="modal-content" style="padding: 12px">
+        <i class="material-icons modal-close" style="position: absolute; top: 2px; left: 1px; font-size: 40px;">close</i>
         <div class="row" style="margin-bottom: 2px">
-            <div class="col l6 m6 s12">
+            <div class="col l6 m6 s6" style="margin-top: 30px">
                 <h4 class="description-text register-text truncate">{{$ctrl.info.name}}</h4>
                 <p class="link-text">by <span style="text-decoration: underline;"><i>Uri Mackov</i></span></p>
 
@@ -19,23 +20,23 @@
 
 
         <div class="row">
-            <div class="col l6 m6 s12">
-                <p class="description-text grey-text">Bidding Info</p>
+            <div class="col l6 m6 s6">
+                <p class="description-text grey-text modal-headers">Bidding Info</p>
                 <div style="display: inline-flex">
-                    <h5 style="margin: 0 5px; text-align: center; font-weight: 500">
+                    <h5 class="modal-price">
                         {{$ctrl.info.price | currency : '฿'}}<br>
-                        <p class="grey-text" style="font-size: 13px; margin-top: -7px">Product Price</p>
+                        <p class="grey-text price-des">Product Price</p>
                     </h5>
 
-                    <h5 style="margin: 0 5px; text-align: center; font-weight: 500">
+                    <h5 class="modal-price" x>
                         {{$ctrl.info.price + 15 | currency : '฿'}}<br>
                         <p class="grey-text" style="font-size: 13px; margin-top: -7px">Winning Bid</p>
                     </h5>
                 </div>
             </div>
 
-            <div class="col l6 m6 s12">
-                <p class="description-text grey-text">Product Details</p>
+            <div class="col l6 m6 s6">
+                <p class="description-text grey-text modal-headers">Product Details</p>
                 <p class="link-text">Color: <span class="red-text">Red</span></p>
                 <p class="link-text">Size: <span class="grey-text">XL</span></p>
             </div>
@@ -53,17 +54,17 @@
 
                 <div id="modal-detail" class="col s12" style="min-height: 222px; padding: 10px">
                     <div class="row" style="margin-bottom: 0">
-                        <div class="col l6 m6 s12">
-                            <p class="description-text">Product Details</p>
-                            <p class="link-text">Auction no: 4139494</p>
-                            <p class="link-text">Item no: 41-394</p>
+                        <div class="col l6 m6 s6">
+                            <p class="description-text modal-headers">Product Details</p>
+                            <p class="link-text reduce-text">Auction no: 4139494</p>
+                            <p class="link-text reduce-text">Item no: 41-394</p>
                         </div>
-                        <div class="col l6 m6 s12">
-                            <p class="description-text">Product Facts</p>
-                            <p class="link-text">Women Slimming Belt</p>
-                            <p class="link-text">- Body sculpting, tummy shaper</p>
-                            <p class="link-text">- Can be worn under your clothes daily</p>
-                            <p class="link-text">- Material : Polyester 80% and Cotton 20%</p>
+                        <div class="col l6 m6 s6">
+                            <p class="description-text modal-headers">Product Facts</p>
+                            <p class="link-text reduce-text">Women Slimming Belt</p>
+                            <p class="link-text reduce-text">- Body sculpting, tummy shaper</p>
+                            <p class="link-text reduce-text">- Can be worn under your clothes daily</p>
+                            <p class="link-text reduce-text">- Material : Polyester 80% and Cotton 20%</p>
                         </div>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
                 <div id="modal-bids" class="col s12 white" style="min-height: 222px">
 
 
-                    <table class="highlight responsive-table">
+                    <table class="highlight">
                         <thead>
                             <tr>
                                 <th class="table-header"><i class="material-icons" style="vertical-align:bottom; margin-right:3px;">person</i>Name
@@ -93,28 +94,28 @@
 
                         <tbody>
                             <tr>
-                                <td class="link-text">Alvin</td>
-                                <td class="link-text">฿10.00</td>
-                                <td class="link-text">1</td>
-                                <td class="link-text">2017-03-27</td>
+                                <td class="link-text  reduce-text">Alvin</td>
+                                <td class="link-text reduce-text">฿10.00</td>
+                                <td class="link-text reduce-text">1</td>
+                                <td class="link-text reduce-text">2017-03-27</td>
                             </tr>
                             <tr>
-                                <td class="link-text">Alan</td>
-                                <td class="link-text">฿0.45</td>
-                                <td class="link-text">2</td>
-                                <td class="link-text">2017-03-27</td>
+                                <td class="link-text reduce-text">Alan</td>
+                                <td class="link-text reduce-text">฿0.45</td>
+                                <td class="link-text reduce-text">2</td>
+                                <td class="link-text reduce-text">2017-03-27</td>
                             </tr>
                             <tr>
-                                <td class="link-text">Jonathan</td>
-                                <td class="link-text">฿1.34</td>
-                                <td class="link-text">1</td>
-                                <td class="link-text">2017-03-27</td>
+                                <td class="link-text reduce-text">Jonathan</td>
+                                <td class="link-text reduce-text">฿1.34</td>
+                                <td class="link-text reduce-text">1</td>
+                                <td class="link-text reduce-text">2017-03-27</td>
                             </tr>
                             <tr>
-                                <td class="link-text">Afro</td>
-                                <td class="link-text">฿2.34</td>
-                                <td class="link-text">2</td>
-                                <td class="link-text">2017-03-25</td>
+                                <td class="link-text reduce-text">Afro</td>
+                                <td class="link-text reduce-text">฿2.34</td>
+                                <td class="link-text reduce-text">2</td>
+                                <td class="link-text reduce-text">2017-03-25</td>
                             </tr>
                         </tbody>
                     </table>

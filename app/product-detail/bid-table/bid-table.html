@@ -1,0 +1,24 @@
+<table class="highlight">
+    <thead>
+        <tr>
+            <th class="table-header"><i class="material-icons" style="vertical-align:bottom; margin-right:3px;">person</i>Name
+            </th>
+            <th class="table-header"><i class="material-icons" style="vertical-align:bottom; margin-right:3px;">attach_money</i>Bid Amount
+            </th>
+            <th class="table-header"><i class="material-icons" style="vertical-align:bottom; margin-right:3px;">gavel</i>Total Bid
+            </th>
+            <th class="table-header"><i class="material-icons" style="vertical-align:bottom; margin-right:3px;">timer</i><span style="margin-bottom:6px">Bid
+                                    Time</span>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr ng-repeat="bid in $ctrl.bids">
+            <td class="table-text reduce-text">{{bid.bidder}}</td>
+            <td class="table-text reduce-text">{{bid.amount | currency : '฿'}}</td>
+            <td class="table-text reduce-text">{{bid.bidTimes}}</td>
+            <td class="table-text reduce-text">{{bid.bidTime | date}}</td>
+        </tr>
+    </tbody>
+</table>

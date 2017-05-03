@@ -1,20 +1,35 @@
-<div class="teal lighten-3 hide-on-small-and-down" style="height: auto; margin-top: -30px; padding: 30px 70px
-; background: url('image/header-bg.png');">
+<div ng-controller="homeCtrl">
+    <div class="teal lighten-3 waterfall" style="background: url('image/header-bg.png');">
 
-    <h3 class="white-text" style="padding-top: 60px; font-weight: 200; font-size: 3.4rem; line-height: 1.25">Shop online with the best deals and offers</h3>
+        <h3 class="waterfall-header white-text">Shop online with the best deals and offers</h3>
 
-    <h5 class="white-text" style="font-size: 1.5rem; font-weight: 200;">We want you to avail the best quality products from the best sellers in the country, and get them delivered to your doorstep as quick as possible</h5>
-</div>
-
-
-<div class="row" style="margin-top: 14px" ng-controller="homeCtrl">
-    <div class="col l2 m12 s12 hide-on-med-and-down">
-        <all-categories class="home"></all-categories>
+        <h5 class="white-text waterfall-subheader">We want you to avail the best quality products from the best sellers in the country, and get them delivered to your doorstep as quick as possible</h5>
     </div>
 
-    <div class="col l10 m12 s12">
-        <div class="row" id="prod-list">
-            <product-list products="products" columns="3" id="home"></product-list>
+
+    <div class="row" style="margin-top: 14px">
+        <div class="col l2 m12 s12 hide-on-med-and-down">
+            <all-categories class="home"></all-categories>
+        </div>
+
+        <div class="col l10 m12 s12">
+            <div class="row" id="prod-list" style="min-height: 300px">
+
+                <product-list products="products" columns="3" id="home" ng-hide="dataLoading"></product-list><br>
+                <div class="preloader-wrapper active" style="margin-left: 50%" ng-show="loading || dataLoading">
+                    <div class="spinner-layer spinner-teal-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

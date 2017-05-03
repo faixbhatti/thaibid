@@ -8,21 +8,28 @@
 
     app.component('category', {
         templateUrl: 'app/product-category/product-category.html',
-        controller: function($routeParams, $scope, products) {
+        controller: function($routeParams, $scope, $rootScope, products) {
+            $scope.loading = true;
+
             function get() {
                 products.get().then(function(data) {
                     var products = data.data;
                     $scope.products = products
                     $scope.limit = products.length
+                    $scope.loading = false;
                 })
             }
             get()
 
+            $rootScope.inCart = false;
 
 
             $scope.category = $routeParams.category
 
+            $rootScope.previousPage = `/category/${$scope.category}`
 
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
 
             $(document).ready(function() {
                 $('.tooltipped').tooltip({
@@ -51,6 +58,8 @@
                 var options = [$scope.left, $scope.right]
 
 
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
 
             })
 

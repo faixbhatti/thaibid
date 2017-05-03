@@ -8,7 +8,7 @@
 
     app.component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
-        controller: function($scope, $routeParams, $http) {
+        controller: function($scope, $routeParams, $http, $rootScope) {
             $scope.name = $routeParams.name;
 
             $scope.templates = {
@@ -24,6 +24,21 @@
 
             $scope.displayInfo = function(info) {
                 $scope.currentInfo = info;
+            }
+
+            $rootScope.previousPage = `/user/${$scope.name}`;
+            $rootScope.inCart = false;
+
+
+            $scope.blurImg = function() {
+                var img = document.querySelector('.prof-img'),
+                    imgFilter = img.style.filter;
+
+                if (imgFilter === "blur(1px)") {
+                    img.style.filter = "blur(0)"
+                } else {
+                    img.style.filter = "blur(1px)"
+                }
             }
 
             $scope.auctions = [{
@@ -61,8 +76,15 @@
                 }
             ];
 
+            $scope.profImg = 'image/elliot.jpg'
+
+
             $scope.template = $scope.templates.auctions;
 
+            $scope.uploadImg = function() {
+                const input = document.querySelector('.imgUpload');
+                input.click()
+            }
 
             $scope.switchTab = function(tab) {
                 $scope.template = $scope.templates[tab];
