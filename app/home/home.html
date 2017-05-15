@@ -1,21 +1,76 @@
 <div ng-controller="homeCtrl">
-    <div class="teal lighten-3 waterfall" style="background: url('image/header-bg.png');">
+    <div class="separator hide-on-med-only"></div>
+    <div class="row" style="margin-bottom: 0">
+        <div class="col s12" style="padding: 0">
+            <div class="card-panel teal lighten-3" style="padding: 3px;">
+                <div class="slider">
+                    <ul class="slides">
+                        <li>
+                            <img src="image/slideshow/behind-light.jpg" style="border-radius: 5px">
 
-        <h3 class="waterfall-header white-text">Shop online with the best deals and offers</h3>
-
-        <h5 class="white-text waterfall-subheader">We want you to avail the best quality products from the best sellers in the country, and get them delivered to your doorstep as quick as possible</h5>
+                            <div class="caption left-align">
+                                <h3 style="text-transform: uppercase">Get the latest fashionable wears</h3>
+                                <h5 class="light grey-text text-lighten-3">Pay as little as possible</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="image/slideshow/hat.jpg" style="border-radius: 5px">
+                            <div class="caption center-align">
+                                <h3 style="text-transform: uppercase">Costumes and designers materials</h3>
+                                <h5 class="light grey-text text-lighten-3">We will refund if we don't live up to the hype</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="image/slideshow/plus-size.jpg" style="border-radius: 5px">
+                            <div class="caption center-align">
+                            </div>
+                        </li>
+                        <li>
+                            <img src="image/slideshow/pose.jpg" style="border-radius: 5px">
+                            <div class="caption right-align">
+                                <h3 style="text-transform: uppercase">Get discounted prices</h3>
+                                <h5 class="light grey-text text-lighten-3">We will refund if we don't live up to the hype</h5>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-    <div class="row" style="margin-top: 14px">
+    <div class="row">
         <div class="col l2 m12 s12 hide-on-med-and-down">
-            <all-categories class="home"></all-categories>
+            <all-categories class="home" style="z-index: -23"></all-categories>
         </div>
 
         <div class="col l10 m12 s12">
             <div class="row" id="prod-list" style="min-height: 300px">
 
-                <product-list products="products" columns="3" id="home" ng-hide="dataLoading"></product-list><br>
+                <product-list products="deals" columns="3" id="home" ng-hide="dataLoading"></product-list>
+
+                <div class="carousel carousel-slider center" data-indicators="true" ng-hide="dataLoading" style="height: 400px">
+                    <div class="carousel-fixed-item center">
+                        <a class="btn waves-effect white teal-text"><i class="material-icons teal-text left">menu</i>Categories</a>
+                    </div>
+                    <div class="carousel-item white-text" href="#one!" style="background: url('image/slideshow/carou-1.jpg')">
+                        <h4 style="text-transform: uppercase; margin-top: 10%">Upgrade your spring wardrobe</h4>
+                        <p class="white-text">Stylist men's T-shirts</p>
+                    </div>
+                    <div class="carousel-item white-text" href="#two!" style="background: url('image/slideshow/carou-1.jpg')">
+                        <h4 style="text-transform: uppercase; margin-top: 10%">Denim duty</h4>
+                        <p class="white-text">Find your favourite pair of jeans</p>
+                    </div>
+                    <div class="carousel-item white-text" href="#three!" style="background: url('image/slideshow/carou-1.jpg')">
+                        <h4 style="text-transform: uppercase; margin-top: 10%">Wardrobe essentials</h4>
+                        <p class="white-text">Tees and polos perfect for any occassion</p>
+                    </div>
+                    <div class="carousel-item white-text" href="#four!" style="background: url('image/slideshow/carou-1.jpg')">
+                        <h4 style="text-transform: uppercase; margin-top: 10%">The look of spring</h4>
+                        <p class="white-text">Save over 50%</p>
+                    </div>
+                </div>
+
+                <product-list products="rest" columns="3" id="home" ng-hide="dataLoading"></product-list>
+
                 <div class="preloader-wrapper active" style="margin-left: 50%" ng-show="loading || dataLoading">
                     <div class="spinner-layer spinner-teal-only">
                         <div class="circle-clipper left">

@@ -14,35 +14,11 @@
     });
 
 
-    function checkCtrl($scope, $rootScope, $http, $location) {
+    function checkCtrl($scope, $rootScope, $http, $location, Location, Calculate) {
 
         $scope.items = $rootScope.cart;
         $rootScope.inCart = true;
 
-        var extras = [{
-                "id": 21,
-                "name": "Classic beach wear",
-                "price": 20.34,
-                "image": "image/leather-bag.jpg",
-                "timer": "2017-03-24"
-            },
-            {
-                "id": 22,
-                "name": "All black swagger",
-                "price": 23.53,
-                "image": "image/men__black-converse.jpeg",
-                "timer": "2017-03-24"
-            },
-            {
-                "id": 23,
-                "name": "Dirty ass shoes",
-                "price": 44.34,
-                "image": "image/men__dirty-shoes.jpeg",
-                "timer": "2017-03-24"
-            }
-        ]
-
-        // $scope.items = [...extras]
 
         $scope.items.forEach(item => item.quantity = 1)
 
@@ -60,19 +36,28 @@
 
         $scope.step = 0;
 
-        $scope.oneClean = true;
-        $scope.twoClean = true;
         $scope.oneFinished = false;
         $scope.twoFinished = false;
 
+        // Proceed to next step of payment
         $scope.stepTo = function(step) {
             $scope.step = step
             if (step === 1) $scope.oneFinished = true;
             if (step === 2) $scope.twoFinished = true;
 
             $scope.template = $scope.templates[step]
+
+            // Scroll document back to top anytime step is changed
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
         }
 
+        $scope.checkout = function() {
+            $scope.nextStep = true;
+            Location.getProvinces()
+        }
+
+        // Return to cart if in payment page
         $scope.goBack = function() {
             if ($scope.nextStep === true) {
                 $scope.nextStep = false;
@@ -81,6 +66,7 @@
             $location.url($scope.previousPage)
         }
 
+        // List of payment icons
         $scope.imgs = [
             'Icons/2co.png',
             'Icons/paypal.png',
@@ -89,99 +75,47 @@
             'Icons/visa.png',
         ]
 
+        // Select required payment option
         $scope.selectPayment = function(option) {
             $scope.paymentOption = option
         }
 
-        var districtIds = {},
-            province,
-            district,
-            subDistrict;
-
-        $scope.getDistrict = function(prov) {
-            var prList = prov.split(/\s+/);
-            var provinceId = prList.join('-').toLowerCase()
-
-            if (province !== provinceId) {
-                province = provinceId;
-
-                $http.get(`https://api.openthailand.org/provinces/${provinceId}/districts`).then(function(response) {
-                    var districts = response.data.result.data;
-
-                    var data = {};
-
-                    districts.forEach(district => {
-                        data[district.name] = null;
-                        districtIds[district.name] = district.id;
-                    })
-
-                    $('#district.autocomplete').autocomplete({
-                        "data": data,
-                        limit: 15,
-                        minLength: 1
-                    })
-                });
-            }
+        $scope.getDistrict = function(province) {
+            Location.getDistricts(province)
         }
 
-        $scope.getSubDistrict = function(dist) {
-            var districtId = districtIds[dist]
+        $scope.getSubDistrict = function(district) {
+            Location.getSubDistricts(district)
+        }
 
-            if (district !== districtId) {
-                district = districtId
-
-                $http.get(`https://api.openthailand.org/provinces/${province}/districts/${districtId}/subdistricts`).then(function(response) {
-                    var sd = response.data.result.data;
-
-                    var data = {};
-
-                    sd.forEach(d => data[d.name] = null)
-
-                    $('#sub-d.autocomplete').autocomplete({
-                        "data": data,
-                        limit: 15,
-                        minLength: 1
-                    })
-                });
-            }
+        $scope.finish = function() {
+            $rootScope.template = 'orders';
+            var url = `user/${$rootScope.username}`
+            $location.url(url)
         }
 
         $scope.template = $scope.templates[0]
 
-        $scope.getTotal = function() {
-            var total = 0;
-            $scope.items.forEach(item => total += item.price)
-            return total
-        }
+        // Get total amount of all items in cart
+        $scope.total = Calculate.getTotal($scope.items)
 
 
         $scope.previousPage = $rootScope.previousPage;
 
         $scope.increment = function(item) {
-            if (item.quantity < 3) item.quantity++
-        };
+            Calculate.increment(item)
+        }
 
         $scope.decrement = function(item) {
-            if (item.quantity > 1) item.quantity--
-        };
+            Calculate.decrement(item)
+        }
 
 
         $(document).ready(function() {
-                $http.get('https://api.openthailand.org/provinces').then(function(response) {
-                    var provinces = response.data.result.data;
-                    var data = {};
 
-                    provinces.forEach(province => data[province.name] = null)
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        })
 
-                    $('#province.autocomplete').autocomplete({
-                        "data": data,
-                        limit: 15,
-                        minLength: 1
-                    })
-                });
-            })
-            ////////////////
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
     }
 })();

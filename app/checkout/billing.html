@@ -1,9 +1,9 @@
 <div>
-    <form class="col l12 m12 s12 white" style="padding: 10px">
+    <form class="col l12 m12 s12 white" style="padding: 10px" ng-submit="deliveryInfoForm.$valid && stepTo(1)" name="deliveryInfoForm" novalidate>
         <div class="row">
             <div class="input-field col l12 m12 s12">
                 <i class="material-icons prefix grey-text">place</i>
-                <input id="province" type="text" class="autocomplete validate" ng-model="billing.province">
+                <input id="province" type="text" class="autocomplete validate" ng-model="billing.province" ng-minlength="3" required>
                 <label for="province">Province</label>
             </div>
         </div>
@@ -11,13 +11,13 @@
         <div class="row">
             <div class="input-field col l6 m6 s12">
                 <i class="material-icons prefix grey-text">place</i>
-                <input id="district" type="text" class="autocomplete validate" ng-model="billing.district" ng-focus="getDistrict(billing.province)">
+                <input id="district" type="text" class="autocomplete validate" ng-model="billing.district" ng-focus="getDistrict(billing.province)" ng-minlength="3" required>
                 <label for="district">District</label>
             </div>
 
             <div class="input-field col l6 m6 s12">
                 <i class="material-icons prefix grey-text">place</i>
-                <input id="sub-d" type="text" class="autocomplete validate" ng-model="billing.subDistrict" ng-focus="getSubDistrict(billing.district)">
+                <input id="sub-d" type="text" class="autocomplete validate" ng-model="billing.subDistrict" ng-focus="getSubDistrict(billing.district)" ng-minlength="3" required>
                 <label for="sub-d">Sub-district</label>
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix grey-text">directions</i>
-                <input id="address" type="text" class="validate">
+                <input id="address" type="text" class="validate" ng-minlength="3" required>
                 <label for="address">Address</label>
             </div>
         </div>
@@ -39,8 +39,8 @@
 
         </div>
 
-        <button class="btn waves-effect waves-light blue-grey lighten-3 left nav-button" ng-click="nextStep = false">Back</button>
-        <button class="btn waves-effect waves-light blue lighten-2 right nav-button" type="button" ng-click="stepTo(1)">Next</button>
+        <button class="btn waves-effect waves-light blue-grey lighten-3 left nav-button" type="button" ng-click="goBack()">Back</button>
+        <button class="btn waves-effect waves-light blue lighten-2 right nav-button" ng-disabled="deliveryInfoForm.$invalid">Next</button>
 
     </form>
 </div>

@@ -8,8 +8,10 @@
 
     app.component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
-        controller: function($scope, $routeParams, $http, $rootScope) {
+        controller: function($scope, $routeParams, $location, $http, $rootScope, $anchorScroll) {
             $scope.name = $routeParams.name;
+
+            $rootScope.showNav = true;
 
             $scope.templates = {
                 "editProfile": "app/profile-page/edit-profile.html",
@@ -20,10 +22,24 @@
                 "rewards": "app/profile-page/rewards.html"
             };
 
+            $scope.template = $scope.templates[$rootScope.template];
+
+            function goToInfo() {
+                if ($rootScope.template === 'orders' || $rootScope.template === 'cart') {
+                    $location.hash('user-info');
+                    $anchorScroll();
+                }
+
+            }
+
+            goToInfo()
+
+
             $scope.currentInfo = '';
 
             $scope.displayInfo = function(info) {
                 $scope.currentInfo = info;
+                $('#purchase-modal').modal('open');
             }
 
             $rootScope.previousPage = `/user/${$scope.name}`;
@@ -78,9 +94,6 @@
 
             $scope.profImg = 'image/elliot.jpg'
 
-
-            $scope.template = $scope.templates.auctions;
-
             $scope.uploadImg = function() {
                 const input = document.querySelector('.imgUpload');
                 input.click()
@@ -88,7 +101,8 @@
 
             $scope.switchTab = function(tab) {
                 $scope.template = $scope.templates[tab];
-
+                $location.hash('user-info');
+                $anchorScroll();
                 if (tab === "editProfile") {
                     setTimeout(function() {
                         $('select').material_select();
@@ -119,18 +133,14 @@
                         $('.tooltipped').tooltip({ delay: 50 });
                     }, 500)
                 }
-
-                $(document).ready(function() {
-                    $('#profile').pushpin({
-                        top: 50,
-                        bottom: 1000,
-                        offset: 0
-                    });
-
-                    document.body.scrollTop = 0;
-                    document.documentElement.scrollTop = 0;
-                });
             };
+
+            $(document).ready(function() {
+                $('.modal').modal()
+
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            });
 
         }
     })

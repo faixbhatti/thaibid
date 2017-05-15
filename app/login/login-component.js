@@ -9,15 +9,15 @@
     app.component('loginRegister', {
         bindings: {
             username: '=',
-            loggedin: '='
         },
         templateUrl: 'app/login/login.html',
-        controller: function() {
+        controller: function($rootScope) {
             var ctrl = this;
             ctrl.person = {};
 
             ctrl.signIn = function() {
-                ctrl.loggedin = true;
+                $rootScope.loggedIn = true;
+                $rootScope.username = ctrl.username;
                 $('.modal').modal('close')
                 setTimeout(function() {
                     Materialize.toast(`Welcome back ${ctrl.username}`, 4000)
@@ -25,7 +25,8 @@
             }
 
             ctrl.signUp = function() {
-                ctrl.loggedin = true;
+                $rootScope.loggedIn = true;
+                $rootScope.username = ctrl.username;
                 $('.modal').modal('close')
                 setTimeout(function() {
                     Materialize.toast(`Hello ${ctrl.username}!. Your new account has been created`, 4000)

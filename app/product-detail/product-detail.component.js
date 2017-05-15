@@ -8,7 +8,7 @@
 
     app.component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
-        controller: function($scope, $routeParams, $rootScope, products) {
+        controller: function($scope, $routeParams, $rootScope, products, cart) {
             $scope.loading = true;
 
             function get() {
@@ -22,10 +22,7 @@
                     product.price = Math.round(product.price)
 
                     $scope.product = product
-                    $scope.loading = false
-
                     $scope.bidPrice = $scope.product.price + 5
-
 
                     $scope.imgs = [
                         $scope.product.image,
@@ -65,11 +62,21 @@
                             "bidTime": "2017-03-05"
                         }
                     ]
+                    $scope.loading = false
+
                 })
 
             }
 
             get()
+
+            $scope.bidHistory = function() {
+                var bids = document.querySelector('#bids'),
+                    top = bids.offsetTop;
+                document.body.scrollTop = top;
+                document.documentElement.scrollTop = top;
+
+            }
 
             $scope.timeLeft = 30;
 
@@ -80,26 +87,36 @@
             $rootScope.previousPage = `/product/${$routeParams.productId}`
 
             $scope.addToCart = function(product) {
-                if ($scope.bidPrice > 150) {
-                    $scope.autoBid = true;
+                if ($rootScope.loggedIn) {
+                    if ($scope.bidPrice > 150) {
+                        $scope.autoBid = true;
 
-                    function initElement() {
-                        $('.autobid').addClass('animated fadeIn')
-                    };
-                    setTimeout(initElement, 100);
+                        function initElement() {
+                            $('.autobid').addClass('animated fadeIn')
+                        };
+                        setTimeout(initElement, 100);
 
+                    }
+                    if (navigator.vibrate) {
+                        console.log('Timeout')
+                        navigator.vibrate(200)
+
+                    }
+                    cart.shake()
+
+                    $rootScope.cart.push(product)
+
+                    setTimeout(hideAlert, 4000)
+
+                    function hideAlert() {
+                        $('autobid').removeClass('animated fadeOut')
+                        $scope.autoBid = false;
+                    }
+                } else {
+                    $('#login-modal').modal('open');
+                    Materialize.toast('Please log in or sign up', 2000)
                 }
-                Materialize.toast('Item added to cart', 2000)
 
-
-                $rootScope.cart.push(product)
-
-                setTimeout(hideAlert, 4000)
-
-                function hideAlert() {
-                    $('autobid').removeClass('animated fadeOut')
-                    $scope.autoBid = false;
-                }
             }
 
             $scope.showDiv = false;
@@ -118,17 +135,6 @@
                     }, 1000)
                     // End element init
 
-                // ScrollFire for product suggestions
-                var options = [{
-                    selector: '#others',
-                    offset: 50,
-                    callback: function(el) {
-                        $('#others').addClass('animated slideInUp')
-                    }
-                }];
-                Materialize.scrollFire(options)
-                    // End sScrollFire for product suggestions
-
                 // Scroll to top when page is loaded
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
@@ -136,15 +142,24 @@
 
                 // Pin gallery to point whilst scrolling
                 var header = document.querySelector('#header'),
-                    detArea = document.querySelector('#dets'),
-                    offset = header.offsetHeight + 50,
-                    bottom = detArea.clientHeight - 320;
+                    gallery = $('.prod-detail'),
+                    start = gallery.offset().top,
+                    stop = $('#below').offset().top - gallery.outerHeight() - 145;
 
-                $('.prod-detail').pushpin({
-                    top: $('.prod-detail').offset().top,
-                    offset: offset,
-                    bottom: bottom - offset
-                });
+                // $(document).scroll(function() {
+                //     var y = $(this).scrollTop();
+                //     if (y > start) {
+                //         gallery.addClass('pinned')
+                //         if (y > stop) {
+                //             gallery.css('top', stop - y)
+                //         } else {
+                //             gallery.css('top', '117px')
+                //         }
+                //     } else {
+                //         gallery.removeClass('pinned')
+                //     }
+                // })
+
                 // End gallery pin
             });
 

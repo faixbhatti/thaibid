@@ -34,9 +34,9 @@
                             <!--- Plus/Minus Buttons -->
                             <div>
                                 <div class="increment">
-                                    <div class="negative" ng-click="decrement(item)" ng-class="{'not-allowed': item.quantity === 1}">-</div>
+                                    <div class="negative waves-effect waves-teal teal-text z-depth-1-half" ng-click="decrement(item)" ng-class="{'not-allowed': item.quantity === 1}">-</div>
                                     <input value="1" name="" class="" ng-model="item.quantity">
-                                    <div class="positive" ng-click="increment(item)" ng-class="{'not-allowed': item.quantity === 3}">+</div>
+                                    <div class="positive waves-effect waves-teal teal-text z-depth-1-half" ng-click="increment(item)" ng-class="{'not-allowed': item.quantity === 3}">+</div>
                                 </div>
                             </div>
                             <!---- Ends Plus/Minus Buttons -->
@@ -55,18 +55,10 @@
                     </div>
                 </li>
                 <!--- End Items In Cart ---->
-
-                <li class="collection-item item" style="height: 84px; padding: 0 16px; cursor: unset;" ng-show="car">
-                    <p style="font-size: 13px; line-height: 20px">
-                        <span class="left">Total: {{getTotal() | currency : '฿'}}</span>
-                        <span class="right">Discount on shipping with order of minimum ฿250</span>
-                    </p>
-                </li>
             </ul>
-            <div>
-                <div class="divider" style="opacity: 1"></div>
-                <h4 class="total">Total: {{getTotal() | currency : '฿'}}</h4>
-                <button class="btn btn-block btn-flat green lighten-3 waves-effect waves-green checkout-button" ng-click="nextStep = true">Checkout</button>
+            <div class="checkout-section" class="z-depth-4">
+                <h4 class="total">Total: {{total | currency : '฿'}}</h4>
+                <button class="btn btn-flat green right lighten-3 waves-effect waves-green checkout-button" ng-click="checkout()">Checkout</button>
             </div>
         </div>
 
@@ -108,7 +100,7 @@
                     <!--- End Stepper ---->
 
                 </div>
-                <div ng-include="template"></div>
+                <div ng-include="template" ng-if="nextStep"></div>
             </div>
         </div>
     </div>

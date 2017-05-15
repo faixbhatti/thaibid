@@ -6,11 +6,11 @@
                 <p class="link-text grey-text text-lighten-3 center">Sign up for our newsletters, and don't worry they're awesome.</p>
                 <form class="col l9 m9 s12" id="sign-up">
                     <div class="row" id="subscribe">
-                        <div class="input-field col l5 m12 s12 push-m2">
+                        <div class="input-field col l5 m12 s10 push-m2">
                             <input id="mail" type="email" class="validate">
                             <label for="mail">Mail</label>
                         </div>
-                        <div class="input-field col l2 m12 s12 push-m2" style="text-align: center">
+                        <div class="input-field col l2 m12 s2 push-m2" style="text-align: center">
                             <button class="btn-floating waves-effect blue btn">
                                 <ng-md-icon icon="mail" style="fill:white" class="icon"></ng-md-icon>
                             </button>
@@ -20,8 +20,61 @@
             </div>
         </div>
         <div class="divider" style="margin-bottom: 20px"></div>
+
+        <ul class="collapsible hide-on-med-and-up" data-collapsible="accordion" style="border: none; box-shadow: inherit;" id="footer-collapse">
+            <li>
+                <div class="collapsible-header white-text link-header">
+                    Information
+                    <i class="material-icons right white-text" style="margin-top: -7px">keyboard_arrow_down</i>
+                </div>
+                <div class="collapsible-body">
+                    <ul>
+                        <li class="link-holder"><a href="#!/about" class="grey-text text-lighten-3 link-text">About Us</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Delivery Information</a></li>
+                        <li class="link-holder"><a href="#!/privacy" class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Contact Us</a></li>
+                        <li class="link-holder"><a href="#!/terms" class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Site Map</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header white-text link-header">
+                    Help & Support
+                    <i class="material-icons right white-text" style="margin-top: -7px">keyboard_arrow_down</i>
+                </div>
+                <div class="collapsible-body">
+                    <ul>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">FAQs & Contact</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Specials</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Returns</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Product Ideas</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Fashion Glossary</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header link-header white-text">
+                    My Account
+                    <i class="material-icons right white-text" style="margin-top: -7px">keyboard_arrow_down</i>
+                </div>
+                <div class="collapsible-body">
+                    <ul>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">My Account</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Personal Information</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Addresses</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Discount</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Order History</a></li>
+                        <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Vouchers</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
         <div class="row" id="footer">
-            <div class="col l3 m6 s6">
+            <div class="col l3 m6 s6 hide-on-small-and-down">
                 <h6 class="link-header white-text">INFORMATION</h6>
                 <ul>
                     <li class="link-holder"><a href="#!/about" class="grey-text text-lighten-3 link-text">About Us</a></li>
@@ -32,7 +85,7 @@
                     <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Site Map</a></li>
                 </ul>
             </div>
-            <div class="col l3 m6 s6">
+            <div class="col l3 m6 s6 hide-on-small-and-down">
                 <h6 class="link-header white-text">HELP & SUPPORT</h6>
                 <ul>
                     <li class="link-holder"><a class="grey-text text-lighten-3 link-text">FAQs & Contact</a></li>
@@ -44,7 +97,7 @@
                     <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Fashion Glossary</a></li>
                 </ul>
             </div>
-            <div class="col l3 m6 s6">
+            <div class="col l3 m6 s6 hide-on-small-and-down">
                 <h6 class="link-header white-text">MY ACCOUNT</h6>
                 <ul>
                     <li class="link-holder"><a class="grey-text text-lighten-3 link-text">My Account</a></li>
@@ -85,6 +138,16 @@
 
         <div class="row" style="margin-bottom: 0">
             <div class="col l12">
+                <div id="google_translate_element" class="left"></div>
+                <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({
+                            pageLanguage: 'en',
+                            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                        }, 'google_translate_element');
+                    }
+                </script>
+                <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                 <h6 class="center white-text" style="font-size: 12px">Copyright © 2017 Thaibid All rights reserved
                 </h6>
             </div>

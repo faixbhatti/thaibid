@@ -1,10 +1,9 @@
-<div class="col l{{$ctrl.columns}} m4 s6" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit" style="padding: 0 0.4rem">
+<div class="col l{{$ctrl.columns}} m4 s6" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit" style="padding: 0 0.3rem">
 
     <div class="card hoverable" style="height: 90%">
         <a href="#!/product/{{product.id}}">
             <div class="card-image">
-                <img src="image/header-bg.png" class="responsive-img" style="height: 70%" ng-hide="product.image">
-                <img src="{{product.image}}" class="responsive-img" style="height: 70%" ng-show="product.image">
+                <img placehold="{{product.image}}" src="image/header-bg.png" class="responsive-img" style="height: 70%" ng-if="product.image">
                 <a class="btn-floating halfway-fab waves-effect waves-dark teal lighten-4"><i
                         class="material-icons">gavel</i></a>
             </div>

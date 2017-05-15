@@ -1,7 +1,7 @@
-<div class="separator hide-on-med-and-down"></div>
-<div style="margin-top: 15px; padding: 0 10px; min-height: 400px">
+<div class="separator hide-on-med-only"></div>
+<div style="margin-top: 2px; padding: 0 10px; min-height: 400px">
 
-    <div class="preloader-wrapper active loader" ng-show="loading">
+    <div class="preloader-wrapper active loader" ng-if="loading">
         <div class="spinner-layer spinner-teal-only">
             <div class="circle-clipper left">
                 <div class="circle"></div>
@@ -20,8 +20,8 @@
         <div class="col l5 m12 s12" style="padding: 0 0">
 
             <div class="prod-detail">
-                <div class="row">
-                    <h1 class="product-name">{{product.name}}</h1>
+                <div class="row" style="margin-bottom: 5px">
+                    <h1 class="product-name truncate">{{product.name}}</h1>
                     <div class="col l12 m12 s12">
                         <a href="#!/home" class="breadcrumb black-text waves-effect" style="opacity: 0.45"><i
                                 class="material-icons">home</i></a>
@@ -31,7 +31,7 @@
 
                 </div>
 
-                <div class="row" id="gallery">
+                <div class="row" id="gallery" style="margin-bottom: 0">
                     <div class="col s12" style="padding: 0 0;">
                         <img src="{{product.image}}" class="materialboxed responsive-img hoverable z-depth-1" data-caption="{{product.name}}" style="border-radius: 1px; width: 100%">
                     </div>
@@ -43,7 +43,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
 
@@ -73,16 +72,16 @@
             </h4>
 
             <div class="row" style="margin-bottom: 5px">
-                <div class="col l6 m6 s12">
+                <div class="col l6 m6 s6">
                     <!---- Product Owner ------>
-                    <p class="link-text">by <span style="text-decoration: underline;"><i>Uri Mackov</i></span></p>
+                    <p class="prod-owner">by <span style="text-decoration: underline;"><i>Uri Mackov</i></span></p>
                     <!---- /Product Owner ------>
                     <!---- Ratings -------->
 
-                    <p class="link-text" style="font-size: 15px"><i class="material-icons teal-text left" style="font-size: 19px" ng-repeat="icon in [1,2,3,4,5]">star</i> {{product.price | limitTo: 2}}{{product.price | limitTo: 2 : 3}} Users</p>
+                    <p class="ratings"><i class="material-icons teal-text" ng-repeat="icon in [1,2,3,4,5]">star</i> {{product.price | limitTo: 2}}{{product.price | limitTo: 2 : 3}} Users</p>
                     <!------ /Ratings ------>
                 </div>
-                <div class="col l6 m6 s12 pull-s2" id="timer-holder">
+                <div class="col l6 m6 s6 pull-s2" id="timer-holder">
                     <!--- Time remaining -->
                     <span class="right timer-text">Time remaining</span>
                     <countdown-timer time="timeLeft" newbid="newBid" product="product" clear="showDiv"></countdown-timer>
@@ -92,15 +91,15 @@
 
             <div class="row" style="margin-bottom: 0">
                 <div class="col l12 s12 m12">
-                    <div class="grey darken-3 white-text alert-area timeout" ng-if="showDiv">
+                    <div class="grey darken-3 white-text alert-area timeout" ng-show="showDiv">
                         Auction has ended! NOTE: If you're the winner make sure to checkout and pay within 24 hours. If you don't your account will be closed! It can take up to 5 min before your order appears in the basket.
                     </div>
 
-                    <div class="red lighten-1 white-text alert-area newbid" ng-if="newBid">
+                    <div class="red lighten-1 white-text alert-area newbid" ng-show="newBid">
                         New bid on product. New product price {{product.price | currency: '฿'}}
                     </div>
 
-                    <div class="blue-grey lighten-1 white-text alert-area autobid" ng-if="autoBid">
+                    <div class="blue-grey lighten-1 white-text alert-area autobid" ng-show="autoBid">
                         You are the top bidder till somebody beats you with {{bidPrice}}. Now the auto system will play for you till 200.
                     </div>
                 </div>
@@ -109,12 +108,12 @@
 
             <div class="divider"></div>
 
-            <div class="row">
-                <p class="description-text grey-text">Bidding Info</p>
-                <div class="col l6 m6 s12 bid-info">
+            <div class="row" style="margin-bottom: 0">
+                <p class="details-header grey-text">Bidding Info</p>
+                <div class="col l6 m6 s6 bid-info">
 
                     <div class="col s12">
-                        <p class="description-text green-text">Pricing</p>
+                        <p class="details-header green-text">Pricing</p>
                     </div>
 
                     <div class="col s12" style="padding: 0 0; display: flex">
@@ -132,21 +131,55 @@
                     </div>
                 </div>
 
-                <div class="col l6 m6 s12">
-                    <p class="description-text blue-text">Bids</p>
-                    <p style="font-size: 19px; opacity: 0.75"><i class="material-icons blue-text left" style="font-size: 30px">stars</i> Current Winner - John Smith {{product.price + 10 | currency : '฿'}}</p>
+                <div class="col l6 m6 s6">
+                    <p class="description-text blue-text">Bids <span><a href="" ng-click="bidHistory()" style="font-size: 11px; font-weight: 400; margin-left: 15px">See bid history</a></span></p>
+                    <p class="bid-winner">
+                        <i class="material-icons blue-text left">stars</i> Current Winner <br>
+                        <div>
+                            John Smith {{product.price + 10 | currency : '฿'}}
+                        </div>
+                    </p>
                 </div>
 
             </div>
 
             <div class="row">
-                <p class="description-text grey-text">Product Details</p>
+                <p class="details-header grey-text">Product Details</p>
 
-                <div class="col s12">
-                    <div class="row">
-                        <form>
-                            <div class="col l6 m6 s12 prod-info" style="padding: 0">
-                                <span class="description-text blue-text">Color</span><br>
+                <div class="col s12" style="padding: 0 2px;">
+                    <div class="row" style="margin-bottom: 0; padding: 0">
+
+
+                        <form class="col s12 hide-on-med-and-up" style="padding: 0">
+                            <div class="col s12" style="padding: 0">
+                                <div class="input-field col s6">
+                                    <select>
+                                        <option value="" disabled selected>Color
+                                            
+                                        </option>
+                                        <option value="red">Red</option>
+                                        <option value="yellow">Yellow</option>
+                                        <option value="green">Green</option>
+                                        <option value="blue">Blue</option>                                        
+                                    </select>
+                                    <label>Color</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <select>
+                                        <option value="" disabled selected>Size</option>
+                                        <option value="s">S</option>
+                                        <option value="M">M</option>
+                                        <option value="X">X</option>
+                                        <option value="xl">XL</option>                                        
+                                    </select>
+                                    <label>Size</label>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form class="hide-on-small-and-down">
+                            <div class="col l6 m6 s12 prod-info">
+                                <span class="details-header blue-text">Color</span><br>
                                 <p class="input-field inline">
                                     <input name="group1" type="radio" id="red" ng-click="clicked = 1" />
                                     <label for="red" ng-class="{'red-text': clicked === 1}">Red</label>
@@ -192,17 +225,17 @@
                         </form>
 
 
-                        <div class="col l6 m6 s12">
-                            <p class="description-text grey-text">Place Bid</p>
+                        <div class="col l6 m6 s12" style="padding: 0 0 0 10px;">
+                            <p class="details-header grey-text">Place Bid</p>
 
-                            <form class="col s12" ng-submit="addToCart(product)">
-                                <div class="row">
-                                    <div class="input-field col l8 m8 s12 push-l1 push-m1">
+                            <form class="col s12" ng-submit="addToCart(product)" style="padding: 0">
+                                <div class="row" style="margin-bottom: 0">
+                                    <div class="input-field col l8 m8 s10 push-l1 push-m1">
                                         <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px;" class="teal-text">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
-                                    <div class="input-field col l2 m2 s12 push-l1 push-m1">
-                                        <button class="btn btn-floating waves-effect teal btn-large tooltipped" data-position="top" data-delay="50" data-tooltip="Place bid"><i class="material-icons left">gavel</i>
+                                    <div class="input-field col l2 m2 s2 push-l1 push-m1">
+                                        <button class="btn btn-floating waves-effect teal tooltipped" data-position="top" data-delay="50" data-tooltip="Place bid"><i class="material-icons left">gavel</i>
                                         </button>
                                     </div>
                                 </div>
@@ -214,14 +247,14 @@
                 <div class="divider"></div>
             </div>
 
-            <div class="row" id="prod-info">
+            <div class="row" id="prod-info" style="margin-bottom: 0">
                 <detail-tabs bids="bids"></detail-tabs>
             </div>
         </div>
     </div>
 </div>
-<div class="divider"></div>
-<div class="row" style="position: relative;" ng-init="slideLeft = true">
+<div class="divider" id="below" ng-hide="loading"></div>
+<div class="row" style="position: relative;" ng-init="slideLeft = true" ng-hide="loading">
 
     <button class="btn-floating btn-large waves-effect white left hide-on-med-and-down" ng-disabled="slideLeft" ng-click="slideRight = false; slideLeft = true;" style="position: absolute; top: 45%; left: 2px;"><i
             class="material-icons black-text">chevron_left</i></button>

@@ -6,7 +6,7 @@
 
     var app = angular.module('thai');
 
-    app.controller('navCtrl', function($scope, $location, $rootScope) {
+    app.controller('navCtrl', function($scope, $location, $rootScope, $filter, products) {
 
         $scope.searching = function() {
             $scope.search = true
@@ -29,13 +29,15 @@
 
         $rootScope.inCart = false;
 
+        $rootScope.template = 'auctions'
+
         $rootScope.$watch('cart', function(newValue, oldValue, scope) {
             $scope.itemsInCart = newValue;
         }, true)
 
         $scope.removeFromCart = function(index) {
             $scope.itemsInCart.splice(index, 1)
-            Materialize.toast('Item removed from cart', 3000, 'red lighten-2')
+            Materialize.toast('Item removed from cart', 2000, 'red lighten-2')
         }
 
         $scope.checkout = function() {
@@ -51,9 +53,23 @@
             $location.url('/category' + url)
         };
 
+        var filter = $filter('filter')
+
+
+        $scope.showResults = function() {
+            $scope.loading = true;
+            products.get().then(function(data) {
+                var products = data.data;
+                $scope.suggestions = products.slice(0, 10);
+                var results = filter(products, $scope.searchWord)
+                $scope.results = results;
+                $scope.loading = false;
+            })
+        }
+
         $rootScope.loggedIn = false;
 
-        $scope.username = "";
+        $rootScope.username = "";
 
 
         $(document).ready(function() {

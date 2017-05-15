@@ -1,54 +1,75 @@
+<div class="separator hide-on-med-only"></div>
 <div class="teal lighten-3 waterfall" style="background: url('image/header-bg.png'); padding: 25px 15px; text-align: center">
     <h3 class="white-text waterfall-header"><span style="text-transform: capitalize">{{category}}</span> Category</h3>
 </div>
 
 <div class="row">
-    <div class="col l10 m12 s12 push-l2" style="margin-top: 15px">
+    <div class="col l10 m12 s12 push-l2" style="margin-top: 15px" id="cat-list">
         <div style="min-height: 400px">
-            <div class="preloader-wrapper active loader" ng-if="loading">
-                <div class="spinner-layer spinner-teal-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
+            <div ng-show="!dataLoading">
+                <div class="hide-on-med-and-up">
+                    <div style="float: left; width: 50%">
+                        <ul class="dropdown-content" id="filter">
+                            <li><a class="black-text">Latest</a></li>
+                            <li><a class="black-text">Old</a></li>
+                            <li><a class="black-text">New</a></li>
+                        </ul>
+                        <a class="dropdown-button btn-flat waves-effect waves-teal" data-activates="filter" href="javascript:void(0)" style="font-size: 16px; font-weight: 600">
+                            <i class="material-icons left">filter_list</i> Filter <i class="material-icons right" style="font-size: 29px">arrow_drop_down</i>
+                        </a>
                     </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
+                    <div style="float: right; width: 50%">
+                        <ul class="dropdown-content" id="amounts">
+                            <li><a class="black-text">฿100 - ฿200</a></li>
+                            <li><a class="black-text">฿300 - ฿400</a></li>
+                            <li><a class="black-text">฿400 - ฿500</a></li>
+                            <li><a class="black-text">฿500 over</a></li>
+                        </ul>
+                        <a class="dropdown-button btn-flat waves-effect waves-teal" data-activates="amounts" href="javascript:void(0)" style="font-size: 16px; font-weight: 600">
+                            <i class="material-icons left">attach_money</i> Range <i class="material-icons right" style="font-size: 29px;">arrow_drop_down</i>
+                        </a>
                     </div>
                 </div>
-            </div>
+                <product-list products="products" columns="3" limit="limit"></product-list>
+                <product-list products="products" columns="3" limit="limit"></product-list>
+                <div class="preloader-wrapper active" style="left: 50%" ng-if="loading">
+                    <div class="spinner-layer spinner-teal-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
 
-            <div ng-show="!loading">
-                <product-list products="products" columns="3" limit="limit"></product-list>
-                <product-list products="products" columns="3" limit="limit"></product-list>
             </div>
         </div>
 
-        <div class="row" ng-show="!loading">
-            <div class="col l8 m12 s12">
-                <ul class="pagination center-align right">
-                    <li class="waves-effect pag"><a href="#!"><i
-							class="material-icons">chevron_left</i></a></li>
-                    <li class="teal pag"><a href="#!" class="white-text">1</a></li>
-                    <li class="waves-effect pag"><a href="#!">2</a></li>
-                    <li class="waves-effect pag"><a href="#!">3</a></li>
-                    <li class="waves-effect pag"><a href="#!">4</a></li>
-                    <li class="waves-effect pag"><a href="#!">...</a></li>
-                    <li class="waves-effect pag"><a href="#!"><i
-							class="material-icons">chevron_right</i></a></li>
-                </ul>
-
+        <div class="preloader-wrapper loader" ng-class="{active : dataLoading}">
+            <div class="spinner-layer spinner-teal-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
         </div>
 
     </div>
 
     <div class="col l2 m12 s12 pull-l10">
-        <all-categories active="category" class="category hide-on-small-and-down"></all-categories>
+        <all-categories active="category" class="category hide-on-med-and-down"></all-categories>
 
         <div>
-            <ul class="collection with-header">
+            <ul class="collection with-header hide-on-med-and-down">
                 <li class="collection-header" style="background-color: #EEEEEE; padding: 5px 10px; border-bottom: none">
                     <p class="teal-text text-darken-2">
                         Advanced Search <i class="material-icons waves-effect waves-light right">filter_list</i>
@@ -56,7 +77,7 @@
                 </li>
                 <li class="collection-item">
                     <p class="input-field inline">
-                        <input name="grp3" type="checkbox" id="new" ng-click="limit = 4" /> <label for="new" class="black-text">New Product</label>
+                        <input name="grp3" type="checkbox" id="new" ng-click="limit = 4" /> <label for="new" class="black-text"> New Product</label>
                     </p>
                 </li>
                 <li class="collection-item">

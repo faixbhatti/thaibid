@@ -9,6 +9,8 @@
         function get() {
             products.get().then(function(data) {
                 $scope.products = data.data;
+                $scope.deals = $scope.products.slice(0, 8)
+                $scope.rest = $scope.products.slice(8)
                 $scope.dataLoading = false;
             })
         }
@@ -75,14 +77,11 @@
             }
         ]
 
-
         $rootScope.showNav = true;
 
         $scope.loading = false;
         $scope.food = 'beans'
         var loading = false;
-
-
 
         $scope.loadMore = function(e) {
             var scroll = window.scrollY,
@@ -98,42 +97,81 @@
                     prod.click()
 
                     setTimeout(() => {
-                        $scope.products.push(...extras)
+                        $scope.rest.push(...extras)
                         $scope.loading = false;
                         prod.click()
-                    }, 3000)
+                    }, 2000)
                 }
 
             }
 
         }
 
-
-        // function pinElement() {
-        //     var products = document.querySelector('#prod-list'),
-        //         categories = document.querySelector('.home'),
-        //         header = document.querySelector('#header'),
-        //         offset = header.offsetHeight + 50,
-        //         bottom = products.clientHeight - 60;
-
-
-        //     $(categories).pushpin({
-        //         top: $('.home').offset().top,
-        //         offset: offset,
-        //         bottom: bottom - offset,
-        //     });
-
-        //     docLoaded = true;
+        // function removeClasses() {
+        //     var categories = document.querySelector('.home');
+        //     categories.classList.remove('pin')
+        //     categories.classList.remove('topped')
+        //     categories.classList.remove('under')
         // }
 
+        // function pin() {
+        //     var categories = document.querySelector('.home'),
+        //         scroll = window.scrollY,
+        //         documentHeight = document.body.clientHeight,
+        //         windowHeight = window.innerHeight,
+        //         header = document.querySelector('#header'),
+        //         bottom = (documentHeight - windowHeight) * 0.80,
+        //         head = header.offsetHeight + 60;
+
+        //     if (scroll > categories.offsetTop && !categories.classList.contains('pin')) {
+        //         removeClasses()
+        //         categories.classList.add('pin')
+        //     }
+        //     if (scroll < categories.offsetTop && !categories.classList.contains('topped')) {
+        //         removeClasses()
+        //         categories.classList.add('topped')
+        //     }
+
+        //     if (scroll >= bottom && !categories.classList.contains('under')) {
+        //         removeClasses()
+        //         categories.classList.add('under')
+        //         categories.style.top = `${bottom - 1000}px`;
+        //     }
+        // }
+
+
+
+
+
+
+        function pinElement() {
+            var products = document.querySelector('#prod-list'),
+                categories = document.querySelector('.home'),
+                header = document.querySelector('#header'),
+                offset = 64 + 50,
+                bottom = products.clientHeight + products.offsetTop - window.innerHeight + offset;
+            console.log(bottom)
+
+
+            $(categories).pushpin({
+                top: $('.home').offset().top,
+                offset: offset
+            });
+        }
+
+        $('.slider').slider();
 
         document.addEventListener('scroll', $scope.loadMore)
 
         $(document).ready(function() {
 
-            // pinElement()
+            pinElement()
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
+
+            $('.carousel.carousel-slider').carousel({ fullWidth: true });
+
+
 
         })
     })

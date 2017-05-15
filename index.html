@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <!--<base href="/">-->
+    <meta name="theme-color" content="teal">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
@@ -70,16 +71,16 @@
                             <li><a class="waves-effect nav-item" ng-click="searching()"><i class="material-icons left">search</i></a>
                             </li>
                             <li>
-                                <a href="" class="dropdown-button waves-effect nav-item" data-activates="cart" data-constrainwidth="false" dropdown data-beloworigin="true" data-alignment='right' data-hover="true">
+                                <a href="" class="dropdown-button waves-effect nav-item" data-activates="cart" data-constrainwidth="false" data-beloworigin="true" data-alignment='right' data-hover="true">
                                     <p class="cart-badge teal-text" ng-show="itemsInCart.length">{{itemsInCart.length}}</p><i class="material-icons left">shopping_cart</i>My Cart </a>
                             </li>
 
-                            <li><a href="javascript:void(0)" class="dropdown-button waves-effect nav-item" data-activates="languages" dropdown data-hover="true"><i
+                            <li><a href="javascript:void(0)" class="dropdown-button waves-effect nav-item" data-activates="languages" data-hover="true"><i
                                 class="material-icons right">arrow_drop_down</i><span class="flag-icon flag-icon-gb"
                                                                                       style="margin-top: 15px;"></span>
                         </a></li>
                             <li ng-show="loggedIn">
-                                <a href="#" class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" dropdown data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
+                                <a href="#" class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
                                     <i class="material-icons right">arrow_drop_down</i>
                                 </a>
                             </li>
@@ -125,6 +126,20 @@
                             class="material-icons left icons">build</i>Tools</a></li>
                     </ul>
 
+                    <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-up">
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
+                            class="material-icons icons">accessibility</i>Men</a></li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
+                            class="material-icons icons">pregnant_woman</i>Ladies</a>
+                        </li>
+                        <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a href="" class=""><i class="material-icons icons">child_friendly</i>Kids/Toys</a>
+
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
+                            class="material-icons icons">build</i>Tools</a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons icons">timer</i>Ending</a></li>
+
+                    </ul>
+
                 </div>
             </nav>
 
@@ -132,7 +147,7 @@
                 <div class="nav-wrapper">
                     <form>
                         <div class="input-field">
-                            <input id="search" type="search" required>
+                            <input id="search" type="search" ng-model="searchWord" ng-change="showResults()" required>
                             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                             <i class="material-icons waves-effect" ng-click="search = !search">close</i>
                         </div>
@@ -142,22 +157,109 @@
 
         </div>
     </header>
-    <main ng-click="search=false">
+    <main ng-click="search=false" ng-hide="search">
 
         <div ng-include="sideNav"></div>
         <div ng-include="sideCart"></div>
 
-        <login-register username="username" loggedin="loggedIn"></login-register>
+        <login-register username="username"></login-register>
 
         <ng-view></ng-view>
 
         <guarantees show="showNav"></guarantees>
 
         <button class="btn btn-floating btn-large teal lighten-3 hide-on-large-only tooltipped" ng-hide="loggedIn" data-target="login-modal" data-delay="50" data-position="top" data-tooltip="Login" style="position: fixed; right: 15px; bottom: 15px"><i class="material-icons">exit_to_app</i></button>
-        <button class="btn btn-floating btn-large teal hide-on-large-only cart-button" data-activates="sideCart" ng-hide="!loggedIn || inCart" style="position: fixed; right: 15px; bottom: 15px"><i class="material-icons">shopping_cart</i></button>
+        <button class="btn btn-floating btn-large teal hide-on-large-only cart-button animated" data-activates="sideCart" ng-hide="!loggedIn || inCart" style="position: fixed; right: 15px; bottom: 15px">
+            <i class="material-icons">shopping_cart</i>
+            <span class="cart-quantity" ng-if="itemsInCart.length">{{itemsInCart.length}}</span>    
+        </button>
+        <div ng-include="footer"></div>
+    </main>
+    <main ng-show="search" style="height: 92%">
+        <div class="preloader-wrapper loader" ng-class="{active: loading}">
+            <div class="spinner-layer spinner-teal-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col l2 m2 s12" ng-hide="searchWord.length > 0 && results.length === 0" ng-if="searchWord">
+                <div>
+                    <ul class="collection with-header hide-on-med-and-down">
+                        <li class="collection-header" style="background-color: #EEEEEE; padding: 5px 10px; border-bottom: none">
+                            <p class="teal-text text-darken-2">
+                                Advanced Search <i class="material-icons waves-effect waves-light right">filter_list</i>
+                            </p>
+                        </li>
+                        <li class="collection-item">
+                            <p class="input-field inline">
+                                <input name="grp3" type="checkbox" id="new" ng-click="limit = 4" /> <label for="new" class="black-text"> New Product</label>
+                            </p>
+                        </li>
+                        <li class="collection-item">
+                            <p class="input-field inline">
+                                <input name="grp2" type="checkbox" id="use" ng-click="limit = 2" ng-checked="clicked" /> <label for="use" class="black-text">Products Used</label>
+                            </p>
+                        </li>
+                        <li class="collection-item">
+                            <p class="input-field inline">
+                                <input name="group1" type="checkbox" id="dis" ng-click="limit = 3" ng-checked="clicked" /> <label for="dis" class="black-text">Discount shipping</label>
+                            </p>
+                        </li>
+                        <li class="collection-item">
+                            <p class="input-field inline">
+                                <input name="grp4" type="checkbox" id="ship" ng-click="limit = 1" ng-checked="clicked" /> <label for="ship" class="black-text">Shipping</label>
+                            </p>
+                        </li>
+                        <li class="collection-item">
+                            <p class="input-field inline">
+                                <input name="group1" type="checkbox" id="sale" ng-click="limit = 5; clicked=true" ng-checked="clicked" /> <label for="sale" class="black-text">Wholesale</label>
+                            </p>
+                        </li>
+                        <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>
+                        <li class="collection-item" style="padding: 20px">
+                            <div id="uiSlider" ng-model="price" style="margin: 15px"></div>
+
+                            <span class="right-aligned black-text" style="font-size: 14px; font-weight: 500; opacity: 0.75">{{right
+						| currency:'฿'}}</span> - <span class="right-aligned black-text" style="font-size: 14px; font-weight: 500; opacity: 0.75">{{left
+						| currency:'฿'}}</span></li>
+                        <li class="collection-item">
+                            <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
+						<i class="material-icons">thumb_up</i>
+					</button>
+                            <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="clicked=false">
+						<i class="material-icons">delete_forever</i>
+					</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col l10 m10 s12" ng-hide="searchWord.length > 0 && results.length === 0">
+                <p ng-show="searchWord && results.length > 0">Showing {{results.length}} results for <span class="teal-text">"{{searchWord}}"</span></p>
+                <product-list products="results" columns="3" ng-hide="!searchWord"></product-list>
+            </div>
+
+            <div class="col s12" ng-show="searchWord.length > 0 && results.length === 0">
+                <div class="no-results">
+                    <h4>Nothing matches your search</h4>
+                    <i class="material-icons">sentiment_very_dissatisfied</i>
+                </div>
+                <div class="container">
+                    <div class="divider"></div>
+                    <p>Checkout these other products</p>
+                    <product-list products="suggestions" columns="2" class="suggestions"></product-list>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <div ng-include="footer"></div>
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -167,6 +269,7 @@
     <script src="materialize/extras/nouislider.js"></script>
     <script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
     <script src="bower_components/headroom.js/dist/headroom.js"></script>
+    <script src="bower_components/angular-currency-name/src/angular-currency-name.js"></script>
     <script src="bower_components/moment/min/moment.min.js"></script>
     <script src="bower_components/moment/min/locales.min.js"></script>
     <script src="bower_components/humanize-duration/humanize-duration.js"></script>
@@ -177,13 +280,22 @@
     <script src="angular-progressbar/dist/angular-progressbar.js"></script>
     <script src="bower_components/headroom.js/dist/jQuery.headroom.js"></script>
     <script src="materialize/js/materialize.js"></script>
-    <script src="bower_components\angular-materialize\src\angular-materialize.js"></script>
     <script src="app/app.js"></script>
     <script src="app/config/app.config.js"></script>
+
+    <!----               Controllers               ---->
     <script src="app/home/nav.controller.js"></script>
     <script src="app/home/home-controller.js"></script>
-    <script src="app/categories/categories.component.js"></script>
+    <!----               End Controllers           ---->
+
+    <!----             App services              ---->
+    <script src="app/product-detail/detail-services.js"></script>
     <script src="app/products/product-service.js"></script>
+    <script src="app/checkout/checkout-service.js"></script>
+    <!----              End App Services           ---->
+
+    <!----              App Components               ---->
+    <script src="app/categories/categories.component.js"></script>
     <script src="app/products/product.component.js"></script>
     <script src="app/assurances/assurance.component.js"></script>
     <script src="app/product-category/product-category.component.js"></script>
@@ -198,6 +310,8 @@
     <script src="app/terms-and-conditions/terms.component.js"></script>
     <script src="app/privacy-policy/privacy.component.js"></script>
     <script src="app/about-us/about.component.js"></script>
+    <!----            End App Components               ---->
+
     <script src="script.js"></script>
 </body>
 
