@@ -6,13 +6,26 @@
 
     var app = angular.module('thai');
 
-    app.controller('navCtrl', function($scope, $location, $rootScope, $filter, products) {
+    app.controller('navCtrl', function($scope, $location, $rootScope, $filter, products, deleteModal) {
 
         $scope.searching = function() {
-            $scope.search = true
-            setTimeout(function() {
-                $('#search').focus()
-            }, 200)
+            if (!$scope.search) {
+                setTimeout(function() {
+                    $('#search').focus()
+                }, 200)
+            }
+            $scope.searchWord = ''
+            $scope.results = []
+            $scope.search = !$scope.search
+        }
+
+        $scope.goToCart = function() {
+            if ($rootScope.loggedIn) {
+                $rootScope.template = 'cart';
+                $location.url('/user/' + $rootScope.username);
+            } else {
+                Materialize.toast('Please login before you continue', 1000)
+            }
         }
 
         $scope.getTotal = function() {
@@ -22,22 +35,19 @@
         }
 
         $rootScope.showNav = true;
-
         $rootScope.previousPage = "/home"
-
         $rootScope.cart = []
-
         $rootScope.inCart = false;
-
+        $rootScope.inDetail = false;
         $rootScope.template = 'auctions'
 
         $rootScope.$watch('cart', function(newValue, oldValue, scope) {
             $scope.itemsInCart = newValue;
         }, true)
 
-        $scope.removeFromCart = function(index) {
-            $scope.itemsInCart.splice(index, 1)
-            Materialize.toast('Item removed from cart', 2000, 'red lighten-2')
+        $scope.removeFromCart = function(index, list) {
+            $('.cart-button').sideNav('hide');
+            deleteModal.open(index, list)
         }
 
         $scope.checkout = function() {
@@ -55,7 +65,6 @@
 
         var filter = $filter('filter')
 
-
         $scope.showResults = function() {
             $scope.loading = true;
             products.get().then(function(data) {
@@ -70,6 +79,7 @@
         $rootScope.loggedIn = false;
 
         $rootScope.username = "";
+
 
 
         $(document).ready(function() {

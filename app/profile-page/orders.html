@@ -12,9 +12,32 @@
 
         <div class="divider"></div>
 
-        <div style="display: flex; flex-direction: column; height: 400px; justify-content: center; text-align: center">
-            <i class="material-icons medium green-steel-text">assignment</i>
-            <p style="font-size: 14px">No orders</p>
+        <div>
+            <!--<i class="material-icons medium green-steel-text">assignment</i>
+            <p style="font-size: 14px">No orders</p>-->
+            <table class="striped bordered order-table">
+                <thead>
+                    <tr>
+                        <th class="table-header truncate" style="text-align: unset">Product Name</th>
+                        <th class="table-header hide-on-small-and-down" style="text-align: unset">Quantity</th>
+                        <th class="table-header hide-on-small-and-down" style="text-align: unset">Bid Amount</th>
+                        <th class="table-header" style="text-align: unset">Price</th>
+                        <th class="table-header" style="text-align: unset">Sub Total</th>
+                        <th class="table-header" style="text-align: unset">Invoice</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="order in orders">
+                        <td class="table-text reduce-text">{{order.name}}</td>
+                        <td class="table-text reduce-text hide-on-small-and-down">{{order.quantity}}</td>
+                        <td class="table-text reduce-text hide-on-small-and-down">{{order.price + 15 | currencyName : 'baht'}}</td>
+                        <td class="table-text reduce-text">{{order.price | currencyName : 'baht'}}</td>
+                        <td class="table-text reduce-text">{{(order.price + 15) * order.quantity | currencyName: 'baht'}}</td>
+                        <td class="table-text reduce-text"><a href="javascript:void(0)" ng-click="showInvoice(order)">#{{order.invoice}} </a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

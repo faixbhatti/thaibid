@@ -1,11 +1,11 @@
 <div class="col s12" style="padding: 0 0">
     <ul class="tabs tabs-fixed-width teal tabs-transparent">
-        <li class="tab"><a href="#bids" class="tab-link">Bids</a></li>
-        <li class="tab"><a href="#detail" class="tab-link">Detail</a></li>
-        <li class="tab"><a href="#description" class="tab-link">Description</a></li>
+        <li class="tab"><a href="#prod-bids" class="tab-link">Bids</a></li>
+        <li class="tab"><a href="#prod-detail" class="tab-link">Detail</a></li>
+        <li class="tab"><a href="#prod-reviews" class="tab-link">Reviews</a></li>
     </ul>
 
-    <div id="detail" class="col s12" style="min-height: 222px; padding: 10px">
+    <div id="prod-detail" class="col s12" style="min-height: 222px; padding: 10px">
         <div class="row" style="margin-bottom: 0">
             <div class="col l6 m6 s6">
                 <p class="description-text modal-headers">Product Details</p>
@@ -20,14 +20,48 @@
                 <p class="link-text reduce-text">- Material : Polyester 80% and Cotton 20%</p>
             </div>
         </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <div class="col s12">
+                <p class="description-text modal-headers">Product Description</p>
+                <p class="link-text reduce-text">
+                    Specially designed for women, this slimming belt compliments your figure and enhances body curves. It gives you confidence in every movement. A can't miss item!
+                </p>
+            </div>
+        </div>
     </div>
-    <div id="description" class="col s12 white" style="min-height: 222px">
-        <p class="description-text">Product Description</p>
-        <p class="link-text">
-            Specially designed for women, this slimming belt compliments your figure and enhances body curves. It gives you confidence in every movement. A can't miss item!
-        </p>
+    <div id="prod-reviews" class="col s12 white" style="min-height: 222px">
+        <ul class="collection">
+            <li class="collection-item avatar item with-avatar" ng-repeat="review in $ctrl.reviews" style="padding-left: 57px; opacity: 1">
+                <img src="{{review.image}}" alt="review" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
+                <span class="black-text" style="font-size: 16px; opacity: 0.7"> <span style="font-size: 15px; font-weight: 700">{{review.user}} </span> <span style="margin-left: 10px"><i class="material-icons teal-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val <= review.stars">star</i><i class="material-icons grey-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val > review.stars">star</i></span>                </span>
+                <blockquote style="border-left: 2px solid teal; padding-left: 0.6rem; margin: 2px 0"><span style="opacity: 0.5; font-size: 12px">{{review.date | date}}</span></blockquote>
+                <p class="item-subtitle grey-text" style="font-size: 15px; opacity: 0.8">
+                    {{review.text}}
+                </p>
+            </li>
+        </ul>
+        <div class="row">
+            <form class="col s12" ng-submit="$ctrl.addreview()">
+                <h4 ng-if="!$ctrl.loggedIn">To add a review you need to be <span class="blue-text" ng-click="$ctrl.logIn()">LOGGED IN</span></h4>
+                <div ng-show="$ctrl.loggedIn">
+                    <p class="teal-text">Add a review</p>
+                    <div class="row">
+                        <p style="margin: 10px 5px">How do you rate this product?</p>
+                        <p style="margin: 10px 5px"><i class="material-icons left grey-text stars" ng-repeat="num in [1,2,3,4,5]" style="margin:0 2px" data-value="{{num}}">star</i></p>
+                        <div class="input-field col s12" id="text-area">
+                            <textarea id="addreview" class="materialize-textarea" rows="2" ng-model="$ctrl.review.text" required></textarea>
+                            <label for="addreview">Add review</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect teal review-button" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div id="bids" class="col s12 white" style="min-height: 222px">
+    <div id="prod-bids" class="col s12 white" style="min-height: 222px">
         <bid-table bids="$ctrl.bids"></bid-table>
     </div>
 </div>

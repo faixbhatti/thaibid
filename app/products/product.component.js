@@ -33,6 +33,17 @@
                 $scope.$broadcast('timer-start');
             };
 
+            $scope.$on('timer-tick', function(event, args) {
+                if (args.millis <= 10000) {
+                    if (!$('.prod-timer').hasClass('red-text')) {
+                        $('.prod-timer').addClass('red-text');
+                    }
+                } else {
+                    if ($('.prod-timer').hasClass('red-text')) {
+                        $('.prod-timer').removeClass('red-text');
+                    }
+                }
+            })
         }
     })
 })()

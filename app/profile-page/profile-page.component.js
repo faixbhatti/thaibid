@@ -12,6 +12,8 @@
             $scope.name = $routeParams.name;
 
             $rootScope.showNav = true;
+            $rootScope.inDetail = false;
+            $scope.item = ''
 
             $scope.templates = {
                 "editProfile": "app/profile-page/edit-profile.html",
@@ -29,11 +31,9 @@
                     $location.hash('user-info');
                     $anchorScroll();
                 }
-
             }
 
             goToInfo()
-
 
             $scope.currentInfo = '';
 
@@ -91,6 +91,46 @@
                     "won": true
                 }
             ];
+
+            $scope.checkout = function() {
+                $rootScope.cart = $scope.auctions;
+                $location.url('/checkout');
+            }
+
+            $scope.showInvoice = function(item) {
+                $scope.item = item;
+                $('#invoice-modal').modal('open')
+            }
+
+            $scope.orders = [{
+                    "id": 6,
+                    "name": "What a view",
+                    "price": 40.14,
+                    "quantity": 2,
+                    "image": "image/sky.jpg",
+                    "timer": "2017-03-25",
+                    "invoice": "BCEDND10"
+                },
+                {
+                    "id": 7,
+                    "name": "Classic All stars unisex sneakers",
+                    "price": 10.32,
+                    "quantity": 3,
+                    "image": "image/starz.jpg",
+                    "timer": "2017-03-24",
+                    "invoice": "ECSFD11"
+
+                },
+                {
+                    "id": 8,
+                    "name": "Ties Collection",
+                    "price": 20.34,
+                    "image": "image/men__ties.jpeg",
+                    "timer": "2017-03-24",
+                    "quantity": 1,
+                    "invoice": "BCEDND12"
+                }
+            ]
 
             $scope.profImg = 'image/elliot.jpg'
 

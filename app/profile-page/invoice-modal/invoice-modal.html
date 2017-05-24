@@ -1,0 +1,72 @@
+<div class="modal" style="max-height: 80%" id="invoice-modal">
+
+    <div class="card-menu">
+        <i class="material-icons grey-text modal-close">close</i>
+    </div>
+
+    <div class="modal-content grey lighten-4">
+        <div class="invoice-container">
+            <div style="margin-bottom: 30px">
+                <div class="invoice-left teal">
+                    <img src="image/BidXelSVG.svg" alt="" width="90%">
+                </div>
+                <div class="invoice-right">
+                    <p> {{$ctrl.item.timer | date}}</p>
+                    <p>Receipt #: {{ $ctrl.item.invoice}}</p>
+                </div>
+            </div>
+            <div>
+                <div class="invoice-left">
+                    <p style="font-size: 16px; font-weight: 500">Meadow Foods</p>
+                    <p> #81 Afaha Eket Road</p>
+                    <p> Subsmfkingtan district</p>
+                    <p>(+234)080838483</p>
+                </div>
+
+                <div class="invoice-right" id="customer-details">
+                    <p style="font-size: 16px; font-weight: 500">Bidxel Company</p>
+                    <p>84, Sumpantga road</p>
+                    <p> South district, Bangkok</p>
+                    <p>(+234)080838483</p>
+                </div>
+            </div>
+
+            <div class="" style="margin-top: 30px;">
+                <table class="striped" id="invoice-table">
+                    <thead>
+                        <tr>
+                            <th class="table-header">Item</th>
+                            <th class="table-header">Quantity</th>
+                            <th class="table-header">Unit price</th>
+                            <th class="table-header">SubTotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-text reduce-text">{{ $ctrl.item.name}}</td>
+                            <td class="table-text reduce-text">{{ $ctrl.item.quantity}}</td>
+                            <td class="table-text reduce-text"><span>{{ $ctrl.item.price | currencyName : 'baht'}}</span></td>
+                            <td class="table-text reduce-text"><span>{{ $ctrl.item.price * $ctrl.item.quantity | currencyName : 'baht'}}</span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="table-text reduce-text" style="font-size: 15px; font-weight: 500">Delivery</td>
+                            <td class="table-text reduce-text" style="font-weight: 500">{{30| currencyName : 'baht'}}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td class="table-text reduce-text" style="font-size: 15px; font-weight: 500">Total</td>
+                            <td class="table-text reduce-text" style="font-weight: 500">{{($ctrl.item.price * $ctrl.item.quantity) + 30 | currencyName : 'baht'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div style="text-align: center; margin: 15px 0 0 0">
+            <button class="btn teal">Print Invoice</button>
+        </div>
+    </div>
+</div>

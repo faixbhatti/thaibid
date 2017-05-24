@@ -16,6 +16,7 @@
                 $rootScope.inCart = false;
                 document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0
+                $rootScope.inDetail = false;
             };
         }
     });

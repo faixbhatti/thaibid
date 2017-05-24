@@ -69,9 +69,9 @@
         <all-categories active="category" class="category hide-on-med-and-down"></all-categories>
 
         <div>
-            <ul class="collection with-header hide-on-med-and-down">
-                <li class="collection-header" style="background-color: #EEEEEE; padding: 5px 10px; border-bottom: none">
-                    <p class="teal-text text-darken-2">
+            <ul class="collection with-header hide-on-med-and-down z-depth-1">
+                <li class="collection-header main-green" style="padding: 5px 10px; border-bottom: none">
+                    <p class="white-text">
                         Advanced Search <i class="material-icons waves-effect waves-light right">filter_list</i>
                     </p>
                 </li>
@@ -102,19 +102,14 @@
                 </li>
                 <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>
                 <li class="collection-item" style="padding: 20px">
-                    <div id="uiSlider" ng-model="price" style="margin: 15px"></div>
-
-                    <span class="right-aligned black-text" style="font-size: 14px; font-weight: 500; opacity: 0.75">{{right
-						| currency:'฿'}}</span> - <span class="right-aligned black-text" style="font-size: 14px; font-weight: 500; opacity: 0.75">{{left
-						| currency:'฿'}}</span></li>
-                <li class="collection-item">
-                    <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
+                    <li class="collection-item">
+                        <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
 						<i class="material-icons">thumb_up</i>
 					</button>
-                    <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="clicked=false">
+                        <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="clicked=false">
 						<i class="material-icons">delete_forever</i>
 					</button>
-                </li>
+                    </li>
 
             </ul>
 

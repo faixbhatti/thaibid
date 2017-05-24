@@ -20,7 +20,7 @@
                 $rootScope.username = ctrl.username;
                 $('.modal').modal('close')
                 setTimeout(function() {
-                    Materialize.toast(`Welcome back ${ctrl.username}`, 4000)
+                    Materialize.toast(`Welcome back ${ctrl.username}`, 1000)
                 }, 1000)
             }
 
@@ -29,7 +29,7 @@
                 $rootScope.username = ctrl.username;
                 $('.modal').modal('close')
                 setTimeout(function() {
-                    Materialize.toast(`Hello ${ctrl.username}!. Your new account has been created`, 4000)
+                    Materialize.toast(`Hello ${ctrl.username}!. Your new account has been created`, 1000)
                 }, 1000)
             }
 

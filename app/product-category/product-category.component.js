@@ -21,6 +21,8 @@
             }
             get()
 
+            $rootScope.inDetail = false;
+
             var extras = [{
                     "id": 21,
                     "name": "Classic beach wear",

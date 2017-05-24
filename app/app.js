@@ -4,6 +4,6 @@
 (function() {
     'use strict';
 
-    var app = angular.module('thai', ['timer', 'angularProgressbar', 'ngAnimate', 'angular-loading-bar', 'ngRoute', 'ngMdIcons', 'LocalForageModule', 'ngCurrencyName']);
+    var app = angular.module('thai', ['timer', 'ngAnimate', 'angular-loading-bar', 'ngRoute', 'ngMdIcons', 'ngCurrencyName']);
 
 })();

@@ -77,6 +77,8 @@
             }
         ]
 
+        $rootScope.inDetail = false;
+
         $rootScope.showNav = true;
 
         $scope.loading = false;
@@ -106,43 +108,6 @@
             }
 
         }
-
-        // function removeClasses() {
-        //     var categories = document.querySelector('.home');
-        //     categories.classList.remove('pin')
-        //     categories.classList.remove('topped')
-        //     categories.classList.remove('under')
-        // }
-
-        // function pin() {
-        //     var categories = document.querySelector('.home'),
-        //         scroll = window.scrollY,
-        //         documentHeight = document.body.clientHeight,
-        //         windowHeight = window.innerHeight,
-        //         header = document.querySelector('#header'),
-        //         bottom = (documentHeight - windowHeight) * 0.80,
-        //         head = header.offsetHeight + 60;
-
-        //     if (scroll > categories.offsetTop && !categories.classList.contains('pin')) {
-        //         removeClasses()
-        //         categories.classList.add('pin')
-        //     }
-        //     if (scroll < categories.offsetTop && !categories.classList.contains('topped')) {
-        //         removeClasses()
-        //         categories.classList.add('topped')
-        //     }
-
-        //     if (scroll >= bottom && !categories.classList.contains('under')) {
-        //         removeClasses()
-        //         categories.classList.add('under')
-        //         categories.style.top = `${bottom - 1000}px`;
-        //     }
-        // }
-
-
-
-
-
 
         function pinElement() {
             var products = document.querySelector('#prod-list'),

@@ -1,21 +1,23 @@
 <div class="separator hide-on-med-only"></div>
-<div style="margin-top: 2px; padding: 0 10px; min-height: 400px">
+<div style="margin-top: 2px; padding: 0 10px; min-height: 600px">
+    <div ng-if="loading">
 
-    <div class="preloader-wrapper active loader" ng-if="loading">
-        <div class="spinner-layer spinner-teal-only">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-                <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
+        <div class="preloader-wrapper active loader" style="top: 20%">
+            <div class="spinner-layer spinner-teal-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row" id="detail-container" ng-hide="loading">
+    <div class="row" id="detail-container" ng-show="!loading">
 
         <div class="col l5 m12 s12" style="padding: 0 0">
 
@@ -46,7 +48,7 @@
 
         </div>
 
-        <div class="col l7 m12 s12 white" id="dets" style="padding: 15px 15px">
+        <div class="col l7 m12 s12 white z-depth-1" id="dets" style="padding: 15px 15px">
             <div class="fixed-action-btn horizontal click-to-toggle right">
                 <a class="btn-floating grey">
                     <i class="material-icons">share</i>
@@ -132,7 +134,7 @@
                 </div>
 
                 <div class="col l6 m6 s6">
-                    <p class="description-text blue-text">Bids <span><a href="" ng-click="bidHistory()" style="font-size: 11px; font-weight: 400; margin-left: 15px">See bid history</a></span></p>
+                    <p class="description-text blue-text">Bids <span><a href="" ng-click="bidHistory()" style="font-size: 11px; font-weight: 400; margin-left: 15px">Bid history</a></span></p>
                     <p class="bid-winner">
                         <i class="material-icons blue-text left">stars</i> Current Winner <br>
                         <div>
@@ -180,44 +182,25 @@
                         <form class="hide-on-small-and-down">
                             <div class="col l6 m6 s12 prod-info">
                                 <span class="details-header blue-text">Color</span><br>
-                                <p class="input-field inline">
-                                    <input name="group1" type="radio" id="red" ng-click="clicked = 1" />
-                                    <label for="red" ng-class="{'red-text': clicked === 1}">Red</label>
-                                </p>
-                                <p class="input-field inline">
-                                    <input name="group1" type="radio" id="yellow" ng-click="clicked = 2" />
-                                    <label for="yellow" ng-class="{'yellow-text': clicked === 2}">Yellow</label>
-                                </p>
-                                <p class="input-field inline">
-                                    <input name="group1" type="radio" id="green" ng-click="clicked = 3" />
-                                    <label for="green" ng-class="{'green-text': clicked === 3}">Green</label>
-                                </p>
-                                <p class="input-field inline">
-                                    <input name="group1" type="radio" id="blue" ng-click="clicked = 4" />
-                                    <label for="blue" ng-class="{'blue-text': clicked === 4}">Blue</label>
-                                </p>
+                                <div class="colors">
+                                    <div class="red z-depth-1" ng-click="color = 'red'" ng-class="{'selected': color === 'red'}"></div>
+                                    <div class="green z-depth-1" ng-click="color = 'green'" ng-class="{'selected': color === 'green'}"></div>
+                                    <div class="blue z-depth-1" ng-click="color = 'blue'" ng-class="{'selected': color === 'blue'}"></div>
+                                    <div class="brown z-depth-1" ng-click="color = 'brown'" ng-class="{'selected': color === 'brown'}"></div>
+                                </div>
 
                                 <div class="row" style="margin-top: 15px">
-
                                     <form>
-                                        <div class="col s12" style="padding: 0 0" ng-init="selected = 0">
+                                        <div class="col s12" style="padding: 0 0" ng-init="selected = 1">
                                             <span class="description-text teal-text">Size</span><br>
-                                            <p class="input-field inline">
-                                                <input name="group2" type="checkbox" id="s" ng-checked="selected === 1" ng-click="selected = 1" />
-                                                <label for="s">S</label>
-                                            </p>
-                                            <p class="input-field inline">
-                                                <input name="group2" type="checkbox" id="m" ng-checked="selected === 2" ng-click="selected = 2" />
-                                                <label for="m">M</label>
-                                            </p>
-                                            <p class="input-field inline">
-                                                <input name="group2" type="checkbox" id="l" ng-checked="selected === 3" ng-click="selected = 3" />
-                                                <label for="l">L</label>
-                                            </p>
-                                            <p class="input-field inline">
-                                                <input name="group2" type="checkbox" id="xl" ng-checked="selected === 4" ng-click="selected = 4" />
-                                                <label for="xl">XL</label>
-                                            </p>
+                                            <div class="sizes">
+                                                <div ng-click="size = 'xs'" ng-class="{'selected': size === 'xs'}">xs</div>
+                                                <div ng-click="size = 's'" ng-class="{'selected': size === 's'}">s</div>
+                                                <div ng-click="size = 'm'" ng-class="{'selected': size === 'm'}">m</div>
+                                                <div ng-click="size = 'l'" ng-class="{'selected': size === 'l'}">l</div>
+                                                <div ng-click="size = 'xl'" ng-class="{'selected': size === 'xl'}">xl</div>
+                                                <div ng-click="size = 'xxl'" ng-class="{'selected': size === 'xxl'}">xxl</div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -231,11 +214,17 @@
                             <form class="col s12" ng-submit="addToCart(product)" style="padding: 0">
                                 <div class="row" style="margin-bottom: 0">
                                     <div class="input-field col l8 m8 s10 push-l1 push-m1">
-                                        <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px;" class="teal-text">
+                                        <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px; margin: 0" class="teal-text">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
-                                    <div class="input-field col l2 m2 s2 push-l1 push-m1">
-                                        <button class="btn btn-floating waves-effect teal tooltipped" data-position="top" data-delay="50" data-tooltip="Place bid"><i class="material-icons left">gavel</i>
+
+                                    <div class="input-field col s12 push-l1 push-m1">
+                                        <button class="btn waves-effect teal">Bid</button>
+                                        <button class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</button>
+                                        <button class="btn orange bid-button z-depth-3 orange hide-on-med-and-up" ng-show="loggedIn" ng-click="placeBid(product)" type="button">Bid now</button>
+                                        <button class="btn white alternative-cart-button z-depth-3 hide-on-med-and-up black-text" type="button" ng-hide="!loggedIn || hideCart" ng-click="showCart()">
+                                            Go to cart
+                                            <span>({{cart.length}})</span>
                                         </button>
                                     </div>
                                 </div>
@@ -253,7 +242,7 @@
         </div>
     </div>
 </div>
-<div class="divider" id="below" ng-hide="loading"></div>
+
 <div class="row" style="position: relative;" ng-init="slideLeft = true" ng-hide="loading">
 
     <button class="btn-floating btn-large waves-effect white left hide-on-med-and-down" ng-disabled="slideLeft" ng-click="slideRight = false; slideLeft = true;" style="position: absolute; top: 45%; left: 2px;"><i

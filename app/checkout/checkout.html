@@ -1,69 +1,70 @@
 <!--- Navbar ---->
-<nav class="grey lighten-5 checkout-nav">
-    <div class="nav-wrapper">
-        <div class="container">
-            <a href="" class="brand-logo checkout-brand center black-text">Checkout</a>
-            <ul id="nav-mobile" class="left checkout-li">
-                <li><a href="" ng-click="goBack()"><i class="material-icons teal-text" style="font-weight: 600; height: 50px; line-height: 50px;">arrow_back</i></a></li>
-            </ul>
-        </div>
+<div class="navbar-fixed">
+    <nav class="grey lighten-5 checkout-nav">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="" class="brand-logo checkout-brand center black-text">Checkout</a>
+                <ul id="nav-mobile" class="left checkout-li">
+                    <li><a href="" ng-click="goBack()"><i class="material-icons teal-text" style="font-weight: 600; height: 50px; line-height: 50px;">arrow_back</i></a></li>
+                </ul>
+            </div>
 
-    </div>
-</nav>
+        </div>
+    </nav>
+</div>
 <!---- Navbar Ends ---->
 
 <!--- Container ---->
 <div class="container" id="checkout-con">
     <div class="row">
-        <div class="col l6 m12 s12 push-l3" ng-hide="nextStep">
+        <div class="col l8 m12 s12 push-l2" ng-hide="nextStep" style="padding: 20px">
             <h5 class="teal-text center checkout-header"><i class="material-icons checkout teal white-text">shopping_cart</i> Cart</h5>
 
             <!--- Items In Cart ---->
-            <ul class="collection">
-                <li class="collection-item avatar item with-avatar row" ng-repeat="item in items" style="padding: 10px 7px; margin: 15px 0; opacity: 1">
+            <ul class="collection z-depth-1 white" style="margin-bottom: 40px; min-height: 200px;">
+                <li class="collection-item avatar item with-avatar row no-hover" ng-repeat="item in items" style="padding: 10px 7px; margin: 15px 0; opacity: 1;" ng-class="{'list-divider': !$last}">
                     <!--- Item Img -->
                     <div class="col l2 m2 s12 img-space">
-                        <img src="{{item.image}}" alt="{{item.name}}" class="list-circ responsive-img" style="width: 100% !important; height: auto !important">
+                        <img src="{{item.image}}" alt="{{item.name}}" class="list-circ responsive-img" style="width: 100% !important;">
                     </div>
                     <div class="col l10 m10 s12 details-space">
                         <!--- Item Name -->
-                        <span class="black-text" style="font-size: 16px">{{item.name}}</span>
+                        <span class="black-text" style="font-size: 17px; font-weight: 500; letter-spacing: 0; margin: 5px 0 0 0">{{item.name}}</span>
 
                         <p class="item-subtitle black-text" style="font-size: 14px">
 
                             <!--- Plus/Minus Buttons -->
                             <div>
-                                <div class="increment">
+                                <!--<div class="increment">
                                     <div class="negative waves-effect waves-teal teal-text z-depth-1-half" ng-click="decrement(item)" ng-class="{'not-allowed': item.quantity === 1}">-</div>
                                     <input value="1" name="" class="" ng-model="item.quantity">
                                     <div class="positive waves-effect waves-teal teal-text z-depth-1-half" ng-click="increment(item)" ng-class="{'not-allowed': item.quantity === 3}">+</div>
-                                </div>
+                                </div>-->
                             </div>
                             <!---- Ends Plus/Minus Buttons -->
-                            <div>
-                                Product options: Color - <span class="green-text">Green</span>, Size - <span class="grey-text">XL</span><br>
+                            <div style="margin: 2px; opacity: 0.5; font-size: 13px; font-weight: 500; letter-spacing: 0">
+                                Color - <span class="green-text" style="margin-right: 7px">Green</span> Size - <span class="grey-text">XL</span><br>
                             </div>
                             <p class="link-text amount-badge blue lighten-2">{{item.price * item.quantity | currency: '฿'}}</p>
 
                         </p>
-                        <a class="secondary-content" style="line-height: 83px">
-                            <p>
-                                <input type="checkbox" class="filled-in" ng-checked="all" />
-                                <label for=""></label>
-                            </p>
+
+                        <a class="secondary-content" style="top: 32px; cursor: pointer" ng-click="removeFromCart($index,items)">
+                            <i class="material-icons red-text lighten-1 white" style="border: 2px solid rgba(0, 0, 0, 0.1); font-size: 18px; border-radius: 50%; padding: 5px;">close</i>
                         </a>
                     </div>
                 </li>
                 <!--- End Items In Cart ---->
             </ul>
-            <div class="checkout-section" class="z-depth-4">
+            <div class="checkout-section z-depth-4">
                 <h4 class="total">Total: {{total | currency : '฿'}}</h4>
-                <button class="btn btn-flat green right lighten-3 waves-effect waves-green checkout-button" ng-click="checkout()">Checkout</button>
+                <button class="btn btn-flat green right lighten-1 waves-effect waves-green checkout-button" ng-click="checkout()">Checkout</button>
             </div>
         </div>
 
-        <div class="col l6 m12 s12 push-l3" ng-show="nextStep">
+        <div class="col l8 m12 s12 push-l2 z-depth-1 white" ng-show="nextStep" style="padding: 20px">
             <h5 class="blue-text center checkout-header"><i class="material-icons checkout blue white-text">local_shipping</i>Order</h5>
+            <div class="divider"></div>
             <div class="white" style="padding: 15px 0; border-radius: 2px;">
 
                 <!--- Delivery Options Stepper ---->
@@ -71,7 +72,7 @@
                     <div style="flex: 0 0 auto" ng-show="step === 0">
                         <span class="step-holder">
                         <i class="material-icons circle-icon green" ng-show="oneFinished">check</i>
-                        <span class="circle-icon blue" style="font-size: 12px;" ng-hide="oneFinished">1</span> <span style="padding-left: 8px">Billing Address</span>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">1</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
                         </span>
                     </div>
 
@@ -82,7 +83,7 @@
                     <div style="flex: 0 0 auto" ng-show="step === 1">
                         <span class="step-holder">
                         <i class="material-icons circle-icon green" ng-show="twoFinished">check</i>
-                        <span class="circle-icon blue" style="font-size: 12px;" ng-hide="twoFinished">2</span> <span style="padding-left: 8px">Delivery Options</span>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">2</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
                         </span>
                     </div>
 
@@ -93,7 +94,7 @@
                     <div style="flex: 0 0 auto" ng-show="step === 2">
                         <span class="step-holder">
                         <i class="material-icons circle-icon green" ng-show="finished">check</i>
-                        <span class="circle-icon blue" style="font-size: 12px;" ng-hide="finished">3</span> <span style="padding-left: 8px">Order Status</span>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="finished">3</span> <span ng-class="{'green-text: oneFinished', fair-grey: !oneFinished}" class="step-text">Order Status</span>
                         </span>
                     </div>
 

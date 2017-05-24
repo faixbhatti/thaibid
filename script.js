@@ -28,7 +28,7 @@
             menuWidth: 300, // Default is 300
             edge: 'right', // Choose the horizontal origin
             closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-            draggable: false // Choose whether you can drag to open on touch screens
+            draggable: true // Choose whether you can drag to open on touch screens
         })
 
         // $('.lang-button').dropdown()
@@ -47,4 +47,12 @@
     }
 
     $(document).ready(main)
+
+
 })()
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(function(reg) {
+        console.log('Service worker registered', reg)
+    })
+}

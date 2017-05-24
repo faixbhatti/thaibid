@@ -14,11 +14,11 @@
     });
 
 
-    function checkCtrl($scope, $rootScope, $http, $location, Location, Calculate) {
+    function checkCtrl($scope, $rootScope, $http, $location, Location, Calculate, deleteModal) {
 
         $scope.items = $rootScope.cart;
         $rootScope.inCart = true;
-
+        $scope.discounted = false;
 
         $scope.items.forEach(item => item.quantity = 1)
 
@@ -75,6 +75,8 @@
             'Icons/visa.png',
         ]
 
+        $rootScope.inDetail = false;
+
         // Select required payment option
         $scope.selectPayment = function(option) {
             $scope.paymentOption = option
@@ -86,6 +88,19 @@
 
         $scope.getSubDistrict = function(district) {
             Location.getSubDistricts(district)
+        }
+
+        $scope.getDiscount = function(couponCode) {
+            if (couponCode === $rootScope.username) {
+                Materialize.toast("You've received a 10% discount", 1000);
+                $scope.discounted = true;
+            } else {
+                Materialize.toast("Sorry that coupon code doesn't exist.", 1000);
+            }
+        }
+
+        $scope.removeFromCart = function(index, items) {
+            deleteModal.open(index, items)
         }
 
         $scope.finish = function() {
@@ -103,11 +118,11 @@
         $scope.previousPage = $rootScope.previousPage;
 
         $scope.increment = function(item) {
-            Calculate.increment(item)
+            Calculate.increment(item, $scope, $scope.items)
         }
 
         $scope.decrement = function(item) {
-            Calculate.decrement(item)
+            Calculate.decrement(item, $scope, $scope.items)
         }
 
 

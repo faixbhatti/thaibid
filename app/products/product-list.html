@@ -1,6 +1,6 @@
-<div class="col l{{$ctrl.columns}} m4 s6" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit" style="padding: 0 0.3rem">
+<div class="col l{{$ctrl.columns}} m4 s6" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit" style="padding: 0 0.3rem" ng-click="searching()">
 
-    <div class="card hoverable" style="height: 90%">
+    <div class="card product-shadow hoverable" style="height: 90%">
         <a href="#!/product/{{product.id}}">
             <div class="card-image">
                 <img placehold="{{product.image}}" src="image/header-bg.png" class="responsive-img" style="height: 70%" ng-if="product.image">
@@ -11,7 +11,7 @@
         <div class="card-content">
             <p class="card-title black-text truncate" style="font-size: 13px; font-weight: 700"> {{product.name}}</p>
             <span class="subheader grey-text text-darken-2 card-time-text">{{product.price | currency : '฿'}}
-            <timer class="right" countdown="$ctrl.time" interval="1000" finish-callback="$ctrl.restartTimer()">{{millis | date:'mm:ss'}}</timer>
+            <timer class="right prod-timer" countdown="$ctrl.time" interval="1000" finish-callback="$ctrl.restartTimer()">{{millis | date:'mm:ss'}}</timer>
             </span>
         </div>
     </div>

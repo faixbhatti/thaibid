@@ -14,6 +14,8 @@
             ctrl.onInit = function() {
                 $rootScope.previousPage = "/privacy";
                 $rootScope.inCart = false;
+                $rootScope.inDetail = false;
+
 
                 document.documentElement.scrollTop = 0;
                 document.body.scrollTop = 0

@@ -9,7 +9,20 @@
     app.component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
         controller: function($scope, $routeParams, $rootScope, products, cart) {
+
             $scope.loading = true;
+            $scope.showDiv = false;
+            $scope.newBid = false;
+            $scope.timeLeft = 30;
+            $rootScope.showNav = true;
+            $rootScope.inCart = false;
+            $rootScope.previousPage = `/product/${$routeParams.productId}`;
+            $scope.active = 0;
+            $scope.clicked = 1;
+            $scope.selected = 1;
+            var input = document.querySelector('#amount');
+
+
 
             function get() {
                 var id = $routeParams.productId
@@ -19,10 +32,30 @@
 
                     $scope.similarProducts = products.slice(0, 4)
                     $scope.otherProducts = products.slice(4, 8)
-                    product.price = Math.round(product.price)
+                    product.price = Math.round(product.price);
+                    $scope.cart = $rootScope.cart;
+                    $scope.loggedIn = $rootScope.loggedIn;
+
+                    $scope.$watch('$root.loggedIn', function(oldValue, newValue) {
+                        $scope.loggedIn = $rootScope.loggedIn;
+                    })
+
+                    $scope.$watch('$root.cart', function(oldValue, newValue, scope) {
+                        $scope.cart = $rootScope.cart;
+                    }, true)
 
                     $scope.product = product
                     $scope.bidPrice = $scope.product.price + 5
+
+                    function showCart(params) {
+                        if (window.innerWidth < 601) {
+                            $rootScope.inDetail = true;
+                        } else {
+                            $rootScope.inDetail = false;
+                        }
+                    }
+                    showCart()
+
 
                     $scope.imgs = [
                         $scope.product.image,
@@ -78,13 +111,22 @@
 
             }
 
-            $scope.timeLeft = 30;
+            $scope.placeBid = function(product) {
+                if (input.classList.contains('show-bid')) {
+                    $scope.addToCart(product)
+                    input.classList.remove('show-bid');
+                    $scope.hideCart = false;
+                } else {
+                    $scope.hideCart = true;
+                    input.classList.add('show-bid');
+                    $('#amount').focus()
+                    Materialize.toast('Please input a bid amount', 200000);
+                }
+            }
 
-            $rootScope.showNav = true;
-
-            $rootScope.inCart = false;
-
-            $rootScope.previousPage = `/product/${$routeParams.productId}`
+            $scope.showCart = function() {
+                $('.cart-button').sideNav('show');
+            }
 
             $scope.addToCart = function(product) {
                 if ($rootScope.loggedIn) {
@@ -98,11 +140,19 @@
 
                     }
                     if (navigator.vibrate) {
-                        console.log('Timeout')
                         navigator.vibrate(200)
-
                     }
-                    cart.shake()
+
+                    if (window.innerWidth < 993) {
+                        if (input.classList.contains('show-bid')) {
+                            input.classList.remove('show-bid');
+                            $scope.hideCart = false;
+                        }
+                        Materialize.toast('Item added to cart', 1000)
+                        cart.shake()
+                    } else {
+                        Materialize.toast('Item added to cart', 1000)
+                    }
 
                     $rootScope.cart.push(product)
 
@@ -114,13 +164,20 @@
                     }
                 } else {
                     $('#login-modal').modal('open');
-                    Materialize.toast('Please log in or sign up', 2000)
+                    Materialize.toast('Please log in or sign up', 1000)
                 }
 
             }
 
-            $scope.showDiv = false;
-            $scope.newBid = false;
+
+
+
+            $scope.chgSrc = function(img, index) {
+                $scope.product.image = img;
+                $scope.active = index
+            };
+
+
 
             $(document).ready(function() {
                 // ELement Initialisation
@@ -130,48 +187,11 @@
                 $('.tooltipped').tooltip({
                     delay: 50
                 });
-                setInterval(function() {
-                        Materialize.updateTextFields();
-                    }, 1000)
-                    // End element init
 
                 // Scroll to top when page is loaded
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
-
-
-                // Pin gallery to point whilst scrolling
-                var header = document.querySelector('#header'),
-                    gallery = $('.prod-detail'),
-                    start = gallery.offset().top,
-                    stop = $('#below').offset().top - gallery.outerHeight() - 145;
-
-                // $(document).scroll(function() {
-                //     var y = $(this).scrollTop();
-                //     if (y > start) {
-                //         gallery.addClass('pinned')
-                //         if (y > stop) {
-                //             gallery.css('top', stop - y)
-                //         } else {
-                //             gallery.css('top', '117px')
-                //         }
-                //     } else {
-                //         gallery.removeClass('pinned')
-                //     }
-                // })
-
-                // End gallery pin
             });
-
-            $scope.active = 0;
-
-            $scope.chgSrc = function(img, index) {
-                $scope.product.image = img;
-                $scope.active = index
-            };
-
-
         }
-
     })
 })();
