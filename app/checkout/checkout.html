@@ -18,10 +18,10 @@
 <div class="container" id="checkout-con">
     <div class="row">
         <div class="col l8 m12 s12 push-l2" ng-hide="nextStep" style="padding: 20px">
-            <h5 class="teal-text center checkout-header"><i class="material-icons checkout teal white-text">shopping_cart</i> Cart</h5>
+            <h5 class="teal-text center checkout-header" ng-if="items.length"><i class="material-icons checkout teal white-text">shopping_cart</i> Cart</h5>
 
             <!--- Items In Cart ---->
-            <ul class="collection z-depth-1 white" style="margin-bottom: 40px; min-height: 200px;">
+            <ul class="collection" style="margin-bottom: 40px;" ng-class="{'z-depth-1 white': items.length}">
                 <li class="collection-item avatar item with-avatar row no-hover" ng-repeat="item in items" style="padding: 10px 7px; margin: 15px 0; opacity: 1;" ng-class="{'list-divider': !$last}">
                     <!--- Item Img -->
                     <div class="col l2 m2 s12 img-space">
@@ -32,16 +32,6 @@
                         <span class="black-text" style="font-size: 17px; font-weight: 500; letter-spacing: 0; margin: 5px 0 0 0">{{item.name}}</span>
 
                         <p class="item-subtitle black-text" style="font-size: 14px">
-
-                            <!--- Plus/Minus Buttons -->
-                            <div>
-                                <!--<div class="increment">
-                                    <div class="negative waves-effect waves-teal teal-text z-depth-1-half" ng-click="decrement(item)" ng-class="{'not-allowed': item.quantity === 1}">-</div>
-                                    <input value="1" name="" class="" ng-model="item.quantity">
-                                    <div class="positive waves-effect waves-teal teal-text z-depth-1-half" ng-click="increment(item)" ng-class="{'not-allowed': item.quantity === 3}">+</div>
-                                </div>-->
-                            </div>
-                            <!---- Ends Plus/Minus Buttons -->
                             <div style="margin: 2px; opacity: 0.5; font-size: 13px; font-weight: 500; letter-spacing: 0">
                                 Color - <span class="green-text" style="margin-right: 7px">Green</span> Size - <span class="grey-text">XL</span><br>
                             </div>
@@ -54,9 +44,15 @@
                         </a>
                     </div>
                 </li>
+                <li ng-hide="items.length" style="text-align: center; margin: 100px 70px;">
+                    <i class="material-icons teal-text" style="font-size: 52px; vertical-align: middle">shopping_cart</i>
+                    <p style="font-size: 17px; text-align: center;margin: 0"> Your cart is empty!</p>
+                    <p style="margin: 0; line-height: 20px; font-size: 13px; opacity: 0.7">Add items to it now!</p>
+                    <a class="btn waves-effect teal z-depth-0" style="margin-top: 32px" href="/home">Shop now</a>
+                </li>
                 <!--- End Items In Cart ---->
             </ul>
-            <div class="checkout-section z-depth-4">
+            <div class="checkout-section z-depth-4" ng-show="items.length">
                 <h4 class="total">Total: {{total | currency : '฿'}}</h4>
                 <button class="btn btn-flat green right lighten-1 waves-effect waves-green checkout-button" ng-click="checkout()">Checkout</button>
             </div>
@@ -68,39 +64,65 @@
             <div class="white" style="padding: 15px 0; border-radius: 2px;">
 
                 <!--- Delivery Options Stepper ---->
-                <div class="stepper">
-                    <div style="flex: 0 0 auto" ng-show="step === 0">
+                <div class="stepper hide-on-small-and-down">
+                    <div style="flex: 0 0 auto">
                         <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="oneFinished">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">1</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
+                        <i class="material-icons circle-icon green" ng-show="oneFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">01</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
                         </span>
                     </div>
 
-                    <div style="flex: 1 1 auto; height: 52px" ng-show="never">
-                        <span class="step-margin"></span>
+                    <div style="flex: 6 1 auto; height: 52px">
+                        <span class="step-margin" ng-class="{'step-done': oneFinished}"></span>
+                    </div>
+
+                    <div style="flex: 0 0 auto">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">02</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
+                        </span>
+                    </div>
+
+                    <div style="flex: 6 1 auto; height: 52px">
+                        <span class="step-margin" ng-class="{'step-done': twoFinished}"></span>
+                    </div>
+
+                    <div style="flex: 0 0 auto">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">03</span> <span ng-class="{'green-text': twoFinished}" class="step-text">Order Status</span>
+                        </span>
+                    </div>
+                </div>
+                <!--- End Stepper ---->
+
+
+                <!-- Mobile Stepper -->
+                <div class="stepper hide-on-med-and-up" style="flex-direction: column">
+                    <div style="flex: 0 0 auto" ng-show="step === 0">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="oneFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">01</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
+                        </span>
                     </div>
 
                     <div style="flex: 0 0 auto" ng-show="step === 1">
                         <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="twoFinished">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">2</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">02</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
                         </span>
-                    </div>
-
-                    <div style="flex: 1 1 auto; height: 52px" ng-show="never">
-                        <span class="step-margin"></span>
                     </div>
 
                     <div style="flex: 0 0 auto" ng-show="step === 2">
                         <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="finished">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="finished">3</span> <span ng-class="{'green-text: oneFinished', fair-grey: !oneFinished}" class="step-text">Order Status</span>
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">03</span> <span ng-class="{'green-text': step === 2}" class="step-text fair-grey">Order Status</span>
                         </span>
                     </div>
-
-                    <!--- End Stepper ---->
-
                 </div>
+                <!--- End Mobile Stepper ---->
+
+                <div class="divider"></div>
                 <div ng-include="template" ng-if="nextStep"></div>
             </div>
         </div>

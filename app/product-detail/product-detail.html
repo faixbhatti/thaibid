@@ -25,7 +25,7 @@
                 <div class="row" style="margin-bottom: 5px">
                     <h1 class="product-name truncate">{{product.name}}</h1>
                     <div class="col l12 m12 s12">
-                        <a href="#!/home" class="breadcrumb black-text waves-effect" style="opacity: 0.45"><i
+                        <a href="/home" class="breadcrumb black-text waves-effect" style="opacity: 0.45"><i
                                 class="material-icons">home</i></a>
                         <!--<a href="" class="breadcrumb black-text text-lighten-3">{{product.category}}</a>-->
                         <a href="" class="breadcrumb black-text" style="opacity: 0.6">{{product.name}}</a>
@@ -214,18 +214,20 @@
                             <form class="col s12" ng-submit="addToCart(product)" style="padding: 0">
                                 <div class="row" style="margin-bottom: 0">
                                     <div class="input-field col l8 m8 s10 push-l1 push-m1">
-                                        <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px; margin: 0" class="teal-text">
+                                        <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px; margin: 0" class="teal-text active">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
 
                                     <div class="input-field col s12 push-l1 push-m1">
                                         <button class="btn waves-effect teal">Bid</button>
-                                        <button class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</button>
-                                        <button class="btn orange bid-button z-depth-3 orange hide-on-med-and-up" ng-show="loggedIn" ng-click="placeBid(product)" type="button">Bid now</button>
-                                        <button class="btn white alternative-cart-button z-depth-3 hide-on-med-and-up black-text" type="button" ng-hide="!loggedIn || hideCart" ng-click="showCart()">
+                                        <a href="/checkout" class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</a>
+                                        <div class="buttons-holder z-depth-3">
+                                            <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn" ng-click="placeBid(product)" type="button">Bid now</button>
+                                            <button class="btn white alternative-cart-button hide-on-med-and-up black-text" type="button" ng-hide="!loggedIn || hideCart" ng-click="showCart()">
                                             Go to cart
                                             <span>({{cart.length}})</span>
                                         </button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

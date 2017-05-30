@@ -1,20 +1,17 @@
-(function() {
     'use strict';
 
     // Usage:
     // 
     // Creates:
     // 
-
-    var app = angular.module('thai');
-
-    app.component('detailTabs', {
-        templateUrl: 'app/product-detail/tabs/tabs.html',
-        controller: tabsCtrl,
-        bindings: {
-            bids: '<',
-        },
-    });
+    angular.module('thai')
+        .component('detailTabs', {
+            templateUrl: 'app/product-detail/tabs/tabs.html',
+            controller: tabsCtrl,
+            bindings: {
+                bids: '<',
+            },
+        });
 
     function tabsCtrl($rootScope, $scope, Review) {
         var ctrl = this,
@@ -79,4 +76,3 @@
         })
 
     }
-})();

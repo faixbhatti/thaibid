@@ -1,19 +1,21 @@
 /**
  * Created by Afro on 4/5/2017.
  */
-(function() {
-    'use strict';
+'use strict';
 
-    var app = angular.module('thai');
-
-    app.component('userProfile', {
+angular.module('thai')
+    .component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
         controller: function($scope, $routeParams, $location, $http, $rootScope, $anchorScroll) {
             $scope.name = $routeParams.name;
 
             $rootScope.showNav = true;
             $rootScope.inDetail = false;
-            $scope.item = ''
+            $scope.item = '';
+            $rootScope.previousPage = `/user/${$scope.name}`;
+            $rootScope.inCart = false;
+
+
 
             $scope.templates = {
                 "editProfile": "app/profile-page/edit-profile.html",
@@ -40,21 +42,6 @@
             $scope.displayInfo = function(info) {
                 $scope.currentInfo = info;
                 $('#purchase-modal').modal('open');
-            }
-
-            $rootScope.previousPage = `/user/${$scope.name}`;
-            $rootScope.inCart = false;
-
-
-            $scope.blurImg = function() {
-                var img = document.querySelector('.prof-img'),
-                    imgFilter = img.style.filter;
-
-                if (imgFilter === "blur(1px)") {
-                    img.style.filter = "blur(0)"
-                } else {
-                    img.style.filter = "blur(1px)"
-                }
             }
 
             $scope.auctions = [{
@@ -129,6 +116,15 @@
                     "timer": "2017-03-24",
                     "quantity": 1,
                     "invoice": "BCEDND12"
+                },
+                {
+                    "id": 9,
+                    "name": "Beauty in diversity",
+                    "price": 25.90,
+                    "image": "image/pocket.jpeg",
+                    "timer": "2017-03-24",
+                    "quantity": 1,
+                    "invoice": "BVNED23"
                 }
             ]
 
@@ -145,7 +141,7 @@
                 $anchorScroll();
                 if (tab === "editProfile") {
                     setTimeout(function() {
-                        $('select').material_select();
+                        $('select.icons').material_select();
 
                         var data = {};
 
@@ -184,4 +180,3 @@
 
         }
     })
-})();

@@ -1,14 +1,12 @@
 /**
  * Created by Afro on 3/23/2017.
  */
-(function() {
-    'use strict';
+'use strict';
 
-    var app = angular.module('thai');
+angular.module('thai')
+    .config(['cfpLoadingBarProvider', '$routeProvider', '$locationProvider', function(cfpLoadingBarProvider, $routeProvider, $locationProvider) {
 
-    app.config(['cfpLoadingBarProvider', '$routeProvider', '$locationProvider', function(cfpLoadingBarProvider, $routeProvider, $locationProvider) {
-
-        // $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
 
         $routeProvider
             .when('/home', {
@@ -39,4 +37,3 @@
 
         cfpLoadingBarProvider.includeSpinner = false;
     }])
-})()

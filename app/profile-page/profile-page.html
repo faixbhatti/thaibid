@@ -3,8 +3,8 @@
     <div class="col l3 m12 s12" style="padding: 0 8px;" id="profile">
         <div class="card">
             <div class="grey lighten-4" style="background: url('image/header-bg.png'); text-align: center; padding: 20px 0">
-                <div class="prof-holder" ng-mouseenter="blurImg()" ng-mouseleave="blurImg()">
-                    <i class="material-icons new-img tooltipped" ng-click="uploadImg()" data-delay="50" data-position="bottom" data-tooltip="Change profile image">add</i>
+                <div class="prof-holder">
+                    <i class="material-icons new-img tooltipped" ng-click="uploadImg()" data-delay="50" data-position="bottom" data-tooltip="Change profile image">add_a_photo</i>
                     <img src="image/elliot.jpg" class="responsive-img center prof-img">
                     <input type="file" class="imgUpload">
                 </div>
@@ -17,10 +17,10 @@
                     <li class="collection-item item" ng-click="switchTab('auctions')">
                         <div> <span class="name">Auctions</span><a href="" class="secondary-content ebony-blue colored"><i class="material-icons colored-icons white-text">gavel</i></a></div>
                     </li>
-                    <div class="divider"></div>
+                    <!--<div class="divider"></div>
                     <li class="collection-item item" ng-click="switchTab('purchases')">
-                        <div> <span class="name">Purchases</span><a href="" class="secondary-content green-dark colored"><i class="material-icons colored-icons white-text">label</i> </a></div>
-                    </li>
+                    <div> <span class="name">Purchases</span><a href="" class="secondary-content green-dark colored"><i class="material-icons colored-icons white-text">label</i> </a></div>
+                    </li>-->
                     <div class="divider"></div>
                     <li class="collection-item item" ng-click="switchTab('orders')">
                         <div> <span class="name">Orders</span><a href="" class="secondary-content green-steel colored"><i class="material-icons colored-icons white-text">assignment</i></a></div>

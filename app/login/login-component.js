@@ -1,12 +1,10 @@
 /**
  * Created by Afro on 4/4/2017.
  */
-(function() {
-    'use strict';
+'use strict';
 
-    var app = angular.module('thai');
-
-    app.component('loginRegister', {
+angular.module('thai')
+    .component('loginRegister', {
         bindings: {
             username: '=',
         },
@@ -14,6 +12,8 @@
         controller: function($rootScope) {
             var ctrl = this;
             ctrl.person = {};
+            ctrl.forgotPassword = false;
+            ctrl.register = false;
 
             ctrl.signIn = function() {
                 $rootScope.loggedIn = true;
@@ -24,6 +24,13 @@
                 }, 1000)
             }
 
+            ctrl.reset = function() {
+                $('.modal').modal('close')
+                Materialize.toast(`A reset link has been sent to ${ctrl.email}.`, 2000);
+                ctrl.forgotPassword = false;
+                ctrl.register = false;
+            }
+
             ctrl.signUp = function() {
                 $rootScope.loggedIn = true;
                 $rootScope.username = ctrl.username;
@@ -31,6 +38,8 @@
                 setTimeout(function() {
                     Materialize.toast(`Hello ${ctrl.username}!. Your new account has been created`, 1000)
                 }, 1000)
+                ctrl.forgotPassword = false;
+                ctrl.register = false;
             }
 
             $(document).ready(function() {
@@ -39,4 +48,3 @@
 
         }
     })
-})();

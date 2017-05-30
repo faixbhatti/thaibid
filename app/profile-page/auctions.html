@@ -1,4 +1,3 @@
-<!--<div style="position: absolute; top: 50%; left: 50%"><h1>Auctions</h1></div>-->
 <div class="card z-depth-0">
     <div class="card-content">
         <div class="">
@@ -15,7 +14,7 @@
         <ul class="collection">
             <li class="collection-item avatar item with-avatar" ng-repeat="auction in auctions" style="padding-left: 57px;" ng-click="displayInfo(auction)">
                 <img src="{{auction.image}}" alt="auction.name" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
-                <span class="black-text" style="font-size: 16px">{{auction.name}}</span>
+                <span class="black-text" style="font-size: 16px"><a href="/product/{{auction.id}}">{{auction.name}}</a></span>
                 <p class="item-subtitle grey-text" style="font-size: 14px"><span class="tooltipped" data-delay="50" data-position="bottom" data-tooltip="Product price"><i
                         class="material-icons blue-text" style="font-size: 20px; vertical-align: middle; margin-right: 6px">label</i>{{auction.price}}</span><br>
                     <span class="tooltipped" data-delay="50" data-position="bottom" data-tooltip="Bid amount"><i

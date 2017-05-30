@@ -1,4 +1,3 @@
-(function() {
     'use strict';
 
     // Usage:
@@ -6,12 +5,11 @@
     // Creates:
     // 
 
-    var app = angular.module('thai');
-
-    app.component('checkout', {
-        templateUrl: 'app/checkout/checkout.html',
-        controller: checkCtrl,
-    });
+    angular.module('thai')
+        .component('checkout', {
+            templateUrl: 'app/checkout/checkout.html',
+            controller: checkCtrl,
+        });
 
 
     function checkCtrl($scope, $rootScope, $http, $location, Location, Calculate, deleteModal) {
@@ -114,7 +112,6 @@
         // Get total amount of all items in cart
         $scope.total = Calculate.getTotal($scope.items)
 
-
         $scope.previousPage = $rootScope.previousPage;
 
         $scope.increment = function(item) {
@@ -125,12 +122,10 @@
             Calculate.decrement(item, $scope, $scope.items)
         }
 
-
         $(document).ready(function() {
-
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
+            $('.back-up').hide()
         })
 
     }
-})();

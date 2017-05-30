@@ -1,9 +1,6 @@
-(function() {
     'use strict';
-
-    var app = angular.module('thai');
-
-    app.factory('cart', cart);
+    angular.module('thai')
+        .factory('cart', cart);
 
     function cart() {
         var cartButton = {
@@ -22,4 +19,3 @@
             button.addEventListener('animationend', removeAnimation);
         }
     }
-})();

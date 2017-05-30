@@ -1,12 +1,10 @@
 /**
  * Created by Afro on 3/29/2017.
  */
-(function() {
-    'use strict';
+'use strict';
 
-    var app = angular.module('thai');
-
-    app.component('category', {
+angular.module('thai')
+    .component('category', {
         templateUrl: 'app/product-category/product-category.html',
         controller: function($routeParams, $scope, $rootScope, products) {
             $scope.dataLoading = true;
@@ -22,6 +20,7 @@
             get()
 
             $rootScope.inDetail = false;
+            $rootScope.showNav = true;
 
             var extras = [{
                     "id": 21,
@@ -91,6 +90,12 @@
 
                 $(".dropdown-button").dropdown();
 
+                $(".dropdown-content > li").on('click', function() {
+                    setTimeout(() => {
+                        $(".dropdown-button").dropdown("close");
+                    }, 300)
+                })
+
                 var slider = document.getElementById('uiSlider');
                 noUiSlider.create(slider, {
                     start: [20, 300],
@@ -117,5 +122,3 @@
 
         }
     })
-
-})()

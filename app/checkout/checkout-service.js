@@ -1,11 +1,8 @@
-(function() {
     'use strict';
 
-    var app = angular.module('thai');
-
-    app.factory('Location', Location);
-
-    app.factory('Calculate', Calculate);
+    angular.module('thai')
+        .factory('Location', Location)
+        .factory('Calculate', Calculate);
 
     function Location($http) {
         var districtIds = {},
@@ -48,8 +45,6 @@
                 provinceId = provinceList.join('-').toLowerCase(), //Join the list, creating a string separated by -
                 url = `https://api.openthailand.org/provinces/${provinceId}/districts`;
 
-            console.log('Getting districts')
-
             if (province !== provinceId) {
                 province = provinceId;
 
@@ -79,8 +74,6 @@
         function getSubDistricts(dist) {
             var districtId = districtIds[dist], //Get the district id from the list of district
                 url = `https://api.openthailand.org/provinces/${province}/districts/${districtId}/subdistricts`;
-            console.log(url)
-            console.log('Getting subdistricts')
             if (district !== districtId) {
                 district = districtId;
 
@@ -89,7 +82,6 @@
                     var subDistricts = response.data.result.data;
 
                     var data = {};
-                    console.table(subDistricts)
                     subDistricts.forEach(subDistrict => data[subDistrict.name] = null) //Create a data object from API response
 
                     $('#sub-d.autocomplete').autocomplete({ //Enable autocomplete from data object
@@ -133,6 +125,3 @@
             }
         };
     }
-
-
-})();

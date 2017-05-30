@@ -1,23 +1,20 @@
-(function() {
     'use strict';
 
     // Usage:
     // 
     // Creates:
     // 
-
-    var app = angular.module('thai');
-
-    app.component('countdownTimer', {
-        templateUrl: 'app/product-detail/countdown-timer/countdown-timer.html',
-        controller: timerCtrl,
-        bindings: {
-            time: '<',
-            newbid: '=',
-            product: '<',
-            clear: '='
-        },
-    });
+    angular.module('thai')
+        .component('countdownTimer', {
+            templateUrl: 'app/product-detail/countdown-timer/countdown-timer.html',
+            controller: timerCtrl,
+            bindings: {
+                time: '<',
+                newbid: '=',
+                product: '<',
+                clear: '='
+            },
+        });
 
     function timerCtrl($scope) {
         var ctrl = this;
@@ -78,4 +75,3 @@
         ctrl.onChanges = function(changesObj) {};
         ctrl.onDestory = function() {};
     }
-})();

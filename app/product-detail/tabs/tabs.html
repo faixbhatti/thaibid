@@ -1,10 +1,12 @@
-<div class="col s12" style="padding: 0 0">
+<div class="col s12" style="padding: 0 0" id="prod-info">
     <ul class="tabs tabs-fixed-width teal tabs-transparent">
         <li class="tab"><a href="#prod-bids" class="tab-link">Bids</a></li>
         <li class="tab"><a href="#prod-detail" class="tab-link">Detail</a></li>
         <li class="tab"><a href="#prod-reviews" class="tab-link">Reviews</a></li>
     </ul>
-
+    <div id="prod-bids" class="col s12 white" style="min-height: 222px">
+        <bid-table bids="$ctrl.bids"></bid-table>
+    </div>
     <div id="prod-detail" class="col s12" style="min-height: 222px; padding: 10px">
         <div class="row" style="margin-bottom: 0">
             <div class="col l6 m6 s6">
@@ -32,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div id="prod-reviews" class="col s12 white" style="min-height: 222px">
+    <div id="prod-reviews" class="col s12 white" style="min-height: 252px">
         <ul class="collection">
             <li class="collection-item avatar item with-avatar" ng-repeat="review in $ctrl.reviews" style="padding-left: 57px; opacity: 1">
                 <img src="{{review.image}}" alt="review" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
@@ -61,7 +63,5 @@
             </form>
         </div>
     </div>
-    <div id="prod-bids" class="col s12 white" style="min-height: 222px">
-        <bid-table bids="$ctrl.bids"></bid-table>
-    </div>
+
 </div>

@@ -1,14 +1,12 @@
-(function() {
-    'use strict';
+'use strict';
 
-    // Usage:
-    // 
-    // Creates:
-    // 
+// Usage:
+// 
+// Creates:
+// 
 
-    var app = angular.module('thai');
-
-    app.component('about', {
+angular.module('thai')
+    .component('about', {
         templateUrl: 'app/about-us/about.html',
         controller: function($rootScope) {
             ctrl.onInit = function() {
@@ -19,5 +17,3 @@
             };
         }
     });
-
-})();

@@ -2,6 +2,32 @@
     'use strict';
 
     function main() {
+        function goBackUp(params) {
+            var scroll = window.scrollY,
+                documentHeight = document.body.clientHeight,
+                windowHeight = window.innerHeight;
+
+            if (scroll >= (documentHeight - windowHeight) * 0.20) {
+                $('.back-up').show()
+            } else if (scroll < (documentHeight - windowHeight) * 0.20) {
+                $('.back-up').hide()
+            } else {
+                $('.back-up').hide()
+            }
+        }
+
+        document.addEventListener('scroll', goBackUp)
+
+        $('.back-up').on('click', function() {
+            $('html,body').animate({
+                scrollTop: 0
+
+            }, 'slow')
+        })
+
+        $('.show-login').on('click', function() {
+            $('#login-modal').modal('open')
+        })
 
         $('.materialboxed').materialbox();
         $('.collapsible').collapsible();
@@ -44,6 +70,8 @@
                 "unpinned": "dismiss"
             }
         });
+
+        $("")
     }
 
     $(document).ready(main)

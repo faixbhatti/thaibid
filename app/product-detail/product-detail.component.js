@@ -1,12 +1,9 @@
 /**
  * Created by Afro on 3/23/2017.
  */
-(function() {
-    'use strict';
-
-    var app = angular.module('thai');
-
-    app.component('productDetail', {
+'use strict';
+angular.module('thai')
+    .component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
         controller: function($scope, $routeParams, $rootScope, products, cart) {
 
@@ -20,42 +17,28 @@
             $scope.active = 0;
             $scope.clicked = 1;
             $scope.selected = 1;
+            $scope.cart = $rootScope.cart;
+            $scope.loggedIn = $rootScope.loggedIn;
             var input = document.querySelector('#amount');
 
+            $scope.$watch('$root.loggedIn', function(oldValue, newValue) {
+                $scope.loggedIn = $rootScope.loggedIn;
+            })
 
+            $scope.$watch('$root.cart', function(oldValue, newValue, scope) {
+                $scope.cart = $rootScope.cart;
+            }, true)
 
             function get() {
                 var id = $routeParams.productId
                 products.get().then(function(data) {
                     var products = data.data;
                     var product = products[id - 1] || products[5]
-
                     $scope.similarProducts = products.slice(0, 4)
                     $scope.otherProducts = products.slice(4, 8)
                     product.price = Math.round(product.price);
-                    $scope.cart = $rootScope.cart;
-                    $scope.loggedIn = $rootScope.loggedIn;
-
-                    $scope.$watch('$root.loggedIn', function(oldValue, newValue) {
-                        $scope.loggedIn = $rootScope.loggedIn;
-                    })
-
-                    $scope.$watch('$root.cart', function(oldValue, newValue, scope) {
-                        $scope.cart = $rootScope.cart;
-                    }, true)
-
                     $scope.product = product
                     $scope.bidPrice = $scope.product.price + 5
-
-                    function showCart(params) {
-                        if (window.innerWidth < 601) {
-                            $rootScope.inDetail = true;
-                        } else {
-                            $rootScope.inDetail = false;
-                        }
-                    }
-                    showCart()
-
 
                     $scope.imgs = [
                         $scope.product.image,
@@ -103,81 +86,90 @@
 
             get()
 
-            $scope.bidHistory = function() {
-                var bids = document.querySelector('#bids'),
-                    top = bids.offsetTop;
-                document.body.scrollTop = top;
-                document.documentElement.scrollTop = top;
-
-            }
-
-            $scope.placeBid = function(product) {
-                if (input.classList.contains('show-bid')) {
-                    $scope.addToCart(product)
-                    input.classList.remove('show-bid');
-                    $scope.hideCart = false;
+            //Show or hide cart button depending on screen size
+            function showCart(params) {
+                if (window.innerWidth < 601) {
+                    $rootScope.inDetail = true;
                 } else {
-                    $scope.hideCart = true;
-                    input.classList.add('show-bid');
-                    $('#amount').focus()
-                    Materialize.toast('Please input a bid amount', 200000);
+                    $rootScope.inDetail = false;
                 }
             }
+            showCart()
 
+            //Scroll to bid history position on window 
+            $scope.bidHistory = function() {
+                    var bids = document.querySelector('#prod-info'),
+                        top = bids.offsetTop;
+                    $('.tabs').tabs('select_tab', 'prod-bids')
+                    document.body.scrollTop = top;
+                    document.documentElement.scrollTop = top;
+
+                }
+                //When in mobile view, if user clicks on bid button, display amount input field
+            $scope.placeBid = function(product) {
+                    if (input.classList.contains('show-bid')) {
+                        $scope.addToCart(product) //If input field is visible then add to cart
+                        input.classList.remove('show-bid');
+                        $scope.hideCart = false;
+                    } else {
+                        $scope.hideCart = true;
+                        input.classList.add('show-bid'); //Else display amount input field
+                        $('#amount').focus() //Focus on input field
+                        Materialize.toast('Please input a bid amount', 1000);
+                    }
+                }
+                //Display cart sidebar
             $scope.showCart = function() {
                 $('.cart-button').sideNav('show');
             }
 
             $scope.addToCart = function(product) {
-                if ($rootScope.loggedIn) {
-                    if ($scope.bidPrice > 150) {
-                        $scope.autoBid = true;
+                    if ($rootScope.loggedIn) {
+                        if ($scope.bidPrice > 150) {
+                            $scope.autoBid = true;
 
-                        function initElement() {
-                            $('.autobid').addClass('animated fadeIn')
-                        };
-                        setTimeout(initElement, 100);
+                            function initElement() {
+                                $('.autobid').addClass('animated fadeIn')
+                            };
+                            setTimeout(initElement, 100);
 
-                    }
-                    if (navigator.vibrate) {
-                        navigator.vibrate(200)
-                    }
-
-                    if (window.innerWidth < 993) {
-                        if (input.classList.contains('show-bid')) {
-                            input.classList.remove('show-bid');
-                            $scope.hideCart = false;
                         }
-                        Materialize.toast('Item added to cart', 1000)
-                        cart.shake()
+                        // If window size is mobile or tablet, call the navigator.vibrate() api.
+                        if (navigator.vibrate) {
+                            navigator.vibrate(200)
+                        }
+                        if (window.innerWidth < 993) {
+                            // Hide input field after user presses enter or submits
+                            if (input.classList.contains('show-bid')) {
+                                input.classList.remove('show-bid');
+                                $scope.hideCart = false; //Display cart button after item is added to cart
+                            }
+                            Materialize.toast('Item added to cart', 1000) //Display toast when item is added to cart
+                            cart.shake() //shake to cart button
+                        } else {
+                            Materialize.toast('Item added to cart', 1000)
+                        }
+
+                        $rootScope.cart.push(product)
+
+                        setTimeout(hideAlert, 4000)
+                            // Hide alert after 4 secs
+                        function hideAlert() {
+                            $('autobid').removeClass('animated fadeOut')
+                            $scope.autoBid = false;
+                        }
                     } else {
-                        Materialize.toast('Item added to cart', 1000)
+                        // Open login modal if user isn't logged in
+                        $('#login-modal').modal('open');
+                        Materialize.toast('Please log in or sign up', 1000)
                     }
 
-                    $rootScope.cart.push(product)
-
-                    setTimeout(hideAlert, 4000)
-
-                    function hideAlert() {
-                        $('autobid').removeClass('animated fadeOut')
-                        $scope.autoBid = false;
-                    }
-                } else {
-                    $('#login-modal').modal('open');
-                    Materialize.toast('Please log in or sign up', 1000)
                 }
-
-            }
-
-
-
-
+                //          Change images in gallery
             $scope.chgSrc = function(img, index) {
                 $scope.product.image = img;
                 $scope.active = index
             };
-
-
 
             $(document).ready(function() {
                 // ELement Initialisation
@@ -188,10 +180,13 @@
                     delay: 50
                 });
 
+                setTimeout(() => {
+                    Materialize.updateTextFields();
+                }, 1000)
+
                 // Scroll to top when page is loaded
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
             });
         }
     })
-})();

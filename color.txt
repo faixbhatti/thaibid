@@ -1,5 +1,0 @@
-thai
-primary
-#9E9E9E
-accent
-#FFFF00

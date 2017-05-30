@@ -10,12 +10,15 @@
                 <div class="hide-on-med-and-up">
                     <div style="float: left; width: 50%">
                         <ul class="dropdown-content" id="filter">
-                            <li><a class="black-text">Latest</a></li>
-                            <li><a class="black-text">Old</a></li>
-                            <li><a class="black-text">New</a></li>
+                            <li><a class="black-text" menu-close>Popular</a></li>
+                            <li><a class="black-text" menu-close>Latest</a></li>
+                            <li><a class="black-text" menu-close>Old</a></li>
+                            <li><a class="black-text" menu-close>New</a></li>
+                            <li><a class="black-text" menu-close>Size</a></li>
+                            <li><a class="black-text" menu-close>Colour</a></li>
                         </ul>
                         <a class="dropdown-button btn-flat waves-effect waves-teal" data-activates="filter" href="javascript:void(0)" style="font-size: 16px; font-weight: 600">
-                            <i class="material-icons left">filter_list</i> Filter <i class="material-icons right" style="font-size: 29px">arrow_drop_down</i>
+                            <i class="material-icons left">filter_list</i> Sort <i class="material-icons right" style="font-size: 29px">arrow_drop_down</i>
                         </a>
                     </div>
                     <div style="float: right; width: 50%">
@@ -101,15 +104,18 @@
                     </p>
                 </li>
                 <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>
-                <li class="collection-item" style="padding: 20px">
-                    <li class="collection-item">
-                        <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
+                <li class="collection-item teal-text text-darken-3" style="padding: 20px 10px;">
+                    <div id="uiSlider" style="margin: 10px 5px 20px"></div>
+                    <span>{{right | currencyName: 'baht'}} </span> - <span>{{left | currencyName: 'baht'}}</span>
+                </li>
+                <li class="collection-item">
+                    <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
 						<i class="material-icons">thumb_up</i>
 					</button>
-                        <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="clicked=false">
+                    <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="clicked=false">
 						<i class="material-icons">delete_forever</i>
 					</button>
-                    </li>
+                </li>
 
             </ul>
 

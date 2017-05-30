@@ -1,26 +1,24 @@
-<footer class="page-footer footer-color" style="margin-bottom: 0" ng-show="showNav">
-    <div style="padding: 2px 40px">
-        <div class="row">
-            <div class="col l12 m12 s12">
-                <h6 class="link-header white-text center">STAY IN TOUCH</h6>
-                <p class="link-text grey-text text-lighten-3 center">Sign up for our newsletters, and don't worry they're awesome.</p>
-                <form class="col l9 m9 s12" id="sign-up">
-                    <div class="row" id="subscribe">
-                        <div class="input-field col l5 m12 s10 push-m2">
-                            <input id="mail" type="email" class="validate">
-                            <label for="mail">Mail</label>
-                        </div>
-                        <div class="input-field col l2 m12 s2 push-m2" style="text-align: center">
-                            <button class="btn-floating waves-effect blue btn">
-                                <ng-md-icon icon="mail" style="fill:white" class="icon"></ng-md-icon>
-                            </button>
-                        </div>
+<footer class="page-footer footer-color" style="margin-bottom: 0" ng-show="$ctrl.show">
+    <div class="row subscribe-area">
+        <div class="col l12 m12 s12">
+            <h6 class="subscribe-text white-text center">STAY IN TOUCH</h6>
+            <p class="link-text grey-text text-lighten-3 center">Sign up for our newsletters, and don't worry they're awesome.</p>
+            <form class="col l9 m9 s12" id="sign-up">
+                <div class="row" id="subscribe">
+                    <div class="input-field col l5 m12 s12 push-m2">
+                        <input id="mail" type="email" class="validate" placeholder="yourawesome@email.com" style="color: white">
+                        <label for="mail"></label>
                     </div>
-                </form>
-            </div>
+                    <div class="input-field col l2 m12 s12 push-m2" style="text-align: center">
+                        <button class="waves-effect white btn main-green-text">
+                            subscribe
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="divider" style="margin-bottom: 20px"></div>
-
+    </div>
+    <div style="padding: 2px 40px">
         <ul class="collapsible hide-on-med-and-up" data-collapsible="accordion" style="border: none; box-shadow: inherit;" id="footer-collapse">
             <li>
                 <div class="collapsible-header white-text link-header">
@@ -29,11 +27,11 @@
                 </div>
                 <div class="collapsible-body">
                     <ul>
-                        <li class="link-holder"><a href="#!/about" class="grey-text text-lighten-3 link-text">About Us</a></li>
+                        <li class="link-holder"><a href="/about" class="grey-text text-lighten-3 link-text">About Us</a></li>
                         <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Delivery Information</a></li>
-                        <li class="link-holder"><a href="#!/privacy" class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
+                        <li class="link-holder"><a href="/privacy" class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
                         <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Contact Us</a></li>
-                        <li class="link-holder"><a href="#!/terms" class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
+                        <li class="link-holder"><a href="/terms" class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
                         <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Site Map</a></li>
                     </ul>
                 </div>
@@ -77,11 +75,11 @@
             <div class="col l3 m6 s6 hide-on-small-and-down">
                 <h6 class="link-header white-text">INFORMATION</h6>
                 <ul>
-                    <li class="link-holder"><a href="#!/about" class="grey-text text-lighten-3 link-text">About Us</a></li>
+                    <li class="link-holder"><a href="/about" class="grey-text text-lighten-3 link-text">About Us</a></li>
                     <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Delivery Information</a></li>
-                    <li class="link-holder"><a href="#!/privacy" class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
+                    <li class="link-holder"><a href="/privacy" class="grey-text text-lighten-3 link-text">Privacy Policy</a></li>
                     <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Contact Us</a></li>
-                    <li class="link-holder"><a href="#!/terms" class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
+                    <li class="link-holder"><a href="/terms" class="grey-text text-lighten-3 link-text">Terms and Conditions</a></li>
                     <li class="link-holder"><a class="grey-text text-lighten-3 link-text">Site Map</a></li>
                 </ul>
             </div>

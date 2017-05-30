@@ -1,27 +1,28 @@
-(function() {
     'use strict';
 
     // Usage:
     // 
     // Creates:
     // 
+    angular.module('thai')
+        .component('deleteModal', {
+            templateUrl: 'app/delete-modal/delete-modal.html',
+            controller: modalCtrl,
+        });
 
-    var app = angular.module('thai');
-    app.component('deleteModal', {
-        templateUrl: 'app/delete-modal/delete-modal.html',
-        controller: modalCtrl,
-    });
+    modalCtrl.inject = ['deleteModal'];
 
     function modalCtrl(deleteModal) {
         var ctrl = this;
 
-        ctrl.removeItem = function() {
-                deleteModal.delete()
-            }
-            ////////////////
+        ctrl.clean = function() {
+            alert('why')
+        }
 
-        ctrl.onInit = function() {};
-        ctrl.onChanges = function(changesObj) {};
-        ctrl.onDestory = function() {};
+        ctrl.shake = function() {
+            console.log('time')
+            deleteModal.eject();
+        };
+        ////////////////
+
     }
-})();

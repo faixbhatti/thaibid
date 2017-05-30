@@ -1,9 +1,7 @@
-(function() {
     'use strict';
 
-    var app = angular.module('thai')
-
-    app.factory('Review', Review);
+    angular.module('thai')
+        .factory('Review', Review);
 
     function Review() {
         var review = {
@@ -104,4 +102,3 @@
         ////////////////
         function exposedFn() {}
     }
-})();

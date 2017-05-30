@@ -6,7 +6,7 @@
             <i class="material-icons grey-text modal-close" style="font-size: 33px">close</i>
         </div>
 
-        <div class="row" ng-hide="register || forgotPassword" style="margin-bottom: 0; padding-top: 15px">
+        <div class="row" ng-if="!$ctrl.register && !$ctrl.forgotPassword" style="margin-bottom: 0; padding-top: 15px">
             <div class="col s12">
                 <h4 class="register-text description-text center">Log In</h4>
 
@@ -35,19 +35,19 @@
                             </div>
                         </div>
 
-                        <div ng-click="forgotPassword = !forgotPassword">
+                        <div ng-click="$ctrl.forgotPassword = !$ctrl.forgotPassword">
                             <h6 class="right forgot-pass">Forgot your password?</h6>
                         </div>
 
                         <button class="btn btn-large wave-effect waves-light waves-ripple waves-red white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;">Submit
                             </button>
-                        <p class="center other-option grey-text">Need an account? <span class="new-log" ng-click="register = !register">Create new account</span></p>
+                        <p class="center other-option grey-text">Need an account? <span class="new-log" ng-click="$ctrl.register = !$ctrl.register">Create new account</span></p>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="row" ng-show="register" style="margin-bottom: 0; padding-top: 15px">
+        <div class="row" ng-if="$ctrl.register" style="margin-bottom: 0; padding-top: 15px">
             <div class="col s12">
                 <h4 class="register-text description-text center">Create your free account!</h4>
 
@@ -69,36 +69,45 @@
                             </div>
                         </div>
 
-                        <div class="row" style="margin-bottom: 10px">
+                        <div class="row" style="margin-bottom: 5px">
                             <div class="input-field col s12">
                                 <input id="pass" type="password" placeholder="Password">
                                 <label for="pass"></label>
                             </div>
                         </div>
 
+                        <div class="row" style="margin-bottom: 20px">
+                            <div class="input-field col s12" style="margin: 0">
+                                <p style="margin: 0">
+                                    <input type="checkbox" id="terms" />
+                                    <label for="terms"><a href="/terms" class="grey-text">I've read and agreed to the terms and conditions</a></label>
+                                </p>
+                            </div>
+                        </div>
+
                         <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;">Create Account
                             </button>
-                        <p class="center other-option grey-text">Already have an account? <span class="new-log" ng-click="register = !register">Sign In</span></p>
+                        <p class="center other-option grey-text">Already have an account? <span class="new-log" ng-click="$ctrl.register = !$ctrl.register">Sign In</span></p>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div class="row" ng-show="forgotPassword" style="padding-top: 15px; margin-bottom: 0">
+        <div class="row" ng-if="$ctrl.forgotPassword" style="padding-top: 15px; margin-bottom: 0">
             <div class="card-menu left" style="left:12px;">
-                <i class="material-icons grey-text" style="font-size: 32px" ng-click="forgotPassword = false; register= false;">arrow_back</i>
+                <i class="material-icons grey-text" style="font-size: 32px" ng-click="$ctrl.forgotPassword = false; $ctrl.register= false;">arrow_back</i>
             </div>
             <p class="center register-text description-text" style="margin: 20px 0 10px 0">Reset your password</<p>
                 <div class="row">
-                    <form class="col s12">
+                    <form class="col s12" ng-submit="$ctrl.reset()" novalidate>
                         <div class="row">
                             <div class="col s12 input-field">
-                                <input type="text" name="forgot" id="forgot" placeholder="Enter your email.">
+                                <input type="email" name="forgot" id="forgot" placeholder="Enter your email..." ng-model="$ctrl.email" required>
                             </div>
                             <div class="col s12 input-field">
                                 <button class="btn btn-large waves-effect waves-light mcs-color z-depth-0" style="width: 100%; font-size:17px; font-weight: 400">
                                             Send Mail                    
-                                    </button>
+                                </button>
                             </div>
                         </div>
                     </form>
