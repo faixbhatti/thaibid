@@ -1,4 +1,4 @@
-<footer class="page-footer footer-color" style="margin-bottom: 0" ng-show="$ctrl.show">
+<footer class="page-footer footer-color" style="margin-bottom: 0" ng-show="$ctrl.show" ng-if="!$ctrl.inMobile">
     <div class="row subscribe-area">
         <div class="col l12 m12 s12">
             <h6 class="subscribe-text white-text center">STAY IN TOUCH</h6>
@@ -10,7 +10,7 @@
                         <label for="mail"></label>
                     </div>
                     <div class="input-field col l2 m12 s12 push-m2" style="text-align: center">
-                        <button class="waves-effect white btn main-green-text">
+                        <button class="waves-effect white btn black-text">
                             subscribe
                         </button>
                     </div>
@@ -138,8 +138,6 @@
             <div class="col l12">
                 <h6 class="center white-text" style="font-size: 12px">Copyright © 2017 Thaibid All rights reserved
                 </h6>
-                <div id="google_translate_element">
-                </div>
             </div>
         </div>
     </div>

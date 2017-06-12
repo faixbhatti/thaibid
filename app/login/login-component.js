@@ -9,16 +9,24 @@ angular.module('thai')
             username: '=',
         },
         templateUrl: 'app/login/login.html',
-        controller: function($rootScope) {
+        controller: function($rootScope, $http, $location) {
             var ctrl = this;
-            ctrl.person = {};
+            ctrl.user = {};
             ctrl.forgotPassword = false;
             ctrl.register = false;
 
             ctrl.signIn = function() {
-                $rootScope.loggedIn = true;
-                $rootScope.username = ctrl.username;
-                $('.modal').modal('close')
+                let url = 'app/users.json'
+
+                $http.post(url, ctrl.user)
+                    .then(
+                        (data) => {
+                            console.log(data)
+                            $rootScope.loggedIn = true;
+                            $rootScope.username = ctrl.user.username;
+                            $('.modal').modal('close')
+                        }
+                    )
                 setTimeout(function() {
                     Materialize.toast(`Welcome back ${ctrl.username}`, 1000)
                 }, 1000)
@@ -40,6 +48,11 @@ angular.module('thai')
                 }, 1000)
                 ctrl.forgotPassword = false;
                 ctrl.register = false;
+            }
+
+            ctrl.viewTerms = () => {
+                $('.modal').modal('close');
+                $location.url('/terms')
             }
 
             $(document).ready(function() {

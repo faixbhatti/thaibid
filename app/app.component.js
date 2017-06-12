@@ -23,8 +23,7 @@
         $scope.inDetail = $rootScope.inDetail;
         $scope.loggedIn = $rootScope.loggedIn;
         $scope.username = $rootScope.username;
-        $scope.footer = 'app/footer/footer.html';
-
+        $scope.inMobile = $rootScope.inMobile;
 
         $scope.addToScreen = function() {
             $("#homescreen-modal").css("opacity", 0);
@@ -70,22 +69,8 @@
         $scope.logout = function() {
             $rootScope.loggedIn = false;
             $rootScope.username = "";
+            $rootScope.cart = [];
             Materialize.toast("You've successfully logged out", 1000)
-        }
-
-        $scope.goToCart = function() {
-            if ($rootScope.loggedIn) {
-                $rootScope.template = 'cart';
-                $location.url('/user/' + $rootScope.username);
-            } else {
-                Materialize.toast('Please login before you continue', 1000)
-            }
-        }
-
-        $scope.getTotal = function() {
-            var total = 0;
-            $scope.itemsInCart.forEach(item => total += item.price)
-            return total
         }
 
         $scope.removeFromCart = function(index, list) {
@@ -116,9 +101,58 @@
 
 
         ////////////////
+        $(document).ready(function() {
+            function goBackUp(params) {
+                var scroll = window.scrollY,
+                    documentHeight = document.body.clientHeight,
+                    windowHeight = window.innerHeight;
 
-        ctrl.onInit = function() {};
-        ctrl.onChanges = function(changesObj) {};
-        ctrl.onDestory = function() {};
+                if (scroll >= (documentHeight - windowHeight) * 0.20) {
+                    $('.back-up').show()
+                } else if (scroll < (documentHeight - windowHeight) * 0.20) {
+                    $('.back-up').hide()
+                } else {
+                    $('.back-up').hide()
+                }
+            }
+
+            document.addEventListener('scroll', goBackUp)
+
+            $('.back-up').on('click', function() {
+                $('html,body').animate({
+                    scrollTop: 0
+
+                }, 'slow')
+            })
+
+            $('.show-login').on('click', function() {
+                $('#login-modal').modal('open')
+            })
+
+            $('.materialboxed').materialbox();
+            $('.collapsible').collapsible();
+
+            $('.modal').modal()
+
+            $('.tooltipped').tooltip()
+
+
+            $(".dropdown-button").dropdown({
+                inDuration: 300,
+                outDuration: 225,
+            });
+
+            $('ul.tabs').tabs();
+
+            $("#table").headroom({
+                "offset": 80,
+                "tolerance": 2,
+                "classes": {
+                    "initial": "animated",
+                    "pinned": "appear",
+                    "unpinned": "dismiss"
+                }
+            });
+        })
     }
 })();

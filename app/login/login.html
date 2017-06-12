@@ -19,19 +19,23 @@
                 <p class="center or">OR</p>
 
                 <div class="row">
-                    <form class="col l12 m12 s12" id="login-holder" ng-submit="$ctrl.signIn()">
+                    <form class="col l12 m12 s12" id="login-holder" name="loginForm" ng-submit="loginForm.$valid && $ctrl.signIn()" novalidate>
 
                         <div class="row" style="margin-bottom: 0">
                             <div class="input-field col s12">
-                                <input id="username" type="text" class="validate" ng-model="$ctrl.username" placeholder="Username">
-                                <label for="username" data-error="Please enter a valid username" data-success="Correct"></label>
+                                <input id="username" type="text" ng-model="$ctrl.user.username" placeholder="Username" name="username" ng-minlength="4" required>
+                                <label for="username"></label>
+                                <span class="field-error" ng-if="loginForm.username.$error.required  && loginForm.username.$touched">Please input your username</span>
+                                <span class="field-error" ng-if="loginForm.username.$error.minlength  && loginForm.username.$touched">Your username has to be longer than 4 letters</span>
                             </div>
                         </div>
 
                         <div class="row" style="margin-bottom: 0">
                             <div class="input-field col s12">
-                                <input id="password" type="password" placeholder="Password">
+                                <input id="password" type="password" placeholder="Password" name="password" ng-minlength="8" ng-model="$ctrl.user.password" required>
                                 <label for="password"></label>
+                                <span class="field-error" ng-if="loginForm.password.$error.required && loginForm.password.$touched">Please input your password</span>
+                                <span class="field-error" ng-if="loginForm.password.$error.minlength && loginForm.password.$touched">Your password has to be at least 8 characters</span>
                             </div>
                         </div>
 
@@ -47,6 +51,8 @@
             </div>
         </div>
 
+        <!--Form for registering new users-->
+
         <div class="row" ng-if="$ctrl.register" style="margin-bottom: 0; padding-top: 15px">
             <div class="col s12">
                 <h4 class="register-text description-text center">Create your free account!</h4>
@@ -60,19 +66,23 @@
                 <p class="center or" style="margin: 0">OR</p>
 
                 <div class="row">
-                    <form class="col l12 m12 s12" id="register-holder" ng-submit="$ctrl.signUp()">
+                    <form class="col l12 m12 s12" id="register-holder" name="registerForm" ng-submit="$ctrl.signUp()">
 
                         <div class="row" style="margin-bottom: 0">
                             <div class="input-field col s12">
-                                <input id="user" type="text" class="validate" ng-model="$ctrl.username" placeholder="Username">
-                                <label for="user" data-error="Please enter a valid username" data-success="Correct"></label>
+                                <input id="user" type="text"  ng-model="$ctrl.user.username" ng-minlength="4" name="username" placeholder="Username" required>
+                                <label for="user"></label>
+                                <p class="field-error" ng-if="registerForm.username.$error.required  && registerForm.username.$touched">Please enter your username</p>
+                                <p class="field-error" ng-if="registerForm.username.$error.minlength  && registerForm.username.$touched">Your username has to be at least 4 characters</p>
                             </div>
                         </div>
-
+                        
                         <div class="row" style="margin-bottom: 5px">
                             <div class="input-field col s12">
-                                <input id="pass" type="password" placeholder="Password">
+                                <input id="pass" type="password" placeholder="Password" name="password" ng-model="$ctrl.user.password" ng-minlength="8" required>
                                 <label for="pass"></label>
+                                <p class="field-error" ng-if="registerForm.password.$error.required  && registerForm.password.$touched">Please enter your password</p>
+                                <p class="field-error" ng-if="registerForm.password.$error.minlength  && registerForm.password.$touched">Your password has to be at least 8 characters</p>
                             </div>
                         </div>
 
@@ -80,32 +90,35 @@
                             <div class="input-field col s12" style="margin: 0">
                                 <p style="margin: 0">
                                     <input type="checkbox" id="terms" />
-                                    <label for="terms"><a href="/terms" class="grey-text">I've read and agreed to the terms and conditions</a></label>
+                                    <label for="terms"><a ng-click="$ctrl.viewTerms()" class="grey-text">I've read and agreed to the terms and conditions</a></label>
                                 </p>
                             </div>
                         </div>
 
-                        <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;">Create Account
+                        <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;" ng-disabled="registerForm.$invalid" >Create Account
                             </button>
                         <p class="center other-option grey-text">Already have an account? <span class="new-log" ng-click="$ctrl.register = !$ctrl.register">Sign In</span></p>
                     </form>
-                </div>
             </div>
         </div>
 
+        <!--End registeration form-->
+
+        <!--Reset password form-->
         <div class="row" ng-if="$ctrl.forgotPassword" style="padding-top: 15px; margin-bottom: 0">
             <div class="card-menu left" style="left:12px;">
                 <i class="material-icons grey-text" style="font-size: 32px" ng-click="$ctrl.forgotPassword = false; $ctrl.register= false;">arrow_back</i>
             </div>
             <p class="center register-text description-text" style="margin: 20px 0 10px 0">Reset your password</<p>
                 <div class="row">
-                    <form class="col s12" ng-submit="$ctrl.reset()" novalidate>
+                    <form class="col s12" ng-submit="resetForm.$valid &&  $ctrl.reset()" name="resetForm"  novalidate>
                         <div class="row">
                             <div class="col s12 input-field">
                                 <input type="email" name="forgot" id="forgot" placeholder="Enter your email..." ng-model="$ctrl.email" required>
+                                <p class="field-error">Please enter your email</p>
                             </div>
                             <div class="col s12 input-field">
-                                <button class="btn btn-large waves-effect waves-light mcs-color z-depth-0" style="width: 100%; font-size:17px; font-weight: 400">
+                                <button class="btn btn-large waves-effect waves-light mcs-color z-depth-0" style="width: 100%; font-size:17px; font-weight: 400" ng-disabled="resetForm.$invalid">
                                             Send Mail                    
                                 </button>
                             </div>

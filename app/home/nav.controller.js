@@ -15,6 +15,12 @@ angular.module('thai')
         $rootScope.inDetail = false;
         $rootScope.template = 'auctions'
 
+        if (window.innerWidth < 993) {
+            $rootScope.inMobile = true;
+        } else {
+            $rootScope.inMobile = false;
+        }
+
         $rootScope.loggedIn = false;
 
         $rootScope.username = "";

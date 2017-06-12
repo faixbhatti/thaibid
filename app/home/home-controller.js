@@ -89,7 +89,6 @@
                     windowHeight = window.innerHeight,
                     categories = document.querySelector('.home');
 
-
                 if (scroll >= (documentHeight - windowHeight) * 0.70) {
                     categories.style.zIndex = "-1"
 
@@ -127,19 +126,12 @@
 
             };
 
-            $('.slider').slider();
-
-            document.addEventListener('scroll', $scope.loadMore)
-
             $(document).ready(function() {
-
+                $('.slider').slider();
+                document.addEventListener('scroll', $scope.loadMore)
                 pinElement()
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
-
                 $('.carousel.carousel-slider').carousel({ fullWidth: true });
-
-
-
             })
         })

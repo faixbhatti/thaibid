@@ -128,144 +128,22 @@
 <main ng-click="search=false" ng-hide="search">
     <delete-modal></delete-modal>
 
-    <ul class="side-nav" id="sidy" style="z-index: 1999">
-        <li>
-            <div class="userView">
-                <div class="background">
-                    <img src="image/pattern.jpg">
-                </div>
-                <a href="/user/{{username}}" ng-show="loggedIn"><img src="image/elliot.jpg" class="circle"></a>
-                <a href="/user/{{username}}" ng-show="loggedIn"><span class="white-text name">{{username}}</span> </a>
-                <a href="/user/{{username}}" ng-show="loggedIn"><span class="white-text email">{{username}}@thai.com</span> </a>
-                <div ng-hide="loggedIn">
-                    <a><span class="white-text name show-login" style="font-size: 18px">Log in/Sign up</span> </a>
-                </div>
-            </div>
-        </li>
-        <li><a class="subheader">Profile</a></li>
+    <side-nav loggedIn="loggedIn" username="username"></side-nav>
+    <side-cart itemsInCart="itemsInCart"></side-cart>
 
-        <li><a href="/home"><i class="material-icons">home</i>Home</a></li>
-        <li><a href="/checkout"><i class="material-icons">shopping_cart</i>Cart</a></li>
-        <li class="no-padding" ng-show="loggedIn">
-            <ul class="collapsible collapsible-accordion">
-                <li>
-                    <li><a href="" class="collapsible-header waves-effect waves-teal waves-light" style="padding: 0 32px"><i class="material-icons">person</i>Profile</a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="/user/{{username}}"><i class="material-icons">person</i>Profile</a></li>
-                                <li><a href="/checkout"><i class="material-icons">shopping_cart</i>My Cart</a></li>
-                                <li><a href=""><i class="material-icons" ng-click="logout()">forward</i>Log out</a></li>
-                            </ul>
-                        </div>
-                    </li>
-            </ul>
-            </li>
-
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a class="subheader">Categories</a></li>
-            <li>
-                <ul class="collapsible collapsible-accordion">
-                    <li>
-                        <li><a href="" class="collapsible-header waves-effect waves-teal waves-light" style="padding: 0 32px"><i class="material-icons">content_copy</i>Categories</a>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li ng-click="location('/ending')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">timer</i>Ending</a>
-                                    </li>
-                                    <li ng-click="location('/men')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">accessibility</i>Men</a>
-                                    </li>
-                                    <li ng-click="location('/ladies')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">pregnant_woman</i>Ladies</a></li>
-                                    <li ng-click="location('/home-garden')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">home</i>Home/Garden</a>
-                                    </li>
-                                    <li ng-click="location('/kids-toys')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">child_friendly</i>Kids/Toys</a>
-                                    </li>
-                                    <li ng-click="location('/elec-gadgets')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">lightbulb_outline</i>Elec/Gadgets</a>
-                                    </li>
-                                    <li ng-click="location('/travel-sports')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">flight_takeoff</i>Travel/Sports</a>
-                                    </li>
-                                    <li ng-click="location('/health-beauty')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">fitness_center</i>Health/Beauty</a>
-                                    </li>
-                                    <li ng-click="location('/car-moto')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i
-                class="material-icons">directions_car</i>Car/Moto</a>
-                                    </li>
-                                    <li ng-click="location('/tools')"><a href="" class="waves-effect waves-ripple waves-teal waves-light"><i class="material-icons">build</i>Tools</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                </ul>
-                </li>
-                <li>
-                    <div class="divider"></div>
-                </li>
-                <li><a><i class="material-icons">live_help</i>Help Center</a></li>
-                <li><a><i class="material-icons">star</i>Feedback</a></li>
-                <li>
-                    <div class="divider"></div>
-                </li>
-                <li style="padding: 32px">
-                    <div id="google_translate_element">
-                    </div>
-                </li>
-
-    </ul>
-
-    <ul class="side-nav" id="sideCart" style="z-index: 1999">
-        <li style="line-height: 24px; padding: 5px;">
-            <p class="cart-header black-text" style="margin: 0; font-size: 20px; text-transform: uppercase; font-weight: 500; padding-top: 10px;">Cart</p>
-        </li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li ng-show="itemsInCart.length">
-            <ul class="collection">
-                <li class="collection-item avatar item with-avatar" ng-repeat="item in itemsInCart" style="padding-left: 55px;">
-                    <img src="{{item.image}}" alt="auction.name" class="circle" style="left: 10px; height:40px; width:40px">
-                    <div>
-                        <p class="secondary-content right" style="position: unset; margin: 0 5px;"><i class="material-icons red-text lighten-2" ng-click="removeFromCart($index, itemsInCart)">delete</i></p>
-
-                        <span class="black-text truncate" style="font-size: 15px; font-weight: 500; letter-spacing: 0; opacity: 0.9">{{item.name}}</span>
-                        <p class="item-subtitle black-text" style="font-size: 13px; font-weight: 400; opacity: 0.80">{{item.price | currency: '฿'}}</p>
-                    </div>
-                </li>
-            </ul>
-        </li>
-        <li ng-show="itemsInCart.length" style="position: absolute; width: 100%; bottom: 105px">
-            <div class="divider"></div>
-        </li>
-        <li ng-show="itemsInCart.length" style="position: absolute; bottom: 57px; width: 100%;">
-            <p style="font-size: 17px; text-align: center; font-weight: 600; margin: 0; opacity: 0.7;">Total: {{getTotal() | currency : '฿'}}</p>
-        </li>
-        <li ng-show="itemsInCart.length" style="position: absolute; bottom: 48px; width: 100%;">
-            <div class="divider"></div>
-        </li>
-        <li style="text-align: center; position: absolute; bottom: 0; width: 100%;" ng-show="itemsInCart.length">
-            <a class="btn-flat waves-effect waves-red red-text" style="font-weight: 500; margin: 0" ng-click="checkout()">Checkout</a>
-        </li>
-        <li ng-hide="itemsInCart.length" style="position: absolute; width: 100%; top: calc(40% - 60px); text-align: center;">
-            <i class="material-icons teal-text" style="font-size: 52px; vertical-align: middle">shopping_cart</i>
-            <p style="font-size: 17px; text-align: center;margin: 0"> Your cart is empty!</p>
-            <p style="margin: 0; line-height: 20px; font-size: 13px; opacity: 0.7">Add items to it now!</p>
-            <a class="btn waves-effect teal z-depth-0" style="margin-top: 32px" href="/home">Shop now</a>
-        </li>
-    </ul>
 
     <login-register username="username"></login-register>
 
     <ng-view></ng-view>
 
-    <guarantees show="showNav"></guarantees>
+    <guarantees show="showNav" ng-if="!inMobile"></guarantees>
     <button class="btn btn-floating btn-large white lighten-3 back-up show-on-large-only"><i class="material-icons black-text">keyboard_arrow_up</i></button>
     <button class="btn btn-floating btn-large teal lighten-3 hide-on-large-only tooltipped" ng-hide="loggedIn" data-target="login-modal" data-delay="50" data-position="top" data-tooltip="Login" style="position: fixed; right: 15px; bottom: 15px"><i class="material-icons">exit_to_app</i></button>
     <button class="btn btn-floating btn-large teal hide-on-large-only cart-button animated" data-activates="sideCart" ng-hide="!loggedIn || inCart || inDetail" style="position: fixed; right: 15px; bottom: 15px">
             <i class="material-icons">shopping_cart</i>
             <span class="cart-quantity" ng-if="itemsInCart.length">{{itemsInCart.length}}</span>    
         </button>
-    <th-footer show="showNav"></th-footer>
+    <th-footer show="showNav" ng-if="!inMobile"></th-footer>
     <add-to-homescreen></add-to-homescreen>
 </main>
 <main ng-show="search" style="height: 92%">

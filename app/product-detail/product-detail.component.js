@@ -86,8 +86,21 @@ angular.module('thai')
 
             get()
 
+            // $scope.closeInput = function() {
+            //     if (window.innerWidth < 601) { //Close input on click outside
+            //         if (input.classList.contains('show-bid')) {
+            //             if ($rootScope.hideCart) {
+            //                 alert('here');
+            //                 input.classList.remove('show-bid');
+            //                 $scope.hideCart = false;
+            //             }
+            //         }
+            //     }
+            // }
+
+
             //Show or hide cart button depending on screen size
-            function showCart(params) {
+            function showCart() {
                 if (window.innerWidth < 601) {
                     $rootScope.inDetail = true;
                 } else {
