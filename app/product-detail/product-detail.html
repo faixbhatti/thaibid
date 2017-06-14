@@ -1,7 +1,6 @@
 <div class="separator hide-on-med-only"></div>
 <div style="margin-top: 2px; padding: 0 10px; min-height: 600px">
     <div ng-if="loading">
-
         <div class="preloader-wrapper active loader" style="top: 20%">
             <div class="spinner-layer spinner-teal-only">
                 <div class="circle-clipper left">
@@ -84,10 +83,10 @@
                     <!------ /Ratings ------>
                 </div>
                 <div class="col l6 m6 s6 pull-s2" id="timer-holder">
-                    <!--- Time remaining -->
+                    <!-- Time remaining -->
                     <span class="right timer-text">Time remaining</span>
                     <countdown-timer time="timeLeft" newbid="newBid" product="product" clear="showDiv"></countdown-timer>
-                    <!--- End Time -->
+                    <!-- End Time -->
                 </div>
             </div>
 
@@ -247,20 +246,17 @@
 
 <div class="row" style="position: relative;" ng-init="slideLeft = true" ng-hide="loading">
 
-    <button class="btn-floating btn-large waves-effect white left hide-on-med-and-down" ng-disabled="slideLeft" ng-click="slideRight = false; slideLeft = true;" style="position: absolute; top: 45%; left: 2px;"><i
+    <button class="btn-floating btn-large waves-effect white left hide-on-med-and-down" ng-disabled="" ng-click="slideOut()" style="position: absolute; top: 45%; left: 2px;"><i
             class="material-icons black-text">chevron_left</i></button>
-    <button class="btn-floating btn-large waves-effect white right hide-on-med-and-down" ng-disabled="slideRight" ng-click="slideRight = true; slideLeft= false;" style="position: absolute; top: 45%; right: 2px;"><i
+    <button class="btn-floating btn-large waves-effect white right hide-on-med-and-down" ng-disabled="" ng-click="slideRight()" style="position: absolute; top: 45%; right: 2px;"><i
             class="material-icons black-text">chevron_right</i></button>
     <div id="others">
 
         <p style="margin-left: 20px" class="description-text black-text des-text">You may also be interested in these products</p>
 
         <div style="display: flex">
-            <div id="first" ng-hide="slideRight" class="row">
-                <product-list products="similarProducts" columns="3"></product-list>
-            </div>
-            <div id="last" ng-show="slideRight" class="row">
-                <product-list products="otherProducts" columns="3"></product-list>
+            <div class="row">
+                <product-list products="related" columns="3"></product-list>
             </div>
         </div>
     </div>

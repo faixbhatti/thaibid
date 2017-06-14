@@ -16,17 +16,9 @@ angular.module('thai')
             ctrl.register = false;
 
             ctrl.signIn = function() {
-                let url = 'app/users.json'
-
-                $http.post(url, ctrl.user)
-                    .then(
-                        (data) => {
-                            console.log(data)
-                            $rootScope.loggedIn = true;
-                            $rootScope.username = ctrl.user.username;
-                            $('.modal').modal('close')
-                        }
-                    )
+                $rootScope.loggedIn = true;
+                $rootScope.username = ctrl.user.username;
+                $('.modal').modal('close')
                 setTimeout(function() {
                     Materialize.toast(`Welcome back ${ctrl.username}`, 1000)
                 }, 1000)

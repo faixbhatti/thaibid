@@ -86,12 +86,9 @@
             $scope.loadMore = function(e) {
                 var scroll = window.scrollY,
                     documentHeight = document.body.clientHeight,
-                    windowHeight = window.innerHeight,
-                    categories = document.querySelector('.home');
+                    windowHeight = window.innerHeight
 
                 if (scroll >= (documentHeight - windowHeight) * 0.70) {
-                    categories.style.zIndex = "-1"
-
                     if (!loading) {
                         loading = true
                         $scope.loading = true;
@@ -105,33 +102,13 @@
                         }, 2000)
                     }
 
-                } else {
-                    categories.style.zIndex = 0
                 }
-
             }
-
-            function pinElement() {
-                var products = document.querySelector('#prod-list'),
-                    categories = document.querySelector('.home'),
-                    header = document.querySelector('#header'),
-                    offset = 64 + 50,
-                    bottom = products.clientHeight + products.offsetTop - window.innerHeight + offset;
-
-                $(categories).pushpin({
-                    top: $('.home').offset().top,
-                    offset: offset,
-                });
-
-
-            };
 
             $(document).ready(function() {
                 $('.slider').slider();
                 document.addEventListener('scroll', $scope.loadMore)
-                pinElement()
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
-                $('.carousel.carousel-slider').carousel({ fullWidth: true });
             })
         })

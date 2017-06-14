@@ -34,8 +34,9 @@ angular.module('thai')
                 products.get().then(function(data) {
                     var products = data.data;
                     var product = products[id - 1] || products[5]
-                    $scope.similarProducts = products.slice(0, 4)
-                    $scope.otherProducts = products.slice(4, 8)
+                    $scope.similarProducts = products.slice(0, 4);
+                    $scope.otherProducts = products.slice(4, 8);
+                    $scope.related = $scope.similarProducts;
                     product.price = Math.round(product.price);
                     $scope.product = product
                     $scope.bidPrice = $scope.product.price + 5
@@ -83,8 +84,17 @@ angular.module('thai')
                 })
 
             }
-
             get()
+
+
+
+            $scope.slideRight = () => {
+                $scope.related = $scope.otherProducts;
+            }
+
+            $scope.slideOut = function() {
+                $scope.related = $scope.similarProducts;
+            }
 
             // $scope.closeInput = function() {
             //     if (window.innerWidth < 601) { //Close input on click outside

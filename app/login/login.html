@@ -23,7 +23,9 @@
 
                         <div class="row" style="margin-bottom: 0">
                             <div class="input-field col s12">
-                                <input id="username" type="text" ng-model="$ctrl.user.username" placeholder="Username" name="username" ng-minlength="4" required>
+                                <input id="username" type="text" ng-model="$ctrl.user.username" placeholder="Username" name="username" ng-minlength="4" ng-class="{
+                                           'input-error': loginForm.username.$touched && loginForm.username.$invalid
+                                       }" required>
                                 <label for="username"></label>
                                 <span class="field-error" ng-if="loginForm.username.$error.required  && loginForm.username.$touched">Please input your username</span>
                                 <span class="field-error" ng-if="loginForm.username.$error.minlength  && loginForm.username.$touched">Your username has to be longer than 4 letters</span>
@@ -32,7 +34,9 @@
 
                         <div class="row" style="margin-bottom: 0">
                             <div class="input-field col s12">
-                                <input id="password" type="password" placeholder="Password" name="password" ng-minlength="8" ng-model="$ctrl.user.password" required>
+                                <input id="password" type="password" placeholder="Password" name="password" ng-minlength="8" ng-model="$ctrl.user.password" ng-class="{
+                                           'input-error': loginForm.password.$touched && loginForm.password.$invalid
+                                       }" required>
                                 <label for="password"></label>
                                 <span class="field-error" ng-if="loginForm.password.$error.required && loginForm.password.$touched">Please input your password</span>
                                 <span class="field-error" ng-if="loginForm.password.$error.minlength && loginForm.password.$touched">Your password has to be at least 8 characters</span>
@@ -43,7 +47,7 @@
                             <h6 class="right forgot-pass">Forgot your password?</h6>
                         </div>
 
-                        <button class="btn btn-large wave-effect waves-light waves-ripple waves-red white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;">Submit
+                        <button class="btn btn-large wave-effect waves-light waves-ripple waves-red white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;" ng-disabled="loginForm.$invalid">Submit
                             </button>
                         <p class="center other-option grey-text">Need an account? <span class="new-log" ng-click="$ctrl.register = !$ctrl.register">Create new account</span></p>
                     </form>
@@ -70,16 +74,20 @@
 
                         <div class="row" style="margin-bottom: 0">
                             <div class="input-field col s12">
-                                <input id="user" type="text"  ng-model="$ctrl.user.username" ng-minlength="4" name="username" placeholder="Username" required>
+                                <input id="user" type="text" ng-model="$ctrl.user.username" ng-minlength="4" name="username" placeholder="Username" ng-class="{
+                                           'input-error': registerForm.username.$touched && registerForm.username.$invalid
+                                       }" required>
                                 <label for="user"></label>
                                 <p class="field-error" ng-if="registerForm.username.$error.required  && registerForm.username.$touched">Please enter your username</p>
                                 <p class="field-error" ng-if="registerForm.username.$error.minlength  && registerForm.username.$touched">Your username has to be at least 4 characters</p>
                             </div>
                         </div>
-                        
+
                         <div class="row" style="margin-bottom: 5px">
                             <div class="input-field col s12">
-                                <input id="pass" type="password" placeholder="Password" name="password" ng-model="$ctrl.user.password" ng-minlength="8" required>
+                                <input id="pass" type="password" placeholder="Password" name="password" ng-model="$ctrl.user.password" ng-minlength="8" ng-class="{
+                                           'input-error': registerForm.password.$touched && registerForm.password.$invalid
+                                       }" required>
                                 <label for="pass"></label>
                                 <p class="field-error" ng-if="registerForm.password.$error.required  && registerForm.password.$touched">Please enter your password</p>
                                 <p class="field-error" ng-if="registerForm.password.$error.minlength  && registerForm.password.$touched">Your password has to be at least 8 characters</p>
@@ -90,19 +98,22 @@
                             <div class="input-field col s12" style="margin: 0">
                                 <p style="margin: 0">
                                     <input type="checkbox" id="terms" />
-                                    <label for="terms"><a ng-click="$ctrl.viewTerms()" class="grey-text">I've read and agreed to the terms and conditions</a></label>
+                                    <label for="terms"><span>I've read and agreed to the</span><a ng-click="$ctrl.viewTerms()" href="" class="grey-text">terms and conditions</a></label>
                                 </p>
                             </div>
                         </div>
 
-                        <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;" ng-disabled="registerForm.$invalid" >Create Account
+                        <button class="btn btn-large wave-effect waves-light waves-ripple white-text center z-depth-0 mcs-color" style="width: 100%; margin-bottom: 5px;" ng-disabled="registerForm.$invalid">Create Account
                             </button>
                         <p class="center other-option grey-text">Already have an account? <span class="new-log" ng-click="$ctrl.register = !$ctrl.register">Sign In</span></p>
                     </form>
+                </div>
             </div>
-        </div>
 
-        <!--End registeration form-->
+            <!--End registeration form-->
+
+
+        </div>
 
         <!--Reset password form-->
         <div class="row" ng-if="$ctrl.forgotPassword" style="padding-top: 15px; margin-bottom: 0">
@@ -111,11 +122,14 @@
             </div>
             <p class="center register-text description-text" style="margin: 20px 0 10px 0">Reset your password</<p>
                 <div class="row">
-                    <form class="col s12" ng-submit="resetForm.$valid &&  $ctrl.reset()" name="resetForm"  novalidate>
+                    <form class="col s12" ng-submit="resetForm.$valid &&  $ctrl.reset()" name="resetForm" novalidate>
                         <div class="row">
                             <div class="col s12 input-field">
-                                <input type="email" name="forgot" id="forgot" placeholder="Enter your email..." ng-model="$ctrl.email" required>
-                                <p class="field-error">Please enter your email</p>
+                                <input type="email" name="forgot" id="forgot" placeholder="Enter your email..." ng-model="$ctrl.email" ng-class="{
+                                           'input-error': resetForm.forgot.$touched && resetForm.forgot.$invalid
+                                       }" required>
+                                <p class="field-error" ng-if="resetForm.forgot.$error.required && resetForm.forgot.$touched">Please enter your email</p>
+                                <p class="field-error" ng-if="resetForm.forgot.$error.email && resetForm.forgot.$touched">Please enter a valid email</p>
                             </div>
                             <div class="col s12 input-field">
                                 <button class="btn btn-large waves-effect waves-light mcs-color z-depth-0" style="width: 100%; font-size:17px; font-weight: 400" ng-disabled="resetForm.$invalid">

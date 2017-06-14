@@ -14,13 +14,17 @@
         background-color: #26848c !important;
     }
     
-    .field-error{
+    .field-error {
         font-size: 12px;
         color: red;
         margin: -15px 0 0 0;
         letter-spacing: 0.02em;
     }
-
+    
+    .input-error {
+        border-color: red !important;
+    }
+    
     .main-green-text {
         color: #26848c !important;
     }
@@ -815,6 +819,10 @@
         width: 100%;
         margin-top: 0;
         border-radius: 2px;
+    }
+    
+    .modal {
+        z-index: 1000;
     }
     
     .footer-color {
@@ -1732,8 +1740,7 @@
         padding: 0 1rem;
     }
     
-    #first,
-    #last {
+    #first {
         transition: 0.5s ease;
     }
     /*Ng Animations*/
@@ -1744,14 +1751,6 @@
     
     #first.ng-hide-add {
         animation: 1s slideOutLeft ease-in-out;
-    }
-    
-    #last.ng-hide-remove {
-        animation: 1s slideInRight ease;
-    }
-    
-    #last.ng-hide-add {
-        animation: 1s slideOutRight ease;
     }
     
     .cart-button.ng-hide-add {
