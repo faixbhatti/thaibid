@@ -1,5 +1,5 @@
-<header ng-show="showNav" id="header">
-    <div class="navbar-fixed" id="table">
+<header ng-show="showNav" id="header" ng-if="!search">
+    <div class="navbar-fixed" id="table" ng-if="!search" style="transition: 0s">
         <ul class="dropdown-content" id="profile">
             <li><a href="/user/{{username}}" class="black-text">My profile</a></li>
             <li><a href="" class="black-text" ng-click="logout()">Logout</a></li>
@@ -33,14 +33,14 @@
         </ul>
 
 
-        <nav class="nav-extended main-green" ng-hide="search" id="nav">
+        <nav class="nav-extended main-green" ng-if="!search" id="nav">
             <div class="nav-wrapper">
                 <a href="" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
                 <div class="container">
                     <a class="brand-logo slight-black-text" href="/home"><img src="image/BidXelSVG.svg" style="height:40px; margin-top: 10px" alt="Logo"></a>
 
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a class="waves-effect nav-item" ng-click="searching()"><i class="material-icons left">search</i></a>
+                        <li><a class="waves-effect nav-item" ng-click="$ctrl.searching()"><i class="material-icons left">search</i></a>
                         </li>
                         <li>
                             <a href="" class="dropdown-button waves-effect nav-item" data-activates="cart" data-constrainwidth="false" data-beloworigin="true" data-alignment='right' data-hover="true">
@@ -62,7 +62,7 @@
                     <ul class="right hide-on-large-only">
                         <li><a class="waves-effect nav-item small-nav one" ng-click="addToScreen()"><i class="material-icons left">phone_android</i></a>
                         </li>
-                        <li><a class="waves-effect nav-item small-nav" ng-click="searching()"><i class="material-icons left">search</i></a>
+                        <li><a class="waves-effect nav-item small-nav" ng-click="$ctrl.searching()"><i class="material-icons left">search</i></a>
                         </li>
                     </ul>
 
@@ -110,19 +110,6 @@
 
             </div>
         </nav>
-
-        <nav class="teal lighten-3" ng-show="search">
-            <div class="nav-wrapper">
-                <form>
-                    <div class="input-field">
-                        <input id="search" type="search" ng-model="searchWord" ng-change="showResults()" required>
-                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                        <i class="material-icons waves-effect" ng-click="searching()">close</i>
-                    </div>
-                </form>
-            </div>
-        </nav>
-
     </div>
 </header>
 <main ng-click="search=false" ng-hide="search">
@@ -146,87 +133,4 @@
     <th-footer show="showNav" ng-if="!inMobile"></th-footer>
     <add-to-homescreen></add-to-homescreen>
 </main>
-<main ng-show="search" style="height: 92%">
-    <div class="preloader-wrapper loader" ng-class="{active: loading}">
-        <div class="spinner-layer spinner-teal-only">
-            <div class="circle-clipper left">
-                <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-                <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-                <div class="circle"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col l2 m2 s12" ng-hide="searchWord.length > 0 && results.length === 0" ng-if="searchWord">
-            <div>
-                <ul class="collection with-header hide-on-med-and-down">
-                    <li class="collection-header" style="background-color: #EEEEEE; padding: 5px 10px; border-bottom: none">
-                        <p class="teal-text text-darken-2">
-                            Advanced Search <i class="material-icons waves-effect waves-light right">filter_list</i>
-                        </p>
-                    </li>
-                    <li class="collection-item">
-                        <p class="input-field inline">
-                            <input name="grp3" type="checkbox" id="new" ng-click="limit = 4" /> <label for="new" class="black-text"> New Product</label>
-                        </p>
-                    </li>
-                    <li class="collection-item">
-                        <p class="input-field inline">
-                            <input name="grp2" type="checkbox" id="use" ng-click="limit = 2" ng-checked="clicked" /> <label for="use" class="black-text">Products Used</label>
-                        </p>
-                    </li>
-                    <li class="collection-item">
-                        <p class="input-field inline">
-                            <input name="group1" type="checkbox" id="dis" ng-click="limit = 3" ng-checked="clicked" /> <label for="dis" class="black-text">Discount shipping</label>
-                        </p>
-                    </li>
-                    <li class="collection-item">
-                        <p class="input-field inline">
-                            <input name="grp4" type="checkbox" id="ship" ng-click="limit = 1" ng-checked="clicked" /> <label for="ship" class="black-text">Shipping</label>
-                        </p>
-                    </li>
-                    <li class="collection-item">
-                        <p class="input-field inline">
-                            <input name="group1" type="checkbox" id="sale" ng-click="limit = 5; clicked=true" ng-checked="clicked" /> <label for="sale" class="black-text">Wholesale</label>
-                        </p>
-                    </li>
-                    <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>
-                    <li class="collection-item" style="padding: 20px">
-                        <div id="uiSlider" ng-model="price" style="margin: 15px"></div>
-
-                        <span class="right-aligned black-text" style="font-size: 14px; font-weight: 500; opacity: 0.75">{{right
-						| currency:'฿'}}</span> - <span class="right-aligned black-text" style="font-size: 14px; font-weight: 500; opacity: 0.75">{{left
-						| currency:'฿'}}</span></li>
-                    <li class="collection-item">
-                        <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
-						<i class="material-icons">thumb_up</i>
-					</button>
-                        <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="clicked=false">
-						<i class="material-icons">delete_forever</i>
-					</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col l10 m12 s12" ng-hide="searchWord.length > 0 && results.length === 0">
-            <p ng-show="searchWord && results.length > 0">Showing {{results.length}} results for <span class="teal-text">"{{searchWord}}"</span></p>
-            <product-list products="results" columns="3" ng-hide="!searchWord" ng-click="searching()"></product-list>
-        </div>
-
-        <div class="col s12" ng-show="searchWord.length > 0 && results.length === 0">
-            <div class="no-results">
-                <h4>Nothing matches your search</h4>
-                <i class="material-icons">sentiment_very_dissatisfied</i>
-            </div>
-            <div class="container">
-                <div class="divider"></div>
-                <p>Checkout these other products</p>
-                <product-list products="suggestions" columns="2" class="suggestions" ng-click="searching()"></product-list>
-            </div>
-        </div>
-    </div>
-</main>
+<app-search-area ng-if="search" search="search"></app-search-area>

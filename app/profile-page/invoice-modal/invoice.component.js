@@ -15,10 +15,10 @@
         });
 
     function invoiceCtrl() {
-        var ctrl = this;
+        const ctrl = this;
 
-        $(document).ready(function() {
+        ctrl.$onInit = () => {
             $('.modal').modal()
-        })
+        }
 
     }

@@ -27,13 +27,13 @@
                 </thead>
 
                 <tbody>
-                    <tr ng-repeat="order in orders">
+                    <tr ng-repeat="order in $ctrl.orders">
                         <td class="table-text reduce-text">{{order.name}}</td>
                         <td class="table-text reduce-text">{{order.quantity}}</td>
                         <td class="table-text reduce-text">{{order.price + 15 | currencyName : 'baht'}}</td>
                         <td class="table-text reduce-text">{{order.price | currencyName : 'baht'}}</td>
                         <td class="table-text reduce-text">{{(order.price + 15) * order.quantity | currencyName: 'baht'}}</td>
-                        <td class="table-text reduce-text"><a href="javascript:void(0)" ng-click="showInvoice(order)">#{{order.invoice}} </a></td>
+                        <td class="table-text reduce-text"><a href="javascript:void(0)" ng-click="$ctrl.showInvoice(order)">#{{order.invoice}} </a></td>
                     </tr>
                 </tbody>
             </table>

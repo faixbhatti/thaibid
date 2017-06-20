@@ -4,7 +4,11 @@
   "description": "Bidding site for thaibid inc",
   "main": "app/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp",
+    "build-vendor": "gulp build-vendor",
+    "serve": "live-server",
+    "commit": "git add --all && git commit -m 'Finished the day's work' && git push origin",
+    "start": "start gulp & start live-server"
   },
   "repository": {
     "type": "git",

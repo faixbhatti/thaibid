@@ -151,10 +151,7 @@ angular.module('thai')
                         if ($scope.bidPrice > 150) {
                             $scope.autoBid = true;
 
-                            function initElement() {
-                                $('.autobid').addClass('animated fadeIn')
-                            };
-                            setTimeout(initElement, 100);
+                            setTimeout(() => $('.autobid').addClass('animated fadeIn'), 100);
 
                         }
                         // If window size is mobile or tablet, call the navigator.vibrate() api.
@@ -175,12 +172,13 @@ angular.module('thai')
 
                         $rootScope.cart.push(product)
 
-                        setTimeout(hideAlert, 4000)
-                            // Hide alert after 4 secs
-                        function hideAlert() {
+                        // Hide alert after 4 secs
+                        setTimeout(() => {
                             $('autobid').removeClass('animated fadeOut')
                             $scope.autoBid = false;
-                        }
+                        }, 4000);
+
+
                     } else {
                         // Open login modal if user isn't logged in
                         $('#login-modal').modal('open');

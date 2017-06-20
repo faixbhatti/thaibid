@@ -6,45 +6,56 @@
 angular.module('thai')
     .component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
-        controller: function($scope, $routeParams, $location, $http, $rootScope, $anchorScroll) {
+        controller: function ($scope, $routeParams, $location, $http, $rootScope, $anchorScroll) {
+            const ctrl = this;
             $scope.name = $routeParams.name;
-
             $rootScope.showNav = true;
             $rootScope.inDetail = false;
             $scope.item = '';
             $rootScope.previousPage = `/user/${$scope.name}`;
             $rootScope.inCart = false;
 
+            ctrl.usernname = $scope.name;
 
 
+            // Templates to assist in switching between tabs in user profile page;
             $scope.templates = {
-                "editProfile": "app/profile-page/edit-profile.html",
-                "auctions": "app/profile-page/auctions.html",
-                "purchases": "app/profile-page/purchases.html",
-                "orders": "app/profile-page/orders.html",
-                "cart": "app/profile-page/cart.html",
-                "rewards": "app/profile-page/rewards.html"
+                "editProfile": "edit-profile", // Edit profile form. This template displays a form to edit the user profile
+                "auctions": "auctions", // Auction template displays all of the user's auctions to date
+                "orders": "orders", // Order template displays the orders placed by the user to date
+                "cart": "cart", // Cart template displays all items in the user's cart
+                "rewards": "rewards" // Rewards cart displays all the rewards user has gotten to date
             };
 
+            // Select a template based on the selection the user has made from another page
             $scope.template = $scope.templates[$rootScope.template];
 
+            // Scroll to the area that displays info about the user if on mobile or tablet
             function goToInfo() {
-                if ($rootScope.template === 'orders' || $rootScope.template === 'cart') {
-                    $location.hash('user-info');
-                    $anchorScroll();
+                if (window.innerWidth < 993) {
+                    // Only scroll if the user has made a selection from another page
+                    // E.g if user has selected to view cart or orders or when user is redirected to complete profile after sign up
+                    if ($rootScope.template === 'orders' || $rootScope.template === 'cart' || $rootScope.template === 'editProfile') {
+                        $location.hash('user-info');
+                        $anchorScroll();
+                    }
                 }
             }
 
-            goToInfo()
+            goToInfo();
 
-            $scope.currentInfo = '';
+            // Current info of a particular auction or purchase to be displayed by the purchase info modal
+            $scope.currentInfo = {};
 
-            $scope.displayInfo = function(info) {
+            // Function to display info about a particular auction based on the user's selection
+            ctrl.displayInfo = function (info) {
                 $scope.currentInfo = info;
+                // trigger modal open
                 $('#purchase-modal').modal('open');
-            }
+            };
 
-            $scope.auctions = [{
+            ctrl.auctions = [
+                {
                     "id": 5,
                     "name": "When it goes down",
                     "price": 20.34,
@@ -79,17 +90,14 @@ angular.module('thai')
                 }
             ];
 
-            $scope.checkout = function() {
-                $rootScope.cart = $scope.auctions;
-                $location.url('/checkout');
-            }
-
-            $scope.showInvoice = function(item) {
+            // Function to display info about a particular order in the invoice modal
+            ctrl.showInvoice = function (item) {
                 $scope.item = item;
                 $('#invoice-modal').modal('open')
-            }
+            };
 
-            $scope.orders = [{
+            ctrl.orders = [
+                {
                     "id": 6,
                     "name": "What a view",
                     "price": 40.14,
@@ -126,57 +134,37 @@ angular.module('thai')
                     "quantity": 1,
                     "invoice": "BVNED23"
                 }
-            ]
+            ];
 
-            $scope.profImg = 'image/elliot.jpg'
+            $scope.profImg = 'image/elliot.jpg';
 
-            $scope.uploadImg = function() {
+            $scope.uploadImg = function () {
                 const input = document.querySelector('.imgUpload');
                 input.click()
-            }
+            };
 
-            $scope.switchTab = function(tab) {
-                $scope.template = $scope.templates[tab];
-                $location.hash('user-info');
-                $anchorScroll();
-                if (tab === "editProfile") {
-                    setTimeout(function() {
-                        $('select.icons').material_select();
+            // While switching tabs, if user is on mobile or tablet, scroll to the display area
+            const scrollToDiv = () => {
+                if (window.innerWidth < 993) {
+                    //location hash takes in a the id of an element
+                    $location.hash('user-info');
 
-                        var data = {};
-
-                        $http.get('https://restcountries.eu/rest/v2/all').then(function(response) {
-                            var places = response.data;
-
-                            for (var i = 0; i < places.length; i++) {
-                                data[places[i].name] = places[i].flag
-                            }
-
-                            $('input.autocomplete').autocomplete({
-                                "data": data,
-                                limit: 15,
-                                minLength: 1
-                            })
-                        });
-                    }, 500)
-
-                } else if (tab === 'purchases') {
-                    setTimeout(function() {
-                        $('.tooltipped').tooltip({ delay: 50 });
-                    }, 500)
-                } else if (tab === 'auctions') {
-                    setTimeout(function() {
-                        $('.tooltipped').tooltip({ delay: 50 });
-                    }, 500)
+                    // when $anchorScroll is called, window scrolls to the postion of the element entered in the 'location.hash' method
+                    $anchorScroll();
                 }
             };
 
-            $(document).ready(function() {
-                $('.modal').modal()
+            // Function to switch tabs based on the user's selection
+            ctrl.switchTab = function (tab) {
+                $scope.template = $scope.templates[tab];
+                // Trigger scrollToDiv() function
+                scrollToDiv();
+            };
 
+
+            ctrl.$onInit = () => {
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
-            });
-
+            }
         }
-    })
+    });

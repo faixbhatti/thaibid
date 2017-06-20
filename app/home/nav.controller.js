@@ -4,16 +4,16 @@
 'use strict';
 
 angular.module('thai')
-    .controller('navCtrl', function($scope, $location, $rootScope, $filter, products, deleteModal) {
+    .controller('navCtrl', function($scope, $location, $rootScope) {
 
 
 
         $rootScope.showNav = true;
-        $rootScope.previousPage = "/home"
+        $rootScope.previousPage = "/home";
         $rootScope.cart = []
         $rootScope.inCart = false;
         $rootScope.inDetail = false;
-        $rootScope.template = 'auctions'
+        $rootScope.template = 'auctions';
 
         if (window.innerWidth < 993) {
             $rootScope.inMobile = true;

@@ -33,8 +33,8 @@
                         </a>
                     </div>
                 </div>
-                <product-list products="products" columns="3" limit="limit"></product-list>
-                <product-list products="products" columns="3" limit="limit"></product-list>
+                <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>
+                <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>
                 <div class="preloader-wrapper active" style="left: 50%" ng-if="loading">
                     <div class="spinner-layer spinner-teal-only">
                         <div class="circle-clipper left">
@@ -72,54 +72,7 @@
         <all-categories active="category" class="category hide-on-med-and-down"></all-categories>
 
         <div>
-            <ul class="collection with-header hide-on-med-and-down z-depth-1">
-                <li class="collection-header main-green" style="padding: 5px 10px; border-bottom: none">
-                    <p class="white-text">
-                        Advanced Search <i class="material-icons waves-effect waves-light right">filter_list</i>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="grp3" type="checkbox" id="new" ng-click="limit = 4" /> <label for="new" class="black-text"> New Product</label>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="grp2" type="checkbox" id="use" ng-click="limit = 2" ng-checked="clicked" /> <label for="use" class="black-text">Products Used</label>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="group1" type="checkbox" id="dis" ng-click="limit = 3" ng-checked="clicked" /> <label for="dis" class="black-text">Discount shipping</label>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="grp4" type="checkbox" id="ship" ng-click="limit = 1" ng-checked="clicked" /> <label for="ship" class="black-text">Shipping</label>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="group1" type="checkbox" id="sale" ng-click="limit = 5; clicked=true" ng-checked="clicked" /> <label for="sale" class="black-text">Wholesale</label>
-                    </p>
-                </li>
-                <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>
-                <li class="collection-item teal-text text-darken-3" style="padding: 20px 10px;">
-                    <div id="uiSlider" style="margin: 10px 5px 20px"></div>
-                    <span>{{right | currencyName: 'baht'}} </span> - <span>{{left | currencyName: 'baht'}}</span>
-                </li>
-                <li class="collection-item">
-                    <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
-						<i class="material-icons">thumb_up</i>
-					</button>
-                    <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="clicked=false">
-						<i class="material-icons">delete_forever</i>
-					</button>
-                </li>
-
-            </ul>
-
-
+            <app-search-sidebar limit="$ctrl.limit"></app-search-sidebar>
         </div>
     </div>
 </div>

@@ -12,30 +12,30 @@
 
             <div class="card-content" style="padding: 2px 10px">
                 <ul class="collection">
-                    <li class="collection-item item" ng-click="switchTab('auctions')">
+                    <li class="collection-item item" ng-click="$ctrl.switchTab('auctions')">
                         <div> <span class="name">Auctions</span><a href="" class="secondary-content ebony-blue colored"><i class="material-icons colored-icons white-text">gavel</i></a></div>
                     </li>
                     <!--<div class="divider"></div>
-                    <li class="collection-item item" ng-click="switchTab('purchases')">
+                    <li class="collection-item item" ng-click="$ctrl.switchTab('purchases')">
                     <div> <span class="name">Purchases</span><a href="" class="secondary-content green-dark colored"><i class="material-icons colored-icons white-text">label</i> </a></div>
                     </li>-->
                     <div class="divider"></div>
-                    <li class="collection-item item" ng-click="switchTab('orders')">
+                    <li class="collection-item item" ng-click="$ctrl.switchTab('orders')">
                         <div> <span class="name">Orders</span><a href="" class="secondary-content green-steel colored"><i class="material-icons colored-icons white-text">assignment</i></a></div>
                     </li>
                     <div class="divider"></div>
-                    <li class="collection-item item" ng-click="switchTab('cart')">
+                    <li class="collection-item item" ng-click="$ctrl.switchTab('cart')">
                         <div> <span class="name">Cart</span><a href="" class="secondary-content grey-silver colored"><i class="material-icons colored-icons white-text">shopping_cart</i></a></div>
                     </li>
                     <div class="divider"></div>
-                    <li class="collection-item item" ng-click="switchTab('rewards')">
+                    <li class="collection-item item" ng-click="$ctrl.switchTab('rewards')">
                         <div> <span class="name">Rewards</span><a href="" class="secondary-content blue colored"><i class="material-icons colored-icons white-text">loyalty</i></a></div>
                     </li>
                 </ul>
             </div>
 
             <div class="card-menu">
-                <div class="edit-user waves-effect waves-grey waves-dark" data-delay="50" data-position="top" data-tooltip="Edit profile" ng-click="switchTab('editProfile')">
+                <div class="edit-user waves-effect waves-grey waves-dark" data-delay="50" data-position="top" data-tooltip="Edit profile" ng-click="$ctrl.switchTab('editProfile')">
                     <i class="material-icons">mode_edit</i>
                 </div>
             </div>
@@ -44,7 +44,13 @@
 
     <div class="col l9 m12 s12" style="padding: 0 8px" id="user-info">
         <div class="white z-depth-0" style="min-height: 523px">
-            <div ng-include="template"></div>
+            <div>
+                <user-cart ng-if="template === 'cart'"></user-cart>
+                <user-auctions ng-if="template === 'auctions'" auctions="$ctrl.auctions" item="currentInfo"></user-auctions>
+                <user-edit-profile ng-if="template === 'edit-profile'"></user-edit-profile>
+                <user-orders ng-if="template === 'orders'"></user-orders>
+                <user-rewards ng-if="template === 'rewards'"></user-rewards>
+            </div>
         </div>
     </div>
 

@@ -1,0 +1,59 @@
+<header>
+    <div class="navbar-fixed">
+        <nav class="teal lighten-3">
+            <div class="nav-wrapper">
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" ng-model="$ctrl.searchWord" ng-change="$ctrl.showResults()"
+                               required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons waves-effect" ng-click="$ctrl.searching()">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+
+    </div>
+</header>
+<main style="height: 92%">
+    <div class="preloader-wrapper loader" ng-class="{active: $ctrl.loading}">
+        <div class="spinner-layer spinner-teal-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l2 m2 s12" ng-hide="$ctrl.searchWord.length > 0 && $ctrl.results.length === 0"
+             ng-if="$ctrl.searchWord">
+            <div>
+                <app-search-sidebar limit="$ctrl.limit"></app-search-sidebar>
+            </div>
+        </div>
+        <div class="col l10 m12 s12" ng-hide="$ctrl.searchWord.length > 0 && $ctrl.results.length === 0">
+            <p ng-show="$ctrl.searchWord && $ctrl.results.length > 0">Showing {{$ctrl.results.length}} results for
+                <span class="teal-text">"{{$ctrl.searchWord}}"</span></p>
+            <product-list products="$ctrl.results" columns="3" ng-if="$ctrl.searchWord"
+                          ng-click="$ctrl.searching()" limit="$ctrl.limit"></product-list>
+        </div>
+
+        <div class="col s12" ng-if="$ctrl.searchWord.length > 0 && $ctrl.results.length === 0">
+            <div class="no-results">
+                <h4>Nothing matches your search</h4>
+                <i class="material-icons">sentiment_very_dissatisfied</i>
+            </div>
+            <div class="container">
+                <div class="divider"></div>
+                <p>Checkout these other products</p>
+                <product-list products="$ctrl.suggestions" columns="2" class="suggestions"
+                              ng-click="$ctrl.searching()"></product-list>
+            </div>
+        </div>
+    </div>
+</main>
