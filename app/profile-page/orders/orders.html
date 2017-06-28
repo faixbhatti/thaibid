@@ -12,34 +12,73 @@
         <div class="divider"></div>
 
         <div>
-            <!--<i class="material-icons medium green-steel-text">assignment</i>
-            <p style="font-size: 14px">No orders</p>-->
-            <table class="striped bordered order-table responsive-table">
-                <thead>
-                    <tr>
-                        <th class="table-header truncate">Product Name</th>
-                        <th class="table-header">Quantity</th>
-                        <th class="table-header">Bid Amount</th>
-                        <th class="table-header">Price</th>
-                        <th class="table-header">Sub Total</th>
-                        <th class="table-header">Invoice</th>
-                    </tr>
-                </thead>
+            <md-toolbar class="md-table-toolbar md-default" ng-show="!$ctrl.selected.length && !$ctrl.search">
+                <div class="md-toolbar-tools">
+                    <h2 class="md-title">Filter Orders</h2>
+                    <div flex class="flex"></div>
+                    <button class="md-icon-button md-button md-ink-ripple" ng-click="$ctrl.search = true" aria-label="Search button" type="button">
+                        <md-icon class="material-icons">search</md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-toolbar class="md-table-toolbar md-default" ng-show="$ctrl.search && !$ctrl.selected.length" aria-hidden="false">
+                <div class="md-toolbar-tools">
+                    <md-icon class="material-icons">search</md-icon>
+                    <form flex="" name="filterForm" class="flex">
+                        <input type="text" ng-model="$ctrl.query.filter" ng-model-options="filter.options" placeholder="search" aria-invalid="false">
+                    </form>
+                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="$ctrl.removeFilter()" aria-label="close">
+                        <md-icon class="material-icons">close</md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-toolbar class="md-table-toolbar alternate" ng-show="$ctrl.selected.length">
+                <div class="md-toolbar-tools">
+                    <span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'items' : 'item'}} selected</span>
+                    <div class="flex" flex></div>
+                    <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Return goods" ng-click="$ctrl.raiseIssue($event)">
+                        <md-icon>assignment_return</md-icon>
+                    </button>
+                </div>
+            </md-toolbar>
+            <md-table-container>
+                <table md-table md-row-select multiple ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                    <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
+                        <tr md-row>
+                            <th md-column md-order-by="name"><span>Product Name</span></th>
+                            <th md-column md-numeric md-order-by="quantity "><span>Quantity</span></th>
+                            <th md-column md-numeric>Bid Amount</th>
+                            <th md-column md-numeric>Price</th>
+                            <th md-column md-numeric>Sub Total</th>
+                            <th md-column>Invoice #</th>
+                            <th md-column>
+                                Request status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="order in $ctrl.orders | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
+                            <td md-cell>{{order.name}}</td>
+                            <td md-cell>{{order.quantity}}</td>
+                            <td md-cell>{{order.price + 15 | currencyName : 'baht'}}</td>
+                            <td md-cell>{{order.price | currencyName : 'baht'}}</td>
+                            <td md-cell>{{(order.price + 15) * order.quantity | currencyName: 'baht'}}</td>
+                            <td md-cell>#{{order.invoice}}</td>
+                            <td md-cell>
+                                <span ng-if="order.price > 20 && order.price < 25" class="blue-text">Pending</span>
+                                <span ng-if="order.price < 20" class="green-text">Cleared</span>
+                                <span ng-if="order.price > 25 && order.price < 40" class="red-text">Cancelled</span>
+                                <span ng-if="order.price > 40" class="blue-grey-text">None</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
 
-                <tbody>
-                    <tr ng-repeat="order in $ctrl.orders">
-                        <td class="table-text reduce-text">{{order.name}}</td>
-                        <td class="table-text reduce-text">{{order.quantity}}</td>
-                        <td class="table-text reduce-text">{{order.price + 15 | currencyName : 'baht'}}</td>
-                        <td class="table-text reduce-text">{{order.price | currencyName : 'baht'}}</td>
-                        <td class="table-text reduce-text">{{(order.price + 15) * order.quantity | currencyName: 'baht'}}</td>
-                        <td class="table-text reduce-text"><a href="javascript:void(0)" ng-click="$ctrl.showInvoice(order)">#{{order.invoice}} </a></td>
-                    </tr>
-                </tbody>
-            </table>
+            <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[10, 15, 20] " md-page="$ctrl.query.page " md-total="{{$ctrl.orders.length}} " md-on-paginate="$ctrl.getOrders " md-page-select></md-table-pagination>
         </div>
 
-        <p style="text-align: center" class="hide-on-large-only"> <i class="material-icons" style="vertical-align: middle">touch_app</i> Swipe to scroll through table</p>
-        <p style="text-align: center" class="grey-text">*NB We will cancel any pending orders after 7 days</p>
+        <p style="text-align: center " class="hide-on-large-only "> <i class="material-icons " style="vertical-align: middle ">touch_app</i> Swipe to scroll through table</p>
+        <p style="text-align: center " class="grey-text ">*NB We will cancel any pending orders after 7 days</p>
     </div>
 </div>

@@ -84,14 +84,14 @@
             $location.url('/category' + url)
         };
 
-        ctrl.$onDestroy = function () {
-          window.removeEventListener('scroll', goBackUp)
+        ctrl.$onDestroy = function() {
+            window.removeEventListener('scroll', goBackUp)
         };
 
-        ctrl.$onInit = function () {
+        ctrl.$onInit = function() {
             function goBackUp(params) {
                 const scroll = window.scrollY,
-                    documentHeight = document.body.clientHeight,
+                    documentHeight = document.body.scrollHeight,
                     windowHeight = window.innerHeight;
 
                 if (scroll >= (documentHeight - windowHeight) * 0.20) {

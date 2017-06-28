@@ -1,0 +1,71 @@
+<md-dialog aria-label="Complaint dialog">
+    <div ng-cloak>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <h4>Raise an issue</h4>
+                <p class="grey-text">
+                    Note: This form is to be filled only if the item won in an auction was delivered in bad shape or it wasn't as described. <br> #1. You will need to submit evidence of damage in the form of an image. <br> #2. You will describe what the
+                    issues are with your item.
+                </p>
+
+
+                <form action="" name="complaint-form">
+                    <div class="input-row" layout="row">
+                        <md-input-container flex>
+                            <label for="">Issue description</label>
+                            <textarea name="issueDescription" required ng-model="complaint.report" id="" md-maxlength="250" rows="3" md-select-on-focus></textarea>
+                        </md-input-container>
+                        <div class="error red-text" ng-if="complaint-form.issueDescription.$error.required && complaint-form.issueDescription.$touched">
+                            *Please enter a description of your issue
+                        </div>
+                    </div>
+
+                    <div class="input-row" layout-gt-xs="row">
+                        <md-input-container class="md-block" flex-gt-xs="50">
+                            <label>Desired Action</label>
+                            <md-select name="desired_action" ng-model="complaint.request" required>
+                                <md-option value="Ask for refund">
+                                    Ask for refund
+                                </md-option>
+                                <md-option value="Swap item">
+                                    Swap item
+                                </md-option>
+                                <md-option value="Return Item">
+                                    Return Item
+                                </md-option>
+                            </md-select>
+                            <div class="error red-text" ng-if="complaint-form.desired_action.$error.required && complaint-form.desired_action.$touched">
+                                Please select desired action
+                            </div>
+                        </md-input-container>
+
+                        <md-input-container flex-gt-xs="50" style="width: 100%">
+                            <div class="file-field input-field visual-evidence" aria-label="File upload field">
+                                <div class="btn">
+                                    <span>Image</span>
+                                    <input type="file" name="complaint-img" ng-model="complaint.evidence" required>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                            <div class="hint grey-text">
+                                *Please select an image showing evidence of damage
+                            </div>
+                        </md-input-container>
+
+                    </div>
+                </form>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="submitComplaint()">
+                Submit
+            </md-button>
+            <md-button ng-click="hide()" class="md-accent">
+                I'm Okay
+            </md-button>
+        </md-dialog-actions>
+    </div>
+</md-dialog>

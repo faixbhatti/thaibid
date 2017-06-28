@@ -9,11 +9,11 @@ angular.module('thai')
             active: '<'
         },
         templateUrl: 'app/categories/categories.html',
-        controller: function ($location) {
+        controller: function($location) {
             const ctrl = this;
             let hasEventListener = false;
 
-            ctrl.location = function (url) {
+            ctrl.location = function(url) {
                 $location.url('/category' + url)
             };
 
@@ -33,12 +33,12 @@ angular.module('thai')
                 }
 
 
-                function sinkElement() {
+                ctrl.sinkElement = function() {
                     if (pin) {
                         if (pin === "true") {
                             hasEventListener = true;
                             let scroll = window.scrollY,
-                                documentHeight = document.body.clientHeight,
+                                documentHeight = document.body.scrollHeight,
                                 windowHeight = window.innerHeight;
                             if (scroll >= (documentHeight - windowHeight) * 0.70) {
                                 categories.style.zIndex = "-1";
@@ -49,11 +49,11 @@ angular.module('thai')
                     }
                 }
 
-                window.addEventListener('scroll', sinkElement)
+                window.addEventListener('scroll', ctrl.sinkElement)
             };
 
             ctrl.$onDestroy = () => {
-                if (hasEventListener)window.removeEventListener('scroll', sinkElement);
+                if (hasEventListener) window.removeEventListener('scroll', ctrl.sinkElement);
             }
         }
 

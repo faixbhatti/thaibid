@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('thai')
-    .controller('homeCtrl', function ($scope, products, $rootScope) {
+    .controller('homeCtrl', function($scope, products, $rootScope) {
         $scope.dataLoading = true;
 
         function get() {
-            products.get().then(function (data) {
+            products.get().then(function(data) {
                 $scope.products = data.data;
                 $scope.deals = $scope.products.slice(0, 8)
                 $scope.rest = $scope.products.slice(8)
@@ -18,12 +18,12 @@ angular.module('thai')
         $rootScope.inCart = false;
 
         var extras = [{
-            "id": 21,
-            "name": "Classic beach wear",
-            "price": 20.34,
-            "image": "image/leather-bag.jpg",
-            "timer": "2017-03-24"
-        },
+                "id": 21,
+                "name": "Classic beach wear",
+                "price": 20.34,
+                "image": "image/leather-bag.jpg",
+                "timer": "2017-03-24"
+            },
             {
                 "id": 22,
                 "name": "All black swagger",
@@ -82,9 +82,9 @@ angular.module('thai')
         $scope.loading = false;
         var loading = false;
 
-        $scope.loadMore = function (e) {
+        $scope.loadMore = function(e) {
             var scroll = window.scrollY,
-                documentHeight = document.body.clientHeight,
+                documentHeight = document.body.scrollHeight,
                 windowHeight = window.innerHeight
 
             if (scroll >= (documentHeight - windowHeight) * 0.70) {
@@ -104,7 +104,7 @@ angular.module('thai')
             }
         };
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.slider').slider();
             document.addEventListener('scroll', $scope.loadMore)
             document.body.scrollTop = 0;

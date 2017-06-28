@@ -4,9 +4,13 @@
 'use strict';
 
 angular.module('thai')
-    .config(['cfpLoadingBarProvider', '$routeProvider', '$locationProvider', function(cfpLoadingBarProvider, $routeProvider, $locationProvider) {
+    .config(['cfpLoadingBarProvider', '$routeProvider', '$locationProvider', '$mdThemingProvider', function(cfpLoadingBarProvider, $routeProvider, $locationProvider, $mdThemingProvider) {
 
         $locationProvider.html5Mode(true);
+
+        $mdThemingProvider.theme('default')
+            .primaryPalette('green')
+            .accentPalette('teal')
 
         $routeProvider
             .when('/home', {

@@ -7,22 +7,94 @@
 angular.module('thai')
     .component('userOrders', {
         require: {
-           user: '^userProfile'
+            user: '^userProfile'
         },
-       templateUrl: 'app/profile-page/orders/orders.html',
+        templateUrl: 'app/profile-page/orders/orders.html',
         controller: orderCtrl,
+
+    })
+    .controller('addItemController', function($mdDialog, $scope, $mdToast) {
+
+
+        $scope.hide = () => {
+            let header = document.querySelector('.navbar-fixed');
+            header.style.zIndex = 997;
+            $mdDialog.hide();
+        };
+
+        $scope.submitComplaint = () => {
+            $scope.hide();
+            $mdToast.show(
+                $mdToast.simple()
+                .textContent('Your complaint has been submitted. Awaiting confirmation')
+                .position("bottom")
+                .hideDelay(3000)
+            );
+
+        };
 
     });
 
 
-function orderCtrl() {
+function orderCtrl($mdDialog) {
     const ctrl = this;
+    ctrl.loading = true;
+    ctrl.search = false;
 
     ctrl.showInvoice = (invoice) => {
         ctrl.user.showInvoice(invoice);
     };
 
+    ctrl.raiseIssue = (event) => {
+        let header = document.querySelector('.navbar-fixed');
+        header.style.zIndex = 76;
+        setTimeout(() => {
+            $mdDialog.show({
+                clickOutsideToClose: false,
+                controller: 'addItemController',
+                focusOnOpen: false,
+                targetEvent: event,
+                templateUrl: 'app/profile-page/orders/order-dialog.html',
+            })
+        }, 200)
+
+    }
+
+    ctrl.selected = [];
+
+    ctrl.query = {
+        'order': 'name',
+        limit: 10,
+        page: 1,
+        filter: ''
+    }
+
+    ctrl.removeFilter = () => {
+        ctrl.query.filter = ''
+        ctrl.search = false;
+    }
+
+    ctrl.options = {
+        rowSelection: true,
+        multiSelect: true,
+        autoSelect: true,
+        decapitate: false,
+        largeEditDialog: false,
+        boundaryLinks: false,
+        limitSelect: true,
+        pageSelect: true
+    };
+
+    ctrl.getOrders = (item) => {
+        console.log(item, 'was ordered')
+    }
+
+    ctrl.logItem = (item) => {
+        console.log(item, 'was clicked')
+    }
+
     ctrl.$onInit = () => {
         ctrl.orders = ctrl.user.orders;
+        ctrl.loading = false;
     }
-};
+}

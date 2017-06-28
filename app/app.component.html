@@ -131,6 +131,6 @@
             <span class="cart-quantity" ng-if="itemsInCart.length">{{itemsInCart.length}}</span>    
         </button>
     <th-footer show="showNav" ng-if="!inMobile"></th-footer>
-    <add-to-homescreen></add-to-homescreen>
+    <add-to-homescreen ng-if="inMobile"></add-to-homescreen>
 </main>
 <app-search-area ng-if="search" search="search"></app-search-area>
