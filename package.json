@@ -9,7 +9,7 @@
         "serve": "live-server",
         "commit": "git add --all && git commit -m \"Finished the day's work\" && git push origin master",
         "start": " live-server & gulp",
-        "deploy": "npm run commit && cd .. && firebase delpoy"
+        "deploy": "npm run commit && cd .. && firebase deploy"
     },
     "repository": {
         "type": "git",
