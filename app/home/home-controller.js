@@ -1,14 +1,15 @@
 'use strict';
 
 angular.module('thai')
+
     .controller('homeCtrl', function($scope, products, $rootScope) {
         $scope.dataLoading = true;
 
         function get() {
             products.get().then(function(data) {
                 $scope.products = data.data;
-                $scope.deals = $scope.products.slice(0, 8)
-                $scope.rest = $scope.products.slice(8)
+                $scope.deals = $scope.products.slice(0, 8);
+                $scope.rest = $scope.products.slice(8);
                 $scope.dataLoading = false;
             })
         }
@@ -85,17 +86,17 @@ angular.module('thai')
         $scope.loadMore = function(e) {
             var scroll = window.scrollY,
                 documentHeight = document.body.scrollHeight,
-                windowHeight = window.innerHeight
+                windowHeight = window.innerHeight;
 
             if (scroll >= (documentHeight - windowHeight) * 0.70) {
                 if (!loading) {
-                    loading = true
+                    loading = true;
                     $scope.loading = true;
                     var prod = document.querySelector('#prod-list');
-                    prod.click()
+                    prod.click();
 
                     setTimeout(() => {
-                        $scope.rest.push(...extras)
+                        $scope.rest.push(...extras);
                         $scope.loading = false;
                         prod.click()
                     }, 200)
@@ -106,7 +107,7 @@ angular.module('thai')
 
         $(document).ready(function() {
             $('.slider').slider();
-            document.addEventListener('scroll', $scope.loadMore)
+            document.addEventListener('scroll', $scope.loadMore);
             document.body.scrollTop = 0;
             document.documentElement.scrollTop = 0;
             $(".dropdown-button").dropdown({

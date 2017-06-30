@@ -7,8 +7,8 @@
         "build": "gulp",
         "build-vendor": "gulp build-vendor",
         "serve": "live-server",
-        "commit": "git add --all && git commit -m \"Finished the day's work\" && git push origin master",
-        "start": " live-server & gulp",
+        "commit": "git add --all && git commit -m \"Optimised site's performance for lighthouse checks\" && git push origin master",
+        "start": "gulp & live-server",
         "deploy": "npm run commit && cd .. && firebase deploy"
     },
     "repository": {

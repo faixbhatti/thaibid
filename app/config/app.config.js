@@ -41,3 +41,14 @@ angular.module('thai')
 
         cfpLoadingBarProvider.includeSpinner = false;
     }])
+    .run(function ($rootScope) {
+        $rootScope.showNav = true;
+        $rootScope.previousPage = "/home";
+        $rootScope.cart = [];
+        $rootScope.inCart = false;
+        $rootScope.inDetail = false;
+        $rootScope.template = 'auctions';
+        $rootScope.inMobile = window.innerWidth < 993;
+        $rootScope.loggedIn = false;
+        $rootScope.username = "";
+    });
