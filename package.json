@@ -7,7 +7,7 @@
         "build": "gulp",
         "build-vendor": "gulp build-vendor",
         "serve": "live-server",
-        "commit": "git add --all && git commit -m \"Optimised site's performance for lighthouse checks\" && git push origin master",
+        "commit": "git add --all && git commit -m \"Recreated checkout page and optimised site\" && git push origin master",
         "start": "gulp & live-server",
         "deploy": "npm run commit && cd .. && firebase deploy"
     },
@@ -43,6 +43,8 @@
         "sw-precache": "^5.1.1"
     },
     "dependencies": {
+        "gulp-purifycss": "^0.2.0",
+        "md-steppers": "^0.3.4",
         "tinify": "^1.5.0"
     }
 }

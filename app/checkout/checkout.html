@@ -17,7 +17,7 @@
 <!--- Container ---->
 <div class="container" id="checkout-con">
     <div class="row">
-        <div class="col l8 m12 s12 push-l2" ng-hide="nextStep" style="padding: 20px">
+        <div class="col l8 m12 s12 push-l2" ng-if="!checkingOut" style="padding: 20px">
             <h5 class="teal-text center checkout-header" ng-if="items.length"><i class="material-icons checkout teal white-text">shopping_cart</i> Cart</h5>
 
             <!--- Items In Cart ---->
@@ -58,73 +58,27 @@
             </div>
         </div>
 
-        <div class="col l8 m12 s12 push-l2 z-depth-1 white" ng-show="nextStep" style="padding: 20px">
+        <div class="col l8 m12 s12 push-l2 z-depth-1 white" ng-if="checkingOut" style="padding: 20px">
             <h5 class="blue-text center checkout-header"><i class="material-icons checkout blue white-text">local_shipping</i>Order</h5>
             <div class="divider"></div>
-            <div class="white" style="padding: 15px 0; border-radius: 2px;">
 
-                <!--- Delivery Options Stepper ---->
-                <div class="stepper hide-on-small-and-down">
-                    <div style="flex: 0 0 auto">
-                        <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="oneFinished" style="border: none; color: white; line-height: 32px;">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">01</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
-                        </span>
-                    </div>
-
-                    <div style="flex: 6 1 auto; height: 52px">
-                        <span class="step-margin" ng-class="{'step-done': oneFinished}"></span>
-                    </div>
-
-                    <div style="flex: 0 0 auto">
-                        <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">02</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
-                        </span>
-                    </div>
-
-                    <div style="flex: 6 1 auto; height: 52px">
-                        <span class="step-margin" ng-class="{'step-done': twoFinished}"></span>
-                    </div>
-
-                    <div style="flex: 0 0 auto">
-                        <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">03</span> <span ng-class="{'green-text': twoFinished}" class="step-text">Order Status</span>
-                        </span>
-                    </div>
-                </div>
-                <!--- End Stepper ---->
-
-
-                <!-- Mobile Stepper -->
-                <div class="stepper hide-on-med-and-up" style="flex-direction: column">
-                    <div style="flex: 0 0 auto" ng-show="step === 0">
-                        <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="oneFinished" style="border: none; color: white; line-height: 32px;">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">01</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
-                        </span>
-                    </div>
-
-                    <div style="flex: 0 0 auto" ng-show="step === 1">
-                        <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">02</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
-                        </span>
-                    </div>
-
-                    <div style="flex: 0 0 auto" ng-show="step === 2">
-                        <span class="step-holder">
-                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
-                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">03</span> <span ng-class="{'green-text': step === 2}" class="step-text fair-grey">Order Status</span>
-                        </span>
-                    </div>
-                </div>
-                <!--- End Mobile Stepper ---->
-
-                <div class="divider"></div>
-                <div ng-include="template" ng-if="nextStep"></div>
-            </div>
+            <md-steppers md-dynamic-height md-stretch-steppers="always" md-selected="selectedStep">
+                <md-step label="Billing Address" md-complete="stepData[0].completed">
+                    <md-content class="md-padding">
+                        <div ng-include="templates.billing"></div>
+                    </md-content>
+                </md-step>
+                <md-step label="Delivery Options" md-complete="stepData[1].completed">
+                    <md-content class="md-padding">
+                        <div ng-include="templates.deliveryOptions"></div>
+                    </md-content>
+                </md-step>
+                <md-step label="Order Status" md-complete="stepData[2].completed">
+                    <md-content class="md-padding">
+                        <div ng-include="templates.order"></div>
+                    </md-content>
+                </md-step>
+            </md-steppers>
         </div>
     </div>
 </div>

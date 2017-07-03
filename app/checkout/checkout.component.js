@@ -13,37 +13,47 @@
 
 
     function checkCtrl($scope, $rootScope, $http, $location, Location, Calculate, deleteModal) {
+        $rootScope.showNav = false;
+        $rootScope.inCart = true;
+        $rootScope.inDetail = false;
 
         $scope.items = $rootScope.cart;
-        $rootScope.inCart = true;
         $scope.discounted = false;
-
+        $scope.selectedStep = 0;
         $scope.items.forEach(item => item.quantity = 1)
-
-        $rootScope.showNav = false;
-
         $scope.all = true;
+        $scope.billing = {};
+        $scope.checkingOut = false;
 
-        $scope.billing = {}
+        $scope.templates = {
+            billing: 'app/checkout/billing.html',
+            deliveryOptions: 'app/checkout/delivery.html',
+            order: 'app/checkout/order.html'
+        }
 
-        $scope.templates = [
-            'app/checkout/billing.html',
-            'app/checkout/delivery.html',
-            'app/checkout/order.html'
+        $scope.stepData = [
+            { step: 1, completed: false, optional: false, data: {} },
+            { step: 2, completed: false, optional: false, data: {} },
+            { step: 3, completed: false, optional: false, data: {} },
         ]
 
-        $scope.step = 0;
-
-        $scope.oneFinished = false;
-        $scope.twoFinished = false;
+        $scope.completeStep = function(stepData) {
+            console.log(JSON.stringify(stepData));
+            stepData.completed = true;
+            $scope.nextStep();
+        }
 
         // Proceed to next step of payment
-        $scope.stepTo = function(step) {
-            $scope.step = step
-            if (step === 1) $scope.oneFinished = true;
-            if (step === 2) $scope.twoFinished = true;
+        $scope.nextStep = function() {
+            if ($scope.selectedStep < 3) $scope.selectedStep += 1
 
-            $scope.template = $scope.templates[step]
+            // Scroll document back to top anytime step is changed
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        }
+
+        $scope.previousStep = function() {
+            if ($scope.selectedStep > 1) $scope.selectedStep -= 1
 
             // Scroll document back to top anytime step is changed
             document.documentElement.scrollTop = 0;
@@ -51,7 +61,7 @@
         }
 
         $scope.checkout = function() {
-            $scope.nextStep = true;
+            $scope.checkingOut = !$scope.checkingOut;
             Location.getProvinces()
         }
 
@@ -73,11 +83,9 @@
             'Icons/visa.png',
         ]
 
-        $rootScope.inDetail = false;
-
         // Select required payment option
         $scope.selectPayment = function(option) {
-            $scope.paymentOption = option
+            $scope.paymentOption = $scope.paymentOption === option ? option : '';
         }
 
         $scope.getDistrict = function(province) {

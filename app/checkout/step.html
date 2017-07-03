@@ -1,0 +1,59 @@
+<!--- Delivery Options Stepper ---->
+<!--                
+                <div class="stepper hide-on-small-and-down">
+                    <div style="flex: 0 0 auto">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="oneFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">01</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
+                        </span>
+                    </div>
+
+                    <div style="flex: 6 1 auto; height: 52px">
+                        <span class="step-margin" ng-class="{'step-done': oneFinished}"></span>
+                    </div>
+
+                    <div style="flex: 0 0 auto">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">02</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
+                        </span>
+                    </div>
+
+                    <div style="flex: 6 1 auto; height: 52px">
+                        <span class="step-margin" ng-class="{'step-done': twoFinished}"></span>
+                    </div>
+
+                    <div style="flex: 0 0 auto">
+                        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">03</span> <span ng-class="{'green-text': twoFinished}" class="step-text">Order Status</span>
+                        </span>
+                    </div>
+                </div>-->
+<!--- End Stepper ---->
+
+
+<!-- Mobile Stepper -->
+<div class="stepper hide-on-med-and-up" style="flex-direction: column">
+    <div style="flex: 0 0 auto" ng-show="step === 0">
+        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="oneFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="oneFinished">01</span> <span class="step-text" ng-class="{'green-text': oneFinished, 'fair-grey': !oneFinished}">Billing Address</span>
+        </span>
+    </div>
+
+    <div style="flex: 0 0 auto" ng-show="step === 1">
+        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">02</span> <span class="step-text" ng-class="{'green-text': twoFinished, 'fair-grey': !twoFinished}">Delivery Options</span>
+        </span>
+    </div>
+
+    <div style="flex: 0 0 auto" ng-show="step === 2">
+        <span class="step-holder">
+                        <i class="material-icons circle-icon green" ng-show="twoFinished" style="border: none; color: white; line-height: 32px;">check</i>
+                        <span class="circle-icon" style="font-size: 15px;" ng-hide="twoFinished">03</span> <span ng-class="{'green-text': step === 2}" class="step-text fair-grey">Order Status</span>
+        </span>
+    </div>
+</div>
+<!--- End Mobile Stepper ---->

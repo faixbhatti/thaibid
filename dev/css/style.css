@@ -23,6 +23,10 @@ md-checkbox {
     left: inherit !important;
 }
 
+:focus {
+    outline: none !important;
+}
+
 .hint,
 .error {
     font-size: 12px;
@@ -186,7 +190,7 @@ button#fb:hover {
     background-color: #37A79D;
 }
 
-.collection-item.cat>a:hover {
+.collection-item.cat:hover+.collection-item.cat>a {
     color: white !important;
 }
 
@@ -1025,8 +1029,8 @@ button.mcs-color:hover {
     margin-top: -3px
 }
 
-.slider {
-    height: 400px !important;
+.slides {
+    height: 500px !important;
 }
 
 .slider .indicators {
@@ -1040,8 +1044,12 @@ button.mcs-color:hover {
     margin: 0 5px;
 }
 
+.slider {
+    height: 500px !important;
+}
+
 .carousel.carousel-slider {
-    height: 400px !important;
+    height: 600px !important;
 }
 
 .modal-price {
