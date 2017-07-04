@@ -1,5 +1,5 @@
 <div>
-    <form class="col l12 m12 s12 white" style="padding: 10px" ng-submit="deliveryInfoForm.$valid && completeStep(stepData[0])" name="deliveryInfoForm" novalidate>
+    <form class="col l12 m12 s12 white" style="padding: 10px" ng-submit="deliveryInfoForm.$valid && completeStep($ctrl.stepData[0].data)" name="deliveryInfoForm" novalidate>
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col l12 m12 s12 field">
                 <i class="material-icons prefix grey-text">location_searching</i>
@@ -43,8 +43,8 @@
             </div>
         </div>
 
-        <md-button class="md-raised md-primary left" ng-click="goBack()" type="button">To Cart</md-button>
-        <md-button class="md-raised md-accent right" ng-disabled="deliveryInfoForm.$invalid">Next</md-button>
+        <md-button class="left main-green-text" ng-click="goBack()" type="button">To Cart</md-button>
+        <md-button class="md-raised md-primary right" ng-disabled="deliveryInfoForm.$invalid" type="submit">Next</md-button>
 
     </form>
 </div>

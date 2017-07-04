@@ -20,7 +20,8 @@ angular.module('thai')
             ctrl.$onInit = () => {
                 ctrl.top = document.querySelector('.home').offsetTop;
                 ctrl.offset = document.querySelector('.nav-extended').offsetHeight;
-                let categories = document.querySelector('.home'),
+                let categories = document.querySelector('.home.collection'),
+                    categoryList = categories.querySelectorAll('.cat'),
                     pin = categories.parentElement.dataset.pin;
 
                 if (pin) {
@@ -48,6 +49,16 @@ angular.module('thai')
                         }
                     }
                 }
+
+                categoryList.forEach(item => {
+                    let a = item.querySelector('a');
+                    item.onmouseover = () => {
+                        a.classList.add('white-text');
+                    }
+                    item.onmouseout = () => {
+                        a.classList.remove('white-text');
+                    }
+                })
 
                 window.addEventListener('scroll', ctrl.sinkElement)
             };

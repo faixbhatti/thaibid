@@ -190,10 +190,6 @@ button#fb:hover {
     background-color: #37A79D;
 }
 
-.collection-item.cat:hover+.collection-item.cat>a {
-    color: white !important;
-}
-
 .collection {
     border: none;
 }
@@ -1029,8 +1025,8 @@ button.mcs-color:hover {
     margin-top: -3px
 }
 
-.slides {
-    height: 500px !important;
+.top-slider .slides {
+    height: 600px !important;
 }
 
 .slider .indicators {
@@ -1045,11 +1041,11 @@ button.mcs-color:hover {
 }
 
 .slider {
-    height: 500px !important;
+    height: 600px !important;
 }
 
 .carousel.carousel-slider {
-    height: 600px !important;
+    height: 400px !important;
 }
 
 .modal-price {
@@ -1559,8 +1555,15 @@ blockquote {
     padding: 0 10px;
 }
 
+
+/*
 .payment-holder {
     border-right: 1px solid grey;
+}*/
+
+md-checkbox.md-checked .md-icon {
+    background-color: var(--main-green);
+    color: white;
 }
 
 .payment-holder:hover {

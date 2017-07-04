@@ -62,18 +62,18 @@
             <h5 class="blue-text center checkout-header"><i class="material-icons checkout blue white-text">local_shipping</i>Order</h5>
             <div class="divider"></div>
 
-            <md-steppers md-dynamic-height md-stretch-steppers="always" md-selected="selectedStep">
-                <md-step label="Billing Address" md-complete="stepData[0].completed">
+            <md-steppers md-dynamic-height md-stretch-steppers="always" md-selected="$ctrl.selectedStep">
+                <md-step label="Billing Address" md-complete="$ctrl.stepData[0].data.completed">
                     <md-content class="md-padding">
                         <div ng-include="templates.billing"></div>
                     </md-content>
                 </md-step>
-                <md-step label="Delivery Options" md-complete="stepData[1].completed">
+                <md-step label="Delivery Options" md-complete="$ctrl.stepData[1].data.completed">
                     <md-content class="md-padding">
                         <div ng-include="templates.deliveryOptions"></div>
                     </md-content>
                 </md-step>
-                <md-step label="Order Status" md-complete="stepData[2].completed">
+                <md-step label="Order Status" md-complete="$ctrl.stepData[2].data.completed">
                     <md-content class="md-padding">
                         <div ng-include="templates.order"></div>
                     </md-content>

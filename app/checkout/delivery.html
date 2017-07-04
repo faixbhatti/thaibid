@@ -52,7 +52,7 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="cash" name="paymentOption" ng-checked="paymentOption === 'cash'">
+                            <input type="checkbox" id="cash" name="paymentOption" ng-checked="useCash" ng-click="selectPayment('cash')">
                             <label for="cash"></label>
                         </p>
                     </a>
@@ -67,13 +67,13 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="atm" name="paymentOption" ng-checked="paymentOption === 'atm'">
+                            <input type="checkbox" id="atm" name="paymentOption" ng-checked="useAtm" ng-click="selectPayment('atm')">
                             <label for="atm"></label>
                         </p>
                     </a>
                 </li>
                 <div class="divider"></div>
-                <li class="collection-item" ng-click="selectPayment('creditCard')">
+                <li class="collection-item" ng-click="selectPayment('card')">
                     <span class="title">Credit/Debit Cards</span>
                     <p>
                         <div style="display: flex">
@@ -82,13 +82,13 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="cards" name="paymentOption" ng-checked="paymentOption === 'creditCard'">
+                            <input type="checkbox" id="cards" name="paymentOption" ng-checked="useCard" ng-click="selectPayment('card')">
                             <label for="cards"></label>
                         </p>
                     </a>
                 </li>
                 <div class="divider"></div>
-                <li class="collection-item" ng-click="selectPayment('redeem')">
+                <li class="collection-item" ng-click="selectPayment('points')">
                     <span class="title">Redeem with points</span>
                     <p>
                         <div style="display: flex">
@@ -97,14 +97,14 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="redeem" name="paymentOption" ng-checked="paymentOption === 'redeem'">
+                            <input type="checkbox" id="redeem" name="paymentOption" ng-checked="usePoints" ng-click="selectPayment('points')">
                             <label for="redeem"></label>
                         </p>
                     </a>
                 </li>
             </ul>
         </div>
-        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment(1)">
+        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment('cash')">
             <h6 class="blue-grey-text" style="font-weight: 500">Cash on delivery</h6>
 
             <div style="text-align: center">
@@ -112,37 +112,37 @@
             </div>
 
             <p>
-                <input type="checkbox" id="Cash" name="group1" ng-checked="paymentOption === 1" />
+                <input type="checkbox" id="Cash" name="group1" ng-checked="useCash" ng-click="selectPayment('cash')" />
                 <label for="Cash"></label>
             </p>
         </div>
-        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment(2)">
+        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment('atm')">
             <h6 class="blue-grey-text" style="font-weight: 500">ATM/Bank transfer</h6>
             <div style="text-align: center">
                 <img src="{{img}}" alt="" ng-repeat="img in imgs | limitTo: 2 : 1" style="height: 20px; width: 22px; margin: 2px">
             </div>
             <p>
-                <input type="checkbox" id="atm" name="group1" ng-checked="paymentOption === 2" />
+                <input type="checkbox" id="atm" name="group1" ng-checked="useAtm" ng-click="selectPayment('atm')" />
                 <label for="atm"></label>
             </p>
         </div>
-        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment(3)">
+        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment('card')">
             <h6 class="blue-grey-text" style="font-weight: 500">Credit/Debit Cards</h6>
             <div style="text-align: center">
                 <img src="{{img}}" alt="" ng-repeat="img in imgs | limitTo: 2 : 3" style="height: 24px; width: 26px; margin: 3px">
             </div>
             <p>
-                <input type="checkbox" id="card" name="group1" ng-checked="paymentOption === 3" />
+                <input type="checkbox" id="card" name="group1" ng-checked="useCard" ng-click="selectPayment('card')" />
                 <label for="card"></label>
             </p>
         </div>
-        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment(4)">
+        <div class="col s3 center payment-holder hide-on-small-and-down" ng-click="selectPayment('points')">
             <h6 class="blue-grey-text" style="font-weight: 500">Redeem with points</h6>
             <div style="text-align: center">
                 <img src="{{img}}" alt="" ng-repeat="img in imgs | limitTo: 2 : 3" style="height: 24px; width: 26px; margin: 3px">
             </div>
             <p>
-                <input type="checkbox" id="card" name="group1" ng-checked="paymentOption === 4" />
+                <input type="checkbox" id="points" name="group1" ng-checked="usePoints" ng-click="selectPayment('points')" />
                 <label for="card"></label>
             </p>
         </div>
@@ -169,6 +169,6 @@
             </div>
         </div>
     </div>
-    <md-button class="md-raised blue-grey lighten-3 left" ng-click="previousStep()" type="button">Back</md-button>
-    <md-button class="md-raised blue lighten-2 right" ng-click="completeStep(stepData[1])" type="button">Next</md-button>
+    <md-button class="left main-green-text white-text" ng-click="previousStep()" type="button">Back</md-button>
+    <md-button class="md-raised main-green right white-text" ng-click="completeStep($ctrl.stepData[1].data)" type="button">Next</md-button>
 </div>

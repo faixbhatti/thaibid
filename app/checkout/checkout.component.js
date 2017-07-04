@@ -17,47 +17,58 @@
         $rootScope.inCart = true;
         $rootScope.inDetail = false;
 
+        const ctrl = this;
+        ctrl.selectedStep = 0;
+
+
         $scope.items = $rootScope.cart;
         $scope.discounted = false;
-        $scope.selectedStep = 0;
         $scope.items.forEach(item => item.quantity = 1)
         $scope.all = true;
         $scope.billing = {};
         $scope.checkingOut = false;
-
+        $scope.useCash = false;
+        $scope.useAtm = false;
+        $scope.usePoints = false;
+        $scope.useCard = false;
         $scope.templates = {
             billing: 'app/checkout/billing.html',
             deliveryOptions: 'app/checkout/delivery.html',
             order: 'app/checkout/order.html'
         }
 
-        $scope.stepData = [
+        ctrl.stepData = [
             { step: 1, completed: false, optional: false, data: {} },
             { step: 2, completed: false, optional: false, data: {} },
             { step: 3, completed: false, optional: false, data: {} },
         ]
 
         $scope.completeStep = function(stepData) {
-            console.log(JSON.stringify(stepData));
             stepData.completed = true;
+            console.log(JSON.stringify(stepData));
             $scope.nextStep();
         }
 
         // Proceed to next step of payment
         $scope.nextStep = function() {
-            if ($scope.selectedStep < 3) $scope.selectedStep += 1
+            if (ctrl.selectedStep < 3) {
+                ctrl.selectedStep += 1
+                console.log(ctrl.selectedStep)
 
-            // Scroll document back to top anytime step is changed
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
+                // Scroll document back to top anytime step is changed
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }
         }
 
         $scope.previousStep = function() {
-            if ($scope.selectedStep > 1) $scope.selectedStep -= 1
+            if (ctrl.selectedStep > 0) {
+                ctrl.selectedStep -= 1
 
-            // Scroll document back to top anytime step is changed
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
+                // Scroll document back to top anytime step is changed
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+            }
         }
 
         $scope.checkout = function() {
@@ -67,8 +78,8 @@
 
         // Return to cart if in payment page
         $scope.goBack = function() {
-            if ($scope.nextStep === true) {
-                $scope.nextStep = false;
+            if ($scope.checkingOut === true) {
+                $scope.checkingOut = false;
                 return;
             }
             $location.url($scope.previousPage)
@@ -85,7 +96,39 @@
 
         // Select required payment option
         $scope.selectPayment = function(option) {
-            $scope.paymentOption = $scope.paymentOption === option ? option : '';
+            switch (option) {
+                case 'card':
+                    $scope.useCash = false;
+                    $scope.useAtm = false;
+                    $scope.usePoints = false;
+                    $scope.useCard = !$scope.useCard;
+                    break;
+                case 'atm':
+                    $scope.useCash = false;
+                    $scope.usePoints = false;
+                    $scope.useCard = false;
+                    $scope.useAtm = !$scope.useAtm;
+                    break;
+                case 'cash':
+                    $scope.useAtm = false;
+                    $scope.usePoints = false;
+                    $scope.useCard = false;
+                    $scope.useCash = !$scope.useCash;
+                    break;
+                case 'points':
+                    $scope.useCash = false;
+                    $scope.useAtm = false;
+                    $scope.useCard = false;
+                    $scope.usePoints = !$scope.usePoints
+                    break;
+
+                default:
+                    $scope.useCash = false;
+                    $scope.useAtm = false;
+                    $scope.usePoints = false;
+                    $scope.useCard = false;
+                    break;
+            }
         }
 
         $scope.getDistrict = function(province) {

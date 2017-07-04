@@ -9,8 +9,8 @@ angular.module('thai')
         $locationProvider.html5Mode(true);
 
         $mdThemingProvider.theme('default')
-            .primaryPalette('green')
-            .accentPalette('teal')
+            .primaryPalette('teal')
+            .accentPalette('blue-grey')
 
         $routeProvider
             .when('/home', {
@@ -41,7 +41,7 @@ angular.module('thai')
 
         cfpLoadingBarProvider.includeSpinner = false;
     }])
-    .run(function ($rootScope) {
+    .run(function($rootScope) {
         $rootScope.showNav = true;
         $rootScope.previousPage = "/home";
         $rootScope.cart = [];
