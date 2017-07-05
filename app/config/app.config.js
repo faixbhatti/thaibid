@@ -10,11 +10,11 @@ angular.module('thai')
 
         $mdThemingProvider.theme('default')
             .primaryPalette('teal')
-            .accentPalette('blue-grey')
+            .accentPalette('blue-grey');
 
         $routeProvider
             .when('/home', {
-                templateUrl: 'app/home/home.html'
+                template: "<home-page></home-page>"
             })
             .when('/product/:productId', {
                 template: "<product-detail></product-detail>"
@@ -37,6 +37,9 @@ angular.module('thai')
             .when('/about', {
                 template: '<about></about>'
             })
+            .when('/redeem-shop', {
+                template: '<app-redeem-shop></app-redeem-shop>'
+            })
             .otherwise('/home')
 
         cfpLoadingBarProvider.includeSpinner = false;
@@ -48,7 +51,7 @@ angular.module('thai')
         $rootScope.inCart = false;
         $rootScope.inDetail = false;
         $rootScope.template = 'auctions';
-        $rootScope.inMobile = window.innerWidth < 993;
+        $rootScope.inMobile = window.matchMedia('(max-width: 993px)');
         $rootScope.loggedIn = false;
         $rootScope.username = "";
     });

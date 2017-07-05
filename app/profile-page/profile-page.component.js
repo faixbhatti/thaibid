@@ -14,8 +14,9 @@ angular.module('thai')
             $scope.item = '';
             $rootScope.previousPage = `/user/${$scope.name}`;
             $rootScope.inCart = false;
+            ctrl.inMobile = $rootScope.inMobile.matches;
 
-            ctrl.usernname = $scope.name;
+            ctrl.username = $scope.name;
 
 
             // Templates to assist in switching between tabs in user profile page;
@@ -32,7 +33,7 @@ angular.module('thai')
 
             // Scroll to the area that displays info about the user if on mobile or tablet
             function goToInfo() {
-                if (window.innerWidth < 993) {
+                if (ctrl.inMobile) {
                     // Only scroll if the user has made a selection from another page
                     // E.g if user has selected to view cart or orders or when user is redirected to complete profile after sign up
                     if ($rootScope.template === 'orders' || $rootScope.template === 'cart' || $rootScope.template === 'editProfile') {
@@ -138,14 +139,9 @@ angular.module('thai')
 
             $scope.profImg = 'image/elliot.jpg';
 
-            $scope.uploadImg = function () {
-                const input = document.querySelector('.imgUpload');
-                input.click()
-            };
-
             // While switching tabs, if user is on mobile or tablet, scroll to the display area
             const scrollToDiv = () => {
-                if (window.innerWidth < 993) {
+                if (ctrl.inMobile) {
                     //location hash takes in a the id of an element
                     $location.hash('user-info');
 
@@ -158,9 +154,8 @@ angular.module('thai')
             ctrl.switchTab = function (tab) {
                 $scope.template = $scope.templates[tab];
                 // Trigger scrollToDiv() function
-                scrollToDiv();
+                if (ctrl.inMobile)scrollToDiv();
             };
-
 
             ctrl.$onInit = () => {
                 document.body.scrollTop = 0;

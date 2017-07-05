@@ -11,24 +11,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="manifest" href="manifest.json">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style" onload="this.rel='stylesheet'">
+    <!--<link rel="preload"
+          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
+          as="style"
+          onload="this.rel='stylesheet'"
+    >-->
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <!--<link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
+        >-->
+    </noscript>
     <link rel="stylesheet" href="dist/css/app.min.css">
 </head>
 
 <body>
 
-<noscript>
+    <noscript>
     <div style="position: fixed; left: 30%; top: 30%; text-align: center;">
         <i class="material-icons" style="font-size: 60px; color: var(--main-green);">hourglass_empty</i>
         <p>Javascript has been disabled on this browser or your browser isn't up to date</p>
     </div>
 </noscript>
-<app></app>
+    <app></app>
 
-<script src="dist/js/vendors/vendors.bundle.min.js"></script>
-<script src="dist/js/app.bundle.min.js"></script>
+    <script src="dist/js/vendors/vendors.bundle.min.js"></script>
+    <script src="dist/js/app.bundle.min.js"></script>
 </body>
 
 </html>

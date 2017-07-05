@@ -198,7 +198,7 @@ gulp.task('watchHtml', () => {
 gulp.task('create-sw', ['watchCss', 'watchJS'], callback => {
     preCache.write(path.join('.', 'sw.js'), {
         runtimeCaching: [{
-            urlPattern: '/(.*)',
+            urlPattern: /^https:\/\/fonts\.googleapis\.com$/,
             handler: 'cacheFirst',
             options: {
                 cache: {
@@ -206,7 +206,6 @@ gulp.task('create-sw', ['watchCss', 'watchJS'], callback => {
                     name: 'google-apis'
                 }
             },
-            origin: /\.googleapis\.com$/
         }],
         staticFileGlobs: [
             './script.js',
@@ -219,4 +218,4 @@ gulp.task('create-sw', ['watchCss', 'watchJS'], callback => {
         stripPrefix: '.',
         maximumFileSizeToCacheInBytes: 15000000,
     }, callback)
-})
+});

@@ -18,31 +18,30 @@
         });
 
     function sideCtrl($scope, $rootScope, $location) {
-        var $ctrl = this;
+        const $ctrl = this;
 
-        var group = [
+        let group = [
             "$root.loggedIn",
             "$root.username"
-        ]
+        ];
 
         $scope.$watchGroup(group, function(newValue, oldValue, scope) {
             [
                 $ctrl.loggedIn,
                 $ctrl.username
             ] = newValue;
-        }, true)
+        }, true);
 
         $scope.location = function(url) {
             $location.url('/category' + url)
         };
 
         $ctrl.signout = function() {
-            console.log('loggin out')
             $rootScope.loggedIn = false;
             $rootScope.username = "";
             $rootScope.cart = [];
             Materialize.toast("You've successfully logged out", 1000)
-        }
+        };
 
 
         ////////////////
@@ -52,7 +51,11 @@
                 menuWidth: 300, // Default is 300
                 edge: 'left', // Choose the horizontal origin
                 closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-                draggable: true // Choose whether you can drag to open on touch screens
+                draggable: true // Choose whether you can drag to open on touch screens 
+            });
+            $('.collapsible.collapsible-accordion').collapsible();
+            $('.show-login').on('click', function() {
+                $('#login-modal').modal('open')
             })
         };
         $ctrl.$onChanges = function(changesObj) {};

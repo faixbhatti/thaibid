@@ -18,7 +18,7 @@ angular.module('thai')
 function searchCtrl($filter, products) {
     const ctrl = this;
     const filter = $filter('filter');
-    ctrl.searchWord = '';
+    ctrl.searchWord = "";
     ctrl.results = [];
     ctrl.limit = 30;
 

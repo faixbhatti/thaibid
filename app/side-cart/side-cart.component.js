@@ -1,10 +1,5 @@
     'use strict';
 
-    // Usage:0
-    // 
-    // Creates:
-    // 
-
     angular
         .module('thai')
         .component('sideCart', {
@@ -16,25 +11,20 @@
         });
 
     function cartCtrl($scope, deleteModal, $location) {
-        var $ctrl = this;
-
-        var group = [
-            "$root.cart"
-        ]
+        const $ctrl = this;
 
         $scope.$watch('$root.cart', function(newValue, oldValue, scope) {
             $ctrl.itemsInCart = newValue;
-        }, true)
-
+        }, true);
 
         $scope.removeFromCart = function(index, list) {
             $('.cart-button').sideNav('hide');
             deleteModal.open(index, list)
-        }
+        };
 
         $scope.checkout = function() {
             $location.url('/checkout')
-        }
+        };
 
         ////////////////
 
@@ -43,15 +33,13 @@
                 menuWidth: 300, // Default is 300
                 edge: 'right', // Choose the horizontal origin
                 closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
-                draggable: true // Choose whether you can drag to open on touch screens
-            })
+                draggable: false // Choose whether you can drag to open on touch screens
+            });
 
             $ctrl.getTotal = function() {
-                var total = 0;
+                let total = 0;
                 $ctrl.itemsInCart.forEach(item => total += item.price)
                 return total
             }
         };
-        $ctrl.$onChanges = function(changesObj) {};
-        $ctrl.$onDestroy = function() {};
     }

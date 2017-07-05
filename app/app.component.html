@@ -39,7 +39,7 @@
                 <div class="container">
                     <a class="brand-logo slight-black-text" href="/home"><img src="image/BidXelSVG.svg" style="height:40px; margin-top: 10px" alt="Logo"></a>
 
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <ul id="nav-mobile" class="right hide-on-med-and-down" ng-if="!inMobile">
                         <li><a class="waves-effect nav-item" ng-click="$ctrl.searching()"><i class="material-icons left">search</i></a>
                         </li>
                         <li>
@@ -48,7 +48,7 @@
                         </li>
 
                         <li ng-show="loggedIn">
-                            <a href="" class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
+                            <a class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
                                 <i class="material-icons right">arrow_drop_down</i>
                             </a>
                         </li>
@@ -59,7 +59,7 @@
                         </li>
                     </ul>
 
-                    <ul class="right hide-on-large-only">
+                    <ul class="right hide-on-large-only" ng-if="inMobile">
                         <li><a class="waves-effect nav-item small-nav one" ng-click="addToScreen()"><i class="material-icons left">phone_android</i></a>
                         </li>
                         <li><a class="waves-effect nav-item small-nav" ng-click="$ctrl.searching()"><i class="material-icons left">search</i></a>
@@ -71,14 +71,15 @@
 
             <div class="nav-content" style="padding: 0 20px">
 
-                <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down">
+                <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down" ng-if="!inMobile">
+
+                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop"><a href="/redeem-shop" class=""><i class="material-icons left icons">timer</i>Redeem Shop</a></li>
                     <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
                     <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
                             class="material-icons left icons">accessibility</i>Men</a></li>
                     <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
                             class="material-icons left icons">pregnant_woman</i>Ladies</a>
                     </li>
-                    <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Home/Garden" ng-click="location('/home-garden')"><a href="" class=""><i class="material-icons left icons">home</i>Home/Garden</a>
                     </li>
                     <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a href="" class=""><i class="material-icons left icons">child_friendly</i>Kids/Toys</a>
                     </li>
@@ -94,7 +95,7 @@
                             class="material-icons left icons">build</i>Tools</a></li>
                 </ul>
 
-                <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-up">
+                <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-up" ng-if="inMobile">
                     <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
                             class="material-icons icons">accessibility</i>Men</a></li>
                     <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
@@ -113,10 +114,9 @@
     </div>
 </header>
 <main ng-click="search=false" ng-hide="search">
-    <delete-modal></delete-modal>
-
-    <side-nav loggedIn="loggedIn" username="username"></side-nav>
-    <side-cart itemsInCart="itemsInCart"></side-cart>
+    <delete-from-cart-modal></delete-from-cart-modal>
+    <side-nav loggedIn="loggedIn" username="username" ng-if="inMobile"></side-nav>
+    <side-cart itemsInCart="itemsInCart" ng-if="inMobile"></side-cart>
 
 
     <login-register username="username"></login-register>

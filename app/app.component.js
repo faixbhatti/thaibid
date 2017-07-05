@@ -15,6 +15,8 @@
 
     function appCtrl($scope, $location, $rootScope, $filter, products, deleteModal) {
         const ctrl = this;
+        const mql = $rootScope.inMobile;
+
 
         $scope.showNav = $rootScope.showNav;
         $scope.previousPage = $rootScope.previousPage
@@ -23,24 +25,25 @@
         $scope.inDetail = $rootScope.inDetail;
         $scope.loggedIn = $rootScope.loggedIn;
         $scope.username = $rootScope.username;
-        $scope.inMobile = $rootScope.inMobile;
+        $scope.inMobile = $rootScope.inMobile.matches;
 
         $scope.addToScreen = function() {
-            $("#homescreen-modal").css("opacity", 0);
-            $("#homescreen-modal").modal('open')
+            let homeModal = $("#homescreen-modal");
+            homeModal.css("opacity", 0);
+            homeModal.modal('open');
             const backdrop = document.querySelector('.modal-overlay');
             backdrop.style.background = "#26848c";
             backdrop.style.opacity = 0.8;
-            $("#homescreen-modal").css("opacity", 1);
-        }
+            homeModal.css("opacity", 1);
+        };
 
-        var group = [
+        let group = [
             "$root.showNav",
             "$root.inCart",
             "$root.inDetail",
             "$root.loggedIn",
             "$root.username"
-        ]
+        ];
 
         $scope.$watchGroup(group, function(newValue, oldValue, scope) {
             [$scope.showNav,
@@ -49,7 +52,7 @@
                 $scope.loggedIn,
                 $scope.username
             ] = newValue;
-        }, true)
+        }, true);
 
         $rootScope.$watch('cart', function(newValue, oldValue, scope) {
             $scope.itemsInCart = newValue;
@@ -74,7 +77,7 @@
         $scope.removeFromCart = function(index, list) {
             $('.cart-button').sideNav('hide');
             deleteModal.open(index, list)
-        }
+        };
 
         $scope.checkout = function() {
             $location.url('/checkout')
@@ -103,6 +106,12 @@
                 }
             }
 
+            function showMobile(e) {
+                $scope.inMobile = e.matches;
+            }
+
+            mql.addListener(showMobile);
+
             document.addEventListener('scroll', goBackUp);
 
             $('.back-up').on('click', function() {
@@ -110,10 +119,6 @@
                     scrollTop: 0
 
                 }, 'slow')
-            })
-
-            $('.show-login').on('click', function() {
-                $('#login-modal').modal('open')
             })
 
             $('.materialboxed').materialbox();

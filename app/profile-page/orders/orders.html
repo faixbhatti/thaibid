@@ -63,7 +63,7 @@
                             <td md-cell>{{order.price + 15 | currencyName : 'baht'}}</td>
                             <td md-cell>{{order.price | currencyName : 'baht'}}</td>
                             <td md-cell>{{(order.price + 15) * order.quantity | currencyName: 'baht'}}</td>
-                            <td md-cell>#{{order.invoice}}</td>
+                            <td md-cell><a href="">#{{order.invoice}}</a></td>
                             <td md-cell>
                                 <span ng-if="order.price > 20 && order.price < 25" class="blue-text">Pending</span>
                                 <span ng-if="order.price < 20" class="green-text">Cleared</span>

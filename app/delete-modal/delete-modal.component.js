@@ -1,28 +1,51 @@
-    'use strict';
+'use strict';
 
-    // Usage:
-    // 
-    // Creates:
-    // 
-    angular.module('thai')
-        .component('deleteModal', {
-            templateUrl: 'app/delete-modal/delete-modal.html',
-            controller: modalCtrl,
-        });
+// Usage:
+//
+// Creates:
+//
+angular.module('thai')
+    .factory('deleteModal', deleteModal)
+    .component('deleteFromCartModal', {
+        templateUrl: 'app/delete-modal/delete-modal.html',
+        controller: deleteFromCartCtrl,
+    });
 
-    modalCtrl.inject = ['deleteModal'];
+function deleteModal() {
+    return {
+        open,
+        removeItem,
+        index: 0,
+        list: []
+    };
 
-    function modalCtrl(deleteModal) {
-        var ctrl = this;
 
-        ctrl.clean = function() {
-            alert('why')
-        }
-
-        ctrl.shake = function() {
-            console.log('time')
-            deleteModal.eject();
-        };
-        ////////////////
-
+    ////////////////
+    function open(index, list) {
+        this.index = index;
+        this.list = list;
+        $('#delete-modal').modal('open');
     }
+
+    function removeItem() {
+        console.log('deleting');
+        this.list.splice(this.index, 1);
+        Materialize.toast('Item removed from cart', 1000)
+    }
+}
+
+
+function deleteFromCartCtrl(deleteModal) {
+    const ctrl = this;
+
+    ctrl.clean = function () {
+        alert('why')
+    };
+
+    ctrl.removeItem = function () {
+        console.log('time');
+        deleteModal.removeItem();
+    };
+    ////////////////
+
+}
