@@ -105,6 +105,8 @@ button#fb:hover {
     /*height: 90% !important;*/
 }
 
+
+
 .trash-icon {
     color: #f55454;
     border: 3px solid;
@@ -1115,6 +1117,52 @@ button.mcs-color:hover {
 
 #timer-holder.pull-s2 {
     right: 0;
+}
+
+.points-text{
+    font-size: 12px;
+    background: #ade1c6;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+    padding: 7px;
+    color: black;
+}
+
+.redeem.waterfall{
+    padding: 0;
+    line-height: 0;
+    margin: -4px 0 10px 0;
+}
+
+.use-points-alert{
+    font-size: 11px;
+    margin: 4px 0;
+    background: #7dc1c1;
+    padding: 10px;
+    border-radius: 2px;
+    color: white;
+}
+
+.use-points-alert>.accept{
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 25px;
+    text-transform: uppercase;
+}
+
+.redeem-offer-img{
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.points{
+    margin-left: 2px;
+    text-transform: uppercase;
 }
 
 #prod-reviews .collection-item:hover {

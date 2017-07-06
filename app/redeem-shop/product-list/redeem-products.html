@@ -1,0 +1,17 @@
+<div class="col l3 m4 s6 product-col" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit">
+
+    <div class="card product-shadow hoverable">
+        <a href="/product/{{product.id}}" name="{{product.name}}">
+            <div class="card-image prod-card-img">
+                <img placehold="{{product.image}}" alt="{{product.image}}" src="image/header-bg.png" class="responsive-img" style="height: 70%" ng-if="product.image">
+                <a class="btn-floating halfway-fab waves-effect waves-dark main-green" name="{{product.name}}"><i
+                        class="material-icons">shopping_cart</i></a>
+            </div>
+        </a>
+        <div class="card-content">
+            <p class="card-title black-text truncate" style="font-size: 13px; font-weight: 700">{{product.name}}</p>
+            <span class="subheader points-text">{{$index + 20}}<span class="points"> points</span>
+        </div></span>
+        </div>
+    </div>
+</div>

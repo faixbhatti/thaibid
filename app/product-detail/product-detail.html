@@ -209,6 +209,8 @@
 
                         <div class="col l6 m6 s12" style="padding: 0 0 0 10px;">
                             <p class="details-header grey-text">Place Bid</p>
+                            <p ng-if="product.price > 40 && !$ctrl.observed" class="use-points-alert">This product is worth {{product.price - 5}} points and you have {{product.price}} points,
+                                so you can add this item to cart without bidding <span class="accept" ng-click="$ctrl.observed = true">Okay</span></p>
 
                             <form class="col s12" ng-submit="addToCart(product)" style="padding: 0">
                                 <div class="row" style="margin-bottom: 0">
@@ -219,6 +221,7 @@
 
                                     <div class="input-field col s12 push-l1 push-m1">
                                         <button class="btn waves-effect teal">Bid</button>
+                                        <md-button class="md-raised md-primary" ng-if="product.price > 40">Add to cart</md-button>
                                         <a href="/checkout" class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</a>
                                         <div class="buttons-holder z-depth-3">
                                             <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn" ng-click="placeBid(product)" type="button">Bid now</button>

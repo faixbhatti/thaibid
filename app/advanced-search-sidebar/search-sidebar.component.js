@@ -12,7 +12,7 @@ angular.module('thai')
     });
 
 function sideBarCtrl() {
-    var ctrl = this;
+    const ctrl = this;
     ctrl.clicked = false;
 
     ctrl.setLimit = function (value) {

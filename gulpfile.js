@@ -22,29 +22,29 @@ gulp.task('default', ['create-sw', 'watchHtml']);
 
 gulp.task('build-vendor', () =>
     gulp.src('bower_components/**/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(order([
-        "vanilla/moment.min.js",
-        "vanilla/locales.min.js",
-        "vanilla/**/*.js",
-        "vendor-1/angular/angular.js",
-        "vendor-1/angular-aria/angular-aria.min.js",
-        "vendor-1/angular-animate/angular-animate.min.js",
-        "vendor-1/angular-material/angular-material.min.js",
-        "vendor-1/angular-timer/dist/angular-timer.js",
-        "vendor-1/angular-loading-bar/build/loading-bar.min.js",
-        "vendor-1/angular-currency-name/src/angular-currency-name.js",
-        "vendor-1/md-steppers/dist/md-steppers.js",
-        "vendor-1/angular-material-data-table/dist/md-data-table.js",
-        "vendor-1/angular-route/angular-route.js",
-        "vendor-1/angular-material-icons/angular-material-icons.min.js",
-        "vendor-2/jquery-3.1.1.js",
-        "vendor-2/**/*.js",
-    ]))
-    .pipe(concat('vendors.bundle.min.js'))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('/maps/'))
-    .pipe(gulp.dest('dist/js/vendors/'))
+        .pipe(sourcemaps.init())
+        .pipe(order([
+            "vanilla/moment.min.js",
+            "vanilla/locales.min.js",
+            "vanilla/**/*.js",
+            "vendor-1/angular/angular.js",
+            "vendor-1/angular-aria/angular-aria.min.js",
+            "vendor-1/angular-animate/angular-animate.min.js",
+            "vendor-1/angular-material/angular-material.min.js",
+            "vendor-1/angular-timer/dist/angular-timer.js",
+            "vendor-1/angular-loading-bar/build/loading-bar.min.js",
+            "vendor-1/angular-currency-name/src/angular-currency-name.js",
+            "vendor-1/md-steppers/dist/md-steppers.js",
+            "vendor-1/angular-material-data-table/dist/md-data-table.js",
+            "vendor-1/angular-route/angular-route.js",
+            "vendor-1/angular-material-icons/angular-material-icons.min.js",
+            "vendor-2/jquery-3.1.1.js",
+            "vendor-2/**/*.js",
+        ]))
+        .pipe(concat('vendors.bundle.min.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('/maps/'))
+        .pipe(gulp.dest('dist/js/vendors/'))
 );
 
 gulp.task('watchJS', ['build-app'], () => {
@@ -57,35 +57,35 @@ gulp.task('watchCss', ['build-css'], () => {
 
 gulp.task('build-app', () =>
     gulp.src(['app/**/*.js'])
-    .pipe(sourcemaps.init())
-    .pipe(order([
-        'app.js',
-        'app.component.js'
-    ]))
-    .pipe(concat('app.bundle.min.js'))
-    .pipe(ngAnnotate())
-    .pipe(babel({
-        presets: ['es2015']
-    }))
-    .pipe(uglify().on('error', function(e) {
-        console.log(e);
-    }))
-    .pipe(sourcemaps.write('/maps'))
-    .pipe(gulp.dest('./dist/js'))
+        .pipe(sourcemaps.init())
+        .pipe(order([
+            'app.js',
+            'app.component.js'
+        ]))
+        .pipe(concat('app.bundle.min.js'))
+        .pipe(ngAnnotate())
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(uglify().on('error', function (e) {
+            console.log(e);
+        }))
+        .pipe(sourcemaps.write('/maps'))
+        .pipe(gulp.dest('./dist/js'))
 );
 
 gulp.task('build-css', () =>
     gulp.src('dev/**/*.css')
-    .pipe(sourcemaps.init())
-    .pipe(concat('app.min.css'))
-    // .pipe(purify(['./app/**/*.js', './app/**/*.html']))
-    .pipe(autoprefixer({
-        browsers: ['last 2 versions'],
-        cascade: false
-    }))
-    .pipe(cssnano())
-    .pipe(sourcemaps.write('/maps'))
-    .pipe(gulp.dest('./dist/css'))
+        .pipe(sourcemaps.init())
+        .pipe(concat('app.min.css'))
+        // .pipe(purify(['./app/**/*.js', './app/**/*.html']))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(cssnano())
+        .pipe(sourcemaps.write('/maps'))
+        .pipe(gulp.dest('./dist/css'))
 );
 
 gulp.task('tinify-images', () => {
@@ -117,6 +117,10 @@ gulp.task('tinify-images', () => {
             file = process.argv[i + 1];
         tinifyImages(file)
     } else if (includesFolder && includesFile) {
+        let i = process.argv.indexOf('--folder'),
+            folder = process.argv[i + 1],
+            f = process.argv.indexOf('--file'),
+            file = process.argv[f + 1];
 
         tinifyImages(folder, file)
     } else {

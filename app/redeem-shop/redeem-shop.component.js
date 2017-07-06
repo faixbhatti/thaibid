@@ -6,11 +6,21 @@ angular.module('thai')
     .component('appRedeemShop',{
         templateUrl: 'app/redeem-shop/redeem-shop.html',
         controller: redeemCtrl
-    })
+    });
 
-function redeemCtrl() {
+function redeemCtrl(products) {
     const ctrl = this;
+    ctrl.limit = 35;
+    ctrl.background = '/image/slideshow/redeem.jpg';
 
-    ctrl.$onInit = () => {}
+    function get() {
+        products
+            .get()
+            .then(res => {
+                ctrl.products = res.data
+            })
+    }
+    get();
+    ctrl.$onInit = () => {};
     ctrl.$onDestroy = () => {}
 }

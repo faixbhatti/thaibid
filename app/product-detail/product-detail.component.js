@@ -6,7 +6,7 @@ angular.module('thai')
     .component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
         controller: function ($scope, $routeParams, $rootScope, products, cart) {
-
+            const ctrl = this;
             $scope.loading = true;
             $scope.showDiv = false;
             $scope.newBid = false;
@@ -19,27 +19,28 @@ angular.module('thai')
             $scope.selected = 1;
             $scope.cart = $rootScope.cart;
             $scope.loggedIn = $rootScope.loggedIn;
-            var input = document.querySelector('#amount');
+            let input = document.querySelector('#amount');
+            ctrl.observed = false;
 
             $scope.$watch('$root.loggedIn', function (oldValue, newValue) {
                 $scope.loggedIn = $rootScope.loggedIn;
-            })
+            });
 
             $scope.$watch('$root.cart', function (oldValue, newValue, scope) {
                 $scope.cart = $rootScope.cart;
-            }, true)
+            }, true);
 
             function get() {
-                var id = $routeParams.productId
+                let id = $routeParams.productId;
                 products.get().then(function (data) {
-                    var products = data.data;
-                    var product = products[id - 1] || products[5]
+                    let products = data.data;
+                    let product = products[id - 1] || products[5];
                     $scope.similarProducts = products.slice(0, 4);
                     $scope.otherProducts = products.slice(4, 8);
                     $scope.related = $scope.similarProducts;
                     product.price = Math.round(product.price);
-                    $scope.product = product
-                    $scope.bidPrice = $scope.product.price + 5
+                    $scope.product = product;
+                    $scope.bidPrice = $scope.product.price + 5;
 
                     $scope.imgs = [
                         $scope.product.image,
@@ -86,7 +87,6 @@ angular.module('thai')
             }
 
             get();
-
 
             $scope.slideRight = () => {
                 $scope.related = $scope.otherProducts;

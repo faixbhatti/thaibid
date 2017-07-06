@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     // Usage:
@@ -27,7 +27,7 @@
         $scope.username = $rootScope.username;
         $scope.inMobile = $rootScope.inMobile.matches;
 
-        $scope.addToScreen = function() {
+        $scope.addToScreen = function () {
             let homeModal = $("#homescreen-modal");
             homeModal.css("opacity", 0);
             homeModal.modal('open');
@@ -45,7 +45,7 @@
             "$root.username"
         ];
 
-        $scope.$watchGroup(group, function(newValue, oldValue, scope) {
+        $scope.$watchGroup(group, function (newValue, oldValue, scope) {
             [$scope.showNav,
                 $scope.inCart,
                 $scope.inDetail,
@@ -54,44 +54,49 @@
             ] = newValue;
         }, true);
 
-        $rootScope.$watch('cart', function(newValue, oldValue, scope) {
+        $rootScope.$watch('cart', function (newValue, oldValue, scope) {
             $scope.itemsInCart = newValue;
         }, true);
 
-        ctrl.searching = function() {
+        ctrl.searching = function () {
             if (!$scope.search) {
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#search').focus()
                 }, 200)
             }
             $scope.search = !$scope.search
         };
 
-        $scope.logout = function() {
+        $scope.logout = function () {
             $rootScope.loggedIn = false;
             $rootScope.username = "";
             $rootScope.cart = [];
             Materialize.toast("You've successfully logged out", 1000)
         };
 
-        $scope.removeFromCart = function(index, list) {
+        $scope.removeFromCart = function (index, list) {
             $('.cart-button').sideNav('hide');
             deleteModal.open(index, list)
         };
 
-        $scope.checkout = function() {
+        $scope.checkout = function () {
             $location.url('/checkout')
         };
 
-        $scope.location = function(url) {
-            $location.url('/category' + url)
+        $scope.location = function (url) {
+            if (url === '/redeem-shop') {
+                $location.url(`${url}`)
+            }
+            else {
+                $location.url(`/category${url}`)
+            }
         };
 
-        ctrl.$onDestroy = function() {
+        ctrl.$onDestroy = function () {
             window.removeEventListener('scroll', goBackUp)
         };
 
-        ctrl.$onInit = function() {
+        ctrl.$onInit = function () {
             function goBackUp(params) {
                 const scroll = window.scrollY,
                     documentHeight = document.body.scrollHeight,
@@ -114,7 +119,7 @@
 
             document.addEventListener('scroll', goBackUp);
 
-            $('.back-up').on('click', function() {
+            $('.back-up').on('click', function () {
                 $('html,body').animate({
                     scrollTop: 0
 
