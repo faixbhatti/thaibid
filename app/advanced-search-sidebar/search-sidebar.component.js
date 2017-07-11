@@ -15,8 +15,8 @@ function sideBarCtrl() {
     const ctrl = this;
     ctrl.clicked = false;
 
-    ctrl.setLimit = function (value) {
-        ctrl.limit = value;
+    ctrl.setLimit = function(value) {
+        ctrl.limit = ctrl.limit === value ? ctrl.defaultLimit : value;
     };
 
     ctrl.clearFilters = () => {
@@ -24,7 +24,7 @@ function sideBarCtrl() {
         ctrl.clicked = !ctrl.clicked
     };
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = function() {
         ctrl.defaultLimit = ctrl.limit;
         let slider = document.getElementById('uiSlider');
 
@@ -38,7 +38,7 @@ function sideBarCtrl() {
             }
         });
 
-        slider.noUiSlider.on('update', function (values, handle) {
+        slider.noUiSlider.on('update', function(values, handle) {
             if (handle === 1) {
                 ctrl.left = values[handle]
             } else {

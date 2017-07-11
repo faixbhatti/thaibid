@@ -9,9 +9,10 @@ angular.module('thai')
 function homeCtrl($scope, products, $rootScope) {
     const ctrl = this;
     $scope.dataLoading = true;
+    ctrl.spinnerPosition = 'absolute'
 
     function get() {
-        products.get().then(function (data) {
+        products.get().then(function(data) {
             $scope.products = data.data;
             $scope.deals = $scope.products.slice(0, 8);
             $scope.rest = $scope.products.slice(8);
@@ -24,12 +25,12 @@ function homeCtrl($scope, products, $rootScope) {
     $rootScope.inCart = false;
 
     let extras = [{
-        "id": 21,
-        "name": "Classic beach wear",
-        "price": 20.34,
-        "image": "image/leather-bag.jpg",
-        "timer": "2017-03-24"
-    },
+            "id": 21,
+            "name": "Classic beach wear",
+            "price": 20.34,
+            "image": "image/leather-bag.jpg",
+            "timer": "2017-03-24"
+        },
         {
             "id": 22,
             "name": "All black swagger",
@@ -88,7 +89,7 @@ function homeCtrl($scope, products, $rootScope) {
     $scope.loading = false;
     let loading = false;
 
-    $scope.loadMore = function () {
+    $scope.loadMore = function() {
         let scroll = window.scrollY,
             documentHeight = document.body.scrollHeight,
             windowHeight = window.innerHeight;

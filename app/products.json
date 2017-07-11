@@ -138,5 +138,186 @@
         "price": 20.34,
         "image": "image/ladies__sparkles.jpeg",
         "timer": "2017-03-24"
+    },
+    {
+        "id": 21,
+        "name": "Beautiful Scenery",
+        "price": 23.53,
+        "image": "image/sky.jpg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 30
+    },
+    {
+        "id": 22,
+        "name": "Old fashioned pocket watch",
+        "price": 44.34,
+        "image": "image/pocket.jpg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 14
+    },
+    {
+        "id": 23,
+        "name": "On a hot day this is fly",
+        "price": 20.34,
+        "image": "image/ladies__wedding-wear.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 45
+    },
+    {
+        "id": 24,
+        "name": "Crazy work of art",
+        "price": 40.34,
+        "image": "image/starz.jpg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 66
+    },
+    {
+        "id": 25,
+        "name": "Ties Collection",
+        "price": 20.34,
+        "image": "image/men__ties.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 32
+    },
+    {
+        "id": 26,
+        "name": "Pocket kerchief for generations",
+        "price": 20.34,
+        "image": "image/pocket.jpg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 90
+    },
+    {
+        "id": 27,
+        "name": "Classic hand made leather",
+        "price": 21.53,
+        "image": "image/men__blue-sneakers.jpeg",
+        "timer": "2017-03-26",
+        "is_redeemable": true,
+        "points": 54
+    },
+    {
+        "id": 28,
+        "name": "Hot legs",
+        "price": 230.34,
+        "image": "image/men__bag.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 20
+    },
+    {
+        "id": 29,
+        "name": "On a hot day this is fly",
+        "price": 20.34,
+        "image": "image/ladies__blue-dress.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 11
+    },
+    {
+        "id": 30,
+        "name": "Crazy work of art",
+        "price": 40.34,
+        "image": "image/glasses.jpg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 50
+    },
+    {
+        "id": 31,
+        "name": "When it goes down",
+        "price": 20.34,
+        "image": "image/ladies__canvas.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 65
+    },
+    {
+        "id": 32,
+        "name": "What a view",
+        "price": 40.14,
+        "image": "image/ladies__red-heels.jpeg",
+        "timer": "2017-03-25",
+        "is_redeemable": true,
+        "points": 24
+    },
+    {
+        "id": 33,
+        "name": "When it goes down",
+        "price": 20.34,
+        "image": "image/pocket.jpg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 56
+    },
+    {
+        "id": 34,
+        "name": "What a view",
+        "price": 40.14,
+        "image": "image/sky.jpg",
+        "timer": "2017-03-25",
+        "is_redeemable": true,
+        "points": 78
+    },
+    {
+        "id": 35,
+        "name": "Classic All stars unisex sneakers",
+        "price": 10.32,
+        "image": "image/starz.jpg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 65
+    },
+
+    {
+        "id": 36,
+        "name": "Ties Collection",
+        "price": 20.34,
+        "image": "image/men__ties.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 43
+    },
+    {
+        "id": 37,
+        "name": "Shopping is life",
+        "price": 23.53,
+        "image": "image/ladies__shopping.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 23
+    },
+    {
+        "id": 38,
+        "name": "Custom shopping bags",
+        "price": 44.34,
+        "image": "image/ladies__shopping-bags.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 56
+    },
+    {
+        "id": 39,
+        "name": "All stars for men",
+        "price": 40.34,
+        "image": "image/men__all-stars.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 87
+    },
+    {
+        "id": 40,
+        "name": "Sparkly shoes",
+        "price": 20.34,
+        "image": "image/ladies__sparkles.jpeg",
+        "timer": "2017-03-24",
+        "is_redeemable": true,
+        "points": 34
     }
 ]

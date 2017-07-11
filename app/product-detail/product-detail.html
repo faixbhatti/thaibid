@@ -1,19 +1,7 @@
 <div class="separator hide-on-med-only"></div>
 <div style="margin-top: 2px; padding: 0 10px; min-height: 600px">
     <div ng-if="loading">
-        <div class="preloader-wrapper active loader" style="top: 20%">
-            <div class="spinner-layer spinner-teal-only">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-        </div>
+        <thai-spinner position="$ctrl.spinnerPosition" ng-if="loading"></thai-spinner>
     </div>
 
     <div class="row" id="detail-container" ng-show="!loading">
@@ -82,7 +70,7 @@
                     <p class="ratings"><i class="material-icons teal-text" ng-repeat="icon in [1,2,3,4,5]">star</i> {{product.price | limitTo: 2}}{{product.price | limitTo: 2 : 3}} Users</p>
                     <!------ /Ratings ------>
                 </div>
-                <div class="col l6 m6 s6 pull-s2" id="timer-holder">
+                <div class="col l6 m6 s6 pull-s2" id="timer-holder" ng-if="!product.is_redeemable">
                     <!-- Time remaining -->
                     <span class="right timer-text">Time remaining</span>
                     <countdown-timer time="timeLeft" newbid="newBid" product="product" clear="showDiv"></countdown-timer>
@@ -90,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-bottom: 0">
+            <div class="row" style="margin-bottom: 0" ng-if="!product.is_redeemable">
                 <div class="col l12 s12 m12">
                     <div class="grey darken-3 white-text alert-area timeout" ng-show="showDiv">
                         Auction has ended! NOTE: If you're the winner make sure to checkout and pay within 24 hours. If you don't your account will be closed! It can take up to 5 min before your order appears in the basket.
@@ -117,8 +105,7 @@
                         <p class="details-header green-text">Pricing</p>
                     </div>
 
-                    <div class="col s12" style="padding: 0 0; display: flex">
-
+                    <div class="col s12" style="padding: 0 0; display: flex" ng-if="!product.is_redeemable">
                         <!---- Prices (Actual/Leading) ------>
                         <p class="actual-holder"><span class="price-text">Actual price</span><br>
                             <span class="price">{{product.price | currency : '฿'}}</span>
@@ -127,8 +114,17 @@
                             <span class="price">{{product.price + 10| currency : '฿'}}</span>
                         </p>
                         <!--- /Prices -->
+                    </div>
 
-
+                    <div class="col s12" style="padding: 0 0; display: flex" ng-if="product.is_redeemable">
+                        <!---- Prices (Actual/Leading) ------>
+                        <p class="actual-holder"><span class="price-text">Price</span><br>
+                            <span class="price">{{product.points}} <span> points</span> </span>
+                        </p>
+                        <p class="leading-holder"><span class="price-text">Available Points</span><br>
+                            <span class="price">40 points</span>
+                        </p>
+                        <!--- /Prices -->
                     </div>
                 </div>
 
@@ -208,21 +204,21 @@
 
 
                         <div class="col l6 m6 s12" style="padding: 0 0 0 10px;">
-                            <p class="details-header grey-text">Place Bid</p>
-                            <p ng-if="product.price > 40 && !$ctrl.observed" class="use-points-alert">This product is worth {{product.price - 5}} points and you have {{product.price}} points,
-                                so you can add this item to cart without bidding <span class="accept" ng-click="$ctrl.observed = true">Okay</span></p>
+                            <p class="details-header grey-text" ng-if="!product.is_redeemable">Place Bid</p>
+                            <p class="details-header grey-text" ng-if="product.is_redeemable">Add to cart</p>
+                            <!--<p ng-if="product.price > 40 && !$ctrl.observed" class="use-points-alert">This product is worth {{product.price - 5}} points and you have {{product.price}} points, so you can add this item to cart without bidding <span class="accept" ng-click="$ctrl.observed = true">Okay</span></p>-->
 
                             <form class="col s12" ng-submit="addToCart(product)" style="padding: 0">
                                 <div class="row" style="margin-bottom: 0">
-                                    <div class="input-field col l8 m8 s10 push-l1 push-m1">
+                                    <div class="input-field col l8 m8 s10 push-l1 push-m1" ng-if="!product.is_redeemable">
                                         <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px; margin: 0" class="teal-text active" ng-class="focus()">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
 
                                     <div class="input-field col s12 push-l1 push-m1">
-                                        <button class="btn waves-effect teal">Bid</button>
-                                        <md-button class="md-raised md-primary" ng-if="product.price > 40">Add to cart</md-button>
-                                        <a href="/checkout" class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</a>
+                                        <md-button class="md-raised main-green white-text" ng-if="!product.is_redeemable" ng-click="addToCart(product)">Bid</md-button>
+                                        <md-button class="md-raised md-primary" ng-if="product.is_redeemable" ng-click="addToCart(product)">Add to cart</md-button>
+                                        <!--<a href="/checkout" class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</a>-->
                                         <div class="buttons-holder z-depth-3">
                                             <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn" ng-click="placeBid(product)" type="button">Bid now</button>
                                             <button class="btn white alternative-cart-button hide-on-med-and-up black-text" type="button" ng-hide="!loggedIn || hideCart" ng-click="showCart()">

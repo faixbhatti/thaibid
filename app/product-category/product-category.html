@@ -8,29 +8,54 @@
         <div style="min-height: 400px">
             <div ng-show="!dataLoading">
                 <div class="hide-on-med-and-up">
+
                     <div style="float: left; width: 50%">
-                        <ul class="dropdown-content" id="filter">
-                            <li><a class="black-text" menu-close>Popular</a></li>
-                            <li><a class="black-text" menu-close>Latest</a></li>
-                            <li><a class="black-text" menu-close>Old</a></li>
-                            <li><a class="black-text" menu-close>New</a></li>
-                            <li><a class="black-text" menu-close>Size</a></li>
-                            <li><a class="black-text" menu-close>Colour</a></li>
-                        </ul>
-                        <a class="dropdown-button btn-flat waves-effect waves-teal" data-activates="filter" href="javascript:void(0)" style="font-size: 16px; font-weight: 600">
-                            <i class="material-icons left">filter_list</i> Sort <i class="material-icons right" style="font-size: 29px">arrow_drop_down</i>
-                        </a>
+                        <md-menu md-offset="0 -7">
+                            <md-button aria-label="Open demo menu" class="" ng-click="$mdMenu.open($event)">
+                                <i class="material-icons">filter_list</i> Sort <i class="material-icons">arrow_drop_down</i>
+                            </md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>Popular</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>Latest</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>Old</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>New</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>Size</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>Colour</span></md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
                     </div>
                     <div style="float: right; width: 50%">
-                        <ul class="dropdown-content" id="amounts">
-                            <li><a class="black-text">฿100 - ฿200</a></li>
-                            <li><a class="black-text">฿300 - ฿400</a></li>
-                            <li><a class="black-text">฿400 - ฿500</a></li>
-                            <li><a class="black-text">฿500 over</a></li>
-                        </ul>
-                        <a class="dropdown-button btn-flat waves-effect waves-teal" data-activates="amounts" href="javascript:void(0)" style="font-size: 16px; font-weight: 600">
-                            <i class="material-icons left">attach_money</i> Range <i class="material-icons right" style="font-size: 29px;">arrow_drop_down</i>
-                        </a>
+                        <md-menu md-offset="0 -7">
+                            <md-button aria-label="Open demo menu" class="" ng-click="$mdMenu.open($event)">
+                                <i class="material-icons">attach_money</i> Range <i class="material-icons" style="">arrow_drop_down</i>
+                            </md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>฿100 - ฿200</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>฿300 - ฿400</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>฿400 - ฿500</span></md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button> <span md-menu-align-target>฿500 over</span></md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
                     </div>
                 </div>
                 <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>

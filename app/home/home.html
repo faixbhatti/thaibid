@@ -42,7 +42,7 @@
             <all-categories data-pin="true"></all-categories>
         </div>
 
-        <div class="col l10 m12 s12">
+        <div class="col l10 m12 s12 prod-list-holder">
             <div class="row" id="prod-list" style="min-height: 300px;">
 
                 <product-list products="deals" columns="3" ng-hide="dataLoading"></product-list>
@@ -51,19 +51,7 @@
 
                 <product-list products="rest" columns="3" id="home" ng-hide="dataLoading"></product-list>
 
-                <div class="preloader-wrapper active" style="margin-left: 50%" ng-show="loading || dataLoading">
-                    <div class="spinner-layer spinner-teal-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                </div>
+                <thai-spinner position="$ctrl.spinnerPosition" ng-if="dataLoading"></thai-spinner>
             </div>
         </div>
     </div>

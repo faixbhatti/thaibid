@@ -8,7 +8,7 @@ angular.module('thai')
         templateUrl: 'app/search-area/search-area.html',
         controller: searchCtrl,
         require: {
-          app: '^app'
+            app: '^app'
         },
         bindings: {
             search: '='
@@ -21,14 +21,15 @@ function searchCtrl($filter, products) {
     ctrl.searchWord = "";
     ctrl.results = [];
     ctrl.limit = 30;
+    ctrl.spinnerPosition = 'absolute';
 
-    ctrl.searching = function () {
+    ctrl.searching = function() {
         ctrl.app.searching()
     };
 
-    ctrl.showResults = function () {
+    ctrl.showResults = function() {
         ctrl.loading = true;
-        products.get().then(function (data) {
+        products.get().then(function(data) {
             var products = data.data;
             ctrl.suggestions = products.slice(0, 10);
             var results = filter(products, ctrl.searchWord);
@@ -37,7 +38,7 @@ function searchCtrl($filter, products) {
         })
     };
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = function() {
 
     }
 

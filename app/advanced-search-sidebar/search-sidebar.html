@@ -1,41 +1,41 @@
- <ul class="collection with-header hide-on-med-and-down z-depth-1">
-                <li class="collection-header main-green" style="padding: 5px 10px; border-bottom: none">
-                    <p class="white-text">
-                        Advanced Search <i class="material-icons waves-effect waves-light right">filter_list</i>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="grp3" type="checkbox" id="new" ng-click="$ctrl.setLimit(4)" ng-checked="$ctrl.clicked"/> <label for="new" class="black-text"> New Product</label>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="grp2" type="checkbox" id="use" ng-click="$ctrl.setLimit(2)" ng-checked="$ctrl.clicked"/> <label for="use" class="black-text">Latest</label>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="group1" type="checkbox" id="dis" ng-click="$ctrl.setLimit(3)" ng-checked="$ctrl.clicked"/> <label for="dis" class="black-text">Popular</label>
-                    </p>
-                </li>
-                <li class="collection-item">
-                    <p class="input-field inline">
-                        <input name="grp4" type="checkbox" id="ship" ng-click="$ctrl.setLimit(1)" ng-checked="$ctrl.clicked"/> <label for="ship" class="black-text">Old</label>
-                    </p>
-                </li>
-                <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>
-                <li class="collection-item teal-text text-darken-3" style="padding: 20px 10px;">
-                    <div id="uiSlider" style="margin: 10px 5px 20px"></div>
-                    <span>{{$ctrl.right | currencyName: 'baht'}} </span> - <span>{{$ctrl.left | currencyName: 'baht'}}</span>
-                </li>
-                <li class="collection-item">
-                    <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
+<ul class="collection with-header hide-on-med-and-down z-depth-1">
+    <li class="collection-header main-green" style="padding: 5px 10px; border-bottom: none">
+        <p class="white-text">
+            Advanced Search <i class="material-icons waves-effect waves-light right">filter_list</i>
+        </p>
+    </li>
+    <li class="collection-item">
+        <p class="input-field inline">
+            <input name="grp3" type="checkbox" id="new" ng-click="$ctrl.setLimit(4)" ng-checked="$ctrl.clicked" /> <label for="new" class="black-text"> New Product</label>
+        </p>
+    </li>
+    <li class="collection-item">
+        <p class="input-field inline">
+            <input name="grp2" type="checkbox" id="use" ng-click="$ctrl.setLimit(2)" ng-checked="$ctrl.clicked" /> <label for="use" class="black-text">Latest</label>
+        </p>
+    </li>
+    <li class="collection-item">
+        <p class="input-field inline">
+            <input name="group1" type="checkbox" id="dis" ng-click="$ctrl.setLimit(3)" ng-checked="$ctrl.clicked" /> <label for="dis" class="black-text">Popular</label>
+        </p>
+    </li>
+    <li class="collection-item">
+        <p class="input-field inline">
+            <input name="grp4" type="checkbox" id="ship" ng-click="$ctrl.setLimit(1)" ng-checked="$ctrl.clicked" /> <label for="ship" class="black-text">Old</label>
+        </p>
+    </li>
+    <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>
+    <li class="collection-item teal-text text-darken-3" style="padding: 20px 10px;">
+        <div id="uiSlider" style="margin: 10px 5px 20px"></div>
+        <span>{{$ctrl.right | currencyName: 'baht'}} </span> - <span>{{$ctrl.left | currencyName: 'baht'}}</span>
+    </li>
+    <li class="collection-item">
+        <button class="btn btn-floating waves-effect tooltipped" data-position="top" data-delay="50" data-tooltip="Ok">
 						<i class="material-icons">thumb_up</i>
 					</button>
-                    <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="$ctrl.clearFilters()">
-						delete
-					</button>
-                </li>
+        <button class="btn btn-floating waves-effect red tooltipped" style="margin-left: 25px;" data-delay="50" data-position="top" data-tooltip="Clear All" ng-click="$ctrl.clearFilters()">
+						<i class="material-icons">delete</i>
+		</button>
+    </li>
 
-            </ul>
+</ul>
