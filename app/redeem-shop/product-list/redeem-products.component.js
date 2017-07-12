@@ -15,7 +15,9 @@ angular.module('thai')
 
             ctrl.addToCart = (item) => {
                 $rootScope.cart.push(item);
-                Materialize.toast('Item added to cart', 1000)
+                Materialize.toast('Item added to cart', 1000);
+                    $rootScope.shopRedeem = true;
+
             }
 
         }

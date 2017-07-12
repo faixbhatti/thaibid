@@ -24,7 +24,7 @@
         $scope.inCart = $rootScope.inCart;
         $scope.inDetail = $rootScope.inDetail;
         $scope.loggedIn = $rootScope.loggedIn;
-        $scope.username = $rootScope.username;
+        $scope.username = $rootScope.user.username;
         $scope.inMobile = $rootScope.inMobile.matches;
 
         $scope.addToScreen = function () {
@@ -42,7 +42,7 @@
             "$root.inCart",
             "$root.inDetail",
             "$root.loggedIn",
-            "$root.username"
+            "$root.user.username"
         ];
 
         $scope.$watchGroup(group, function (newValue, oldValue, scope) {
@@ -69,7 +69,7 @@
 
         $scope.logout = function () {
             $rootScope.loggedIn = false;
-            $rootScope.username = "";
+            $rootScope.user = {};
             $rootScope.cart = [];
             Materialize.toast("You've successfully logged out", 1000)
         };

@@ -12,10 +12,13 @@ angular
 
 function redeemCtrl(products, $rootScope) {
     const ctrl = this;
-
     ctrl.limit = 35;
     ctrl.loading = true;
     ctrl.spinnerPosition = 'fixed';
+    $rootScope.previousPage = "/redeem-shop";
+    $rootScope.showNav = true;
+    $rootScope.inCart = false;
+    $rootScope.inDetail = false;
 
     function get() {
         products
@@ -28,8 +31,11 @@ function redeemCtrl(products, $rootScope) {
                 ctrl.loading = false;
             })
     }
+
     get();
 
-    ctrl.$onInit = () => {};
-    ctrl.$onDestroy = () => {}
+    ctrl.$onInit = () => {
+    };
+    ctrl.$onDestroy = () => {
+    }
 }

@@ -19,11 +19,12 @@
 
         const ctrl = this;
         ctrl.selectedStep = 0;
-
-
+        
+        $scope.user = $rootScope.user;
+        $scope.userPoints = $scope.user.points;
+        $scope.shopRedeem = $rootScope.shopRedeem;
         $scope.items = $rootScope.cart;
         $scope.discounted = false;
-        $scope.items.forEach(item => item.quantity = 1)
         $scope.all = true;
         $scope.billing = {};
         $scope.checkingOut = false;
@@ -53,7 +54,6 @@
         $scope.nextStep = function() {
             if (ctrl.selectedStep < 3) {
                 ctrl.selectedStep += 1
-                console.log(ctrl.selectedStep)
 
                 // Scroll document back to top anytime step is changed
                 document.documentElement.scrollTop = 0;
@@ -95,31 +95,35 @@
         ]
 
         // Select required payment option
-        $scope.selectPayment = function(option) {
+        $scope.selectPayment = function(option, usePoints) {
+            //Select the required payment option.
+            `
+            Do not select a payment option except points if user is shopping with points
+            `
             switch (option) {
                 case 'card':
                     $scope.useCash = false;
                     $scope.useAtm = false;
                     $scope.usePoints = false;
-                    $scope.useCard = !$scope.useCard;
+                    if(!usePoints)$scope.useCard = !$scope.useCard;
                     break;
                 case 'atm':
                     $scope.useCash = false;
                     $scope.usePoints = false;
                     $scope.useCard = false;
-                    $scope.useAtm = !$scope.useAtm;
+                    if(!usePoints)$scope.useAtm = !$scope.useAtm;
                     break;
                 case 'cash':
                     $scope.useAtm = false;
                     $scope.usePoints = false;
                     $scope.useCard = false;
-                    $scope.useCash = !$scope.useCash;
+                    if(!usePoints)$scope.useCash = !$scope.useCash;
                     break;
                 case 'points':
                     $scope.useCash = false;
                     $scope.useAtm = false;
                     $scope.useCard = false;
-                    $scope.usePoints = !$scope.usePoints
+                    if(usePoints)$scope.usePoints = !$scope.usePoints
                     break;
 
                 default:
@@ -154,14 +158,22 @@
 
         $scope.finish = function() {
             $rootScope.template = 'orders';
-            var url = `user/${$rootScope.username}`
+            let url = `user/${$rootScope.user.username}`
             $location.url(url)
         }
 
         $scope.template = $scope.templates[0]
 
         // Get total amount of all items in cart
-        $scope.total = Calculate.getTotal($scope.items)
+        $scope.total = Calculate.getTotal($scope.items);
+
+        $scope.totalPoints = 0;
+
+        $scope.items.forEach(item => {
+            if(item.is_redeemable){
+                $scope.totalPoints += item.points
+            }
+        })
 
         $scope.previousPage = $rootScope.previousPage;
 
@@ -173,10 +185,10 @@
             Calculate.decrement(item, $scope, $scope.items)
         }
 
-        $(document).ready(function() {
+        ctrl.$onInit = () => {
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
             $('.back-up').hide()
-        })
+        }
 
     }

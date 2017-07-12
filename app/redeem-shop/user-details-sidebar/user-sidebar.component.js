@@ -12,9 +12,9 @@
             controller: userDetsCtrl,
         });
 
-    function userDetsCtrl() {
-        var ctrl = this;
-
+    function userDetsCtrl($rootScope) {
+        const ctrl = this;
+        ctrl.points = $rootScope.user.points;
 
         ////////////////
 

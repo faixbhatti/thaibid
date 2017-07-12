@@ -1,10 +1,10 @@
 <div class="col s12" style="padding: 0 0" id="prod-info">
     <ul class="tabs tabs-fixed-width teal tabs-transparent">
-        <li class="tab"><a href="#prod-bids" class="tab-link">Bids</a></li>
+        <li class="tab"><a href="#prod-bids" class="tab-link" ng-show="!$ctrl.product.is_redeemable">Bids</a></li>
         <li class="tab"><a href="#prod-detail" class="tab-link">Detail</a></li>
         <li class="tab"><a href="#prod-reviews" class="tab-link">Reviews</a></li>
     </ul>
-    <div id="prod-bids" class="col s12 white" style="min-height: 222px">
+    <div id="prod-bids" class="col s12 white" style="min-height: 222px" ng-show="!$ctrl.product.is_redeemable">
         <bid-table bids="$ctrl.bids"></bid-table>
     </div>
     <div id="prod-detail" class="col s12" style="min-height: 222px; padding: 10px">

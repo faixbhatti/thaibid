@@ -5,7 +5,9 @@
             <div class="container">
                 <a href="" class="brand-logo checkout-brand center black-text">Checkout</a>
                 <ul id="nav-mobile" class="left checkout-li">
-                    <li><a href="" ng-click="goBack()"><i class="material-icons teal-text" style="font-weight: 600; height: 50px; line-height: 50px;">arrow_back</i></a></li>
+                    <li><a href="" ng-click="goBack()"><i class="material-icons teal-text"
+                                                          style="font-weight: 600; height: 50px; line-height: 50px;">arrow_back</i></a>
+                    </li>
                 </ul>
             </div>
 
@@ -18,34 +20,44 @@
 <div class="container" id="checkout-con">
     <div class="row">
         <div class="col l8 m12 s12 push-l2" ng-if="!checkingOut" style="padding: 20px">
-            <h5 class="teal-text center checkout-header" ng-if="items.length"><i class="material-icons checkout teal white-text">shopping_cart</i> Cart</h5>
+            <h5 class="teal-text center checkout-header" ng-if="items.length"><i
+                    class="material-icons checkout teal white-text">shopping_cart</i> Cart</h5>
 
             <!--- Items In Cart ---->
             <ul class="collection" style="margin-bottom: 40px;" ng-class="{'z-depth-1 white': items.length}">
-                <li class="collection-item avatar item with-avatar row no-hover" ng-repeat="item in items" style="padding: 10px 7px; margin: 15px 0; opacity: 1;" ng-class="{'list-divider': !$last}">
+                <li class="collection-item avatar item with-avatar row no-hover" ng-repeat="item in items"
+                    style="padding: 10px 7px; margin: 15px 0; opacity: 1;" ng-class="{'list-divider': !$last}">
                     <!--- Item Img -->
                     <div class="col l2 m2 s12 img-space">
-                        <img src="{{item.image}}" alt="{{item.name}}" class="list-circ responsive-img" style="width: 100% !important;">
+                        <img src="{{item.image}}" alt="{{item.name}}" class="list-circ responsive-img"
+                             style="width: 100% !important;">
                     </div>
                     <div class="col l10 m10 s12 details-space">
                         <!--- Item Name -->
-                        <span class="black-text" style="font-size: 17px; font-weight: 500; letter-spacing: 0; margin: 5px 0 0 0">{{item.name}}</span>
+                        <span class="black-text"
+                              style="font-size: 17px; font-weight: 500; letter-spacing: 0; margin: 5px 0 0 0">{{item.name}}</span>
 
                         <p class="item-subtitle black-text" style="font-size: 14px">
-                            <div style="margin: 2px; opacity: 0.5; font-size: 13px; font-weight: 500; letter-spacing: 0">
-                                Color - <span class="green-text" style="margin-right: 7px">Green</span> Size - <span class="grey-text">XL</span><br>
-                            </div>
-                            <p class="link-text amount-badge blue lighten-2">{{item.price * item.quantity | currency: '฿'}}</p>
+                        <div style="margin: 2px; opacity: 0.5; font-size: 13px; font-weight: 500; letter-spacing: 0">
+                            Color - <span class="green-text" style="margin-right: 7px">Green</span> Size - <span
+                                class="grey-text">XL</span><br>
+                        </div>
+                        <p class="link-text amount-badge blue lighten-2" ng-if="!shopRedeem">{{item.price | currency:
+                            '฿'}}</p>
+                        <p class="link-text amount-badge blue lighten-2" ng-if="shopRedeem">{{item.points}} points</p>
 
                         </p>
 
-                        <a class="secondary-content" style="top: 32px; cursor: pointer" ng-click="removeFromCart($index,items)">
-                            <i class="material-icons red-text lighten-1 white" style="border: 2px solid rgba(0, 0, 0, 0.1); font-size: 18px; border-radius: 50%; padding: 5px;">close</i>
+                        <a class="secondary-content" style="top: 32px; cursor: pointer"
+                           ng-click="removeFromCart($index,items)">
+                            <i class="material-icons red-text lighten-1 white"
+                               style="border: 2px solid rgba(0, 0, 0, 0.1); font-size: 18px; border-radius: 50%; padding: 5px;">close</i>
                         </a>
                     </div>
                 </li>
                 <li ng-hide="items.length" style="text-align: center; margin: 100px 70px;">
-                    <i class="material-icons teal-text" style="font-size: 52px; vertical-align: middle">shopping_cart</i>
+                    <i class="material-icons teal-text"
+                       style="font-size: 52px; vertical-align: middle">shopping_cart</i>
                     <p style="font-size: 17px; text-align: center;margin: 0"> Your cart is empty!</p>
                     <p style="margin: 0; line-height: 20px; font-size: 13px; opacity: 0.7">Add items to it now!</p>
                     <a class="btn waves-effect teal z-depth-0" style="margin-top: 32px" href="/home">Shop now</a>
@@ -53,13 +65,17 @@
                 <!--- End Items In Cart ---->
             </ul>
             <div class="checkout-section z-depth-4" ng-show="items.length">
-                <h4 class="total">Total: {{total | currency : '฿'}}</h4>
-                <button class="btn btn-flat green right lighten-1 waves-effect waves-green checkout-button" ng-click="checkout()">Checkout</button>
+                <h4 class="total" ng-if="!shopRedeem">Total: {{total | currency : '฿'}}</h4>
+                <h4 class="total" ng-if="shopRedeem">Total: {{totalPoints}} <span>Points</span></h4>
+                <button class="btn btn-flat green right lighten-1 waves-effect waves-green checkout-button"
+                        ng-click="checkout()">Checkout
+                </button>
             </div>
         </div>
 
         <div class="col l8 m12 s12 push-l2 z-depth-1 white" ng-if="checkingOut" style="padding: 20px">
-            <h5 class="blue-text center checkout-header"><i class="material-icons checkout blue white-text">local_shipping</i>Order</h5>
+            <h5 class="blue-text center checkout-header"><i class="material-icons checkout blue white-text">local_shipping</i>Order
+            </h5>
             <div class="divider"></div>
 
             <md-steppers md-dynamic-height md-stretch-steppers="always" md-selected="$ctrl.selectedStep">

@@ -53,5 +53,6 @@ angular.module('thai')
         $rootScope.template = 'auctions';
         $rootScope.inMobile = window.matchMedia('(max-width: 993px)');
         $rootScope.loggedIn = false;
-        $rootScope.username = "";
+        $rootScope.user = {};
+        $rootScope.shopRedeem = false;
     });

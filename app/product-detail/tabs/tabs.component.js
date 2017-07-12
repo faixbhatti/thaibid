@@ -10,6 +10,7 @@
             controller: tabsCtrl,
             bindings: {
                 bids: '<',
+                product: '<'
             },
         });
 

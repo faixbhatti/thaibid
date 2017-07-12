@@ -10,7 +10,7 @@
                         <label for="express"></label>
                     </p>
                     <span class="title">Standard delivery.</span>
-                    <p><i>Delivery to all provinces only ฿39.</i> <br>
+                    <p><i>Delivery to all provinces only <span ng-if="shopRedeem && userPoints < (totalPoints + 10) || !shopRedeem">฿39</span><span ng-if="shopRedeem && userPoints > (totalPoints + 10)">10 points</span>.</i> <br>
                         <div style="display: flex">
                             <img src="{{img}}" alt="" ng-repeat="img in imgs" style="height: 20px; width: 22px; margin: 2px">
                         </div>
@@ -26,7 +26,7 @@
                         <label for="standard"></label>
                     </p>
                     <span class="title">Express Delivery- Delivery to your doorstep.</span>
-                    <p><i>Delivery to all provinces only ฿79.</i> <br>
+                    <p><i>Delivery to all provinces only <span ng-if="shopRedeem && userPoints < (totalPoints + 14) || !shopRedeem">฿79</span><span ng-if="shopRedeem && userPoints > (totalPoints + 14)">14 points</span>.</i> <br>
                         <div style="display: flex">
                             <img src="{{img}}" alt="" ng-repeat="img in imgs" style="height: 20px; width: 22px; margin: 2px">
                         </div>
@@ -52,7 +52,7 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="cash" name="paymentOption" ng-checked="useCash" ng-click="selectPayment('cash')">
+                            <input type="checkbox" id="cash" name="paymentOption" ng-checked="useCash" ng-disabled="shopRedeem" ng-click="selectPayment('cash', shopRedeem)">
                             <label for="cash"></label>
                         </p>
                     </a>
@@ -67,7 +67,7 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="atm" name="paymentOption" ng-checked="useAtm" ng-click="selectPayment('atm')">
+                            <input type="checkbox" id="atm" name="paymentOption" ng-checked="useAtm" ng-disabled="shopRedeem" ng-click="selectPayment('atm', shopRedeem)">
                             <label for="atm"></label>
                         </p>
                     </a>
@@ -82,7 +82,7 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="cards" name="paymentOption" ng-checked="useCard" ng-click="selectPayment('card')">
+                            <input type="checkbox" id="cards" name="paymentOption" ng-checked="useCard" ng-disabled="shopRedeem" ng-click="selectPayment('card', shopRedeem)">
                             <label for="cards"></label>
                         </p>
                     </a>
@@ -97,7 +97,7 @@
                     </p>
                     <a class="secondary-content">
                         <p>
-                            <input type="checkbox" id="redeem" name="paymentOption" ng-checked="usePoints" ng-click="selectPayment('points')">
+                            <input type="checkbox" id="redeem" name="paymentOption" ng-checked="usePoints || shopRedeem" ng-disabled="!shopRedeem" ng-click="selectPayment('points', shopRedeem)">
                             <label for="redeem"></label>
                         </p>
                     </a>
@@ -112,7 +112,7 @@
             </div>
 
             <p>
-                <input type="checkbox" id="Cash" name="group1" ng-checked="useCash" ng-click="selectPayment('cash')" />
+                <input type="checkbox" id="Cash" name="group1" ng-checked="useCash" ng-disabled="shopRedeem" ng-click="selectPayment('cash', shopRedeem)" />
                 <label for="Cash"></label>
             </p>
         </div>
@@ -122,7 +122,7 @@
                 <img src="{{img}}" alt="" ng-repeat="img in imgs | limitTo: 2 : 1" style="height: 20px; width: 22px; margin: 2px">
             </div>
             <p>
-                <input type="checkbox" id="atm" name="group1" ng-checked="useAtm" ng-click="selectPayment('atm')" />
+                <input type="checkbox" id="atm" name="group1" ng-checked="useAtm" ng-disabled="shopRedeem" ng-click="selectPayment('atm', shopRedeem)" />
                 <label for="atm"></label>
             </p>
         </div>
@@ -132,7 +132,7 @@
                 <img src="{{img}}" alt="" ng-repeat="img in imgs | limitTo: 2 : 3" style="height: 24px; width: 26px; margin: 3px">
             </div>
             <p>
-                <input type="checkbox" id="card" name="group1" ng-checked="useCard" ng-click="selectPayment('card')" />
+                <input type="checkbox" id="card" name="group1" ng-checked="useCard" ng-disabled="shopRedeem" ng-click="selectPayment('card', shopRedeem)" />
                 <label for="card"></label>
             </p>
         </div>
@@ -142,7 +142,7 @@
                 <img src="{{img}}" alt="" ng-repeat="img in imgs | limitTo: 2 : 3" style="height: 24px; width: 26px; margin: 3px">
             </div>
             <p>
-                <input type="checkbox" id="points" name="group1" ng-checked="usePoints" ng-click="selectPayment('points')" />
+                <input type="checkbox" id="points" name="group1" ng-checked="usePoints || shopRedeem" ng-disabled="!shopRedeem" ng-click="selectPayment('points', shopRedeem)" />
                 <label for="card"></label>
             </p>
         </div>

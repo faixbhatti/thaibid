@@ -12,15 +12,16 @@ angular.module('thai')
         controller: function ($rootScope, $http, $location) {
             const ctrl = this;
             ctrl.user = {};
+            let points = Math.round(Math.random() * 100);
+            ctrl.user.points = points;
             ctrl.newUser = {};
+            ctrl.newUser.points = points;
             ctrl.forgotPassword = false;
             ctrl.register = false;
             ctrl.viewTerms = false;
 
             ctrl.closeModal = () => {
-                ctrl.forgotPassword = false;
-                ctrl.register = false;
-                ctrl.viewTerms = false;
+                resetValues();
                 $('.modal').modal('close');
             };
 
@@ -40,7 +41,8 @@ angular.module('thai')
 
             ctrl.signIn = function (form) {
                 $rootScope.loggedIn = true;
-                $rootScope.username = ctrl.user.username;
+                $rootScope.user = ctrl.user;
+                console.log($rootScope.user);
                 $('.modal').modal('close');
 
                 setTimeout(function () {
@@ -82,7 +84,7 @@ angular.module('thai')
 
             ctrl.signUp = function (form) {
                 $rootScope.loggedIn = true;
-                $rootScope.username = ctrl.newUser.username;
+                $rootScope.user = ctrl.newUser;
                 $rootScope.template = "editProfile";
 
                 Materialize.toast(`Hello ${ctrl.newUser.username}!. Your new account has been created`, 1000)
