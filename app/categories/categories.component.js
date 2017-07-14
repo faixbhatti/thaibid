@@ -17,6 +17,8 @@ angular.module('thai')
                 $location.url('/category' + url)
             };
 
+            ctrl.endingTabActive = !ctrl.active ? true : false;
+
             ctrl.$onInit = () => {
                 ctrl.top = document.querySelector('.home').offsetTop;
                 ctrl.offset = document.querySelector('.nav-extended').offsetHeight;

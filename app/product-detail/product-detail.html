@@ -107,10 +107,10 @@
 
                     <div class="col s12" style="padding: 0 0; display: flex" ng-if="!product.is_redeemable">
                         <!---- Prices (Actual/Leading) ------>
-                        <p class="actual-holder"><span class="price-text">Actual price</span><br>
+                        <p class="actual-holder"><span class="price-text">Highest Bid</span><br>
                             <span class="price">{{product.price | currency : '฿'}}</span>
                         </p>
-                        <p class="leading-holder"><span class="price-text">Leading Price</span><br>
+                        <p class="leading-holder"><span class="price-text">Next possible bid</span><br>
                             <span class="price">{{product.price + 10| currency : '฿'}}</span>
                         </p>
                         <!--- /Prices -->
@@ -119,10 +119,10 @@
                     <div class="col s12" style="padding: 0 0; display: flex" ng-if="product.is_redeemable">
                         <!---- Prices (Actual/Leading) ------>
                         <p class="actual-holder"><span class="price-text">Price</span><br>
-                            <span class="price">{{product.points}} <span> points</span> </span>
+                            <span class="price pnts">{{product.points}} <span> points</span> </span>
                         </p>
                         <p class="leading-holder"><span class="price-text">Available Points</span><br>
-                            <span class="price">40 points</span>
+                            <span class="price pnts">40 points</span>
                         </p>
                         <!--- /Prices -->
                     </div>
@@ -210,12 +210,12 @@
 
                             <form class="col s12" ng-submit="addToCart(product)" style="padding: 0">
                                 <div class="row" style="margin-bottom: 0">
-                                    <div class="input-field col l8 m8 s10 push-l1 push-m1" ng-if="!product.is_redeemable">
-                                        <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px; margin: 0" class="teal-text active" ng-class="focus()">
+                                    <div class="input-field col l6 m5 s4" ng-if="!product.is_redeemable">
+                                        <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px; margin: 0; max-width: 100px" class="teal-text active" ng-class="focus()">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
 
-                                    <div class="input-field col s12 push-l1 push-m1">
+                                    <div class="input-field col l2 m2 s2">
                                         <md-button class="md-raised main-green white-text" ng-if="!product.is_redeemable" ng-click="addToCart(product)">Bid</md-button>
                                         <md-button class="md-raised md-primary" ng-if="product.is_redeemable" ng-click="addToCart(product)">Redeem Now</md-button>
                                         <!--<a href="/checkout" class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</a>-->

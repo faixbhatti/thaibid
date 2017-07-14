@@ -7,7 +7,7 @@
         "build": "gulp",
         "build-vendor": "gulp build-vendor",
         "serve": "live-server",
-        "commit": "git add --all && git commit -m \"Making required changes on checkout. Also created redeem page\" && git push origin master",
+        "commit": "git add --all && git commit -m \"Making required changes on checkout. Also edited redeem page\" && git push origin master",
         "start": "gulp & live-server",
         "deploy": "npm run commit && cd .. && firebase deploy"
     },

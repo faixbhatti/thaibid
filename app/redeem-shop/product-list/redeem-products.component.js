@@ -14,10 +14,15 @@ angular.module('thai')
             const ctrl = this;
 
             ctrl.addToCart = (item) => {
-                $rootScope.cart.push(item);
-                Materialize.toast('Item added to cart', 1000);
+                if($rootScope.loggedIn){    
+                    $rootScope.cart.push(item);
+                    Materialize.toast('Item added to cart', 1000);
                     $rootScope.shopRedeem = true;
-
+                }
+                else{
+                    $('#login-modal').modal('open');
+                    Materialize.toast('Please log in or sign up', 1000)
+                }
             }
 
         }

@@ -1,6 +1,6 @@
 <section ng-if="!$ctrl.loading">
     <div class="redeem separator hide-on-med-only"></div>
-    <div class="teal lighten-3 redeem waterfall center">
+    <div class="teal lighten-3 redeem waterfall center" style="height: 30% !important">
         <img src="image/slideshow/redeem-1.jpg" alt="background img" class="redeem-offer-img">
     </div>
 </section>
@@ -12,7 +12,7 @@
 <section ng-if="!$ctrl.loading">
     <div class="row">
         <div class="col l2">
-            <user-sidebar></user-sidebar>
+            <user-sidebar ng-if="$ctrl.loggedIn"></user-sidebar>
             <app-search-sidebar limit="$ctrl.limit"></app-search-sidebar>
         </div>
         <div class="col l10 m12 s12 prod-list-holder">

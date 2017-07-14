@@ -1,8 +1,8 @@
 <ul class="home collection with-header z-depth-1">
     <li class="collection-header main-green" style="padding: 5px 10px; border-bottom: none">
-        <p class="white-text"> Categories {{$ctrl.ctive}}<i class="material-icons waves-effect waves-light right">menu</i></p>
+        <p class="white-text"> Categories<i class="material-icons waves-effect waves-light right">menu</i></p>
     </li>
-    <li class="collection-item cat" ng-class="{'main-green': $ctrl.active === 'ending'}" ng-click="$ctrl.location('/ending')"><a href="" ng-class="{'black-text': $ctrl.active !== 'ending','white-text': $ctrl.active === 'ending'}"><i class="material-icons left">timer</i>Ending</a></li>
+    <li class="collection-item cat" ng-class="{'main-green': $ctrl.active === 'ending' || $ctrl.endingTabActive}" ng-click="$ctrl.location('/ending')"><a href="" ng-class="{'black-text': $ctrl.active !== 'ending','white-text': $ctrl.active === 'ending' || $ctrl.endingTabActive}"><i class="material-icons left">timer</i>Ending</a></li>
     <li class="collection-item cat" ng-class="{'main-green': $ctrl.active === 'ladies'}" ng-click="$ctrl.location('/ladies')"><a href="" ng-class="{'black-text': $ctrl.active !== 'ladies','white-text': $ctrl.active === 'ladies'}"><i class="material-icons left">pregnant_woman</i>Ladies</a></li>
     <li class="collection-item cat" ng-class="{'main-green': $ctrl.active === 'gentlemen'}" ng-click="$ctrl.location('/gentlemen')"><a href="" ng-class="{'black-text': $ctrl.active !== 'gentlemen','white-text': $ctrl.active === 'gentlemen'}"><i class="material-icons left">accessibility</i>Gentlemen</a></li>
     <li class="collection-item cat" ng-class="{'main-green': $ctrl.active === 'home-garden'}" ng-click="$ctrl.location('/home-garden')"><a href="" ng-class="{'black-text': $ctrl.active !== 'home-garden','white-text': $ctrl.active === 'home-garden'}"><i class="material-icons left">home</i>Home/Garden</a></li>

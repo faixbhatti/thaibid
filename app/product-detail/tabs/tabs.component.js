@@ -71,9 +71,15 @@
             Review.addReview(review, ctrl)
         }
 
-        $(document).ready(function() {
+        ctrl.$onInit = () => {
             Review.init();
             $('.tabs').tabs();
-        })
+
+            (function hideBidsTab(){
+                if(ctrl.product.is_redeemable){
+                    $('.tabs').tabs('select_tab', 'prod-detail')
+                }
+            })()
+        }
 
     }

@@ -66,7 +66,7 @@
             </ul>
             <div class="checkout-section z-depth-4" ng-show="items.length">
                 <h4 class="total" ng-if="!shopRedeem">Total: {{total | currency : '฿'}}</h4>
-                <h4 class="total" ng-if="shopRedeem">Total: {{totalPoints}} <span>Points</span></h4>
+                <h4 class="total" ng-if="shopRedeem">Total: {{totalPoints}} Points</h4>
                 <button class="btn btn-flat green right lighten-1 waves-effect waves-green checkout-button"
                         ng-click="checkout()">Checkout
                 </button>

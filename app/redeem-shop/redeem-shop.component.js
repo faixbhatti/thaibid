@@ -19,6 +19,7 @@ function redeemCtrl(products, $rootScope) {
     $rootScope.showNav = true;
     $rootScope.inCart = false;
     $rootScope.inDetail = false;
+    ctrl.loggedIn = $rootScope.loggedIn;
 
     function get() {
         products
@@ -34,8 +35,6 @@ function redeemCtrl(products, $rootScope) {
 
     get();
 
-    ctrl.$onInit = () => {
-    };
-    ctrl.$onDestroy = () => {
-    }
+    ctrl.$onInit = () => {};
+    ctrl.$onDestroy = () => {}
 }
