@@ -24,10 +24,11 @@ gulp.task('build-vendor', () =>
     gulp.src('bower_components/**/*.js')
     .pipe(sourcemaps.init())
     .pipe(order([
+        "vendor-1/angular.js",
         "vanilla/moment.min.js",
         "vanilla/locales.min.js",
-        "vanilla/**/*.js",
-        "vendor-1/angular/angular.js",
+        "vanilla/depends/headroom.min.js",
+        "vanilla/depends/humanize-duration.js",
         "vendor-1/angular-aria/angular-aria.min.js",
         "vendor-1/angular-animate/angular-animate.min.js",
         "vendor-1/angular-material/angular-material.min.js",
@@ -39,7 +40,9 @@ gulp.task('build-vendor', () =>
         "vendor-1/angular-route/angular-route.js",
         "vendor-1/angular-material-icons/angular-material-icons.min.js",
         "vendor-2/jquery-3.1.1.js",
-        "vendor-2/**/*.js",
+        "vendor-2/depends/jqueryHeadroom.js",
+        "vendor-2/depends/nouislider.min.js",
+        "vendor-2/depends/materialize.min.js",
     ]))
     .pipe(concat('vendors.bundle.min.js'))
     .pipe(uglify())

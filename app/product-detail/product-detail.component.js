@@ -84,17 +84,18 @@ angular.module('thai')
                     $scope.loading = false
 
                 })
+                $scope.page = 1;
 
             }
 
             get();
 
             $scope.slideRight = () => {
-                $scope.related = $scope.otherProducts;
+                $scope.page = 2;
             };
 
             $scope.slideOut = function() {
-                $scope.related = $scope.similarProducts;
+                $scope.page = 1;
             };
 
             // $scope.closeInput = function() {

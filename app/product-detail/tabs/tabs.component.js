@@ -75,8 +75,8 @@
             Review.init();
             $('.tabs').tabs();
 
-            (function hideBidsTab(){
-                if(ctrl.product.is_redeemable){
+            (function hideBidsTab() {
+                if (ctrl.product.is_redeemable !== undefined) {
                     $('.tabs').tabs('select_tab', 'prod-detail')
                 }
             })()

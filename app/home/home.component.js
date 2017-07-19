@@ -95,6 +95,7 @@ function homeCtrl($scope, products, $rootScope) {
             windowHeight = window.innerHeight;
 
         if (scroll >= (documentHeight - windowHeight) * 0.70) {
+            console.log('shshshj')
             if (!loading) {
                 loading = true;
                 $scope.loading = true;
@@ -116,10 +117,21 @@ function homeCtrl($scope, products, $rootScope) {
         document.addEventListener('scroll', $scope.loadMore);
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
+
         $(".dropdown-button").dropdown({
             inDuration: 300,
             outDuration: 225,
         });
+
+        let offset = document.querySelector('.nav-extended').offsetHeight;
+        let categories = document.querySelector('.home.collection');
+
+
+        $(categories).pushpin({
+            top: categories.offsetTop,
+            offset: ctrl.offset
+        });
+
     };
 
     ctrl.$onDestroy = () => {

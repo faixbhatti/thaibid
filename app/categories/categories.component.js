@@ -17,8 +17,6 @@ angular.module('thai')
                 $location.url('/category' + url)
             };
 
-            ctrl.endingTabActive = !ctrl.active ? true : false;
-
             ctrl.$onInit = () => {
                 ctrl.top = document.querySelector('.home').offsetTop;
                 ctrl.offset = document.querySelector('.nav-extended').offsetHeight;
@@ -51,6 +49,8 @@ angular.module('thai')
                         }
                     }
                 }
+
+                ctrl.endingTabActive = ctrl.active === undefined ? true : false;
 
                 categoryList.forEach(item => {
                     let a = item.querySelector('a');
