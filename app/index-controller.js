@@ -17,7 +17,7 @@
         $scope.shopRedeem = $rootScope.shopRedeem;
         $scope.search = $rootScope.searching;
         const mql = $rootScope.inMobile;
-
+        $scope.loaded = false;
 
         let group = [
             "$root.showNav",
@@ -34,6 +34,9 @@
                 $scope.shopRedeem,
                 $scope.search
             ] = newValue;
+            if ($scope.loggedIn) {
+                $scope.loaded = true;
+            }
         }, true);
 
         $rootScope.$watch('cart', function(newValue, oldValue, scope) {

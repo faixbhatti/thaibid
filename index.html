@@ -232,17 +232,17 @@
                     <div class="nav-wrapper">
                         <a href="" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
                         <div class="container">
-                            <a class="brand-logo slight-black-text" href="/home"><img src="image/BidXelSVG.svg" style="height:40px; margin-top: 10px" alt="Logo"></a>
+                            <a class="brand-logo slight-black-text" href="/"><img src="image/BidXelSVG.svg" style="height:40px; margin-top: 10px" alt="Logo"></a>
 
                             <ul id="nav-mobile" class="right hide-on-med-and-down" ng-if="!inMobile">
                                 <li><a class="waves-effect nav-item" ng-click="$ctrl.searching()"><i class="material-icons left">search</i></a>
                                 </li>
                                 <li>
                                     <a href="" class="dropdown-button waves-effect nav-item" data-activates="cart" data-constrainwidth="false" data-beloworigin="true" data-alignment='right' data-hover="true">
-                                        <p class="cart-badge teal-text" ng-show="itemsInCart.length">{{itemsInCart.length}}</p><i class="material-icons left">shopping_cart</i>My Cart </a>
+                                        <p class="cart-badge teal-text hide" ng-show="itemsInCart.length" ng-class="{'show': loaded}">{{itemsInCart.length}}</p><i class="material-icons left">shopping_cart</i>My Cart </a>
                                 </li>
 
-                                <li ng-show="loggedIn">
+                                <li ng-show="loggedIn" class="hide" ng-class="{'show': loaded}">
                                     <a class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
                                         <i class="material-icons right">arrow_drop_down</i>
                                     </a>
@@ -264,7 +264,7 @@
                         </div>
                     </div>
 
-                    <div class="nav-content" style="padding: 0 20px">
+                    <div class="nav-content" style="padding: 0 20px;">
 
                         <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down" ng-if="!inMobile">
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
@@ -368,8 +368,7 @@
         appCss.rel = 'stylesheet';
         appCss.href = '/dist/css/app.min.css';
         appCss.type = 'text/css';
-        const firstLink = document.getElementsByTagName('link')[0];
-        firstLink.parentNode.insertBefore(appCss, firstLink);
+        document.head.appendChild(appCss)
 
         /* Second CSS File */
         const appCss2 = document.createElement('link');

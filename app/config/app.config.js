@@ -13,7 +13,7 @@ angular.module('thai')
             .accentPalette('blue-grey');
 
         $routeProvider
-            .when('/home', {
+            .when('/', {
                 template: "<home-page></home-page>"
             })
             .when('/product/:productId', {
@@ -40,7 +40,7 @@ angular.module('thai')
             .when('/redeem-shop', {
                 template: '<app-redeem-shop></app-redeem-shop>'
             })
-            .otherwise('/home')
+            .otherwise('/')
 
         cfpLoadingBarProvider.includeSpinner = false;
     }])

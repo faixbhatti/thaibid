@@ -1171,6 +1171,7 @@
     }
     to {
         opacity: 1;
+        display: block;
     }
 }
 
@@ -1180,6 +1181,7 @@
     }
     to {
         opacity: 1;
+        display: block;
     }
 }
 
@@ -1442,6 +1444,7 @@
     }
     to {
         opacity: 0;
+        display: none;
     }
 }
 
@@ -1451,6 +1454,7 @@
     }
     to {
         opacity: 0;
+        display: none;
     }
 }
 

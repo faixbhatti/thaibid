@@ -54,6 +54,10 @@ form[name="filterForm"] {
     color: var(--main-green);
 }
 
+.show {
+    display: block !important;
+}
+
 .prod-col.ng-enter {
     animation: 0.4s slideInRight ease-in;
 }
@@ -1699,7 +1703,7 @@ md-checkbox.md-checked .md-icon {
 }
 
 .dismiss {
-    animation: fadeOut 0.1s forwards ease-in;
+    animation: fadeOut 0.3s forwards ease-out;
 }
 
 .appear {
