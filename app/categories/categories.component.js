@@ -16,12 +16,13 @@ angular.module('thai')
             ctrl.location = function(url) {
                 $location.url('/category' + url)
             };
+            let categories;
 
             ctrl.$onInit = () => {
                 ctrl.top = document.querySelector('.home').offsetTop;
                 ctrl.offset = document.querySelector('.nav-extended').offsetHeight;
-                let categories = document.querySelector('.home.collection'),
-                    categoryList = categories.querySelectorAll('.cat'),
+                categories = document.querySelector('.home.collection');
+                let categoryList = categories.querySelectorAll('.cat'),
                     pin = categories.parentElement.dataset.pin;
 
                 if (pin) {
@@ -67,6 +68,7 @@ angular.module('thai')
 
             ctrl.$onDestroy = () => {
                 if (hasEventListener) window.removeEventListener('scroll', ctrl.sinkElement);
+                $(categories).pushpin('remove');
             }
         }
 

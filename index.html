@@ -11,33 +11,374 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/png" href="favicon.ico" />
     <link rel="manifest" href="manifest.json">
-    <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style" onload="this.rel='stylesheet'">
-    <!--<link rel="preload"
-          href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
-          as="style"
-          onload="this.rel='stylesheet'"
-    >-->
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <!--<link rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"
-        >-->
+        
     </noscript>
-    <link rel="stylesheet" href="dist/css/app.min.css">
+    <link rel="stylesheet" href="dist/css/materialize.min.css">
+    <style>
+         :root {
+            --main-green: #26848c;
+            --col-padding-mobile: 0.2rem;
+            --col-padding-desktop: 0.75rem;
+        }
+        
+        body {
+            background: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        html,
+        body {
+            min-height: 100%;
+            margin: 0;
+            max-width: 100%;
+        }
+        
+        .dropdown-content li>a {
+            font-size: 14px;
+        }
+        
+        .cart-empty:hover {
+            background: transparent;
+        }
+        
+        .cart-empty {
+            cursor: unset !important;
+        }
+        
+        .cart-empty i.circle {
+            font-size: 35px;
+            line-height: 60px;
+            height: 60px;
+            width: 60px;
+            color: #fff;
+            background-color: #999;
+            text-align: center;
+            vertical-align: middle;
+            overflow: hidden;
+            margin: auto;
+        }
+        
+        #cart {
+            min-width: 350px;
+            border-radius: 4px;
+        }
+        
+        .cart-items {
+            position: relative;
+            cursor: unset !important;
+        }
+        
+        .dropdown-img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .cart-quan {
+            font-size: 12px;
+            margin: 13px 13px;
+            position: absolute;
+            right: 7px;
+            top: 4px;
+            letter-spacing: 2px;
+        }
+        
+        .cart-del {
+            font-size: 22px;
+            margin: 13px 10px;
+            position: absolute;
+            right: 7px;
+            top: 8px;
+        }
+        
+        .main-green {
+            background-color: var(--main-green) !important;
+        }
+        
+        .nav-item {
+            font-size: 13px;
+            opacity: 0.75;
+        }
+        
+        .cart-badge {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            position: absolute;
+            top: 7px;
+            right: 0px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            background: white;
+            padding: 0;
+            margin: 0;
+            line-height: 22px;
+            opacity: 1;
+        }
+        
+        .slight-black-text {
+            color: #424242;
+        }
+        
+        .nav-button {
+            height: 32px;
+            line-height: 32px;
+            text-transform: none;
+            letter-spacing: .1px;
+            padding: 0 12px;
+        }
+        
+        .tabs .tab a .active {
+            color: #06bf3d;
+            border-bottom-color: #06bf3d;
+        }
+        
+        .tabs .tab {
+            text-transform: capitalize
+        }
+        
+        .loader.absolute {
+            position: absolute;
+        }
+        
+        .loader.fixed {
+            position: fixed;
+        }
+        
+        .loader {
+            top: 50%;
+            left: 50%;
+        }
+        
+        @media screen and (max-width: 350px) {
+            .brand-logo>img {
+                width: 100px;
+                height: 35px;
+            }
+        }
+        
+        @media screen and (max-width: 600px) {
+            .brand-logo {
+                left: 45% !important;
+            }
+            .small-nav {
+                padding: 0 8px;
+            }
+        }
+        
+        @media all and (display-mode: standalone) {
+            .small-nav.one {
+                display: none;
+            }
+        }
+        
+        @media screen and (max-width: 980px) {
+            #profile {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
     <noscript>
-    <div style="position: fixed; left: 30%; top: 30%; text-align: center;">
-        <i class="material-icons" style="font-size: 60px; color: var(--main-green);">hourglass_empty</i>
-        <p>Javascript has been disabled on this browser or your browser isn't up to date</p>
-    </div>
-</noscript>
-    <app></app>
+        <div style="position: fixed; left: 30%; top: 30%; text-align: center;">
+            <i class="material-icons" style="font-size: 60px; color: const(--main-green);">hourglass_empty</i>
+            <p>Javascript has been disabled on this browser or your browser isn't up to date</p>
+        </div>
+    </noscript>
 
-    <script src="dist/js/vendors/vendors.bundle.min.js"></script>
-    <script src="dist/js/app.bundle.min.js"></script>
+    <section ng-controller="indexCtrl as $ctrl">
+        <header ng-show="showNav" id="header" ng-if="!search">
+            <div class="navbar-fixed" id="table" ng-if="!search" style="transition: 0s">
+                <ul class="dropdown-content" id="profile">
+                    <li><a href="/user/{{username}}" class="black-text">My profile</a></li>
+                    <li><a href="" class="black-text" ng-click="logout()">Logout</a></li>
+                </ul>
+
+                <ul class="dropdown-content" id="cart">
+                    <li ng-repeat="item in itemsInCart" ng-show="itemsInCart.length" class="cart-items">
+                        <a style="display: inline-flex; width: 100%; cursor: unset"><img src="{{item.image}}" alt="" class="circle dropdown-img">
+                            <p class="black-text">{{item.name}} - <span ng-if="item.is_redeemable">{{item.points}}p</span> <span class="blue-grey-text" ng-if="!item.is_redeemable">{{item.price | currency: '฿'}}</span>
+                            </p>
+                        </a>
+                        <p class="cart-quan">x1</p>
+                        <i class="material-icons right red-text waves-effect waves-light cart-del" ng-click="removeFromCart($index, itemsInCart)">delete_forever</i>
+                    </li>
+
+                    <div class="divider" style="margin: 0"></div>
+                    <li ng-show="itemsInCart.length" style="padding: 14px 8px; cursor: unset !important" class="cart-empty">
+                        <a class="cart-empty" style="font-size: 12px; padding: 0">
+                            <button class="btn waves-effect right z-depth-0" ng-click="checkout()">
+                            Proceed to checkout
+                        </button>
+                        </a>
+                    </li>
+
+                    <li class="cart-empty" ng-if="!itemsInCart.length" style="padding: 50px">
+                        <a class="cart-empty center" style="width: 100%;">
+                            <p class="center"><i class="material-icons circle teal medium">shopping_cart</i></p>
+                            <p class="center" style="text-transform: uppercase; font-size: 13px; font-weight: 500">Your Cart is empty</p>
+                        </a>
+                    </li>
+                </ul>
+
+
+                <nav class="nav-extended main-green" ng-if="!search" id="nav">
+                    <div class="nav-wrapper">
+                        <a href="" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
+                        <div class="container">
+                            <a class="brand-logo slight-black-text" href="/home"><img src="image/BidXelSVG.svg" style="height:40px; margin-top: 10px" alt="Logo"></a>
+
+                            <ul id="nav-mobile" class="right hide-on-med-and-down" ng-if="!inMobile">
+                                <li><a class="waves-effect nav-item" ng-click="$ctrl.searching()"><i class="material-icons left">search</i></a>
+                                </li>
+                                <li>
+                                    <a href="" class="dropdown-button waves-effect nav-item" data-activates="cart" data-constrainwidth="false" data-beloworigin="true" data-alignment='right' data-hover="true">
+                                        <p class="cart-badge teal-text" ng-show="itemsInCart.length">{{itemsInCart.length}}</p><i class="material-icons left">shopping_cart</i>My Cart </a>
+                                </li>
+
+                                <li ng-show="loggedIn">
+                                    <a class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
+                                        <i class="material-icons right">arrow_drop_down</i>
+                                    </a>
+                                </li>
+                                <li ng-hide="loggedIn">
+                                    <button data-target="login-modal" class="btn waves-effect waves-teal waves-dark white teal-text nav-button z-depth-2">
+                                Log In
+                            </button>
+                                </li>
+                            </ul>
+
+                            <ul class="right hide-on-large-only" ng-if="inMobile">
+                                <li><a class="waves-effect nav-item small-nav one" ng-click="addToScreen()"><i class="material-icons left">phone_android</i></a>
+                                </li>
+                                <li><a class="waves-effect nav-item small-nav" ng-click="$ctrl.searching()"><i class="material-icons left">search</i></a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <div class="nav-content" style="padding: 0 20px">
+
+                        <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down" ng-if="!inMobile">
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
+                            class="material-icons left icons">accessibility</i>Men</a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
+                            class="material-icons left icons">pregnant_woman</i>Ladies</a>
+                            </li>
+
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a href="" class=""><i class="material-icons left icons">child_friendly</i>Kids/Toys</a>
+                            </li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Elec/Gadgets" ng-click="location('/elec-gadgets')"><a href="" class=""><i
+                            class="material-icons left icons">lightbulb_outline</i>Elec/Gadgets</a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Travel/Sports" ng-click="location('/travel-sports')"><a href="" class=""><i class="material-icons left icons">flight_takeoff</i>Travel/Sports</a>
+                            </li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Health/Beauty" ng-click="location('/health-beauty')"><a href="" class=""><i class="material-icons left icons">fitness_center</i>Health/Beauty</a>
+                            </li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Car/Moto" ng-click="location('/car-moto')"><a href="" class=""><i class="material-icons left icons">directions_car</i>Car/Moto</a>
+                            </li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
+                            class="material-icons left icons">build</i>Tools</a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i>Redeem Shop</a></li>
+                        </ul>
+
+                        <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-up" ng-if="inMobile">
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons icons">timer</i></a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
+                            class="material-icons icons">pregnant_woman</i></a>
+                            </li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a href="" class=""><i class="material-icons icons">child_friendly</i></a></li>
+
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
+                            class="material-icons icons">build</i></a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons icons">loyalty</i></a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <app>
+            <div class="preloader-wrapper active loader fixed">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </app>
+
+    </section>
+
+    <script src="dist/js/vendors/vendors.bundle.min.js" defer></script>
+    <script src="dist/js/app.bundle.min.js" defer></script>
+    <script>
+        /* First CSS File */
+        const appCss = document.createElement('link');
+        appCss.rel = 'stylesheet';
+        appCss.href = '/dist/css/app.min.css';
+        appCss.type = 'text/css';
+        const firstLink = document.getElementsByTagName('link')[0];
+        firstLink.parentNode.insertBefore(appCss, firstLink);
+
+        /* Second CSS File */
+        const appCss2 = document.createElement('link');
+        appCss2.rel = 'stylesheet';
+        appCss2.href = 'https://fonts.googleapis.com/icon?family=Material+Icons';
+        appCss2.type = 'text/css';
+        const firstLink2 = document.getElementsByTagName('link')[0];
+        firstLink2.parentNode.insertBefore(appCss2, firstLink2);
+    </script>
 </body>
 
 </html>

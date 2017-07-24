@@ -78,7 +78,7 @@ gulp.task('build-app', () =>
 );
 
 gulp.task('build-css', () =>
-    gulp.src('dev/**/*.css')
+    gulp.src('dev/css/onLoad/**/*.css')
     .pipe(sourcemaps.init())
     .pipe(concat('app.min.css'))
     // .pipe(purify(['./app/**/*.js', './app/**/*.html']))

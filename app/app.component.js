@@ -27,16 +27,7 @@
         $scope.username = $rootScope.user.username;
         $scope.inMobile = $rootScope.inMobile.matches;
         $scope.shopRedeem = $rootScope.shopRedeem;
-
-        $scope.addToScreen = function() {
-            let homeModal = $("#homescreen-modal");
-            homeModal.css("opacity", 0);
-            homeModal.modal('open');
-            const backdrop = document.querySelector('.modal-overlay');
-            backdrop.style.background = "#26848c";
-            backdrop.style.opacity = 0.8;
-            homeModal.css("opacity", 1);
-        };
+        $scope.search = $rootScope.searching;
 
         let group = [
             "$root.showNav",
@@ -44,7 +35,8 @@
             "$root.inDetail",
             "$root.loggedIn",
             "$root.user.username",
-            "$root.shopRedeem"
+            "$root.shopRedeem",
+            "$root.searching"
         ];
 
         $scope.$watchGroup(group, function(newValue, oldValue, scope) {
@@ -53,7 +45,8 @@
                 $scope.inDetail,
                 $scope.loggedIn,
                 $scope.username,
-                $scope.shopRedeem
+                $scope.shopRedeem,
+                $scope.search
             ] = newValue;
         }, true);
 
@@ -67,7 +60,7 @@
                     $('#search').focus()
                 }, 200)
             }
-            $scope.search = !$scope.search
+            $rootScope.searching = !$rootScope.searching
             setTimeout(() => initComponents(), 200);
         };
 
@@ -125,6 +118,21 @@
 
             function showMobile(e) {
                 $scope.inMobile = e.matches;
+                if ($scope.inMobile) {
+                    $('.cart-button').sideNav({
+                        menuWidth: 300, // Default is 300
+                        edge: 'right', // Choose the horizontal origin
+                        closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                        draggable: false // Choose whether you can drag to open on touch screens
+                    });
+
+                    $('.button-collapse').sideNav({
+                        menuWidth: 300, // Default is 300
+                        edge: 'left', // Choose the horizontal origin
+                        closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                        draggable: true // Choose whether you can drag to open on touch screens 
+                    });
+                }
             }
 
             mql.addListener(showMobile);

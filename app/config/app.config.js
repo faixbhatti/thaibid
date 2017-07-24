@@ -55,4 +55,5 @@ angular.module('thai')
         $rootScope.loggedIn = false;
         $rootScope.user = {};
         $rootScope.shopRedeem = false;
+        $rootScope.searching = false;
     });

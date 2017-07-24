@@ -95,7 +95,6 @@ function homeCtrl($scope, products, $rootScope) {
             windowHeight = window.innerHeight;
 
         if (scroll >= (documentHeight - windowHeight) * 0.70) {
-            console.log('shshshj')
             if (!loading) {
                 loading = true;
                 $scope.loading = true;
@@ -106,7 +105,7 @@ function homeCtrl($scope, products, $rootScope) {
                     $scope.rest.push(...extras);
                     $scope.loading = false;
                     prod.click()
-                }, 200)
+                }, 2000)
             }
 
         }

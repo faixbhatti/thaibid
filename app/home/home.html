@@ -43,7 +43,7 @@
         </div>
 
         <div class="col l10 m12 s12 prod-list-holder" style="min-height: 400px" ng-class="{'white': dataLoading}">
-            <div class="row" id="prod-list" style="min-height: 300px;">
+            <div class="row" id="prod-list" style="min-height: 300px; margin-bottom: 0">
 
                 <product-list products="deals" columns="3" ng-hide="dataLoading"></product-list>
 
@@ -51,7 +51,19 @@
 
                 <product-list products="rest" columns="3" id="home" ng-hide="dataLoading"></product-list>
 
-                <thai-spinner position="$ctrl.spinnerPosition" ng-if="dataLoading"></thai-spinner>
+                <div class="preloader-wrapper loader" ng-class="{active : loading}" ng-if="loading">
+                    <div class="spinner-layer spinner-teal-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

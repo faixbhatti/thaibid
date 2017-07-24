@@ -6,13 +6,13 @@
 <div class="row">
     <div class="col l10 m12 s12 push-l2" style="margin-top: 15px" id="cat-list">
         <div style="min-height: 400px">
-            <div ng-show="!dataLoading">
-                <div class="hide-on-med-and-up">
 
+            <div ng-show="!dataLoading">
+                <div class="hide-on-med-and-up" ng-if="inMobile">
                     <div style="float: left; width: 50%">
                         <md-menu md-offset="0 -7">
                             <md-button aria-label="Open demo menu" class="" ng-click="$mdMenu.open($event)">
-                                <i class="material-icons">filter_list</i> Sort <i class="material-icons">arrow_drop_down</i>
+                                <i class="material-icons">filter_list</i> Sort <i class="material-icons arrow-down">arrow_drop_down</i>
                             </md-button>
                             <md-menu-content width="4">
                                 <md-menu-item>
@@ -39,7 +39,7 @@
                     <div style="float: right; width: 50%">
                         <md-menu md-offset="0 -7">
                             <md-button aria-label="Open demo menu" class="" ng-click="$mdMenu.open($event)">
-                                <i class="material-icons">attach_money</i> Range <i class="material-icons" style="">arrow_drop_down</i>
+                                <i class="material-icons">attach_money</i> Range <i class="material-icons arrow-down">arrow_drop_down</i>
                             </md-button>
                             <md-menu-content width="4">
                                 <md-menu-item>
@@ -58,8 +58,10 @@
                         </md-menu>
                     </div>
                 </div>
+
                 <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>
                 <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>
+
                 <div class="preloader-wrapper active" style="left: 50%" ng-if="loading">
                     <div class="spinner-layer spinner-teal-only">
                         <div class="circle-clipper left">
@@ -93,7 +95,7 @@
 
     </div>
 
-    <div class="col l2 m12 s12 pull-l10">
+    <div class="col l2 m12 s12 pull-l10" ng-if="!inMobile">
         <all-categories active="category" class="category hide-on-med-and-down"></all-categories>
 
         <div>

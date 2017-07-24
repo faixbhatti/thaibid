@@ -1,7 +1,7 @@
 <div class="col l{{$ctrl.columns}} m4 s6 product-col" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit" ng-click="searching()">
 
     <div class="card product-shadow hoverable prod-card" ng-click="$ctrl.viewProduct(product.id)">
-        <div class="card-image prod-card-img" style="cursor: pointer">
+        <div class="card-image prod-card-img" style="cursor: pointer; min-height: 117px">
             <a href="{{product.image}}" class="progressive replace">
                 <img src="{{product.imageMin}}" alt="{{product.image}}" class="responsive-img preview" style="height: 70%" ng-if="product.image">
             </a>

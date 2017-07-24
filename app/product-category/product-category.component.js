@@ -10,6 +10,10 @@ angular.module('thai')
             $scope.dataLoading = true;
             $rootScope.inDetail = false;
             $rootScope.showNav = true;
+            $scope.inMobile = $rootScope.inMobile.matches;
+            $scope.category = $routeParams.category
+            $rootScope.previousPage = `/category/${$scope.category}`;
+            const mql = $rootScope.inMobile;
 
             var ctrl = this;
 
@@ -83,34 +87,30 @@ angular.module('thai')
 
             }
 
-            $scope.category = $routeParams.category
-
-            $rootScope.previousPage = `/category/${$scope.category}`;
-
-            // $(document).ready(function() {
-            //
-            // })
-
             ctrl.$onInit = function() {
-                $(document).ready(() => {
-                    $('.tooltipped').tooltip({
-                        delay: 50
-                    })
-
-                    document.addEventListener('scroll', $scope.loadMore)
-
-                    $(".dropdown-button").dropdown();
-
-                    $(".dropdown-content > li").on('click', function() {
-                        setTimeout(() => {
-                            $(".dropdown-button").dropdown("close");
-                        }, 300)
-                    })
-
-                    document.body.scrollTop = 0;
-                    document.documentElement.scrollTop = 0;
-
+                $('.tooltipped').tooltip({
+                    delay: 50
                 })
+
+                document.addEventListener('scroll', $scope.loadMore)
+
+                $(".dropdown-button").dropdown();
+
+                $(".dropdown-content > li").on('click', function() {
+                    setTimeout(() => {
+                        $(".dropdown-button").dropdown("close");
+                    }, 300)
+                })
+
+
+                function showMobile(e) {
+                    $scope.inMobile = e.matches;
+                }
+
+                mql.addListener(showMobile);
+
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
             };
 
             ctrl.$onDestroy = function() {
