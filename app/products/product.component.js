@@ -8,7 +8,7 @@
                 limit: '<',
             },
             templateUrl: 'app/products/product-list.html',
-            controller: function($scope) {
+            controller: function($scope, $location) {
                 var ctrl = this
 
                 ctrl.time = 30;
@@ -17,6 +17,10 @@
                     $scope.$broadcast('timer-reset');
                     $scope.$broadcast('timer-start');
                 };
+
+                ctrl.viewProduct = (index) => {
+                    $location.url(`/product/${index}`)
+                }
 
                 $scope.$on('timer-tick', function(event, args) {
                     if (args.millis <= 10000) {

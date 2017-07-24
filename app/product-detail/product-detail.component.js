@@ -39,7 +39,7 @@ angular.module('thai')
                     $scope.similarProducts = products.slice(0, 4);
                     $scope.otherProducts = products.slice(4, 8);
                     $scope.related = $scope.similarProducts;
-                    product.price = Math.round(product.price);
+                    product.price = Math.round(product.price + 3);
                     $scope.product = product;
                     $scope.bidPrice = $scope.product.price + 5;
 
@@ -145,24 +145,51 @@ angular.module('thai')
                 $('.cart-button').sideNav('show');
             }
 
+            $scope.bid = () => {
+                if ($rootScope.loggedIn) {
+                    if ($scope.bidPrice > 150) {
+                        $scope.autoBid = true;
+
+                        setTimeout(() => $('.autobid').addClass('animated fadeIn'), 100);
+
+                    }
+
+                    $scope.product.price = $scope.bidPrice;
+
+                    // If window size is mobile or tablet, call the navigator.vibrate() api.
+                    if (navigator.vibrate) {
+                        navigator.vibrate(200)
+                    }
+                    if (window.innerWidth < 993) {
+
+                        // Hide input field after user presses enter or submits
+                        if (input.classList.contains('show-bid')) {
+                            input.classList.remove('show-bid');
+                            $scope.hideCart = false; //Display cart button after item is added to cart
+                        }
+                    }
+                    Materialize.toast('Bid Placed successfully', 1000)
+
+                    // Hide alert after 4 secs
+                    setTimeout(() => {
+                        $('autobid').removeClass('animated fadeOut');
+                        $scope.autoBid = false;
+                    }, 4000);
+                } else {
+                    // Open login modal if user isn't logged in
+                    $('#login-modal').modal('open');
+                    Materialize.toast('Please log in or sign up', 1000)
+                }
+            }
+
             $scope.addToCart = function(product) {
                     if ($rootScope.loggedIn) {
-                        if ($scope.bidPrice > 150) {
-                            $scope.autoBid = true;
-
-                            setTimeout(() => $('.autobid').addClass('animated fadeIn'), 100);
-
-                        }
                         // If window size is mobile or tablet, call the navigator.vibrate() api.
                         if (navigator.vibrate) {
                             navigator.vibrate(200)
                         }
                         if (window.innerWidth < 993) {
-                            // Hide input field after user presses enter or submits
-                            if (input.classList.contains('show-bid')) {
-                                input.classList.remove('show-bid');
-                                $scope.hideCart = false; //Display cart button after item is added to cart
-                            }
+
                             Materialize.toast('Item added to cart', 1000); //Display toast when item is added to cart
                             cart.shake(); //shake to cart button
                         } else {
@@ -170,12 +197,6 @@ angular.module('thai')
                         }
 
                         $rootScope.cart.push(product);
-
-                        // Hide alert after 4 secs
-                        setTimeout(() => {
-                            $('autobid').removeClass('animated fadeOut');
-                            $scope.autoBid = false;
-                        }, 4000);
 
 
                     } else {

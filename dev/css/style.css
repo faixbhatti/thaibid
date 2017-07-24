@@ -1,8 +1,7 @@
 html,
 body {
-    height: 100%;
+    min-height: 100%;
     margin: 0;
-    overflow-x: hidden;
     max-width: 100%;
 }
 
@@ -19,6 +18,10 @@ body {
 
 .main-green {
     background-color: var(--main-green) !important;
+}
+
+.prod-card {
+    cursor: pointer;
 }
 
 md-checkbox {
@@ -1860,6 +1863,14 @@ md-checkbox.md-checked .md-icon {
     height: 100%;
     width: 100%;
     left: 0;
+}
+
+.field>.hint {
+    left: 50px;
+}
+
+form[name="deliveryInfoForm"]>.row>.field>.field-error {
+    margin: -15px 40px;
 }
 
 #similar1.ng-enter {

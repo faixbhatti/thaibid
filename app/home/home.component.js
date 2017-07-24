@@ -13,7 +13,7 @@ function homeCtrl($scope, products, $rootScope) {
 
     function get() {
         products.get().then(function(data) {
-            $scope.products = data.data;
+            $scope.products = data.data.filter(product => product.is_redeemable === undefined);
             $scope.deals = $scope.products.slice(0, 8);
             $scope.rest = $scope.products.slice(8);
             $scope.dataLoading = false;
@@ -121,15 +121,6 @@ function homeCtrl($scope, products, $rootScope) {
         $(".dropdown-button").dropdown({
             inDuration: 300,
             outDuration: 225,
-        });
-
-        let offset = document.querySelector('.nav-extended').offsetHeight;
-        let categories = document.querySelector('.home.collection');
-
-
-        $(categories).pushpin({
-            top: categories.offsetTop,
-            offset: ctrl.offset
         });
 
     };

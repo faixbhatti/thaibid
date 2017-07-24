@@ -6,7 +6,7 @@
 angular.module('thai')
     .component('category', {
         templateUrl: 'app/product-category/product-category.html',
-        controller: function ($routeParams, $scope, $rootScope, products) {
+        controller: function($routeParams, $scope, $rootScope, products) {
             $scope.dataLoading = true;
             $rootScope.inDetail = false;
             $rootScope.showNav = true;
@@ -14,9 +14,9 @@ angular.module('thai')
             var ctrl = this;
 
             function get() {
-                products.get().then(function (data) {
+                products.get().then(function(data) {
                     var products = data.data;
-                    $scope.products = products
+                    $scope.products = products.filter(product => product.is_redeemable === undefined);
                     ctrl.limit = 35;
                     $scope.dataLoading = false;
                 })
@@ -26,16 +26,15 @@ angular.module('thai')
 
             ctrl.setLimit = (value) => {
                 ctrl.limit = value;
-                console.log('Just set value')
             };
 
             var extras = [{
-                "id": 21,
-                "name": "Classic beach wear",
-                "price": 20.34,
-                "image": "image/leather-bag.jpg",
-                "timer": "2017-03-24"
-            },
+                    "id": 21,
+                    "name": "Classic beach wear",
+                    "price": 20.34,
+                    "image": "image/leather-bag.jpg",
+                    "timer": "2017-03-24"
+                },
                 {
                     "id": 22,
                     "name": "All black swagger",
@@ -63,7 +62,7 @@ angular.module('thai')
 
             $rootScope.inCart = false;
 
-            $scope.loadMore = function (e) {
+            $scope.loadMore = function(e) {
                 var scroll = window.scrollY,
                     documentHeight = document.body.clientHeight,
                     windowHeight = window.innerHeight;
@@ -92,7 +91,7 @@ angular.module('thai')
             //
             // })
 
-            ctrl.$onInit = function () {
+            ctrl.$onInit = function() {
                 $(document).ready(() => {
                     $('.tooltipped').tooltip({
                         delay: 50
@@ -102,7 +101,7 @@ angular.module('thai')
 
                     $(".dropdown-button").dropdown();
 
-                    $(".dropdown-content > li").on('click', function () {
+                    $(".dropdown-content > li").on('click', function() {
                         setTimeout(() => {
                             $(".dropdown-button").dropdown("close");
                         }, 300)
@@ -114,7 +113,7 @@ angular.module('thai')
                 })
             };
 
-            ctrl.$onDestroy = function () {
+            ctrl.$onDestroy = function() {
                 window.removeEventListener('scroll', $scope.loadMore);
             }
 

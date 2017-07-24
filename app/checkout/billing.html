@@ -3,43 +3,76 @@
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col l12 m12 s12 field">
                 <i class="material-icons prefix grey-text">location_searching</i>
-                <input id="postal-code" type="number" class="validate" ng-model="billing.postal" ng-minlength="3" required>
+                <input id="postal-code" type="number" name="postalCode" class="validate" ng-model="billing.postal" ng-minlength="3" ng-class="{
+                                           'input-error': (deliveryInfoForm.postalCode.$touched && deliveryInfoForm.postalCode.$invalid)}" required>
                 <label for="province">Postal Code</label>
+                <p class="field-error" ng-if="deliveryInfoForm.postalCode.$error.required  && deliveryInfoForm.postalCode.$touched">
+                    Please enter your area's postal code</p>
+                <p class="field-error" ng-if="deliveryInfoForm.postalCode.$error.minlength && deliveryInfoForm.postalCode.$touched">
+                    Your postal code has to be longer than 3 chars</p>
+                <div class="hint grey-text" ng-if="deliveryInfoForm.postalCode.$untouched">
+                    *Your area's postal code
+                </div>
             </div>
         </div>
 
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col l6 m6 s12 field">
                 <i class="material-icons prefix grey-text">place</i>
-                <input id="province" type="text" class="autocomplete validate" ng-model="billing.province" ng-minlength="3" required>
+                <input id="province" name="provinceName" type="text" class="autocomplete validate" ng-model="billing.province" ng-class="{
+                                           'input-error': (deliveryInfoForm.provinceName.$touched && deliveryInfoForm.provinceName.$invalid)}" ng-minlength="3" required>
                 <label for="province">Province</label>
+                <p class="field-error" ng-if="deliveryInfoForm.provinceName.$error.required  && deliveryInfoForm.provinceName.$touched">
+                    Select your province from the dropdown</p>
+                <p class="field-error" ng-if="deliveryInfoForm.provinceName.$error.minlength && deliveryInfoForm.provinceName.$touched">
+                    Please enter a valid province name</p>
             </div>
             <div class="input-field col l6 m6 s12 field">
                 <i class="material-icons prefix grey-text">place</i>
-                <input id="district" type="text" class="autocomplete validate" ng-model="billing.district" ng-focus="getDistrict(billing.province)" ng-minlength="3" required>
+                <input id="district" type="text" name="districtName" class="autocomplete validate" ng-model="billing.district" ng-class="{
+                                           'input-error': (deliveryInfoForm.districtName.$touched && deliveryInfoForm.districtName.$invalid)}" ng-focus="getDistrict(billing.province)" ng-minlength="3" required>
                 <label for="district">District</label>
+                <p class="field-error" ng-if="deliveryInfoForm.districtName.$error.required  && deliveryInfoForm.districtName.$touched">
+                    Select your district from the dropdown</p>
+                <p class="field-error" ng-if="deliveryInfoForm.districtName.$error.minlength && deliveryInfoForm.districtName.$touched">
+                    Please enter a valid district name</p>
             </div>
         </div>
 
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col s12 field">
                 <i class="material-icons prefix grey-text">directions</i>
-                <input id="sub-d" type="text" class="autocomplete validate" ng-model="billing.subDistrict" ng-focus="getSubDistrict(billing.district)" ng-minlength="3" required>
+                <input id="sub-d" type="text" class="autocomplete validate" name="subDistrict" ng-model="billing.subDistrict" ng-class="{
+                                           'input-error': (deliveryInfoForm.subDistrict.$touched && deliveryInfoForm.subDistrict.$invalid)}" ng-focus="getSubDistrict(billing.district)" ng-minlength="3" required>
                 <label for="sub-d">Sub-district</label>
+                <p class="field-error" ng-if="deliveryInfoForm.subDistrict.$error.required  && deliveryInfoForm.subDistrict.$touched">
+                    Select your sub-district from the dropdown</p>
+                <p class="field-error" ng-if="deliveryInfoForm.subDistrict.$error.minlength && deliveryInfoForm.subDistrict.$touched">
+                    Please enter a valid sub-district</p>
             </div>
         </div>
 
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col l6 m6 s12 field">
                 <i class="material-icons prefix grey-text">my_location</i>
-                <input id="address" type="text" class="validate" ng-model="billing.address" ng-minlength="3" required>
+                <input id="address" type="text" name="address" class="validate" ng-model="billing.address" ng-class="{
+                                           'input-error': (deliveryInfoForm.address.$touched && deliveryInfoForm.address.$invalid)}" ng-minlength="3" required>
                 <label for="address">Address</label>
+                <p class="field-error" ng-if="deliveryInfoForm.address.$error.required  && deliveryInfoForm.address.$touched">
+                    Please provide your shipping address</p>
+                <p class="field-error" ng-if="deliveryInfoForm.address.$error.minlength && deliveryInfoForm.address.$touched">
+                    Please enter a valid address</p>
             </div>
 
             <div class="input-field col l6 m6 s12 field">
                 <i class="material-icons prefix grey-text">smartphone</i>
-                <input id="phone" name="billing-contact" type="tel" class="validate" ng-model="billing.phone" ng-minlength="10" ng-maxlength="10" required>
+                <input id="phone" name="billing-contact" name="userPhone" type="tel" class="validate" ng-model="billing.phone" ng-class="{
+                                           'input-error': (deliveryInfoForm.userPhone.$touched && deliveryInfoForm.userPhone.$invalid)}" ng-minlength="10" ng-maxlength="10" required>
                 <label for="phone">Phone</label>
+                <p class="field-error" ng-if="deliveryInfoForm.userPhone.$error.required  && deliveryInfoForm.userPhone.$touched">
+                    Please provide your phone number</p>
+                <p class="field-error" ng-if="deliveryInfoForm.userPhone.$error.phone && deliveryInfoForm.userPhone.$touched">
+                    Please enter a valid phone number</p>
             </div>
         </div>
 

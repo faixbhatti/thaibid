@@ -42,7 +42,7 @@
                 </div>
             </md-toolbar>
             <md-table-container>
-                <table md-table md-row-select multiple ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                <table md-table md-row-select multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
                     <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
                         <tr md-row>
                             <th md-column md-order-by="name"><span>Product Name</span></th>

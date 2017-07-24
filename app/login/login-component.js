@@ -9,7 +9,7 @@ angular.module('thai')
             username: '=',
         },
         templateUrl: 'app/login/login.html',
-        controller: function ($rootScope, $http, $location) {
+        controller: function($rootScope, $http, $location) {
             const ctrl = this;
             ctrl.user = {};
             let points = Math.round(Math.random() * 100);
@@ -39,13 +39,12 @@ angular.module('thai')
                 form.$setUntouched();
             };
 
-            ctrl.signIn = function (form) {
+            ctrl.signIn = function(form) {
                 $rootScope.loggedIn = true;
                 $rootScope.user = ctrl.user;
-                console.log($rootScope.user);
                 $('.modal').modal('close');
 
-                setTimeout(function () {
+                setTimeout(function() {
                     Materialize.toast(`Welcome back ${ctrl.username}`, 1000)
                 }, 1000);
                 resetValues();
@@ -75,14 +74,14 @@ angular.module('thai')
 
             };
 
-            ctrl.reset = function (form) {
+            ctrl.reset = function(form) {
                 $('.modal').modal('close');
                 Materialize.toast(`A reset link has been sent to ${ctrl.email}.`, 2000);
                 resetForm(form);
                 resetValues()
             };
 
-            ctrl.signUp = function (form) {
+            ctrl.signUp = function(form) {
                 $rootScope.loggedIn = true;
                 $rootScope.user = ctrl.newUser;
                 $rootScope.template = "editProfile";

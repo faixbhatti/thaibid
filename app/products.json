@@ -3,6 +3,7 @@
         "name": "Beautiful Scenery",
         "price": 23.53,
         "image": "image/sky.jpg",
+        "imageMin": "image/small/sky.jpg",
         "timer": "2017-03-24"
     },
     {
@@ -10,6 +11,7 @@
         "name": "Old fashioned pocket watch",
         "price": 44.34,
         "image": "image/pocket.jpg",
+        "imageMin": "image/small/pocket.jpg",
         "timer": "2017-03-24"
     },
     {
@@ -17,6 +19,7 @@
         "name": "On a hot day this is fly",
         "price": 20.34,
         "image": "image/ladies__wedding-wear.jpeg",
+        "imageMin": "image/small/ladies__wedding-wear.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -24,6 +27,7 @@
         "name": "Crazy work of art",
         "price": 40.34,
         "image": "image/starz.jpg",
+        "imageMin": "image/small/starz.jpg",
         "timer": "2017-03-24"
     },
     {
@@ -31,6 +35,7 @@
         "name": "Ties Collection",
         "price": 20.34,
         "image": "image/men__ties.jpeg",
+        "imageMin": "image/small/men__ties.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -38,6 +43,7 @@
         "name": "Pocket kerchief for generations",
         "price": 20.34,
         "image": "image/pocket.jpg",
+        "imageMin": "image/small/pocket.jpg",
         "timer": "2017-03-24"
     },
     {
@@ -45,6 +51,7 @@
         "name": "Classic hand made leather",
         "price": 21.53,
         "image": "image/men__blue-sneakers.jpeg",
+        "imageMin": "image/small/men__blue-sneakers.jpeg",
         "timer": "2017-03-26"
     },
     {
@@ -52,6 +59,7 @@
         "name": "Hot legs",
         "price": 230.34,
         "image": "image/men__bag.jpeg",
+        "imageMin": "image/small/men__bag.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -59,6 +67,7 @@
         "name": "On a hot day this is fly",
         "price": 20.34,
         "image": "image/ladies__blue-dress.jpeg",
+        "imageMin": "image/small/ladies__blue-dress.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -66,6 +75,7 @@
         "name": "Crazy work of art",
         "price": 40.34,
         "image": "image/glasses.jpg",
+        "imageMin": "image/small/glasses.jpg",
         "timer": "2017-03-24"
     },
     {
@@ -73,6 +83,7 @@
         "name": "When it goes down",
         "price": 20.34,
         "image": "image/ladies__canvas.jpeg",
+        "imageMin": "image/small/ladies__canvas.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -80,6 +91,7 @@
         "name": "What a view",
         "price": 40.14,
         "image": "image/ladies__red-heels.jpeg",
+        "imageMin": "image/small/ladies__red-heels.jpeg",
         "timer": "2017-03-25"
     },
     {
@@ -87,6 +99,7 @@
         "name": "When it goes down",
         "price": 20.34,
         "image": "image/pocket.jpg",
+        "imageMin": "image/small/pocket.jpg",
         "timer": "2017-03-24"
     },
     {
@@ -94,6 +107,7 @@
         "name": "What a view",
         "price": 40.14,
         "image": "image/sky.jpg",
+        "imageMin": "image/small/sky.jpg",
         "timer": "2017-03-25"
     },
     {
@@ -101,6 +115,7 @@
         "name": "Classic All stars unisex sneakers",
         "price": 10.32,
         "image": "image/starz.jpg",
+        "imageMin": "image/small/starz.jpg",
         "timer": "2017-03-24"
     },
 
@@ -109,6 +124,7 @@
         "name": "Ties Collection",
         "price": 20.34,
         "image": "image/men__ties.jpeg",
+        "imageMin": "image/small/men__ties.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -116,6 +132,7 @@
         "name": "Shopping is life",
         "price": 23.53,
         "image": "image/ladies__shopping.jpeg",
+        "imageMin": "image/small/ladies__shopping.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -123,6 +140,7 @@
         "name": "Custom shopping bags",
         "price": 44.34,
         "image": "image/ladies__shopping-bags.jpeg",
+        "imageMin": "image/small/ladies__shopping-bags.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -130,6 +148,7 @@
         "name": "All stars for men",
         "price": 40.34,
         "image": "image/men__all-stars.jpeg",
+        "imageMin": "image/small/men__all-stars.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -137,6 +156,7 @@
         "name": "Sparkly shoes",
         "price": 20.34,
         "image": "image/ladies__sparkles.jpeg",
+        "imageMin": "image/small/ladies__sparkles.jpeg",
         "timer": "2017-03-24"
     },
     {
@@ -144,6 +164,7 @@
         "name": "Beautiful Scenery",
         "price": 23.53,
         "image": "image/sky.jpg",
+        "imageMin": "image/small/sky.jpg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 30
@@ -153,6 +174,7 @@
         "name": "Old fashioned pocket watch",
         "price": 44.34,
         "image": "image/pocket.jpg",
+        "imageMin": "image/small/pocket.jpg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 14
@@ -162,6 +184,7 @@
         "name": "On a hot day this is fly",
         "price": 20.34,
         "image": "image/ladies__wedding-wear.jpeg",
+        "imageMin": "image/small/ladies__wedding-wear.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 45
@@ -171,6 +194,7 @@
         "name": "Crazy work of art",
         "price": 40.34,
         "image": "image/starz.jpg",
+        "imageMin": "image/small/starz.jpg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 66
@@ -180,6 +204,7 @@
         "name": "Ties Collection",
         "price": 20.34,
         "image": "image/men__ties.jpeg",
+        "imageMin": "image/small/men__ties.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 32
@@ -189,6 +214,7 @@
         "name": "Pocket kerchief for generations",
         "price": 20.34,
         "image": "image/pocket.jpg",
+        "imageMin": "image/small/pocket.jpg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 90
@@ -198,6 +224,7 @@
         "name": "Classic hand made leather",
         "price": 21.53,
         "image": "image/men__blue-sneakers.jpeg",
+        "imageMin": "image/small/men__blue-sneakers.jpeg",
         "timer": "2017-03-26",
         "is_redeemable": true,
         "points": 54
@@ -207,6 +234,7 @@
         "name": "Hot legs",
         "price": 230.34,
         "image": "image/men__bag.jpeg",
+        "imageMin": "image/small/men__bag.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 20
@@ -216,6 +244,7 @@
         "name": "On a hot day this is fly",
         "price": 20.34,
         "image": "image/ladies__blue-dress.jpeg",
+        "imageMin": "image/small/ladies__blue-dress.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 11
@@ -225,6 +254,7 @@
         "name": "Crazy work of art",
         "price": 40.34,
         "image": "image/glasses.jpg",
+        "imageMin": "image/small/glasses.jpg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 50
@@ -234,6 +264,7 @@
         "name": "When it goes down",
         "price": 20.34,
         "image": "image/ladies__canvas.jpeg",
+        "imageMin": "image/small/ladies__canvas.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 65
@@ -243,6 +274,7 @@
         "name": "What a view",
         "price": 40.14,
         "image": "image/ladies__red-heels.jpeg",
+        "imageMin": "image/small/ladies__red-heels.jpeg",
         "timer": "2017-03-25",
         "is_redeemable": true,
         "points": 24
@@ -252,6 +284,7 @@
         "name": "When it goes down",
         "price": 20.34,
         "image": "image/pocket.jpg",
+        "imageMin": "image/small/pocket.jpg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 56
@@ -261,6 +294,7 @@
         "name": "What a view",
         "price": 40.14,
         "image": "image/sky.jpg",
+        "imageMin": "image/small/sky.jpg",
         "timer": "2017-03-25",
         "is_redeemable": true,
         "points": 78
@@ -270,6 +304,7 @@
         "name": "Classic All stars unisex sneakers",
         "price": 10.32,
         "image": "image/starz.jpg",
+        "imageMin": "image/small/starz.jpg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 65
@@ -280,6 +315,7 @@
         "name": "Ties Collection",
         "price": 20.34,
         "image": "image/men__ties.jpeg",
+        "imageMin": "image/small/men__ties.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 43
@@ -289,6 +325,7 @@
         "name": "Shopping is life",
         "price": 23.53,
         "image": "image/ladies__shopping.jpeg",
+        "imageMin": "image/small/ladies__shopping.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 23
@@ -298,6 +335,7 @@
         "name": "Custom shopping bags",
         "price": 44.34,
         "image": "image/ladies__shopping-bags.jpeg",
+        "imageMin": "image/small/ladies__shopping-bags.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 56
@@ -307,6 +345,7 @@
         "name": "All stars for men",
         "price": 40.34,
         "image": "image/men__all-stars.jpeg",
+        "imageMin": "image/small/men__all-stars.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 87
@@ -316,6 +355,7 @@
         "name": "Sparkly shoes",
         "price": 20.34,
         "image": "image/ladies__sparkles.jpeg",
+        "imageMin": "image/small/ladies__sparkles.jpeg",
         "timer": "2017-03-24",
         "is_redeemable": true,
         "points": 34

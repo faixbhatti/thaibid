@@ -19,7 +19,7 @@
 
         const ctrl = this;
         ctrl.selectedStep = 0;
-        
+
         $scope.user = $rootScope.user;
         $scope.userPoints = $scope.user.points;
         $scope.shopRedeem = $rootScope.shopRedeem;
@@ -28,10 +28,8 @@
         $scope.all = true;
         $scope.billing = {};
         $scope.checkingOut = false;
-        $scope.useCash = false;
-        $scope.useAtm = false;
-        $scope.usePoints = false;
-        $scope.useCard = false;
+        $scope.paymentOption = '';
+        $scope.deliveryOption = 'standard';
         $scope.templates = {
             billing: 'app/checkout/billing.html',
             deliveryOptions: 'app/checkout/delivery.html',
@@ -45,9 +43,21 @@
         ]
 
         $scope.completeStep = function(stepData) {
-            stepData.completed = true;
-            console.log(JSON.stringify(stepData));
-            $scope.nextStep();
+            if (ctrl.selectedStep === 1) {
+                if ($scope.paymentOption === '') {
+                    $scope.showPaymentError = true;
+                } else if ($scope.deliveryOption === '') {
+                    $scope.showDeliveryError = true;
+                } else {
+                    $scope.showDeliveryError = false;
+                    $scope.showPaymentError = false;
+                    stepData.completed = true;
+                    $scope.nextStep();
+                }
+            } else {
+                stepData.completed = true;
+                $scope.nextStep();
+            }
         }
 
         // Proceed to next step of payment
@@ -95,44 +105,15 @@
         ]
 
         // Select required payment option
-        $scope.selectPayment = function(option, usePoints) {
+        $scope.selectPayment = function(option) {
             //Select the required payment option.
-            `
-            Do not select a payment option except points if user is shopping with points
-            `
-            switch (option) {
-                case 'card':
-                    $scope.useCash = false;
-                    $scope.useAtm = false;
-                    $scope.usePoints = false;
-                    if(!usePoints)$scope.useCard = !$scope.useCard;
-                    break;
-                case 'atm':
-                    $scope.useCash = false;
-                    $scope.usePoints = false;
-                    $scope.useCard = false;
-                    if(!usePoints)$scope.useAtm = !$scope.useAtm;
-                    break;
-                case 'cash':
-                    $scope.useAtm = false;
-                    $scope.usePoints = false;
-                    $scope.useCard = false;
-                    if(!usePoints)$scope.useCash = !$scope.useCash;
-                    break;
-                case 'points':
-                    $scope.useCash = false;
-                    $scope.useAtm = false;
-                    $scope.useCard = false;
-                    if(usePoints)$scope.usePoints = !$scope.usePoints
-                    break;
+            $scope.paymentOption = $scope.paymentOption === option ? '' : option;
+        }
 
-                default:
-                    $scope.useCash = false;
-                    $scope.useAtm = false;
-                    $scope.usePoints = false;
-                    $scope.useCard = false;
-                    break;
-            }
+        // Select required delivery option
+        $scope.selectDeliveryOption = function(option) {
+            //Select the required delivery option.
+            $scope.deliveryOption = $scope.deliveryOption === option ? '' : option;
         }
 
         $scope.getDistrict = function(province) {
@@ -170,7 +151,7 @@
         $scope.totalPoints = 0;
 
         $scope.items.forEach(item => {
-            if(item.is_redeemable){
+            if (item.is_redeemable) {
                 $scope.totalPoints += item.points
             }
         })

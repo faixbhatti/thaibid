@@ -22,7 +22,7 @@
 
         let group = [
             "$root.loggedIn",
-            "$root.username"
+            "$root.user.username"
         ];
 
         $scope.$watchGroup(group, function(newValue, oldValue, scope) {
@@ -39,7 +39,7 @@
 
         $ctrl.signout = function() {
             $rootScope.loggedIn = false;
-            $rootScope.username = "";
+            $rootScope.user = {};
             $rootScope.cart = [];
             Materialize.toast("You've successfully logged out", 1000)
         };

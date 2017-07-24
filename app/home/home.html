@@ -42,7 +42,7 @@
             <all-categories data-pin="true"></all-categories>
         </div>
 
-        <div class="col l10 m12 s12 prod-list-holder">
+        <div class="col l10 m12 s12 prod-list-holder" style="min-height: 400px" ng-class="{'white': dataLoading}">
             <div class="row" id="prod-list" style="min-height: 300px;">
 
                 <product-list products="deals" columns="3" ng-hide="dataLoading"></product-list>
