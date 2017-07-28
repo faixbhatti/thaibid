@@ -42,7 +42,7 @@
                 </div>
             </md-toolbar>
             <md-table-container>
-                <table md-table md-row-select multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
                     <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
                         <tr md-row>
                             <th md-column md-order-by="name"><span>Product Name</span></th>
@@ -54,6 +54,7 @@
                             <th md-column>
                                 Request status
                             </th>
+                            <th md-column>Review</th>
                         </tr>
                     </thead>
                     <tbody md-body>
@@ -70,6 +71,13 @@
                                 <span ng-if="order.price > 25 && order.price < 40" class="red-text">Cancelled</span>
                                 <span ng-if="order.price > 40" class="blue-grey-text">None</span>
                             </td>
+                            <td md-cell>
+                                <a href="" ng-click="$ctrl.showReviewPrompt(order)" class="center" style="font-size: 10px" ng-if="!order.comment">
+                                    <i class="material-icons left" style="font-size: 17px">mode_edit</i> Add Review
+                                </a>
+                                <a href="" ng-click="$ctrl.showReviewPrompt(order)" style="font-size: 10px" class="center" ng-if="order.comment">Edit<i class="material-icons left"></i></a>
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>

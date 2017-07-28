@@ -236,13 +236,13 @@
         <header ng-show="showNav" id="header" ng-if="!search">
             <div class="navbar-fixed" id="table" ng-if="!search" style="transition: 0s">
                 <ul class="dropdown-content" id="profile">
-                    <li><a href="/user/{{username}}" class="black-text">My profile</a></li>
+                    <li><a ng-href="/user/{{username}}" class="black-text">My profile</a></li>
                     <li><a href="" class="black-text" ng-click="logout()">Logout</a></li>
                 </ul>
 
                 <ul class="dropdown-content" id="cart">
                     <li ng-repeat="item in itemsInCart" ng-show="itemsInCart.length" class="cart-items">
-                        <a style="display: inline-flex; width: 100%; cursor: unset"><img src="{{item.image}}" alt="" class="circle dropdown-img">
+                        <a style="display: inline-flex; width: 100%; cursor: unset"><img ng-src="{{item.image}}" alt="" class="circle dropdown-img">
                             <p class="black-text">{{item.name}} - <span ng-if="item.is_redeemable">{{item.points}}p</span> <span class="blue-grey-text" ng-if="!item.is_redeemable">{{item.price | currency: '฿'}}</span>
                             </p>
                         </a>

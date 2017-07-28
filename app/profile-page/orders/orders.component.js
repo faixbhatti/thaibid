@@ -22,6 +22,8 @@ angular.module('thai')
             $mdDialog.hide();
         };
 
+
+
         $scope.submitComplaint = () => {
             $scope.hide();
             $mdToast.show(
@@ -43,6 +45,22 @@ function orderCtrl($mdDialog) {
 
     ctrl.showInvoice = (invoice) => {
         ctrl.user.showInvoice(invoice);
+    };
+
+    ctrl.showReviewPrompt = function(order, ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.prompt()
+            .title('How do you think about the quality of your product?')
+            .placeholder('Enter your comment...')
+            .ariaLabel('Enter your comment')
+            .initialValue(!!order.comment ? order.comment : '')
+            .targetEvent(ev)
+            .ok('Submit')
+            .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function(result) {
+            order.comment = result
+        }, function() {});
     };
 
     ctrl.raiseIssue = (event) => {

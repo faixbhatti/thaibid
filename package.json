@@ -7,7 +7,7 @@
         "build": "gulp",
         "build-vendor": "gulp build-vendor",
         "serve": "live-server",
-        "commit": "git add --all && git commit -m \"Steps to optimise delivery coming along well\" && git push origin dev-area",
+        "commit": "git add --all && git commit -m \"Created offline notification and added meta tags\" && git push origin dev-area",
         "start": "gulp & live-server",
         "deploy": "npm run commit && cd .. && firebase deploy"
     },

@@ -16,9 +16,10 @@ angular.module('thai')
             $rootScope.inCart = false;
             ctrl.inMobile = $rootScope.inMobile.matches;
 
+            let name = $scope.name[0].toUpperCase() + $scope.name.slice(1);
             ctrl.username = $scope.name;
 
-            ngMeta.setTitle(`${$scope.name}'s Profile`, ' | Bidxel.com')
+            ngMeta.setTitle(`${name}'s Profile`, ' | Bidxel.com')
 
             // Templates to assist in switching between tabs in user profile page;
             $scope.templates = {
@@ -104,7 +105,8 @@ angular.module('thai')
                     "quantity": 2,
                     "image": "image/sky.jpg",
                     "timer": "2017-03-25",
-                    "invoice": "BCEDND10"
+                    "invoice": "BCEDND10",
+                    "comment": "I recived the product in good condition"
                 },
                 {
                     "id": 7,
@@ -114,7 +116,6 @@ angular.module('thai')
                     "image": "image/starz.jpg",
                     "timer": "2017-03-24",
                     "invoice": "ECSFD11"
-
                 },
                 {
                     "id": 8,
@@ -123,7 +124,8 @@ angular.module('thai')
                     "image": "image/men__ties.jpeg",
                     "timer": "2017-03-24",
                     "quantity": 1,
-                    "invoice": "BCEDND12"
+                    "invoice": "BCEDND12",
+                    "comment": "Product was delivered on time and I love it"
                 },
                 {
                     "id": 9,
