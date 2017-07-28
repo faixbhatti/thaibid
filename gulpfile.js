@@ -55,7 +55,7 @@ gulp.task('watchJS', ['build-app'], () => {
 });
 
 gulp.task('watchCss', ['build-css'], () => {
-    gulp.watch('dev/css/style.css', ['create-sw'])
+    gulp.watch('dev/css/onLoad/style.css', ['create-sw'])
 });
 
 gulp.task('build-app', () =>
@@ -128,8 +128,8 @@ gulp.task('tinify-images', () => {
         tinifyImages(folder, file)
     } else {
         throw Error(`You need to provide a folder or file name or both using the following parameters:\n
-                        --folder - relative path of desired folder. e.g ./images/slideImages/\n
-                        --file - this file should be located in the folder. e.g dog.jpg should be in ./images/slideImages/dog.jpg
+                        --folder : relative path of desired folder. e.g ./images/slideImages/\n
+                        --file : this file should be located in the folder. e.g dog.jpg should be in ./images/slideImages/dog.jpg
 `)
     }
 

@@ -6,7 +6,7 @@
 angular.module('thai')
     .component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
-        controller: function ($scope, $routeParams, $location, $http, $rootScope, $anchorScroll) {
+        controller: function($scope, $routeParams, $location, $http, $rootScope, $anchorScroll, ngMeta) {
             const ctrl = this;
             $scope.name = $routeParams.name;
             $rootScope.showNav = true;
@@ -18,6 +18,7 @@ angular.module('thai')
 
             ctrl.username = $scope.name;
 
+            ngMeta.setTitle(`${$scope.name}'s Profile`, ' | Bidxel.com')
 
             // Templates to assist in switching between tabs in user profile page;
             $scope.templates = {
@@ -49,14 +50,13 @@ angular.module('thai')
             $scope.currentInfo = {};
 
             // Function to display info about a particular auction based on the user's selection
-            ctrl.displayInfo = function (info) {
+            ctrl.displayInfo = function(info) {
                 $scope.currentInfo = info;
                 // trigger modal open
                 $('#purchase-modal').modal('open');
             };
 
-            ctrl.auctions = [
-                {
+            ctrl.auctions = [{
                     "id": 5,
                     "name": "When it goes down",
                     "price": 20.34,
@@ -92,13 +92,12 @@ angular.module('thai')
             ];
 
             // Function to display info about a particular order in the invoice modal
-            ctrl.showInvoice = function (item) {
+            ctrl.showInvoice = function(item) {
                 $scope.item = item;
                 $('#invoice-modal').modal('open')
             };
 
-            ctrl.orders = [
-                {
+            ctrl.orders = [{
                     "id": 6,
                     "name": "What a view",
                     "price": 40.14,
@@ -151,10 +150,10 @@ angular.module('thai')
             };
 
             // Function to switch tabs based on the user's selection
-            ctrl.switchTab = function (tab) {
+            ctrl.switchTab = function(tab) {
                 $scope.template = $scope.templates[tab];
                 // Trigger scrollToDiv() function
-                if (ctrl.inMobile)scrollToDiv();
+                if (ctrl.inMobile) scrollToDiv();
             };
 
             ctrl.$onInit = () => {

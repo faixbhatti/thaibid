@@ -6,7 +6,7 @@
 angular.module('thai')
     .component('category', {
         templateUrl: 'app/product-category/product-category.html',
-        controller: function($routeParams, $scope, $rootScope, products) {
+        controller: function($routeParams, $scope, $rootScope, products, ngMeta) {
             $scope.dataLoading = true;
             $rootScope.inDetail = false;
             $rootScope.showNav = true;
@@ -14,6 +14,8 @@ angular.module('thai')
             $scope.category = $routeParams.category
             $rootScope.previousPage = `/category/${$scope.category}`;
             const mql = $rootScope.inMobile;
+
+            ngMeta.setTitle(`${$scope.category} Category`, ' | Bidxel.com')
 
             var ctrl = this;
 

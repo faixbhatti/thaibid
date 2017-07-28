@@ -14,7 +14,8 @@ angular.module('thai')
             let hasEventListener = false;
 
             ctrl.location = function(url) {
-                $location.url('/category' + url)
+                if (url === 'redeem-shop') $location.url(url)
+                else $location.url('/category' + url)
             };
             let categories;
 

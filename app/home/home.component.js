@@ -24,6 +24,10 @@ function homeCtrl($scope, products, $rootScope) {
 
     $rootScope.inCart = false;
 
+    $scope.moveSlider = (direction) => {
+        $('.slider').slider(direction);
+    }
+
     let extras = [{
             "id": 21,
             "name": "Classic beach wear",

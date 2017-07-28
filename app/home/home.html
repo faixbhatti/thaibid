@@ -4,33 +4,24 @@
         <div class="col s12" style="padding: 0">
             <div class="">
                 <div class="slider top-slider">
+                    <button class="btn btn-floating btn-large white z-depth-3 slider-button left-one waves-effect" ng-click="moveSlider('prev')">
+                        <i class="material-icons main-green-text">chevron_left</i>
+                    </button>
+                    <button class="btn btn-floating btn-large white z-depth-3 slider-button right-one waves-effect" ng-click="moveSlider('next')">
+                        <i class="material-icons main-green-text">chevron_right</i>
+                    </button>
                     <ul class="slides">
                         <li>
-                            <img src="image/slideshow/behind-light.jpg" alt="Get the latest fashionable wears">
-
-                            <div class="caption center-align">
-                                <h3 style="text-transform: uppercase">Get the latest fashionable wears</h3>
-                                <h5 class="light grey-text text-lighten-3">Pay as little as possible</h5>
-                            </div>
+                            <img src="image/slideshow/offers1.jpg" alt="Get the latest fashionable wears">
                         </li>
                         <li>
-                            <img src="image/slideshow/hat.jpg" alt="Costumes and designers materials">
-                            <div class="caption center-align">
-                                <h3 style="text-transform: uppercase">Costumes and designers materials</h3>
-                                <h5 class="dark grey-text text-lighten-3">We will refund if we don't live up to the hype</h5>
-                            </div>
+                            <img src="image/slideshow/offers2.jpg" alt="Costumes and designers materials">
                         </li>
                         <li>
-                            <img src="image/slideshow/plus-size.jpg" alt="Enjoy great prices">
-                            <div class="caption center-align">
-                            </div>
+                            <img src="image/slideshow/offers3.jpg" alt="Enjoy great prices">
                         </li>
                         <li>
-                            <img src="image/slideshow/pose.jpg" alt="Get discounted prices">
-                            <div class="caption center-align">
-                                <h3 style="text-transform: uppercase">Get discounted prices</h3>
-                                <h5 class="light grey-text text-lighten-3">We will refund if we don't live up to the hype</h5>
-                            </div>
+                            <img src="image/slideshow/redeem.jpg" alt="Get discounted prices">
                         </li>
                     </ul>
                 </div>
@@ -42,7 +33,7 @@
             <all-categories data-pin="true"></all-categories>
         </div>
 
-        <div class="col l10 m12 s12 prod-list-holder" style="min-height: 400px" ng-class="{'white': dataLoading}">
+        <div class="col l10 m12 s12 prod-list-holder" style="min-height: 400px">
             <div class="row" id="prod-list" style="min-height: 300px; margin-bottom: 0">
 
                 <product-list products="deals" columns="3" ng-hide="dataLoading"></product-list>

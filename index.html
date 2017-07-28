@@ -2,18 +2,19 @@
 <html lang="en" ng-app="thai">
 
 <head>
-    <title>Bidxel bids. The home of all bidding.</title>
+    <title ng-bind="ngMeta.title">Bidxel bids. The home of smart bidding</title>
 
     <meta charset="UTF-8">
     <base href="/">
     <meta name="theme-color" content="#26848c">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    <meta name="keywords" content="bids, auction, shop, buy, redeem">
+    <meta name="description" content="A great bidding site for all auctions">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/png" href="favicon.ico" />
     <link rel="manifest" href="manifest.json">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        
     </noscript>
     <link rel="stylesheet" href="dist/css/materialize.min.css">
     <style>
@@ -26,13 +27,14 @@
         body {
             background: #f5f5f5;
             font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
         }
         
         html,
         body {
             min-height: 100%;
             margin: 0;
-            max-width: 100%;
+            max-width: 100% !important;
         }
         
         .dropdown-content li>a {
@@ -145,6 +147,19 @@
             position: absolute;
         }
         
+        .placeholder {
+            margin-bottom: 8px;
+        }
+        
+        .placeholder>.col {
+            height: 300px;
+            margin-top: 53px;
+        }
+        
+        .products-placeholder>.col>.card {
+            height: 400px;
+        }
+        
         .loader.fixed {
             position: fixed;
         }
@@ -152,6 +167,26 @@
         .loader {
             top: 50%;
             left: 50%;
+        }
+        
+        .data__offline {
+            text-align: center;
+            height: 30px;
+            padding: 5px;
+            margin-bottom: 1px;
+            transition: 1s;
+        }
+        
+        .offline-icon {
+            vertical-align: middle;
+            margin-bottom: 5px;
+            margin-right: 10px;
+        }
+        
+        .data__offline>p {
+            margin: 0;
+            letter-spacing: 0.02rem;
+            font-size: 12px;
         }
         
         @media screen and (max-width: 350px) {
@@ -185,6 +220,11 @@
 </head>
 
 <body>
+    <div class="data__offline white hide">
+        <p>
+            <i class="offline-icon material-icons main-green-text">signal_cellular_connected_no_internet_4_bar</i>
+            <span class="main-green-text" style="font-weight: 500;">You are offline!</span>. The data you are seeing might be stale</p>
+    </div>
     <noscript>
         <div style="position: fixed; left: 30%; top: 30%; text-align: center;">
             <i class="material-icons" style="font-size: 60px; color: const(--main-green);">hourglass_empty</i>
@@ -228,7 +268,7 @@
                 </ul>
 
 
-                <nav class="nav-extended main-green" ng-if="!search" id="nav">
+                <nav class="nav-extended main-green z-depth-3" ng-if="!search" id="nav">
                     <div class="nav-wrapper">
                         <a href="" data-activates="sidy" class="button-collapse"><i class="material-icons">menu</i></a>
                         <div class="container">
@@ -266,7 +306,7 @@
 
                     <div class="nav-content" style="padding: 0 20px;">
 
-                        <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-down" ng-if="!inMobile">
+                        <ul class="head tabs tabs-transparent hide-on-med-and-down" ng-if="!inMobile">
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
                             class="material-icons left icons">accessibility</i>Men</a></li>
@@ -305,9 +345,8 @@
                 </nav>
             </div>
         </header>
-
-        <app>
-            <div class="preloader-wrapper active loader fixed">
+        <!-- 
+        <div class="preloader-wrapper active loader fixed">
                 <div class="spinner-layer spinner-blue">
                     <div class="circle-clipper left">
                         <div class="circle"></div>
@@ -353,6 +392,21 @@
                     </div>
                     <div class="circle-clipper right">
                         <div class="circle"></div>
+                    </div>
+                </div>
+            </div> -->
+        <app>
+            <div>
+                <div class="placeholder row">
+                    <div class="col s12 blue-grey lighten-2"></div>
+                </div>
+
+                <div class="products-placeholder row">
+                    <div class="col s2">
+                        <div class="card white"></div>
+                    </div>
+                    <div class="col s10">
+                        <div class="card white"></div>
                     </div>
                 </div>
             </div>

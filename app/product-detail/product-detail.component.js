@@ -5,7 +5,7 @@
 angular.module('thai')
     .component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
-        controller: function($scope, $routeParams, $rootScope, products, cart) {
+        controller: function($scope, $routeParams, $rootScope, products, cart, ngMeta) {
             const ctrl = this;
             $scope.loading = true;
             $scope.showDiv = false;
@@ -42,6 +42,8 @@ angular.module('thai')
                     product.price = Math.round(product.price + 3);
                     $scope.product = product;
                     $scope.bidPrice = $scope.product.price + 5;
+
+                    ngMeta.setTitle(`${product.name}`, ' | Bidxel.com')
 
                     $scope.imgs = [
                         $scope.product.image,
