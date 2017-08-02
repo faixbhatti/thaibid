@@ -17,7 +17,9 @@
         $scope.shopRedeem = $rootScope.shopRedeem;
         $scope.search = $rootScope.searching;
         const mql = $rootScope.inMobile;
+        $scope.hasDeleted = $rootScope.hasDeleted;
         $scope.loaded = false;
+
 
         let group = [
             "$root.showNav",
@@ -43,6 +45,10 @@
             $scope.itemsInCart = newValue;
         }, true);
 
+        $rootScope.$watch('hasDeleted', function(newValue, oldValue, scope) {
+            $scope.hasDeleted = newValue;
+        }, true);
+
         $scope.location = function(url) {
             if (url === '/redeem-shop') {
                 $location.url(`${url}`)
@@ -50,6 +56,38 @@
                 $location.url(`/category${url}`)
             }
         };
+
+        $scope.scrollLeft = () => {
+            let menuBar = document.querySelector('.mob-menu');
+            let leftScroller = document.querySelector('.menu-scroller.left-side'),
+                width = menuBar.scrollWidth;
+            if (width > menuBar.scrollLeft) {
+                if (leftScroller.classList.contains('disabled')) {
+                    leftScroller.classList.remove('disabled')
+                    leftScroller.classList.add('z-depth-2')
+                }
+                menuBar.scrollLeft -= 20;
+            } else {
+                leftScroller.classList.add('disabled')
+                leftScroller.classList.remove('z-depth-2');
+            }
+        }
+
+        $scope.scrollRight = () => {
+            let menuBar = document.querySelector('.mob-menu');
+            let rightScroller = document.querySelector('.menu-scroller.right-side'),
+                width = menuBar.scrollWidth;
+            if (menuBar.scrollLeft < width) {
+                if (rightScroller.classList.contains('disabled')) {
+                    rightScroller.classList.remove('disabled')
+                    leftScroller.classList.add('z-depth-2');
+                }
+                menuBar.scrollLeft += 20;
+            } else {
+                rightScroller.classList.add('disabled')
+                leftScroller.classList.remove('z-depth-2');
+            }
+        }
 
         function initComponents() {
             $('.tooltipped').tooltip()

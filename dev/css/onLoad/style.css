@@ -2,6 +2,10 @@
     cursor: pointer;
 }
 
+.auctions-tab .indicator {
+    background-color: var(--main-green)
+}
+
 md-checkbox {
     position: relative !important;
     opacity: 1 !important;

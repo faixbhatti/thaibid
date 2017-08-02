@@ -105,6 +105,6 @@ angular.module('thai')
         $rootScope.user = {};
         $rootScope.shopRedeem = false;
         $rootScope.searching = false;
-
+        $rootScope.hasDeleted = false;
         ngMeta.init();
     });

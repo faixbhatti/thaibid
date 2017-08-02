@@ -88,6 +88,27 @@
             letter-spacing: 2px;
         }
         
+        .menu-scroller {
+            position: absolute;
+            top: -8px;
+        }
+        
+        .menu-scroller.left-side {
+            left: 0;
+        }
+        
+        .menu-scroller.right-side {
+            right: 0;
+        }
+        
+        .menu-scroller>i.material-icons {
+            font-size: 40px;
+        }
+        
+        .menu-scroller.disabled {
+            color: grey;
+        }
+        
         .cart-del {
             font-size: 22px;
             margin: 13px 10px;
@@ -246,8 +267,7 @@
                             <p class="black-text">{{item.name}} - <span ng-if="item.is_redeemable">{{item.points}}p</span> <span class="blue-grey-text" ng-if="!item.is_redeemable">{{item.price | currency: '฿'}}</span>
                             </p>
                         </a>
-                        <p class="cart-quan">x1</p>
-                        <i class="material-icons right red-text waves-effect waves-light cart-del" ng-click="removeFromCart($index, itemsInCart)">delete_forever</i>
+                        <i class="material-icons right waves-effect waves-light cart-del" ng-class="{'red-text': !hasDeleted, 'grey-text': hasDeleted}" ng-click="removeFromCart($index, itemsInCart)">delete_forever</i>
                     </li>
 
                     <div class="divider" style="margin: 0"></div>
@@ -305,7 +325,6 @@
                     </div>
 
                     <div class="nav-content" style="padding: 0 20px;">
-
                         <ul class="head tabs tabs-transparent hide-on-med-and-down" ng-if="!inMobile">
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
@@ -329,72 +348,36 @@
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i>Redeem Shop</a></li>
                         </ul>
 
-                        <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-up" ng-if="inMobile">
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons icons">timer</i></a></li>
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
-                            class="material-icons icons">pregnant_woman</i></a>
-                            </li>
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a href="" class=""><i class="material-icons icons">child_friendly</i></a></li>
+                        <div ng-if="inMobile">
+                            <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-up mob-menu" style="width: 90%">
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i></a></li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
+                            class="material-icons left icons">accessibility</i></a></li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
+                            class="material-icons left icons">pregnant_woman</i></a>
+                                </li>
 
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
-                            class="material-icons icons">build</i></a></li>
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons icons">loyalty</i></a></li>
-                        </ul>
-
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Kids/Toys" ng-click="location('/kids-toys')"><a href="" class=""><i class="material-icons left icons">child_friendly</i></a>
+                                </li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Elec/Gadgets" ng-click="location('/elec-gadgets')"><a href="" class=""><i
+                            class="material-icons left icons">lightbulb_outline</i></a></li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Travel/Sports" ng-click="location('/travel-sports')"><a href="" class=""><i class="material-icons left icons">flight_takeoff</i></a>
+                                </li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Health/Beauty" ng-click="location('/health-beauty')"><a href="" class=""><i class="material-icons left icons">fitness_center</i></a>
+                                </li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Car/Moto" ng-click="location('/car-moto')"><a href="" class=""><i class="material-icons left icons">directions_car</i></a>
+                                </li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
+                            class="material-icons left icons">build</i></a></li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i></a></li>
+                            </ul>
+                            <div class="menu-scroller left-side z-depth-2" ng-click="scrollLeft()"><i class="material-icons">chevron_left</i></div>
+                            <div class="menu-scroller right-side z-depth-2" ng-click="scrollRight()"><i class="material-icons">chevron_right</i></div>
+                        </div>
                     </div>
                 </nav>
             </div>
         </header>
-        <!-- 
-        <div class="preloader-wrapper active loader fixed">
-                <div class="spinner-layer spinner-blue">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-
-                <div class="spinner-layer spinner-red">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-
-                <div class="spinner-layer spinner-yellow">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-
-                <div class="spinner-layer spinner-green">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div> -->
         <app>
             <div>
                 <div class="placeholder row">

@@ -16,12 +16,23 @@ angular.module('thai')
 function auctionCtrl() {
     const ctrl = this;
 
-   ctrl.displayInfo = (info) => {
-       ctrl.user.displayInfo(info)
+    ctrl.displayInfo = (info) => {
+        ctrl.user.displayInfo(info)
     };
 
-    ctrl.$onInit = function () {
+
+    ctrl.selected = [];
+
+    ctrl.query = {
+        'order': 'name',
+        limit: 10,
+        page: 1,
+        filter: ''
+    }
+
+    ctrl.$onInit = function() {
         ctrl.auctions = ctrl.user.auctions;
-        $('.tooltipped').tooltip({delay: 50});
+        $('.tooltipped').tooltip({ delay: 50 });
+        $('.tabs').tabs()
     }
 }

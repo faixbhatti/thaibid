@@ -4,6 +4,6 @@
 (function() {
     'use strict';
 
-    angular.module('thai', ['timer', 'ngAnimate', 'ngMaterial', 'md.data.table', 'angular-loading-bar', 'ngRoute', 'ngMdIcons', 'ngCurrencyName', 'md-steppers', 'ngMeta']);
+    angular.module('thai', ['timer', 'ngFileUpload', 'ngAnimate', 'ngMaterial', 'md.data.table', 'angular-loading-bar', 'ngRoute', 'ngMdIcons', 'ngCurrencyName', 'md-steppers', 'ngMeta']);
 
 })();

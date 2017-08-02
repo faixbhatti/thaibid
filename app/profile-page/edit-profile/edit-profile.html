@@ -1,11 +1,9 @@
 <div class="card z-depth-0">
     <div class="card-content">
         <div class="">
-            <p class="left waves-effect waves-dark" style="font-weight: 500" ng-click="$ctrl.goBack('auctions')"><i
-                    class="material-icons left">arrow_back</i>back</p>
+            <p class="left waves-effect waves-dark" style="font-weight: 500" ng-click="$ctrl.goBack('auctions')"><i class="material-icons left">arrow_back</i>back</p>
 
-            <span class="card-title center"
-                  style="font-size: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase"><i
+            <span class="card-title center" style="font-size: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase"><i
                     class="material-icons"
                     style="font-size: 30px; margin-right: 10px; vertical-align: middle">person</i>Edit Profile</span>
         </div>
@@ -13,31 +11,40 @@
         <div class="divider"></div>
 
         <div class="row">
+            <div class="row">
+                <div class="col s12">
+                    <form action="" enctype="multipart/form-data" class="center">
+                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+                            <div style="height: 100px; width: 100px; border-radius: 15px; padding: 10px; margin: 20px 20px" class="grey lighten-3 center" ng-show="!profileImage">
+                                <i class="material-icons" style="line-height: 80px; font-size: 35px;">add</i>
+                            </div>
+                            <img ngf-src="profileImage" alt="" class="responsive-img" style="width: 100px; height: 100px; border-radius: 15px; margin: 20px">
+                            <div>
+                                <div class="md-button md-raised main-green white-text" ngf-select ng-model="profileImage" name="profileImg" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}">Select Image</div>
+                                <div class="md-button md-raised red white-text" ng-click="profileImage=''">Cancel</div>
+                            </div>
+                            <div class="progress " ng-show="profileImage.progress>= 0">
+                                <div class="determinate" style="width: {{profileImage.progress}}%"></div>
+                            </div>
+                            <span ng-show="profileImage.result">Upload Successful</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <form class="col l8 push-l2 m12 s12 " name="editProfileForm" ng-submit="editProfileForm.$valid && $ctrl.saveProfile()" id="editProfileForm" novalidate>
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
-                        <input id="first_name"
-                               type="text"
-                               name="firstName"
-                               ng-model="$ctrl.user.firstName"
-                               ng-class="{
+                        <input id="first_name" type="text" name="firstName" ng-model="$ctrl.user.firstName" ng-class="{
                                  'input-error': editProfileForm.firstName.$touched && editProfileForm.firstName.$invalid
                                }" required>
                         <label for="first_name">First Name</label>
-                        <p class="field-error"
-                           ng-if="editProfileForm.firstName.$error.required && editProfileForm.firstName.$touched">Your name is
-                            required</p>
+                        <p class="field-error" ng-if="editProfileForm.firstName.$error.required && editProfileForm.firstName.$touched">Your name is required
+                        </p>
                     </div>
                     <div class="input-field col l6 m6 s12">
-                        <input id="last_name"
-                               type="text"
-                               class="validate"
-                               name="lastName"
-                               ng-model="$ctrl.user.lastName"
-                               ng-class="{
+                        <input id="last_name" type="text" class="validate" name="lastName" ng-model="$ctrl.user.lastName" ng-class="{
                                    'input-error': editProfileForm.lastName.$touched && editProfileForm.lastName.$invalid
-                               }"
-                               required>
+                               }" required>
                         <label for="last_name">Last Name</label>
                         <p class="field-error" ng-if="editProfileForm.lastName.$error.required && editProfileForm.lastName.$touched">
                             Your last name is required</p>
@@ -46,14 +53,9 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="address"
-                               type="text"
-                               name="address"
-                               ng-model="$ctrl.user.address"
-                               ng-class="{
+                        <input id="address" type="text" name="address" ng-model="$ctrl.user.address" ng-class="{
                                    'input-error': editProfileForm.address.$touched && editProfileForm.address.$invalid
-                               }"
-                               required>
+                               }" required>
                         <label for="address">Address</label>
                         <p class="field-error" ng-if="editProfileForm.address.$error.required && editProfileForm.address.$touched">
                             Please enter your address
@@ -77,7 +79,7 @@
                              'input-error': editProfileForm.province.$touched && editProfileForm.province.$invalid
                         }" required>
                         <label for="province">Province</label>
-                         <p class="field-error" ng-if="editProfileForm.province.$error.required && editProfileForm.province.$touched">
+                        <p class="field-error" ng-if="editProfileForm.province.$error.required && editProfileForm.province.$touched">
                             Please enter your province
                         </p>
                     </div>
@@ -85,15 +87,11 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email"
-                               type="email"
-                               name="email"
-                               ng-model="$ctrl.user.email"
-                               ng-class="{
+                        <input id="email" type="email" name="email" ng-model="$ctrl.user.email" ng-class="{
                                   'input-error': editProfileForm.email.$touched && editProfileForm.email.$invalid
-                               }"required>
+                               }" required>
                         <label for="email">Email</label>
-                         <p class="field-error" ng-if="editProfileForm.email.$error.required && editProfileForm.email.$touched">
+                        <p class="field-error" ng-if="editProfileForm.email.$error.required && editProfileForm.email.$touched">
                             Please enter your email
                         </p>
                         <p class="field-error" ng-if="editProfileForm.email.$error.email && editProfileForm.email.$touched">
@@ -105,13 +103,9 @@
 
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
-                        <input id="district"
-                               type="text"
-                               name="district"
-                               ng-model="$ctrl.user.district"
-                               ng-class="{
+                        <input id="district" type="text" name="district" ng-model="$ctrl.user.district" ng-class="{
                                     'input-error': editProfileForm.district.$touched && editProfileForm.district.$invalid
-                               }"required>
+                               }" required>
                         <label for="district">District</label>
                         <p class="field-error" ng-if="editProfileForm.district.$error.required && editProfileForm.district.$touched">
                             Please enter your district
@@ -119,13 +113,9 @@
                     </div>
 
                     <div class="input-field col l6 m6 s12">
-                        <input id="sub-d"
-                               type="text"
-                               name="subDistrict"
-                               ng-model="$ctrl.user.subDistrict"
-                               ng-class="{
+                        <input id="sub-d" type="text" name="subDistrict" ng-model="$ctrl.user.subDistrict" ng-class="{
                                     'input-error': editProfileForm.subDistrict.$touched && editProfileForm.subDistrict.$invalid
-                               }"required>
+                               }" required>
                         <label for="sub-d">Sub-district</label>
                         <p class="field-error" ng-if="editProfileForm.subDistrict.$error.required && editProfileForm.subDistrict.$touched">
                             Please enter your sub-district
@@ -136,11 +126,7 @@
 
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
-                        <input id="phone"
-                               type="text"
-                               name="phone"
-                               ng-model="$ctrl.user.phone"
-                               ng-class="{
+                        <input id="phone" type="text" name="phone" ng-model="$ctrl.user.phone" ng-class="{
                                     'input-error': editProfileForm.phone.$touched && editProfileForm.phone.$invalid
                                }" required>
                         <label for="phone">Phone</label>
@@ -150,13 +136,9 @@
                     </div>
 
                     <div class="input-field col l6 m6 s12">
-                        <select class="icons"
-                                id="language"
-                                name="language"
-                                ng-model="$ctrl.user.language"
-                                ng-class="{
+                        <select class="icons" id="language" name="language" ng-model="$ctrl.user.language" ng-class="{
                                     'input-error': editProfileForm.language.$touched && editProfileForm.language.$invalid
-                                }"required>
+                                }" required>
                             <option value="" disabled selected>Choose your option</option>
                             <option value="english" data-icon="image/uk.png" class="circle">English</option>
                             <option value="thai" data-icon="image/thai.png" class="circle">Thai</option>
@@ -168,10 +150,7 @@
                     </div>
                 </div>
 
-                <button class="btn waves-effect waves-light blue center"
-                        style="width: 50%; margin: auto; display: block"
-                        ng-disabled="editProfileForm.$invalid"
-                >
+                <button class="btn waves-effect waves-light blue center" style="width: 50%; margin: auto; display: block" ng-disabled="editProfileForm.$invalid">
                     Save Profile
                 </button>
             </form>

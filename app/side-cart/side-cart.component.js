@@ -10,8 +10,9 @@
             },
         });
 
-    function cartCtrl($scope, deleteModal, $location) {
+    function cartCtrl($scope, deleteModal, $location, $rootScope) {
         const $ctrl = this;
+        $scope.hasDeleted = $rootScope.hasDeleted;
 
         $scope.$watch('$root.cart', function(newValue, oldValue, scope) {
             $ctrl.itemsInCart = newValue;
@@ -25,6 +26,10 @@
         $scope.checkout = function() {
             $location.url('/checkout')
         };
+
+        $rootScope.$watch('hasDeleted', function(newValue, oldValue, scope) {
+            $scope.hasDeleted = newValue;
+        }, true);
 
         ////////////////
 

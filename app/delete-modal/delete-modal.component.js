@@ -11,12 +11,13 @@ angular.module('thai')
         controller: deleteFromCartCtrl,
     });
 
-function deleteModal() {
+function deleteModal($rootScope) {
     return {
         open,
         removeItem,
         index: 0,
-        list: []
+        list: [],
+        endDate: 0
     };
 
 
@@ -27,25 +28,36 @@ function deleteModal() {
         $('#delete-modal').modal('open');
     }
 
+    function setEndDate(date) {
+        return new Date(date.setDate(date.getDate() + 1)); //Set the next day as expiry date of user cookie
+    }
+
     function removeItem() {
-        console.log('deleting');
         this.list.splice(this.index, 1);
+        $rootScope.hasDeleted = true;
+        let date = new Date()
+        this.endDate = setEndDate(date)
+        console.log(this.endDate)
         Materialize.toast('Item removed from cart', 1000)
     }
+
 }
 
 
-function deleteFromCartCtrl(deleteModal) {
+function deleteFromCartCtrl(deleteModal, $rootScope) {
     const ctrl = this;
+    ctrl.hasDeleted = $rootScope.hasDeleted
 
-    ctrl.clean = function () {
-        alert('why')
-    };
+    $rootScope.$watch('hasDeleted', function(newValue, oldValue, scope) {
+        ctrl.hasDeleted = newValue;
+    }, true);
 
-    ctrl.removeItem = function () {
-        console.log('time');
+    ctrl.removeItem = function() {
         deleteModal.removeItem();
     };
+
+
+    ctrl.deleteModal = deleteModal;
     ////////////////
 
 }

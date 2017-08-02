@@ -10,7 +10,7 @@ angular
         controller: redeemCtrl
     });
 
-function redeemCtrl(products, $rootScope) {
+function redeemCtrl(products, $rootScope, httpService) {
     const ctrl = this;
     ctrl.limit = 35;
     ctrl.loading = true;
@@ -31,6 +31,13 @@ function redeemCtrl(products, $rootScope) {
                     })
                 ctrl.loading = false;
             })
+            // httpService
+            //     .get('category/redeem-shop')
+            //     .then((res) => {
+            //         console.log(JSON.stringify(res))
+            //     }, (err) => {
+            //         console.log(err.message)
+            //     })
     }
 
     get();

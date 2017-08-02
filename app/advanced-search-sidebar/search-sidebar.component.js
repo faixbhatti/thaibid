@@ -27,17 +27,15 @@ function sideBarCtrl() {
     ctrl.$onInit = function() {
         ctrl.defaultLimit = ctrl.limit;
         let slider = document.getElementById('uiSlider');
-        if (!slider.classList.contains('noUi-target')) {
-            noUiSlider.create(slider, {
-                start: [20, 300],
-                connect: true,
-                step: 10,
-                range: {
-                    'min': 10,
-                    'max': 1000
-                }
-            });
-        }
+        noUiSlider.create(slider, {
+            start: [20, 300],
+            connect: true,
+            step: 10,
+            range: {
+                'min': 10,
+                'max': 1000
+            }
+        });
 
 
         slider.noUiSlider.on('update', function(values, handle) {

@@ -3,28 +3,117 @@
         <div class="">
             <span class="card-title left ebony-blue-text" style="font-size: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase"><i
                     class="material-icons ebony-blue-text left" style="font-size: 30px">gavel</i>Auctions</span>
-            <p class="right">
-                <input type="checkbox" class="filled-in center" id="clear-all" />
-                <label for="clear-all">Clear all</label>
-            </p>
         </div>
 
         <div class="divider"></div>
+        <div>
+            <div class="col s12">
+                <ul class="tabs tabs-fixed-width auctions-tab">
+                    <li class="tab col s3"><a href="#active" class="active main-green-text">Active Auctions</a></li>
+                    <li class="tab col s3"><a href="#won" class="main-green-text">Won Auctions</a></li>
+                    <li class="tab col s3"><a href="#lost" class="main-green-text">Lost Auctions</a></li>
+                </ul>
+            </div>
 
-        <ul class="collection">
-            <li class="collection-item avatar item with-avatar" ng-repeat="auction in $ctrl.auctions" style="padding-left: 57px;" ng-click="$ctrl.displayInfo(auction)">
-                <img src="{{auction.image}}" alt="auction.name" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
-                <span class="black-text" style="font-size: 16px">{{auction.name}}</span>
-                <p class="item-subtitle grey-text" style="font-size: 14px"><span class="tooltipped" data-delay="50" data-position="bottom" data-tooltip="Product price"><i
-                        class="material-icons blue-text" style="font-size: 20px; vertical-align: middle; margin-right: 6px">label</i>{{auction.price}}</span><br>
-                    <span class="tooltipped" data-delay="50" data-position="bottom" data-tooltip="Bid amount"><i
-                            class="material-icons red-text" style="font-size: 20px; vertical-align: middle; margin-right: 6px">loyalty</i>{{auction.price + 10}}</span>
-                </p>
-                <a class="secondary-content tooltipped" data-delay="50" data-position="bottom" data-tooltip="Won Auction" style="right: 0"><i class="material-icons light-green-text darken-2"
-                                                                  ng-if="auction.won">check_circle</i></a>
-                <a class="secondary-content tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction" style="right: 0"><i class="material-icons red-text darken-2"
-                                                                   ng-if="!auction.won">cancel</i></a>
-            </li>
-        </ul>
+            <div id="active" class="col s12">
+                <div>
+                    <md-table-container>
+                        <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                            <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
+                                <tr md-row>
+                                    <th md-column><span>Status</span></th>
+                                    <th md-column md-order-by="name"><span>Item</span></th>
+                                    <th md-column md-numeric md-order-by="price"><span>Your Bid</span></th>
+                                    <th md-column md-numeric>Winning Bid</th>
+                                    <th md-column md-numeric>Total Bids</th>
+                                    <th md-column md-numeric>Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="auction in $ctrl.auctions | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
+                                    <td md-cell>
+                                        <a class="secondary-content" style="right: 0">
+                                            <p class="light-blue-text">Ongoing</p>
+                                        </a>
+                                    </td>
+                                    <td md-cell>{{auction.name}}</td>
+                                    <td md-cell>{{auction.price | currencyName: 'baht'}}</td>
+                                    <td md-cell>{{auction.price + 10 | currencyName : 'baht'}}</td>
+                                    <td md-cell>{{auction.price + 25}}</td>
+                                    <td md-cell>{{auction.timer | date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+
+                    <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[10, 15, 20] " md-page="$ctrl.query.page " md-total="{{$ctrl.auctions.length}} " md-on-paginate="$ctrl.getOrders " md-page-select></md-table-pagination>
+
+                </div>
+            </div>
+            <div id="won" class="col s12">
+                <div>
+                    <md-table-container>
+                        <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                            <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
+                                <tr md-row>
+                                    <th md-column><span>Status</span></th>
+                                    <th md-column md-order-by="name"><span>Item</span></th>
+                                    <th md-column md-numeric md-order-by="price"><span>Your Bid</span></th>
+                                    <th md-column md-numeric>Winning Bid</th>
+                                    <th md-column md-numeric>Total Bids</th>
+                                    <th md-column md-numeric>Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="auction in $ctrl.auctions | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
+                                    <td md-cell><a class="secondary-content tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction" style="right: 0"><i class="material-icons light-green-text darken-2"
+                                                                  ng-if="auction.won">check_circle</i></a></td>
+                                    <td md-cell>{{auction.name}}</td>
+                                    <td md-cell>{{auction.price | currencyName: 'baht'}}</td>
+                                    <td md-cell>{{auction.price + 10 | currencyName : 'baht'}}</td>
+                                    <td md-cell>{{auction.price + 25}}</td>
+                                    <td md-cell>{{auction.timer | date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+
+                    <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[10, 15, 20] " md-page="$ctrl.query.page " md-total="{{$ctrl.auctions.length}} " md-on-paginate="$ctrl.getOrders " md-page-select></md-table-pagination>
+
+                </div>
+            </div>
+            <div id="lost" class="col s12">
+                <div>
+                    <md-table-container>
+                        <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                            <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
+                                <tr md-row>
+                                    <th md-column><span>Status</span></th>
+                                    <th md-column md-order-by="name"><span>Item</span></th>
+                                    <th md-column md-numeric md-order-by="price"><span>Your Bid</span></th>
+                                    <th md-column md-numeric>Winning Bid</th>
+                                    <th md-column md-numeric>Total Bids</th>
+                                    <th md-column md-numeric>Completed</th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="auction in $ctrl.auctions | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
+                                    <td md-cell><a class="secondary-content tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction" style="right: 0"><i class="material-icons red-text darken-2"
+                                                                >cancel</i></a></td>
+                                    <td md-cell>{{auction.name}}</td>
+                                    <td md-cell>{{auction.price | currencyName: 'baht'}}</td>
+                                    <td md-cell>{{auction.price + 10 | currencyName : 'baht'}}</td>
+                                    <td md-cell>{{auction.price + 25}}</td>
+                                    <td md-cell>{{auction.timer | date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+
+                    <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[10, 15, 20] " md-page="$ctrl.query.page " md-total="{{$ctrl.auctions.length}} " md-on-paginate="$ctrl.getOrders " md-page-select></md-table-pagination>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
