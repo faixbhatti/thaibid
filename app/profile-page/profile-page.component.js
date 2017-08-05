@@ -101,16 +101,30 @@ angular.module('thai')
             ctrl.orders = [{
                     "id": 6,
                     "name": "What a view",
+                    "attributes": "Black, XL",
                     "price": 40.14,
                     "quantity": 2,
+                    "delivery": "Standard",
+                    "surchage": "40",
+                    "discount": "30",
+                    "total": "500",
+                    "rewards": "3",
                     "image": "image/sky.jpg",
                     "timer": "2017-03-25",
                     "invoice": "BCEDND10",
+                    "track": "BDX0000001",
                     "comment": "I recived the product in good condition"
                 },
                 {
                     "id": 7,
                     "name": "Classic All stars unisex sneakers",
+                    "attributes": "Green, XXL",
+                    "delivery": "Express",
+                    "surchage": "40",
+                    "discount": "30",
+                    "total": "500",
+                    "rewards": "3",
+                    "track": "BDX0000001",
                     "price": 10.32,
                     "quantity": 3,
                     "image": "image/starz.jpg",
@@ -120,6 +134,13 @@ angular.module('thai')
                 {
                     "id": 8,
                     "name": "Ties Collection",
+                    "attributes": "Green, XXL",
+                    "delivery": "Express",
+                    "surchage": "40",
+                    "discount": "30",
+                    "total": "500",
+                    "rewards": "3",
+                    "track": "BDX0000001",
                     "price": 20.34,
                     "image": "image/men__ties.jpeg",
                     "timer": "2017-03-24",
@@ -130,10 +151,55 @@ angular.module('thai')
                 {
                     "id": 9,
                     "name": "Beauty in diversity",
+                    "attributes": "Green, XXL",
+                    "delivery": "Express",
+                    "surchage": "40",
+                    "discount": "30",
+                    "total": "500",
+                    "rewards": "3",
+                    "track": "BDX0000001",
                     "price": 25.90,
                     "image": "image/pocket.jpeg",
                     "timer": "2017-03-24",
                     "quantity": 1,
+                    "invoice": "BVNED23"
+                }
+            ];
+
+            ctrl.rewards = [{
+                    "id": 6,
+                    "name": "What a view",
+                    "price": 40.14,
+                    "rewards": "3",
+                    "image": "image/sky.jpg",
+                    "timer": "2017-03-25",
+                    "invoice": "BCEDND10",
+                },
+                {
+                    "id": 7,
+                    "name": "Classic All stars unisex sneakers",
+                    "rewards": "3",
+                    "price": 10.32,
+                    "image": "image/starz.jpg",
+                    "timer": "2017-03-24",
+                    "invoice": "ECSFD11"
+                },
+                {
+                    "id": 8,
+                    "name": "Ties Collection",
+                    "rewards": "3",
+                    "price": 20.34,
+                    "image": "image/men__ties.jpeg",
+                    "timer": "2017-03-24",
+                    "invoice": "BCEDND12",
+                },
+                {
+                    "id": 9,
+                    "name": "Beauty in diversity",
+                    "rewards": "3",
+                    "price": 25.90,
+                    "image": "image/pocket.jpeg",
+                    "timer": "2017-03-24",
                     "invoice": "BVNED23"
                 }
             ];

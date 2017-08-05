@@ -8,10 +8,10 @@
         <div class="divider"></div>
         <div>
             <div class="col s12">
-                <ul class="tabs tabs-fixed-width auctions-tab">
-                    <li class="tab col s3"><a href="#active" class="active main-green-text">Active Auctions</a></li>
-                    <li class="tab col s3"><a href="#won" class="main-green-text">Won Auctions</a></li>
-                    <li class="tab col s3"><a href="#lost" class="main-green-text">Lost Auctions</a></li>
+                <ul class="tabs tabs-fixed-width tabs-transparent main-green z-depth-1">
+                    <li class="tab col s3"><a href="#active" class="active"> Active Auctions</a></li>
+                    <li class="tab col s3"><a href="#won"> Won Auctions</a></li>
+                    <li class="tab col s3"><a href="#lost"> Lost Auctions</a></li>
                 </ul>
             </div>
 
@@ -32,9 +32,8 @@
                             <tbody md-body>
                                 <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="auction in $ctrl.auctions | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
                                     <td md-cell>
-                                        <a class="secondary-content" style="right: 0">
-                                            <p class="light-blue-text">Ongoing</p>
-                                        </a>
+                                        <a class="tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction"><i class="material-icons light-blue-text darken-2"
+                                                                 >timer</i></a>
                                     </td>
                                     <td md-cell>{{auction.name}}</td>
                                     <td md-cell>{{auction.price | currencyName: 'baht'}}</td>
@@ -66,8 +65,8 @@
                             </thead>
                             <tbody md-body>
                                 <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="auction in $ctrl.auctions | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
-                                    <td md-cell><a class="secondary-content tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction" style="right: 0"><i class="material-icons light-green-text darken-2"
-                                                                  ng-if="auction.won">check_circle</i></a></td>
+                                    <td md-cell><a class="tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction"><i class="material-icons light-green-text darken-2"
+                                                                  >check_circle</i></a></td>
                                     <td md-cell>{{auction.name}}</td>
                                     <td md-cell>{{auction.price | currencyName: 'baht'}}</td>
                                     <td md-cell>{{auction.price + 10 | currencyName : 'baht'}}</td>
@@ -98,7 +97,7 @@
                             </thead>
                             <tbody md-body>
                                 <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="auction in $ctrl.auctions | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
-                                    <td md-cell><a class="secondary-content tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction" style="right: 0"><i class="material-icons red-text darken-2"
+                                    <td md-cell><a class="tooltipped" data-delay="50" data-position="bottom" data-tooltip="Lost Auction"><i class="material-icons red-text darken-2"
                                                                 >cancel</i></a></td>
                                     <td md-cell>{{auction.name}}</td>
                                     <td md-cell>{{auction.price | currencyName: 'baht'}}</td>

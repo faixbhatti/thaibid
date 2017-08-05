@@ -30,7 +30,7 @@
         }
 
         function get(url) {
-            return $http.get(`${baseUrl}${url}`, config)
+            return $http.get(`${baseUrl}${url}`)
         }
 
         function put(url) {

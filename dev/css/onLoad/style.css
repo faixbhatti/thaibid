@@ -21,6 +21,10 @@ md-checkbox {
     text-transform: uppercase;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .hint,
 .error {
     font-size: 12px;

@@ -11,9 +11,45 @@
 
         <div class="divider"></div>
 
-        <div style="display: flex; flex-direction: column; height: 400px; justify-content: center; text-align: center">
+        <div class="hide" style="display: flex; flex-direction: column; height: 400px; justify-content: center; text-align: center">
             <i class="material-icons medium blue-text">loyalty</i>
             <p style="font-size: 14px">You have no rewards yet</p>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <md-table-container>
+                    <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                        <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
+                            <tr md-row>
+                                <th md-column md-order-by="name"><span>Item</span></th>
+                                <th md-column md-numeric md-order-by="price"><span>Your Bid</span></th>
+                                <th md-column md-numeric>Reward Points</th>
+                                <th md-column md-numeric md-order-by="timer">Time</th>
+                                <th md-column md-numeric>#Invoice No</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="reward in $ctrl.rewards | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
+                                <td md-cell>{{reward.name}}</td>
+                                <td md-cell>{{reward.price | currencyName: 'baht'}}</td>
+                                <td md-cell>{{reward.rewards + 10}}</td>
+                                <td md-cell>{{reward.timer | date}</td>
+                                <td md-cell> <a href="">#{{reward.invoice}}</a> </td>
+                            </tr>
+
+                            <tr>
+                                <td md-cell></td>
+                                <td md-cell></td>
+                                <td md-cell></td>
+                                <td md-cell>Total Points</td>
+                                <td md-cell>{{$ctrl.totalPoints}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
         </div>
     </div>
 </div>

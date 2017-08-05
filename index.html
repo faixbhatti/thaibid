@@ -348,8 +348,8 @@
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i>Redeem Shop</a></li>
                         </ul>
 
-                        <div ng-if="inMobile">
-                            <ul class="tabs tabs-transparent tabs-fixed-width hide-on-med-and-up mob-menu" style="width: 90%">
+                        <div ng-if="inMobile" class="hide-on-med-and-up">
+                            <ul class="tabs tabs-transparent tabs-fixed-width mob-menu" style="width: 90%; overflow: hidden;">
                                 <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i></a></li>
                                 <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
                             class="material-icons left icons">accessibility</i></a></li>
@@ -371,8 +371,8 @@
                             class="material-icons left icons">build</i></a></li>
                                 <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i></a></li>
                             </ul>
-                            <div class="menu-scroller left-side z-depth-2" ng-click="scrollLeft()"><i class="material-icons">chevron_left</i></div>
-                            <div class="menu-scroller right-side z-depth-2" ng-click="scrollRight()"><i class="material-icons">chevron_right</i></div>
+                            <div class="menu-scroller left-side z-depth-1" ng-click="scrollLeft()"><i class="material-icons">chevron_left</i></div>
+                            <div class="menu-scroller right-side z-depth-1" ng-click="scrollRight()"><i class="material-icons">chevron_right</i></div>
                         </div>
                     </div>
                 </nav>

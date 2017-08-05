@@ -42,26 +42,69 @@ function orderCtrl($mdDialog) {
     const ctrl = this;
     ctrl.loading = true;
     ctrl.search = false;
+    ctrl.cancelled = false;
 
     ctrl.showInvoice = (invoice) => {
         ctrl.user.showInvoice(invoice);
     };
 
     ctrl.showReviewPrompt = function(order, ev) {
-        // Appending dialog to document.body to cover sidenav in docs app
-        var confirm = $mdDialog.prompt()
+        let header = document.querySelector('.navbar-fixed');
+        header.style.zIndex = 76;
+
+        //Create an alert dialog if the user has rated the product to show user comment
+        var confirm = !!order.comment ? $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('This is what you had to say about this product')
+            .textContent(order.comment)
+            .ariaLabel('Product rating')
+            .ok('Got it!')
+            .targetEvent(ev)
+
+        :
+        //Else show the user a prompt to enter his comment and rating
+        $mdDialog.prompt()
             .title('How do you think about the quality of your product?')
             .placeholder('Enter your comment...')
             .ariaLabel('Enter your comment')
             .initialValue(!!order.comment ? order.comment : '')
             .targetEvent(ev)
             .ok('Submit')
-            .cancel('Cancel');
+            .cancel('Cancel')
 
-        $mdDialog.show(confirm).then(function(result) {
-            order.comment = result
-        }, function() {});
+        setTimeout(() => {
+            $mdDialog.show(confirm).then(function(result) {
+                order.comment = result
+                header.style.zIndex = 1000;
+            }, function() {
+                header.style.zIndex = 1000;
+            });
+        }, 400);
     };
+
+    ctrl.cancelOrder = function(ev) {
+        let header = document.querySelector('.navbar-fixed');
+        header.style.zIndex = 76;
+        // Appending dialog to document.body to cover sidenav in docs app
+        setTimeout(() => {
+            var cancel = $mdDialog.confirm()
+                .title('Are you sure you want to cancel this order?')
+                .textContent('Please make sure you don\'t cancel more than 3 times in 90 days.')
+                .ariaLabel('Cancel Order')
+                .targetEvent(ev)
+                .ok('Go ahead!')
+                .cancel('Don\'t Cancel');
+
+            $mdDialog.show(cancel).then(function() {
+                ctrl.cancelled = true;
+                header.style.zIndex = 1000;
+
+            }, function() {
+                header.style.zIndex = 1000;
+            });
+        }, 400)
+    };
+
 
     ctrl.raiseIssue = (event) => {
         let header = document.querySelector('.navbar-fixed');
@@ -73,6 +116,11 @@ function orderCtrl($mdDialog) {
                 focusOnOpen: false,
                 targetEvent: event,
                 templateUrl: 'app/profile-page/orders/order-dialog.html',
+            }).then(() => {
+                header.style.zIndex = 1000;
+
+            }, () => {
+                header.style.zIndex = 1000;
             })
         }, 200)
 
