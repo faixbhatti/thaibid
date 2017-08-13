@@ -62,6 +62,10 @@ form[name="filterForm"] {
     margin-bottom: 5px;
 }
 
+.pointer{
+    cursor: pointer;
+}
+
 .md-table-toolbar.alternate {
     background-color: #caf5f5;
     color: var(--main-green);

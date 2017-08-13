@@ -10,7 +10,7 @@ angular.module('thai')
             limit: '<',
         },
         templateUrl: 'app/redeem-shop/product-list/redeem-products.html',
-        controller: function($rootScope) {
+        controller: function($rootScope, $location) {
             const ctrl = this;
 
             ctrl.addToCart = (item) => {
@@ -23,6 +23,10 @@ angular.module('thai')
                     $('#login-modal').modal('open');
                     Materialize.toast('Please log in or sign up', 1000)
                 }
+            };
+
+            ctrl.viewProduct = (slug) => {
+                $location.url(`/product/${slug}`)
             }
 
         }

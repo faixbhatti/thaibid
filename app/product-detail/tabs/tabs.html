@@ -4,22 +4,21 @@
         <li class="tab"><a href="#prod-detail" class="tab-link">Detail</a></li>
         <li class="tab"><a href="#prod-reviews" class="tab-link">Reviews</a></li>
     </ul>
-    <div id="prod-bids" class="col s12 white" style="min-height: 222px" ng-if="!$ctrl.product.is_redeemable">
+    <div id="prod-bids" class="col s12 white" style="min-height: 222px" ng-if="$ctrl.product.redeemable !== 1">
         <bid-table bids="$ctrl.bids"></bid-table>
     </div>
     <div id="prod-detail" class="col s12" style="min-height: 222px; padding: 10px">
         <div class="row" style="margin-bottom: 0">
             <div class="col l6 m6 s6">
                 <p class="description-text modal-headers">Product Details</p>
-                <p class="link-text reduce-text">Auction no: 4139494</p>
-                <p class="link-text reduce-text">Item no: 41-394</p>
+                <p class="link-text reduce-text">Length: {{$ctrl.product.length}}</p>
+                <p class="link-text reduce-text">Height: {{$ctrl.product.height}}</p>
+                <p class="link-text reduce-text">Sizes: <span ng-repeat="size in $ctrl.product.sizes">{{size.size_name}}, </span></p>
+                <p class="link-text reduce-text">Sizes: <span ng-repeat="color in $ctrl.product.color">{{color.color_name}}, </span></p>
             </div>
             <div class="col l6 m6 s6">
                 <p class="description-text modal-headers">Product Facts</p>
-                <p class="link-text reduce-text">Women Slimming Belt</p>
-                <p class="link-text reduce-text">- Body sculpting, tummy shaper</p>
-                <p class="link-text reduce-text">- Can be worn under your clothes daily</p>
-                <p class="link-text reduce-text">- Material : Polyester 80% and Cotton 20%</p>
+                <p class="link-text reduce-text">Height: {{$ctrl.product.facts}}</p>
             </div>
         </div>
 
@@ -29,19 +28,19 @@
             <div class="col s12">
                 <p class="description-text modal-headers">Product Description</p>
                 <p class="link-text reduce-text">
-                    Specially designed for women, this slimming belt compliments your figure and enhances body curves. It gives you confidence in every movement. A can't miss item!
+                    {{$ctrl.product.description}}
                 </p>
             </div>
         </div>
     </div>
     <div id="prod-reviews" class="col s12 white" style="min-height: 252px">
         <ul class="collection">
-            <li class="collection-item avatar item with-avatar" ng-repeat="review in $ctrl.reviews" style="padding-left: 57px; opacity: 1">
-                <img src="{{review.image}}" alt="review" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
+            <li class="collection-item avatar item with-avatar" ng-repeat="rating in $ctrl.ratings" style="padding-left: 57px; opacity: 1">
+                <img src="{{rating.image}}" alt="review" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
                 <span class="black-text" style="font-size: 16px; opacity: 0.7"> <span style="font-size: 15px; font-weight: 700">{{review.user}} </span> <span style="margin-left: 10px"><i class="material-icons teal-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val <= review.stars">star</i><i class="material-icons grey-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val > review.stars">star</i></span>                </span>
                 <blockquote style="border-left: 2px solid teal; padding-left: 0.6rem; margin: 2px 0"><span style="opacity: 0.5; font-size: 12px">{{review.date | date}}</span></blockquote>
                 <p class="item-subtitle grey-text" style="font-size: 15px; opacity: 0.8">
-                    {{review.text}}
+                    {{rating.text}}
                 </p>
             </li>
         </ul>

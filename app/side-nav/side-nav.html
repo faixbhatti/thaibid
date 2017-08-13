@@ -4,10 +4,10 @@
             <div class="background">
                 <img src="image/pattern.jpg" alt="profile background">
             </div>
-            <a href="/user/{{$ctrl.username}}" ng-show="$ctrl.loggedIn"><img src="image/elliot.jpg" class="circle"></a>
-            <a href="/user/{{$ctrl.username}}" ng-show="$ctrl.loggedIn"><span class="white-text name">{{$ctrl.username}}</span> </a>
-            <a href="/user/{{$ctrl.username}}" ng-show="$ctrl.loggedIn"><span class="white-text email">{{$ctrl.username}}@thai.com</span> </a>
-            <div ng-hide="$ctrl.loggedIn">
+            <a href="/user/{{user.um_name}}" ng-show="loggedIn"><img src="{{user.profile_image_small}}" class="circle"></a>
+            <a href="/user/{{user.um_name}}" ng-show="loggedIn"><span class="white-text name">{{user.um_name}}</span> </a>
+            <a href="/user/{{user.um_name}}" ng-show="loggedIn"><span class="white-text email">{{user.um_email}}</span> </a>
+            <div ng-hide="loggedIn">
                 <a><span class="white-text name show-login" style="font-size: 18px">Log in/Sign up</span> </a>
             </div>
         </div>
@@ -16,15 +16,15 @@
 
     <li><a href="/home"><i class="material-icons">home</i>Home</a></li>
     <li><a href="/checkout"><i class="material-icons">shopping_cart</i>Cart</a></li>
-    <li class="no-padding" ng-show="$ctrl.loggedIn">
+    <li class="no-padding" ng-show="loggedIn">
         <ul class="collapsible collapsible-accordion">
             <li>
                 <li><a href="" class="collapsible-header waves-effect waves-teal waves-light" style="padding: 0 32px"><i class="material-icons">person</i>Profile</a>
                     <div class="collapsible-body">
                         <ul>
-                            <li><a href="/user/{{$ctrl.username}}"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="/user/{{user.um_name}}"><i class="material-icons">person</i>Profile</a></li>
                             <li><a href="/checkout"><i class="material-icons">shopping_cart</i>My Cart</a></li>
-                            <li><a href=""><i class="material-icons" ng-click="$ctrl.signout()">forward</i>Log out</a></li>
+                            <li><a href="" ng-click="$ctrl.signout()"><i class="material-icons">forward</i>Log out</a></li>
                         </ul>
                     </div>
                 </li>

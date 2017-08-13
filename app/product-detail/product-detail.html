@@ -10,25 +10,25 @@
 
             <div class="prod-detail">
                 <div class="row" style="margin-bottom: 5px">
-                    <h1 class="product-name truncate">{{product.name}}</h1>
+                    <h1 class="product-name truncate">{{product.product_title}}</h1>
                     <div class="col l12 m12 s12">
                         <a href="/home" class="breadcrumb black-text waves-effect" style="opacity: 0.45"><i
                                 class="material-icons">home</i></a>
                         <!--<a href="" class="breadcrumb black-text text-lighten-3">{{product.category}}</a>-->
-                        <a href="" class="breadcrumb black-text" style="opacity: 0.6">{{product.name}}</a>
+                        <a href="" class="breadcrumb black-text" style="opacity: 0.6">{{product.product_title}}</a>
                     </div>
 
                 </div>
 
                 <div class="row" id="gallery" style="margin-bottom: 0">
                     <div class="col s12" style="padding: 0 0;">
-                        <img src="{{product.image}}" class="materialboxed responsive-img hoverable z-depth-1" data-caption="{{product.name}}" style="border-radius: 1px; width: 100%">
+                        <img src="{{productImage.image_medium}}" class="materialboxed responsive-img hoverable z-depth-1" data-caption="{{product.product_title}}" style="border-radius: 1px; width: 100%">
                     </div>
                 </div>
 
                 <div class="row" style="margin-top: 8px">
                     <div class="col l3 m3 s3" ng-repeat="img in imgs" style="padding-left: 0;">
-                        <img src="{{img}}" class="responsive-img waves-effect waves-teal hoverable z-depth-1" ng-click="chgSrc(img, $index)" ng-class="{'img-active': active === $index}">
+                        <img src="{{img.image_small}}" class="responsive-img waves-effect waves-teal hoverable z-depth-1" ng-click="chgSrc(img, $index)" ng-class="{'img-active': active === $index}">
                     </div>
                 </div>
             </div>
@@ -55,9 +55,9 @@
                 </ul>
             </div>
 
-            <h4 class="prod-name">{{product.name}}<span class="gavel-holder"><i
-                    class="material-icons"
-                    style="margin-right: 5px">gavel</i>{{product.price | limitTo: 2}} Bids </span>
+            <h4 class="prod-name text-capitalize">{{product.product_title}}<span class="gavel-holder"><i
+                    class="material-icons" ng-if="product.redeemable !== 1"
+                    style="margin-right: 5px">gavel</i>{{auction.length}} Bids </span>
             </h4>
 
             <div class="row" style="margin-bottom: 5px">
@@ -70,7 +70,7 @@
                     <p class="ratings"><i class="material-icons teal-text" ng-repeat="icon in [1,2,3,4,5]">star</i> {{product.price | limitTo: 2}}{{product.price | limitTo: 2 : 3}} Users</p>
                     <!------ /Ratings ------>
                 </div>
-                <div class="col l6 m6 s6 pull-s2" id="timer-holder" ng-if="!product.is_redeemable">
+                <div class="col l6 m6 s6 pull-s2" id="timer-holder" ng-if="product.redeemable !== 1">
                     <!-- Time remaining -->
                     <span class="right timer-text">Time remaining</span>
                     <countdown-timer time="timeLeft" newbid="newBid" product="product" clear="showDiv"></countdown-timer>
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-bottom: 0" ng-if="!product.is_redeemable">
+            <div class="row" style="margin-bottom: 0" ng-if="product.redeemable !== 1">
                 <div class="col l12 s12 m12">
                     <div class="grey darken-3 white-text alert-area timeout" ng-show="showDiv">
                         Auction has ended! NOTE: If you're the winner make sure to checkout and pay within 24 hours. If you don't your account will be closed! It can take up to 5 min before your order appears in the basket.
@@ -105,7 +105,7 @@
                         <p class="details-header green-text">Pricing</p>
                     </div>
 
-                    <div class="col s12" style="padding: 0 0; display: flex" ng-if="!product.is_redeemable">
+                    <div class="col s12" style="padding: 0 0; display: flex" ng-if="product.redeemable !== 1">
                         <!---- Prices (Actual/Leading) ------>
                         <p class="actual-holder"><span class="price-text">Highest Bid</span><br>
                             <span class="price">{{product.price | currency : '฿'}}</span>
@@ -116,10 +116,10 @@
                         <!--- /Prices -->
                     </div>
 
-                    <div class="col s12" style="padding: 0 0; display: flex" ng-if="product.is_redeemable">
+                    <div class="col s12" style="padding: 0 0; display: flex" ng-if="product.redeemable === 1">
                         <!---- Prices (Actual/Leading) ------>
                         <p class="actual-holder"><span class="price-text">Price</span><br>
-                            <span class="price pnts">{{product.points}} <span> points</span> </span>
+                            <span class="price pnts">{{product.redeem_point}} <span> points</span> </span>
                         </p>
                         <p class="leading-holder"><span class="price-text">Available Points</span><br>
                             <span class="price pnts">40 points</span>
@@ -154,20 +154,14 @@
                                         <option value="" disabled selected>Color
                                             
                                         </option>
-                                        <option value="red">Red</option>
-                                        <option value="yellow">Yellow</option>
-                                        <option value="green">Green</option>
-                                        <option value="blue">Blue</option>                                        
+                                        <option ng-repeat="color in colors" value="{{color.color_name}}">{{color.color_name}}</option>
                                     </select>
                                     <label>Color</label>
                                 </div>
                                 <div class="input-field col s6">
                                     <select>
                                         <option value="" disabled selected>Size</option>
-                                        <option value="s">S</option>
-                                        <option value="M">M</option>
-                                        <option value="X">X</option>
-                                        <option value="xl">XL</option>                                        
+                                        <option ng-repeat="size in sizes" value="{{size.size_name}}">{{size.size_name}}</option>
                                     </select>
                                     <label>Size</label>
                                 </div>
@@ -178,10 +172,10 @@
                             <div class="col l6 m6 s12 prod-info">
                                 <span class="details-header blue-text">Color</span><br>
                                 <div class="colors">
-                                    <div class="red z-depth-1" ng-click="color = 'red'" ng-class="{'selected': color === 'red'}"></div>
-                                    <div class="green z-depth-1" ng-click="color = 'green'" ng-class="{'selected': color === 'green'}"></div>
+                                    <div ng-repeat="color in colors" class="{{color.color_name | lowercase}} z-depth-1" ng-click="productColor = color.color_name" ng-class="{'selected': productColor === color.color_name}"></div>
+                                    <!-- <div class="green z-depth-1" ng-click="color = 'green'" ng-class="{'selected': color === 'green'}"></div>
                                     <div class="blue z-depth-1" ng-click="color = 'blue'" ng-class="{'selected': color === 'blue'}"></div>
-                                    <div class="brown z-depth-1" ng-click="color = 'brown'" ng-class="{'selected': color === 'brown'}"></div>
+                                    <div class="brown z-depth-1" ng-click="color = 'brown'" ng-class="{'selected': color === 'brown'}"></div> -->
                                 </div>
 
                                 <div class="row" style="margin-top: 15px">
@@ -189,12 +183,12 @@
                                         <div class="col s12" style="padding: 0 0" ng-init="selected = 1">
                                             <span class="description-text teal-text">Size</span><br>
                                             <div class="sizes">
-                                                <div ng-click="size = 'xs'" ng-class="{'selected': size === 'xs'}">xs</div>
-                                                <div ng-click="size = 's'" ng-class="{'selected': size === 's'}">s</div>
+                                                <div ng-repeat="size in sizes" ng-click="productSize = size.size_name" ng-class="{'selected': productSize === size.size_name}"> {{size.size_name}} </div>
+                                                <!-- <div ng-click="size = 's'" ng-class="{'selected': size === 's'}">s</div>
                                                 <div ng-click="size = 'm'" ng-class="{'selected': size === 'm'}">m</div>
                                                 <div ng-click="size = 'l'" ng-class="{'selected': size === 'l'}">l</div>
                                                 <div ng-click="size = 'xl'" ng-class="{'selected': size === 'xl'}">xl</div>
-                                                <div ng-click="size = 'xxl'" ng-class="{'selected': size === 'xxl'}">xxl</div>
+                                                <div ng-click="size = 'xxl'" ng-class="{'selected': size === 'xxl'}">xxl</div> -->
                                             </div>
                                         </div>
                                     </form>
@@ -204,24 +198,24 @@
 
 
                         <div class="col l6 m6 s12" style="padding: 0 0 0 10px;">
-                            <p class="details-header grey-text" ng-if="!product.is_redeemable">Place Bid</p>
-                            <p class="details-header grey-text" ng-if="product.is_redeemable">Redeem Item</p>
+                            <p class="details-header grey-text" ng-if="product.redeemable !== 1">Place Bid</p>
+                            <p class="details-header grey-text" ng-if="product.redeemable === 1">Redeem Item</p>
                             <!--<p ng-if="product.price > 40 && !$ctrl.observed" class="use-points-alert">This product is worth {{product.price - 5}} points and you have {{product.price}} points, so you can add this item to cart without bidding <span class="accept" ng-click="$ctrl.observed = true">Okay</span></p>-->
 
                             <form class="col s12" ng-submit="addToCart(product)" style="padding: 0">
                                 <div class="row" style="margin-bottom: 0">
-                                    <div class="input-field col l6 m5 s4" ng-if="!product.is_redeemable">
+                                    <div class="input-field col l6 m5 s4" ng-if="product.redeemable !== 1">
                                         <input type="number" id="amount" ng-model="bidPrice" style="font-size: 30px; margin: 0; max-width: 100px" class="teal-text active" ng-class="focus()">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
 
                                     <div class="input-field col l2 m2 s2">
-                                        <md-button class="md-raised main-green white-text" ng-if="!product.is_redeemable" ng-click="bid()">Bid</md-button>
-                                        <md-button class="md-raised md-primary" ng-if="product.is_redeemable" ng-click="addToCart(product)">Redeem Now</md-button>
+                                        <md-button class="md-raised main-green white-text" ng-if="product.redeemable !== 1" ng-click="bid()">Bid</md-button>
+                                        <md-button class="md-raised md-primary" ng-if="product.redeemable === 1" ng-click="addToCart(product)">Redeem Now</md-button>
                                         <!--<a href="/checkout" class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</a>-->
                                         <div class="buttons-holder z-depth-3">
-                                            <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn && product.is_redeemable" ng-click="placeBid(product)" type="button">Redeem Now</button>
-                                            <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn && !product.is_redeemable" ng-click="placeBid(product)" type="button">Bid now</button>
+                                            <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn && product.redeemable === 1" ng-click="placeBid(product)" type="button">Redeem Now</button>
+                                            <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn && product.redeemable !== 1" ng-click="placeBid(product)" type="button">Bid now</button>
                                             <button class="btn white alternative-cart-button hide-on-med-and-up black-text" type="button" ng-hide="!loggedIn || hideCart" ng-click="showCart()">
                                             Go to cart
                                             <span>({{cart.length}})</span>
@@ -230,7 +224,6 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -238,7 +231,7 @@
             </div>
 
             <div class="row" id="prod-info" style="margin-bottom: 0">
-                <detail-tabs bids="bids" product="product"></detail-tabs>
+                <detail-tabs bids="auctions" product="product" ratings="ratings"></detail-tabs>
             </div>
         </div>
     </div>

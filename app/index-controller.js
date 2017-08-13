@@ -5,14 +5,12 @@
         .module('thai')
         .controller('indexCtrl', indexCtrl);
 
-    function indexCtrl($scope, $location, $rootScope, deleteModal) {
+    function indexCtrl($scope, $location, $rootScope, deleteModal, $user) {
         const ctrl = this;
-
 
         $scope.showNav = $rootScope.showNav;
         $scope.cart = $rootScope.cart;
-        $scope.loggedIn = $rootScope.loggedIn;
-        $scope.username = $rootScope.user.username;
+        $scope.loggedIn = $user.isAuthenticated();
         $scope.inMobile = $rootScope.inMobile.matches;
         $scope.shopRedeem = $rootScope.shopRedeem;
         $scope.search = $rootScope.searching;
@@ -20,25 +18,23 @@
         $scope.hasDeleted = $rootScope.hasDeleted;
         $scope.loaded = false;
 
+        if ($user.isAuthenticated()) {
+            $scope.user = $user.getUser();
+            $scope.loaded = true;
+        }
 
         let group = [
             "$root.showNav",
-            "$root.loggedIn",
-            "$root.user.username",
             "$root.shopRedeem",
             "$root.searching"
         ];
 
         $scope.$watchGroup(group, function(newValue, oldValue, scope) {
             [$scope.showNav,
-                $scope.loggedIn,
-                $scope.username,
                 $scope.shopRedeem,
                 $scope.search
             ] = newValue;
-            if ($scope.loggedIn) {
-                $scope.loaded = true;
-            }
+            initComponents();
         }, true);
 
         $rootScope.$watch('cart', function(newValue, oldValue, scope) {
@@ -48,6 +44,12 @@
         $rootScope.$watch('hasDeleted', function(newValue, oldValue, scope) {
             $scope.hasDeleted = newValue;
         }, true);
+
+        $rootScope.$on('loggedIn', () => {
+            console.log($user.isAuthenticated())
+            $scope.loggedIn = $user.isAuthenticated();
+            $scope.user = $user.getUser();
+        })
 
         $scope.location = function(url) {
             if (url === '/redeem-shop') {
@@ -109,9 +111,8 @@
 
 
         $scope.logout = function() {
-            $rootScope.loggedIn = false;
-            $rootScope.user = {};
-            $rootScope.cart = [];
+            $user.unauthenticate();
+            $rootScope.$broadcast('loggedIn');
             Materialize.toast("You've successfully logged out", 1000)
         };
 

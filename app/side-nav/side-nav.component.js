@@ -13,24 +13,22 @@
             controller: sideCtrl,
             bindings: {
                 username: '<',
-                loggedIn: '<'
             },
         });
 
-    function sideCtrl($scope, $rootScope, $location) {
+    function sideCtrl($scope, $rootScope, $location, $user) {
         const $ctrl = this;
 
-        let group = [
-            "$root.loggedIn",
-            "$root.user.username"
-        ];
+        $scope.loggedIn = $user.isAuthenticated();
 
-        $scope.$watchGroup(group, function(newValue, oldValue, scope) {
-            [
-                $ctrl.loggedIn,
-                $ctrl.username
-            ] = newValue;
-        }, true);
+        if ($scope.loggedIn) {
+            $scope.user = $user.getUser();
+        }
+
+        $rootScope.$on('loggedIn', () => {
+            $scope.loggedIn = $user.isAuthenticated();
+            $scope.user = $user.getUser();
+        })
 
         $scope.location = function(url) {
             if (url === '/redeem-shop') $location.url(url)
@@ -38,9 +36,7 @@
         };
 
         $ctrl.signout = function() {
-            $rootScope.loggedIn = false;
-            $rootScope.user = {};
-            $rootScope.cart = [];
+            $user.unauthenticate();
             Materialize.toast("You've successfully logged out", 1000)
         };
 

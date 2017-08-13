@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -12,29 +12,26 @@
             headers: {
                 "xapi": "jwZryAdcrffggf867DnjhjhfRvsfhjs5667"
             }
-        }
+        };
 
-        const baseUrl = 'http://officeadm1n.bidxel.com/api/'
+        const baseUrl = 'http://officeadm1n.bidxel.com/api/';
 
-        const service = {
+        return {
             post,
             get,
             put
         };
 
-        return service;
-
-        ////////////////
         function post(url, data) {
             return $http.post(`${baseUrl}${url}`, data, config)
         }
 
         function get(url) {
-            return $http.get(`${baseUrl}${url}`)
+            return $http.get(`${baseUrl}${url}`, config)
         }
 
-        function put(url) {
-            return $http.put()
+        function put(url, data) {
+            return $http.put(`${baseUrl}${url}`, config)
         }
     }
 })();

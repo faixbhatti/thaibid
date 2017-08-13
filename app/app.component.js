@@ -13,7 +13,7 @@
             controller: appCtrl
         });
 
-    function appCtrl($scope, $location, $rootScope, $filter, products, deleteModal) {
+    function appCtrl($scope, $location, $rootScope, $filter, products, deleteModal, $user) {
         const ctrl = this;
         const mql = $rootScope.inMobile;
 
@@ -23,18 +23,21 @@
         $scope.cart = $rootScope.cart;
         $scope.inCart = $rootScope.inCart;
         $scope.inDetail = $rootScope.inDetail;
-        $scope.loggedIn = $rootScope.loggedIn;
-        $scope.username = $rootScope.user.username;
         $scope.inMobile = $rootScope.inMobile.matches;
         $scope.shopRedeem = $rootScope.shopRedeem;
         $scope.search = $rootScope.searching;
 
+        $scope.loggedIn = $user.isAuthenticated();
+        $scope.user = $user.getUser();
+
+        $rootScope.$on('loggedIn', () => {
+            $scope.loggedIn = $user.isAuthenticated();
+            $scope.user = $user.getUser();
+        })
         let group = [
             "$root.showNav",
             "$root.inCart",
             "$root.inDetail",
-            "$root.loggedIn",
-            "$root.user.username",
             "$root.shopRedeem",
             "$root.searching"
         ];
@@ -43,8 +46,6 @@
             [$scope.showNav,
                 $scope.inCart,
                 $scope.inDetail,
-                $scope.loggedIn,
-                $scope.username,
                 $scope.shopRedeem,
                 $scope.search
             ] = newValue;
@@ -61,7 +62,7 @@
                 }, 200)
             }
             $rootScope.searching = !$rootScope.searching
-            setTimeout(() => initComponents(), 200);
+            setTimeout(() => initComponents(), 400);
         };
 
         $scope.logout = function() {
@@ -94,6 +95,12 @@
             $(".dropdown-button").dropdown({
                 inDuration: 300,
                 outDuration: 225,
+            });
+            $('.button-collapse').sideNav({
+                menuWidth: 300, // Default is 300
+                edge: 'left', // Choose the horizontal origin
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screens 
             });
         }
 

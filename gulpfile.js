@@ -63,7 +63,8 @@ gulp.task('build-app', () =>
     .pipe(sourcemaps.init())
     .pipe(order([
         'app.js',
-        'app.component.js'
+        'app.component.js',
+        'user-service.js'
     ]))
     .pipe(concat('app.bundle.min.js'))
     .pipe(ngAnnotate())

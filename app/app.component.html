@@ -1,10 +1,10 @@
 <main ng-click="search=false" ng-hide="search">
     <delete-from-cart-modal></delete-from-cart-modal>
-    <side-nav loggedIn="loggedIn" username="username" ng-if="inMobile"></side-nav>
+    <side-nav ng-if="inMobile"></side-nav>
     <side-cart itemsInCart="itemsInCart" ng-if="inMobile"></side-cart>
 
 
-    <login-register username="username"></login-register>
+    <login-register></login-register>
 
     <ng-view></ng-view>
 

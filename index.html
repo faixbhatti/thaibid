@@ -257,7 +257,7 @@
         <header ng-show="showNav" id="header" ng-if="!search">
             <div class="navbar-fixed" id="table" ng-if="!search" style="transition: 0s">
                 <ul class="dropdown-content" id="profile">
-                    <li><a ng-href="/user/{{username}}" class="black-text">My profile</a></li>
+                    <li><a ng-href="/user/{{user.um_name}}" class="black-text">My profile</a></li>
                     <li><a href="" class="black-text" ng-click="logout()">Logout</a></li>
                 </ul>
 
@@ -303,7 +303,7 @@
                                 </li>
 
                                 <li ng-show="loggedIn" class="hide" ng-class="{'show': loaded}">
-                                    <a class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="image/elliot.jpg" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{username}}
+                                    <a class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="{{user.profile_image_small}}" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{user.um_name}}
                                         <i class="material-icons right">arrow_drop_down</i>
                                     </a>
                                 </li>

@@ -9,7 +9,7 @@ angular.module('thai')
             username: '=',
         },
         templateUrl: 'app/login/login.html',
-        controller: function($rootScope, $http, $location) {
+        controller: function($rootScope, $http, $location, httpService, $user) {
             const ctrl = this;
             ctrl.user = {};
             let points = Math.round(Math.random() * 100);
@@ -19,7 +19,7 @@ angular.module('thai')
             ctrl.forgotPassword = false;
             ctrl.register = false;
             ctrl.viewTerms = false;
-
+            ctrl.passwordConfirm = '';
             ctrl.closeModal = () => {
                 resetValues();
                 $('.modal').modal('close');
@@ -40,15 +40,24 @@ angular.module('thai')
             };
 
             ctrl.signIn = function(form) {
-                $rootScope.loggedIn = true;
-                $rootScope.user = ctrl.user;
-                $('.modal').modal('close');
+                httpService
+                    .post('login', ctrl.user)
+                    .then((data) => {
+                            let user = data.data.data
+                            $user.setUser(user);
+                            $('.modal').modal('close');
+                            $rootScope.$broadcast('loggedIn');
 
-                setTimeout(function() {
-                    Materialize.toast(`Welcome back ${ctrl.username}`, 1000)
-                }, 1000);
-                resetValues();
-                resetForm(form);
+                            setTimeout(function() {
+                                Materialize.toast(`Welcome back ${user.um_name}`, 1000)
+                            }, 1000);
+                            resetValues();
+                            resetForm(form);
+                        },
+                        (err) => {
+                            console.log(err)
+                            Materialize.toast(`${err.data.meta.message}`)
+                        })
             };
 
 
@@ -82,22 +91,17 @@ angular.module('thai')
             };
 
             ctrl.signUp = function(form) {
-                $rootScope.loggedIn = true;
-                $rootScope.user = ctrl.newUser;
-                $rootScope.template = "editProfile";
-
-                Materialize.toast(`Hello ${ctrl.newUser.username}!. Your new account has been created`, 1000)
-
-                $('.modal').modal('close');
-
-                setTimeout(() => {
-                    Materialize.toast(`Please complete your profile before proceeding`, 3000)
-                }, 2000);
-
-                resetValues();
-                resetForm(form);
-
-                $location.url(`/user/${$rootScope.username}`);
+                httpService
+                    .post('register', ctrl.newUser)
+                    .then(res => {
+                        Materialize.toast(`Hello ${ctrl.newUser.userName}!. Your new account has been created. 
+                        Please login with your details.`, 5000)
+                        resetValues();
+                        resetForm(form);
+                    }, err => {
+                        console.log('Error')
+                        Materialize.toast('Error processing');
+                    })
             };
 
             ctrl.$onInit = () => {

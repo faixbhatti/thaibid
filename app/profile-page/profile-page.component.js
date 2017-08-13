@@ -9,6 +9,7 @@ angular.module('thai')
         controller: function($scope, $routeParams, $location, $http, $rootScope, $anchorScroll, ngMeta) {
             const ctrl = this;
             $scope.name = $routeParams.name;
+            console.log($routeParams)
             $rootScope.showNav = true;
             $rootScope.inDetail = false;
             $scope.item = '';

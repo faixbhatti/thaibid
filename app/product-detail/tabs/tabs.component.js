@@ -10,7 +10,8 @@
             controller: tabsCtrl,
             bindings: {
                 bids: '<',
-                product: '<'
+                product: '<',
+                ratings: '='
             },
         });
 
@@ -76,7 +77,7 @@
             $('.tabs').tabs();
 
             (function hideBidsTab() {
-                if (ctrl.product.is_redeemable !== undefined) {
+                if (ctrl.product.redeemable === 1) {
                     $('.tabs').tabs('select_tab', 'prod-detail')
                 }
             })()

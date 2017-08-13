@@ -5,7 +5,7 @@
 angular.module('thai')
     .component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
-        controller: function($scope, $routeParams, $rootScope, products, cart, ngMeta) {
+        controller: function($scope, $routeParams, $rootScope, cart, ngMeta, httpService) {
             const ctrl = this;
             $scope.loading = true;
             $scope.showDiv = false;
@@ -19,6 +19,8 @@ angular.module('thai')
             $scope.selected = 1;
             $scope.cart = $rootScope.cart;
             $scope.loggedIn = $rootScope.loggedIn;
+            $scope.productColor = '';
+            $scope.productSize = '';
             let input = document.querySelector('#amount');
             ctrl.observed = false;
             ctrl.spinnerPosition = 'absolute';
@@ -33,59 +35,29 @@ angular.module('thai')
 
             function get() {
                 let id = $routeParams.productId;
-                products.get().then(function(data) {
-                    let products = data.data;
-                    let product = products[id - 1] || products[5];
-                    $scope.similarProducts = products.slice(0, 4);
-                    $scope.otherProducts = products.slice(4, 8);
-                    $scope.related = $scope.similarProducts;
-                    product.price = Math.round(product.price + 3);
+                httpService.get(`product/${id}`).then(function(data) {
+                    let product = data.data.data;
+                    console.log(product);
                     $scope.product = product;
-                    $scope.bidPrice = $scope.product.price + 5;
+                    // $scope.similarProducts = products.slice(0, 4);
+                    // $scope.otherProducts = products.slice(4, 8);
+                    // $scope.related = $scope.similarProducts;
+                    // product.price = Math.round(product.price + 3);
+                    // $scope.product = product;
+                    // $scope.bidPrice = $scope.product.price + 5;
 
-                    ngMeta.setTitle(`${product.name}`, ' | Bidxel.com')
+                    ngMeta.setTitle(`${$scope.product.product_title}`, ' | Bidxel.com');
 
-                    $scope.imgs = [
-                        $scope.product.image,
-                        "image/men__fresh-nicks.jpeg",
-                        "image/men__fresh-boots.jpeg",
-                        "image/men__black-nikes.jpeg"
-                    ]
+                    $scope.imgs = $scope.product.images;
+                    $scope.productImage = $scope.imgs[0];
+                    $scope.sizes = $scope.product.sizes;
+                    $scope.colors = $scope.product.colors;
+                    $scope.auctions = [...$scope.product.auction];
+                    $scope.ratings = $scope.product.Ratings;
 
-                    $scope.bids = [{
-                            "bidder": "John",
-                            "amount": 23,
-                            "bidTimes": 3,
-                            "bidTime": "2017-03-05"
-                        },
-                        {
-                            "bidder": "Peter",
-                            "amount": 22.3,
-                            "bidTimes": 1,
-                            "bidTime": "2017-03-04"
-                        },
-                        {
-                            "bidder": "Charon",
-                            "amount": 12.5,
-                            "bidTimes": 2,
-                            "bidTime": "2017-03-05"
-                        },
-                        {
-                            "bidder": "Robben",
-                            "amount": 11.3,
-                            "bidTimes": 3,
-                            "bidTime": "2017-03-05"
-                        },
-                        {
-                            "bidder": "Afro",
-                            "amount": 10,
-                            "bidTimes": 3,
-                            "bidTime": "2017-03-05"
-                        }
-                    ]
                     $scope.loading = false
 
-                })
+                });
                 $scope.page = 1;
 
             }
@@ -122,17 +94,17 @@ angular.module('thai')
 
             //Scroll to bid history position on window 
             $scope.bidHistory = function() {
-                    var bids = document.querySelector('#prod-info'),
-                        top = bids.offsetTop;
-                    $('.tabs').tabs('select_tab', 'prod-bids')
-                    document.body.scrollTop = top;
-                    document.documentElement.scrollTop = top;
+                let bids = document.querySelector('#prod-info'),
+                    top = bids.offsetTop;
+                $('.tabs').tabs('select_tab', 'prod-bids');
+                document.body.scrollTop = top;
+                document.documentElement.scrollTop = top;
 
-                }
-                //When in mobile view, if user clicks on bid button, display amount input field
+            };
+            //When in mobile view, if user clicks on bid button, display amount input field
             $scope.placeBid = function(product) {
                     if (input.classList.contains('show-bid')) {
-                        $scope.addToCart(product) //If input field is visible then add to cart
+                        $scope.addToCart(product); //If input field is visible then add to cart
                         input.classList.remove('show-bid');
                         $scope.hideCart = false;
                     } else {
@@ -170,7 +142,7 @@ angular.module('thai')
                             $scope.hideCart = false; //Display cart button after item is added to cart
                         }
                     }
-                    Materialize.toast('Bid Placed successfully', 1000)
+                    Materialize.toast('Bid Placed successfully', 1000);
 
                     // Hide alert after 4 secs
                     setTimeout(() => {
@@ -210,7 +182,7 @@ angular.module('thai')
                 }
                 //          Change images in gallery
             $scope.chgSrc = function(img, index) {
-                $scope.product.image = img;
+                $scope.productImage = img;
                 $scope.active = index
             };
 

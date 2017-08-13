@@ -14,7 +14,7 @@ function redeemCtrl(products, $rootScope, $http, httpService) {
     const ctrl = this;
     ctrl.limit = 35;
     ctrl.loading = true;
-    ctrl.spinnerPosition = 'fixed';
+    ctrl.spinnerPosition = 'absolute';
     $rootScope.previousPage = "/redeem-shop";
     $rootScope.showNav = true;
     $rootScope.inCart = false;
@@ -22,21 +22,24 @@ function redeemCtrl(products, $rootScope, $http, httpService) {
     ctrl.loggedIn = $rootScope.loggedIn;
 
     function get() {
-        products
-            .get()
-            .then(res => {
-                ctrl.products = res.data
-                    .filter(item => {
-                        if (item.is_redeemable) return item
-                    })
-                ctrl.loading = false;
-            })
+        // products
+        //     .get()
+        //     .then(res => {
+        //         ctrl.products = res.data
+        //             .filter(item => {
+        //                 if (item.is_redeemable) return item
+        //             });
+        //     });
         httpService
-            .post('login', { email: 'iamafro@gmail.com', password: 'rackcitybiith' })
+            .get('category/redeem-shop')
             .then((res) => {
-                console.log(JSON.stringify(res))
+                let data = res.data.data;
+                ctrl.products = data.data;
+                console.log(ctrl.products)
+                ctrl.loading = false;
+
             }, (err) => {
-                console.log(err.message)
+                console.log(err.message);
             })
 
 
