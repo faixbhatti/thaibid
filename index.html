@@ -303,7 +303,7 @@
                                 </li>
 
                                 <li ng-show="loggedIn" class="hide" ng-class="{'show': loaded}">
-                                    <a class="dropdown-button waves-effect nav-item" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="{{user.profile_image_small}}" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{user.um_name}}
+                                    <a class="dropdown-button waves-effect nav-item capitalize" data-activates="profile" href="javascript:void(0)" data-hover="true"><img src="{{user.profile_image_small}}" height="30" width="30" style="margin-top: 11px; margin-right: 5px" class="circle responsive-img left"> {{user.um_name}}
                                         <i class="material-icons right">arrow_drop_down</i>
                                     </a>
                                 </li>
@@ -326,8 +326,8 @@
 
                     <div class="nav-content" style="padding: 0 20px;">
                         <ul class="head tabs tabs-transparent hide-on-med-and-down" ng-if="!inMobile">
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i>Ending</a></li>
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" ng-repeat="category in categories" data-tooltip="{{category.cm_name}}" ng-click="location(category.cm_slug)"><a href="" class=""><i class="material-icons left icons">timer</i>{{category.cm_name}}</a></li>
+                            <!-- <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
                             class="material-icons left icons">accessibility</i>Men</a></li>
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
                             class="material-icons left icons">pregnant_woman</i>Ladies</a>
@@ -344,13 +344,14 @@
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Car/Moto" ng-click="location('/car-moto')"><a href="" class=""><i class="material-icons left icons">directions_car</i>Car/Moto</a>
                             </li>
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
-                            class="material-icons left icons">build</i>Tools</a></li>
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i>Redeem Shop</a></li>
+                            class="material-icons left icons">build</i>Tools</a></li> -->
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i>Redeem Shop</a></li>
                         </ul>
 
                         <div ng-if="inMobile" class="hide-on-med-and-up">
                             <ul class="tabs tabs-transparent tabs-fixed-width mob-menu" style="width: 90%; overflow: hidden;">
-                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i></a></li>
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" ng-repeat="category in categories" data-tooltip="{{category.cm_name}}" ng-click="location(category.cm_slug)"><a href="" class=""><i class="material-icons left icons">timer</i></a></li>
+                                <!-- <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ending" ng-click="location('/ending')"><a href="" class=""><i class="material-icons left icons">timer</i></a></li>
                                 <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
                             class="material-icons left icons">accessibility</i></a></li>
                                 <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
@@ -368,8 +369,8 @@
                                 <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Car/Moto" ng-click="location('/car-moto')"><a href="" class=""><i class="material-icons left icons">directions_car</i></a>
                                 </li>
                                 <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
-                            class="material-icons left icons">build</i></a></li>
-                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('/redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i></a></li>
+                            class="material-icons left icons">build</i></a></li> -->
+                                <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i></a></li>
                             </ul>
                             <div class="menu-scroller left-side z-depth-1" ng-click="scrollLeft()"><i class="material-icons">chevron_left</i></div>
                             <div class="menu-scroller right-side z-depth-1" ng-click="scrollRight()"><i class="material-icons">chevron_right</i></div>

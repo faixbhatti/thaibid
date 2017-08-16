@@ -6,7 +6,7 @@
 angular.module('thai')
     .component('category', {
         templateUrl: 'app/product-category/product-category.html',
-        controller: function($routeParams, $scope, $rootScope, products, ngMeta) {
+        controller: function($routeParams, $scope, $rootScope, products, ngMeta, httpService) {
             $scope.dataLoading = true;
             $rootScope.inDetail = false;
             $rootScope.showNav = true;
@@ -19,16 +19,18 @@ angular.module('thai')
 
             var ctrl = this;
 
-            function get() {
-                products.get().then(function(data) {
-                    var products = data.data;
-                    $scope.products = products.filter(product => product.is_redeemable === undefined);
-                    ctrl.limit = 35;
-                    $scope.dataLoading = false;
-                })
-            }
+            (function get() {
+                httpService
+                    .get(`category/${$scope.category}`)
+                    .then(res => {
+                        if (res.data.meta.message === "Fetched Successfully") {
+                            $scope.products = res.data.data.data
+                            ctrl.limit = 35;
+                            $scope.dataLoading = false;
+                        }
+                    })
+            })();
 
-            get();
 
             ctrl.setLimit = (value) => {
                 ctrl.limit = value;
@@ -68,7 +70,7 @@ angular.module('thai')
 
             $rootScope.inCart = false;
 
-            $scope.loadMore = function(e) {
+            $scope.loadMores = function(e) {
                 var scroll = window.scrollY,
                     documentHeight = document.body.clientHeight,
                     windowHeight = window.innerHeight;

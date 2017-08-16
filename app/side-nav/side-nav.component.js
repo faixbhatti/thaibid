@@ -25,10 +25,8 @@
             $scope.user = $user.getUser();
         }
 
-        $rootScope.$on('loggedIn', () => {
-            $scope.loggedIn = $user.isAuthenticated();
-            $scope.user = $user.getUser();
-        })
+        $rootScope.$on('loggedIn', checkAuthStatus)
+        $rootScope.$on('loggedOut', checkAuthStatus)
 
         $scope.location = function(url) {
             if (url === '/redeem-shop') $location.url(url)
@@ -37,9 +35,14 @@
 
         $ctrl.signout = function() {
             $user.unauthenticate();
+            $rootScope.$broadcast('loggedOut');
             Materialize.toast("You've successfully logged out", 1000)
         };
 
+        function checkAuthStatus() {
+            $scope.loggedIn = $user.isAuthenticated();
+            $scope.user = $user.getUser();
+        };
 
         ////////////////
 

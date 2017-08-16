@@ -16,8 +16,13 @@
 
         ////////////////
         function setUser(user) {
-            localStorage.authUser = JSON.stringify(user);
-            this.authUser = user;
+            if (typeof(user) === 'object') {
+                localStorage.authUser = JSON.stringify(user);
+                this.authUser = user;
+                return true
+            } else {
+                return false;
+            }
         }
 
         function getUser() {
@@ -30,7 +35,12 @@
             localStorage.removeItem('authUser')
         }
 
-        function isAuthenticated() {
+        function statusChangeCallback(response) {
+            return this.isAuthenticated(response.status === 'connected')
+        }
+
+        function isAuthenticated(status) {
+
             return !!localStorage.authUser;
         }
 

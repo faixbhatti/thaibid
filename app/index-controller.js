@@ -5,7 +5,7 @@
         .module('thai')
         .controller('indexCtrl', indexCtrl);
 
-    function indexCtrl($scope, $location, $rootScope, deleteModal, $user) {
+    function indexCtrl($scope, $location, $rootScope, deleteModal, $user, httpService) {
         const ctrl = this;
 
         $scope.showNav = $rootScope.showNav;
@@ -45,19 +45,33 @@
             $scope.hasDeleted = newValue;
         }, true);
 
-        $rootScope.$on('loggedIn', () => {
-            console.log($user.isAuthenticated())
-            $scope.loggedIn = $user.isAuthenticated();
-            $scope.user = $user.getUser();
-        })
+        $rootScope.$on('loggedIn', checkAuthStatus)
+        $rootScope.$on('loggedOut', checkAuthStatus)
 
         $scope.location = function(url) {
-            if (url === '/redeem-shop') {
-                $location.url(`${url}`)
+            if (url === 'redeem-shop') {
+                $location.url(`/${url}`)
             } else {
-                $location.url(`/category${url}`)
+                $location.url(`/category/${url}`)
             }
         };
+
+
+        function checkAuthStatus() {
+            $scope.loggedIn = $user.isAuthenticated();
+            $scope.user = $user.getUser();
+        };
+
+        (function get() {
+            httpService
+                .get('category')
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data.meta.message === "Fetched Successfully") {
+                        $scope.categories = res.data.data
+                    }
+                })
+        })()
 
         $scope.scrollLeft = () => {
             let menuBar = document.querySelector('.mob-menu');
@@ -112,7 +126,7 @@
 
         $scope.logout = function() {
             $user.unauthenticate();
-            $rootScope.$broadcast('loggedIn');
+            $rootScope.$broadcast('loggedOut');
             Materialize.toast("You've successfully logged out", 1000)
         };
 

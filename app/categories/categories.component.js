@@ -6,18 +6,30 @@
 angular.module('thai')
     .component('allCategories', {
         bindings: {
-            active: '<'
+            active: '<',
         },
         templateUrl: 'app/categories/categories.html',
-        controller: function($location) {
+        controller: function($location, httpService) {
             const ctrl = this;
             let hasEventListener = false;
 
             ctrl.location = function(url) {
-                if (url === '/redeem-shop') $location.url(url)
-                else $location.url('/category' + url)
+                if (url === 'redeem-shop') $location.url(`/${url}`)
+                else $location.url(`/category/${url}`)
             };
             let categories;
+
+            (function get() {
+                httpService
+                    .get('category')
+                    .then(res => {
+                        console.log(res.data)
+                        if (res.data.meta.message === "Fetched Successfully") {
+                            ctrl.categories = res.data.data
+                            console.log(ctrl.categories, 'categories')
+                        }
+                    })
+            })()
 
             ctrl.$onInit = () => {
                 ctrl.top = document.querySelector('.home').offsetTop;

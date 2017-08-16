@@ -104,6 +104,15 @@ angular.module('thai')
                     })
             };
 
+            ctrl.loginFb = () => {
+                console.log('loggin')
+                FB.login(response => {
+                    if (response.status === 'connected') {
+                        console.log(response);
+                    }
+                })
+            }
+
             ctrl.$onInit = () => {
                 $('.modal').modal()
             }

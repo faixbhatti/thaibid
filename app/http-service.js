@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     angular
@@ -14,7 +14,7 @@
             }
         };
 
-        const baseUrl = 'http://officeadm1n.bidxel.com/api/';
+        const baseUrl = 'https://officeadm1n.bidxel.com/api/';
 
         return {
             post,

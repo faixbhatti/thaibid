@@ -25,6 +25,10 @@ md-checkbox {
     cursor: pointer;
 }
 
+.capitalize {
+    text-transform: capitalize;
+}
+
 .hint,
 .error {
     font-size: 12px;
@@ -62,7 +66,7 @@ form[name="filterForm"] {
     margin-bottom: 5px;
 }
 
-.pointer{
+.pointer {
     cursor: pointer;
 }
 

@@ -1,16 +1,16 @@
 <div class="col l{{$ctrl.columns}} m4 s6 product-col" ng-repeat="product in $ctrl.products | limitTo: $ctrl.limit" ng-click="searching()">
 
-    <div class="card product-shadow hoverable prod-card" ng-click="$ctrl.viewProduct(product.id)">
+    <div class="card product-shadow hoverable prod-card" ng-click="$ctrl.viewProduct(product.pm_slug)">
         <div class="card-image prod-card-img" style="cursor: pointer; min-height: 117px">
             <a href="{{product.image}}" class="progressive replace">
                 <img src="{{product.imageMin}}" alt="{{product.image}}" class="responsive-img preview" style="height: 70%" ng-if="product.image">
             </a>
-            <a class="btn-floating halfway-fab waves-effect waves-dark main-green" name="{{product.name}}"><i
+            <a class="btn-floating halfway-fab waves-effect waves-dark main-green" name="{{product.pm_title}}"><i
                         class="material-icons">gavel</i></a>
         </div>
         <div class="card-content">
-            <p class="card-title black-text truncate" style="font-size: 13px; font-weight: 700"> {{product.name}}</p>
-            <span class="subheader grey-text text-darken-2 card-time-text">{{product.price | currency : '฿'}}
+            <p class="card-title black-text truncate" style="font-size: 13px; font-weight: 700"> {{product.pm_title}}</p>
+            <span class="subheader grey-text text-darken-2 card-time-text">{{product.pm_final_price | currency : '฿'}}
             <timer class="right prod-timer" countdown="$ctrl.time" interval="1000" finish-callback="$ctrl.restartTimer()">
                 <i class="material-icons left red-text hide timer-icon hide-on-small-and-down" style="vertical-align: middle">timer</i>
                 {{millis | date:'mm:ss'}}
