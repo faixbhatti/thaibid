@@ -22,11 +22,10 @@
                             <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
                                 <tr md-row>
                                     <th md-column><span>Status</span></th>
-                                    <th md-column md-order-by="name"><span>Item</span></th>
+                                    <th md-column md-order-by="name"><span>Item Name</span></th>
                                     <th md-column md-numeric md-order-by="price"><span>Your Bid</span></th>
-                                    <th md-column md-numeric>Winning Bid</th>
-                                    <th md-column md-numeric>Total Bids</th>
-                                    <th md-column md-numeric>Completed</th>
+                                    <th md-column md-numeric>Next Min Bid</th>
+                                    <th md-column md-numeric>TimeStamp</th>
                                 </tr>
                             </thead>
                             <tbody md-body>
@@ -38,7 +37,6 @@
                                     <td md-cell>{{auction.name}}</td>
                                     <td md-cell>{{auction.price | currencyName: 'baht'}}</td>
                                     <td md-cell>{{auction.price + 10 | currencyName : 'baht'}}</td>
-                                    <td md-cell>{{auction.price + 25}}</td>
                                     <td md-cell>{{auction.timer | date}}</td>
                                 </tr>
                             </tbody>

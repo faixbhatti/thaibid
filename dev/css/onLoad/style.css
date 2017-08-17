@@ -1037,8 +1037,12 @@ button.mcs-color:hover {
     font-weight: 400;
     line-height: 32px;
     font-size: 24px;
-    margin: 20px 0 14px;
+    margin: 10px 0 4px;
     letter-spacing: .04em;
+}
+
+.no-margin {
+    margin: 0;
 }
 
 .cart-header {
@@ -1754,11 +1758,11 @@ md-checkbox.md-checked .md-icon {
 }
 
 .dismiss {
-    animation: fadeOut 0.3s forwards ease-out;
+    animation: fadeOut 0.1s forwards ease-out;
 }
 
 .appear {
-    animation: fadeIn 0.3s forwards ease-in;
+    animation: fadeIn 0.1s forwards ease-in;
     z-index: 1000;
 }
 

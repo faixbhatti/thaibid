@@ -23,10 +23,16 @@ angular.module('thai')
                 httpService
                     .get(`category/${$scope.category}`)
                     .then(res => {
-                        if (res.data.meta.message === "Fetched Successfully") {
-                            $scope.products = res.data.data.data
-                            ctrl.limit = 35;
-                            $scope.dataLoading = false;
+                        let fectched = res.data
+                        if (fectched.meta.message === "Fetched Successfully") {
+                            if (fectched.data) {
+                                $scope.products = res.data.data.data
+                                console.log($scope.products)
+                                ctrl.limit = 35;
+                                $scope.dataLoading = false;
+                            } else {
+                                $scope.dataLoading = false;
+                            }
                         }
                     })
             })();

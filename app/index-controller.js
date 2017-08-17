@@ -60,6 +60,8 @@
         function checkAuthStatus() {
             $scope.loggedIn = $user.isAuthenticated();
             $scope.user = $user.getUser();
+            $scope.loaded = $user.isAuthenticated();
+
         };
 
         (function get() {

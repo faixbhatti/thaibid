@@ -38,15 +38,40 @@ angular.module('thai')
     });
 
 
-function orderCtrl($mdDialog) {
+function orderCtrl($mdDialog, $user, httpService) {
     const ctrl = this;
     ctrl.loading = true;
     ctrl.search = false;
     ctrl.cancelled = false;
+    ctrl.user = $user.getUser();
+
+    ctrl.query = {
+        'order': 'name',
+        limit: 5,
+        page: 1,
+        filter: ''
+    }
 
     ctrl.showInvoice = (invoice) => {
         ctrl.user.showInvoice(invoice);
     };
+
+    function get(abUrl, userInfo, page) {
+        ctrl.promise = httpService
+            .getUserDetails(abUrl, userInfo, page)
+            .then(res => {
+                let fectched = res.data;
+                if (fectched.meta.message === "Fetched Successfully") {
+                    if (fectched.data) {
+                        let metaData = fectched.data;
+                        ctrl.orders = metaData.data;
+                        ctrl.query.total = metaData.total;
+                        ctrl.query.page = metaData.current_page;
+                    }
+                }
+            })
+    }
+    get('order', ctrl.user)
 
     ctrl.showReviewPrompt = function(order, ev) {
         let header = document.querySelector('.navbar-fixed');
@@ -128,13 +153,6 @@ function orderCtrl($mdDialog) {
 
     ctrl.selected = [];
 
-    ctrl.query = {
-        'order': 'name',
-        limit: 10,
-        page: 1,
-        filter: ''
-    }
-
     ctrl.removeFilter = () => {
         ctrl.query.filter = ''
         ctrl.search = false;
@@ -151,8 +169,8 @@ function orderCtrl($mdDialog) {
         pageSelect: true
     };
 
-    ctrl.getOrders = (item) => {
-        console.log(item, 'was ordered')
+    ctrl.getOrders = (page) => {
+        get('order', ctrl.user, page)
     }
 
     ctrl.logItem = (item) => {
@@ -160,7 +178,6 @@ function orderCtrl($mdDialog) {
     }
 
     ctrl.$onInit = () => {
-        ctrl.orders = ctrl.user.orders;
         ctrl.loading = false;
     }
 }

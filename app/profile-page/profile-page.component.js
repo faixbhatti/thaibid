@@ -6,21 +6,30 @@
 angular.module('thai')
     .component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
-        controller: function($scope, $routeParams, $location, $http, $rootScope, $anchorScroll, ngMeta) {
+        controller: function($scope, $location, $rootScope, $anchorScroll, ngMeta, $user, httpService) {
             const ctrl = this;
-            $scope.name = $routeParams.name;
-            console.log($routeParams)
             $rootScope.showNav = true;
             $rootScope.inDetail = false;
             $scope.item = '';
             $rootScope.previousPage = `/user/${$scope.name}`;
             $rootScope.inCart = false;
             ctrl.inMobile = $rootScope.inMobile.matches;
+            let user = $user.getUser();
+            ngMeta.setTitle(`${user.um_name}'s Profile`, ' | Bidxel.com');
 
-            let name = $scope.name[0].toUpperCase() + $scope.name.slice(1);
-            ctrl.username = $scope.name;
-
-            ngMeta.setTitle(`${name}'s Profile`, ' | Bidxel.com')
+            (function get() {
+                httpService
+                    .getUserDetails('userprofile', user)
+                    .then(res => {
+                        let fetched = res.data;
+                        if (fetched.meta.message === "Profile Information Fetched Successfully") {
+                            if (fetched.data) {
+                                $scope.user = fetched.data[0];
+                                console.log(user)
+                            }
+                        }
+                    })
+            })()
 
             // Templates to assist in switching between tabs in user profile page;
             $scope.templates = {
@@ -35,7 +44,7 @@ angular.module('thai')
             $scope.template = $scope.templates[$rootScope.template];
 
             // Scroll to the area that displays info about the user if on mobile or tablet
-            function goToInfo() {
+            (function goToInfo() {
                 if (ctrl.inMobile) {
                     // Only scroll if the user has made a selection from another page
                     // E.g if user has selected to view cart or orders or when user is redirected to complete profile after sign up
@@ -44,9 +53,7 @@ angular.module('thai')
                         $anchorScroll();
                     }
                 }
-            }
-
-            goToInfo();
+            })()
 
             // Current info of a particular auction or purchase to be displayed by the purchase info modal
             $scope.currentInfo = {};
@@ -171,7 +178,7 @@ angular.module('thai')
                     "id": 6,
                     "name": "What a view",
                     "price": 40.14,
-                    "rewards": "3",
+                    "rewards": 3,
                     "image": "image/sky.jpg",
                     "timer": "2017-03-25",
                     "invoice": "BCEDND10",
@@ -179,7 +186,7 @@ angular.module('thai')
                 {
                     "id": 7,
                     "name": "Classic All stars unisex sneakers",
-                    "rewards": "3",
+                    "rewards": 3,
                     "price": 10.32,
                     "image": "image/starz.jpg",
                     "timer": "2017-03-24",
@@ -188,7 +195,7 @@ angular.module('thai')
                 {
                     "id": 8,
                     "name": "Ties Collection",
-                    "rewards": "3",
+                    "rewards": 3,
                     "price": 20.34,
                     "image": "image/men__ties.jpeg",
                     "timer": "2017-03-24",
@@ -197,7 +204,7 @@ angular.module('thai')
                 {
                     "id": 9,
                     "name": "Beauty in diversity",
-                    "rewards": "3",
+                    "rewards": 3,
                     "price": 25.90,
                     "image": "image/pocket.jpeg",
                     "timer": "2017-03-24",

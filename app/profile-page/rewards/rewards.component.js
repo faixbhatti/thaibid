@@ -13,7 +13,8 @@ angular.module('thai')
         controller: rewardCtrl
     });
 
-const rewardCtrl = () => {
+function rewardCtrl() {
+
     const ctrl = this;
 
     ctrl.selected = [];
@@ -28,8 +29,8 @@ const rewardCtrl = () => {
     ctrl.$onInit = () => {
         ctrl.rewards = ctrl.user.rewards;
         console.log(ctrl.rewards)
-            // ctrl.rewards.forEach((reward) => {
-            //     ctrl.totalPoints += reward.rewards
-            // });
+        ctrl.rewards.forEach((reward) => {
+            ctrl.totalPoints += reward.rewards
+        });
     }
 };

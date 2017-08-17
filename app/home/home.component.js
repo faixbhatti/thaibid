@@ -6,18 +6,29 @@ angular.module('thai')
         controller: homeCtrl
     });
 
-function homeCtrl($scope, products, $rootScope) {
+function homeCtrl($scope, httpService, $rootScope) {
     const ctrl = this;
     $scope.dataLoading = true;
     ctrl.spinnerPosition = 'absolute'
 
     function get() {
-        products.get().then(function(data) {
-            $scope.products = data.data.filter(product => product.is_redeemable === undefined);
-            $scope.deals = $scope.products.slice(0, 8);
-            $scope.rest = $scope.products.slice(8);
-            $scope.dataLoading = false;
-        })
+        httpService
+            .get(`category/home-garden`)
+            .then(function(data) {
+                let fecthed = data.data;
+                if (fecthed.meta.message === 'Fetched Successfully') {
+                    console.log(fecthed, 'fecthed')
+                    console.log(fecthed.data, 'data')
+                    if (fecthed.data) {
+                        $scope.products = fecthed.data.data
+                        $scope.dataLoading = false;
+                        $scope.deals = $scope.products;
+                        // $scope.rest = $scope.products.slice(8);
+                    }
+                }
+            }, (err) => {
+
+            })
     }
 
     get();

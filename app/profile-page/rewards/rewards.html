@@ -25,7 +25,7 @@
                                 <th md-column md-order-by="name"><span>Item</span></th>
                                 <th md-column md-numeric md-order-by="price"><span>Your Bid</span></th>
                                 <th md-column md-numeric>Reward Points</th>
-                                <th md-column md-numeric md-order-by="timer">Time</th>
+                                <th md-column md-numeric md-order-by="timer">TimeStamp</th>
                                 <th md-column md-numeric>#Invoice No</th>
                             </tr>
                         </thead>
@@ -34,7 +34,7 @@
                                 <td md-cell>{{reward.name}}</td>
                                 <td md-cell>{{reward.price | currencyName: 'baht'}}</td>
                                 <td md-cell>{{reward.rewards + 10}}</td>
-                                <td md-cell>{{reward.timer | date}</td>
+                                <td md-cell>{{reward.timer | date}}</td>
                                 <td md-cell> <a href="">#{{reward.invoice}}</a> </td>
                             </tr>
 

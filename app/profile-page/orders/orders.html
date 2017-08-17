@@ -38,14 +38,14 @@
                 </div>
             </md-toolbar>
             <md-table-container>
-                <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.loading">
+                <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.promise">
                     <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
                         <tr md-row>
                             <th md-column md-order-by="name"><span class="main-green-text">Product Name</span></th>
                             <th md-column><span class="main-green-text">Attributes</span></th>
                             <th md-column md-numeric md-order-by="quantity"><span class="main-green-text">Delivery</span></th>
                             <th md-column md-numeric> <span class="main-green-text">Bid Amount</span> </th>
-                            <th md-column md-numeric> <span class="main-green-text">Surchage</span> </th>
+                            <th md-column md-numeric> <span class="main-green-text">Shipping Charge</span> </th>
                             <th md-column md-numeric> <span class="main-green-text">Discount</span> </th>
                             <th md-column md-numeric> <span class="blue-grey-text">Total</span> </th>
                             <th md-column md-numeric> <span class="light-green-text">Rewards</span> </th>
@@ -60,22 +60,20 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="order in $ctrl.orders | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
-                            <td md-cell>{{order.name}}</td>
-                            <td md-cell>{{order.attributes}}</td>
-                            <td md-cell>{{order.delivery}}</td>
+                            <td md-cell>{{order.product.pm_title}}</td>
+                            <td md-cell>Color: <span class="{{order.color | lowercase}}">{{order.color}}, Size: {{order.size}}</span></td>
+                            <td md-cell>{{order.order.delivery_type}}</td>
                             <td md-cell>{{order.price | currencyName : 'baht'}}</td>
-                            <td md-cell>{{order.surchage | currencyName : 'baht'}}</td>
-                            <td md-cell>{{order.discount | currencyName: 'baht'}}</td>
-                            <td md-cell>{{order.total | currencyName: 'baht'}}</td>
+                            <td md-cell>{{order.order.shipping_charge | currencyName : 'baht'}}</td>
+                            <td md-cell>{{order.order.discount | currencyName: 'baht'}}</td>
+                            <td md-cell>{{order.order.final_payout_amount | currencyName: 'baht'}}</td>
                             <td md-cell>{{order.rewards}}</td>
-                            <td md-cell>{{order.timer | date}}</td>
-                            <td md-cell><a href="" ng-click="$ctrl.showInvoice(order)">#{{order.invoice}}</a></td>
+                            <td md-cell>{{order.order.created_at}}</td>
+                            <td md-cell><a href="" ng-click="$ctrl.showInvoice(order)">#{{order.order.awd_number}}</a></td>
                             <td md-cell>
-                                <span ng-if="order.price > 20 && order.price < 25" class="blue-text">Pending</span>
-                                <span ng-if="order.price < 20" class="red-text pointer" ng-click="$ctrl.raiseIssue($event)">Return</span>
-                                <span ng-if="order.price > 25 && order.price < 40" class="red-text">Cancelled</span>
-                                <span ng-if="order.price > 40 && !$ctrl.cancelled" class="red-text pointer" ng-click="$ctrl.cancelOrder()">Cancel</span>
-                                <span ng-if="order.price > 40 && $ctrl.cancelled" class="red-text">Cancelled</span>
+                                <span ng-if="order.order.status === 'delivered'" class="red-text pointer" ng-click="$ctrl.raiseIssue($event)">Return</span>
+                                <span ng-if="order.order.status === 'pending'" class="red-text pointer" ng-click="$ctrl.cancelOrder()">Cancel</span>
+                                <span ng-if="order.order.status === 'cancelled'" class="red-text">Cancelled</span>
                             </td>
                             <td md-cell>
                                 <a href="" ng-click="$ctrl.showReviewPrompt(order)" class="" style="font-size: 10px" ng-if="!order.comment">
@@ -89,7 +87,7 @@
                 </table>
             </md-table-container>
 
-            <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[10, 15, 20] " md-page="$ctrl.query.page " md-total="{{$ctrl.orders.length}} " md-on-paginate="$ctrl.getOrders " md-page-select></md-table-pagination>
+            <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[5, 10, 15, 20] " md-page="$ctrl.query.page " md-total="{{$ctrl.query.total}}" md-on-paginate="$ctrl.getOrders" md-page-select></md-table-pagination>
         </div>
 
         <p style="text-align: center " class="hide-on-large-only "> <i class="material-icons " style="vertical-align: middle ">touch_app</i> Swipe to scroll through table</p>

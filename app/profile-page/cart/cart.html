@@ -19,13 +19,13 @@
                 <a href="#!/home" class="teal btn waves-effect waves-light">Go shopping</a>
             </div>-->
             <ul class="collection">
-                <li class="collection-item avatar item with-avatar" ng-repeat="item in $ctrl.cart" style="padding-left: 55px;">
-                    <img src="{{item.image}}" alt="{{item.name}}" class="circle" style="left: 10px; height:40px; width:40px">
+                <li class="collection-item avatar item with-avatar" ng-repeat="item in $ctrl.cart | limitTo: 5" style="padding-left: 55px;">
+                    <img src="{{item.image}}" alt="{{item.product.pm_title}}" class="circle" style="left: 10px; height:40px; width:40px">
                     <div>
                         <p class="secondary-content right" style="position: unset; margin: 0 5px;"><i class="material-icons red-text lighten-2" ng-click="$ctrl.removeFromCart($index)">delete</i></p>
 
-                        <span class="black-text truncate" style="font-size: 15px; font-weight: 500; letter-spacing: 0; opacity: 0.9">{{item.name}}</span>
-                        <p class="item-subtitle black-text" style="font-size: 13px; font-weight: 400; opacity: 0.80">{{item.price | currency: '฿'}}</p>
+                        <span class="black-text truncate" style="font-size: 15px; font-weight: 500; letter-spacing: 0; opacity: 0.9">{{item.product.pm_title}}</span>
+                        <p class="item-subtitle black-text" style="font-size: 13px; font-weight: 400; opacity: 0.80">{{item.product.pm_final_price | currency: '฿'}}</p>
                     </div>
                 </li>
             </ul>
