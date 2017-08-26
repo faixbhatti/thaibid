@@ -2,16 +2,13 @@
 
     <div class="card product-shadow hoverable pointer" ng-click="$ctrl.viewProduct(product.pm_slug)">
         <div class="card-image prod-card-img">
-            <img alt="{{product.image}}" src="{{product.image || 'image/header-bg.png'}}" class="responsive-img"
-                 style="height: 70%" ng-if="product.image">
-            <a class="btn-floating halfway-fab waves-effect waves-dark main-green" ng-click="$ctrl.addToCart(product)"
-               name="{{product.name}}"><i
+            <img alt="{{product.image}}" src="{{product.images[0].image_small}}" class="responsive-img" style="height: 70%">
+            <a class="btn-floating halfway-fab waves-effect waves-dark main-green" ng-click="$ctrl.addToCart(product)" name="{{product.pm_title}}"><i
                     class="material-icons">shopping_cart</i></a>
         </div>
         <div class="card-content">
-            <p class="card-title black-text truncate"
-               style="font-size: 13px; font-weight: 700; text-transform: capitalize">{{product.pm_title}}</p>
-            <span class="subheader points-text">{{product.pm_purchaseprice}}<span class="points"> points</span></span>
+            <p class="card-title black-text truncate" style="font-size: 13px; font-weight: 700; text-transform: capitalize">{{product.pm_title}}</p>
+            <span class="subheader points-text">{{product.pm_redeem_point}}<span class="points"> points</span></span>
         </div>
     </div>
 </div>

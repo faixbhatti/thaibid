@@ -5,7 +5,7 @@
 angular.module('thai')
     .component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
-        controller: function($scope, $routeParams, $rootScope, cart, ngMeta, httpService) {
+        controller: function($scope, $routeParams, $rootScope, cart, ngMeta, httpService, $user) {
             const ctrl = this;
             $scope.loading = true;
             $scope.showDiv = false;
@@ -18,7 +18,8 @@ angular.module('thai')
             $scope.clicked = 1;
             $scope.selected = 1;
             $scope.cart = $rootScope.cart;
-            $scope.loggedIn = $rootScope.loggedIn;
+            $scope.loggedIn = $user.isAuthenticated();
+
             $scope.productColor = '';
             $scope.productSize = '';
             let input = document.querySelector('#amount');
@@ -37,7 +38,6 @@ angular.module('thai')
                 let id = $routeParams.productId;
                 httpService.get(`product/${id}`).then(function(data) {
                     let product = data.data.data;
-                    console.log(product);
                     $scope.product = product;
                     // $scope.similarProducts = products.slice(0, 4);
                     // $scope.otherProducts = products.slice(4, 8);
@@ -52,8 +52,9 @@ angular.module('thai')
                     $scope.productImage = $scope.imgs[0];
                     $scope.sizes = $scope.product.sizes;
                     $scope.colors = $scope.product.colors;
-                    $scope.auctions = [...$scope.product.auction];
-                    $scope.ratings = $scope.product.Ratings;
+                    $scope.auctions = [...$scope.product.auctions];
+                    $scope.ratings = $scope.product.ratings;
+                    console.log($scope.ratings)
 
                     $scope.loading = false
 

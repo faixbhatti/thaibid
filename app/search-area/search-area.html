@@ -15,11 +15,13 @@
     </div>
 </header>
 <main style="height: 92%">
-    <thai-spinner position="$ctrl.spinnerPosition" ng-if="$ctrl.loading"></thai-spinner>
-    <div class="row">
+
+    <thai-spinner position="$ctrl.spinnerPosition" ng-show="$ctrl.loading"></thai-spinner>
+
+    <div class="row" style="background: whitesmoke">
         <div class="col l2 m2 s12" ng-hide="$ctrl.searchWord.length > 0 && $ctrl.results.length === 0" ng-if="$ctrl.searchWord">
             <div>
-                <app-search-sidebar limit="$ctrl.limit"></app-search-sidebar>
+                <app-search-sidebar products="$ctrl.results"></app-search-sidebar>
             </div>
         </div>
         <div class="col l10 m12 s12 prod-list-holder" ng-hide="$ctrl.searchWord.length > 0 && $ctrl.results.length === 0">
@@ -28,7 +30,7 @@
             <product-list products="$ctrl.results" columns="3" ng-if="$ctrl.searchWord" ng-click="$ctrl.searching()" limit="$ctrl.limit"></product-list>
         </div>
 
-        <div class="col s12" ng-if="$ctrl.searchWord.length > 0 && $ctrl.results.length === 0">
+        <div class="col s12" ng-if="$ctrl.searchWord.length > 0 && $ctrl.results.length === 0 && !$ctrl.loading">
             <div class="no-results">
                 <h4>Nothing matches your search</h4>
                 <i class="material-icons">sentiment_very_dissatisfied</i>

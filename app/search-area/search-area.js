@@ -15,13 +15,12 @@ angular.module('thai')
         }
     });
 
-function searchCtrl($filter, products) {
+function searchCtrl($filter, httpService) {
     const ctrl = this;
-    const filter = $filter('filter');
+    ctrl.spinnerPosition = 'absolute'
     ctrl.searchWord = "";
     ctrl.results = [];
     ctrl.limit = 30;
-    ctrl.spinnerPosition = 'absolute';
 
     ctrl.searching = function() {
         ctrl.app.searching()
@@ -29,13 +28,21 @@ function searchCtrl($filter, products) {
 
     ctrl.showResults = function() {
         ctrl.loading = true;
-        products.get().then(function(data) {
-            var products = data.data;
-            ctrl.suggestions = products.slice(0, 10);
-            var results = filter(products, ctrl.searchWord);
-            ctrl.results = results;
-            ctrl.loading = false;
-        })
+        httpService
+            .search(ctrl.searchWord)
+            .then(data => {
+                let res = data.data;
+                if (res.meta.code === 200) {
+                    if (res.data) {
+                        ctrl.loading = false;
+                        ctrl.results = res.data;
+                    } else {
+                        ctrl.loading = false;
+                        ctrl.results = [];
+                    }
+
+                }
+            })
     };
 
     ctrl.$onInit = function() {

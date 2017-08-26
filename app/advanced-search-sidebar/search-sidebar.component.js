@@ -3,47 +3,76 @@
  */
 'use strict';
 angular.module('thai')
+    .filter('price', price)
     .component('appSearchSidebar', {
         templateUrl: 'app/advanced-search-sidebar/search-sidebar.html',
         controller: sideBarCtrl,
         bindings: {
-            limit: '='
+            products: '='
         }
     });
 
-function sideBarCtrl() {
+
+
+function price() {
+    return priceFilter;
+
+    ////////////////
+
+    function priceFilter(products, min, max) {
+        let filteredProds = [];
+        products.forEach(product => {
+            if (product.pm_is_redeemable) {
+                if ((product.pm_redeem_point === min || product.pm_redeem_point > min) && (product.pm_redeem_point === max || product.pm_redeem_point < max)) {
+                    if (product.pm_is_redeemable) {
+                        filteredProds.push(product)
+                    }
+                }
+            } else {
+                if ((product.pm_minimumbid === min || product.pm_minimumbid > min) && (product.pm_minimumbid === max || product.pm_minimumbid < max)) {
+                    if (!product.pm_is_redeemable) {
+                        filteredProds.push(product)
+                    }
+                }
+            }
+
+        });
+        return filteredProds
+    }
+}
+
+function sideBarCtrl(priceFilter) {
     const ctrl = this;
     ctrl.clicked = false;
+    ctrl.minPrice = 0
+    ctrl.maxPrice = 0;
+    ctrl.tempProducts = [];
 
-    ctrl.setLimit = function(value) {
-        ctrl.limit = ctrl.limit === value ? ctrl.defaultLimit : value;
+    ctrl.setFilter = function(filter) {
+
     };
+
+    ctrl.setPriceLimits = () => {
+        if (ctrl.maxPrice === 0 && ctrl.minPrice === 0) {
+            return
+        }
+        ctrl.tempProducts = [...ctrl.products]
+        ctrl.products = priceFilter(ctrl.products, ctrl.minPrice, ctrl.maxPrice)
+    }
 
     ctrl.clearFilters = () => {
-        ctrl.limit = ctrl.defaultLimit;
-        ctrl.clicked = !ctrl.clicked
+        ctrl.products = ctrl.tempProducts !== [] ? [...ctrl.tempProducts] : ctrl.products;
+        resetValues();
     };
+
+    function resetValues() {
+        ctrl.tempProducts = [];
+        ctrl.maxPrice = 0;
+        ctrl.minPrice = 0;
+    }
 
     ctrl.$onInit = function() {
         ctrl.defaultLimit = ctrl.limit;
-        let slider = document.getElementById('uiSlider');
-        noUiSlider.create(slider, {
-            start: [20, 300],
-            connect: true,
-            step: 10,
-            range: {
-                'min': 10,
-                'max': 1000
-            }
-        });
 
-
-        slider.noUiSlider.on('update', function(values, handle) {
-            if (handle === 1) {
-                ctrl.left = values[handle]
-            } else {
-                ctrl.right = values[handle]
-            }
-        });
     }
 }

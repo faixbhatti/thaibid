@@ -10,13 +10,13 @@
 </section>
 
 <section ng-if="!$ctrl.loading">
-    <div class="row">
+    <div class="row" style="background: whitesmoke">
         <div class="col l2">
             <user-sidebar ng-if="$ctrl.loggedIn"></user-sidebar>
-            <app-search-sidebar limit="$ctrl.limit"></app-search-sidebar>
+            <app-search-sidebar products="$ctrl.products"></app-search-sidebar>
         </div>
         <div class="col l10 m12 s12 prod-list-holder">
-            <div class="row">
+            <div class="row" style="background: whitesmoke">
                 <app-redeem-products limit="$ctrl.limit" products="$ctrl.products"></app-redeem-products>
             </div>
         </div>

@@ -200,7 +200,7 @@ button#fb:hover {
 }
 
 .collection-item.cat:hover {
-    background-color: #37A79D;
+    background-color: var(--main-green);
 }
 
 .collection {
@@ -1043,6 +1043,26 @@ button.mcs-color:hover {
 
 .no-margin {
     margin: 0;
+}
+
+md-input-container {
+    margin: 5px !important;
+}
+
+md-input-container>input {
+    margin: 5px 0 !important;
+}
+
+md-input-container {
+    height: 40px;
+}
+
+.rangeHolder {
+    overflow: hidden;
+}
+
+.btn-small {
+    padding: 0 1rem;
 }
 
 .cart-header {

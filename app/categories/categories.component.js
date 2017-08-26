@@ -4,6 +4,20 @@
 'use strict';
 
 angular.module('thai')
+    .directive('addHover', function() {
+        return function(scope, element, attrs) {
+            let cat = angular.element(element)[0];
+            let a = cat.querySelector('a');
+            cat.onmouseover = () => {
+                a.classList.add('white-text');
+            }
+            cat.onmouseout = () => {
+                if (!cat.classList.contains('main-green')) {
+                    a.classList.remove('white-text');
+                }
+            }
+        }
+    })
     .component('allCategories', {
         bindings: {
             active: '<',
@@ -11,6 +25,7 @@ angular.module('thai')
         templateUrl: 'app/categories/categories.html',
         controller: function($location, httpService) {
             const ctrl = this;
+            ctrl.loading = true;
             let hasEventListener = false;
 
             ctrl.location = function(url) {
@@ -19,15 +34,26 @@ angular.module('thai')
             };
             let categories;
 
+            function addHoverFunction() {
+                ctrl.categoryList.forEach(item => {
+                    let a = item.querySelector('a');
+                    item.onmouseover = () => {
+                        a.classList.add('white-text');
+                    }
+                    item.onmouseout = () => {
+
+                        a.classList.remove('white-text');
+                    }
+                })
+            }
+
             (function get() {
                 httpService
                     .get('category')
                     .then(res => {
-                        console.log(res.data)
-                        if (res.data.meta.message === "Fetched Successfully") {
-                            ctrl.categories = res.data.data
-                            console.log(ctrl.categories, 'categories')
-                        }
+                        ctrl.loading = false;
+                        ctrl.categories = res.data.data
+
                     })
             })()
 
@@ -35,8 +61,9 @@ angular.module('thai')
                 ctrl.top = document.querySelector('.home').offsetTop;
                 ctrl.offset = document.querySelector('.nav-extended').offsetHeight;
                 categories = document.querySelector('.home.collection');
-                let categoryList = categories.querySelectorAll('.cat'),
-                    pin = categories.parentElement.dataset.pin;
+                ctrl.categoryList = categories.querySelectorAll('.cat');
+
+                let pin = categories.parentElement.dataset.pin;
 
                 if (pin) {
                     if (pin === "true") {
@@ -46,7 +73,6 @@ angular.module('thai')
                         });
                     }
                 }
-
 
                 ctrl.sinkElement = function() {
                     if (pin) {
@@ -65,16 +91,6 @@ angular.module('thai')
                 }
 
                 ctrl.endingTabActive = ctrl.active === undefined ? true : false;
-
-                categoryList.forEach(item => {
-                    let a = item.querySelector('a');
-                    item.onmouseover = () => {
-                        a.classList.add('white-text');
-                    }
-                    item.onmouseout = () => {
-                        a.classList.remove('white-text');
-                    }
-                })
 
                 window.addEventListener('scroll', ctrl.sinkElement)
             };

@@ -15,20 +15,31 @@ function homeCtrl($scope, httpService, $rootScope) {
         httpService
             .get(`category/home-garden`)
             .then(function(data) {
-                let fecthed = data.data;
-                if (fecthed.meta.message === 'Fetched Successfully') {
-                    console.log(fecthed, 'fecthed')
-                    console.log(fecthed.data, 'data')
-                    if (fecthed.data) {
-                        $scope.products = fecthed.data.data
+                let fetched = data.data;
+                if (fetched.meta.code !== 400) {
+                    if (fetched.data) {
+                        $scope.products = fetched.data.data
                         $scope.dataLoading = false;
                         $scope.deals = $scope.products;
                         // $scope.rest = $scope.products.slice(8);
                     }
                 }
+
             }, (err) => {
 
             })
+        httpService
+            .get('home-slider')
+            .then(data => {
+                let res = data.data;
+                if (res.meta.code !== 400) {
+                    ctrl.slideImages = res.data;
+                    setTimeout(() => {
+                        $('.slider').slider();
+                    }, 2000)
+                }
+            })
+
     }
 
     get();
@@ -38,64 +49,6 @@ function homeCtrl($scope, httpService, $rootScope) {
     $scope.moveSlider = (direction) => {
         $('.slider').slider(direction);
     }
-
-    let extras = [{
-            "id": 21,
-            "name": "Classic beach wear",
-            "price": 20.34,
-            "image": "image/leather-bag.jpg",
-            "timer": "2017-03-24"
-        },
-        {
-            "id": 22,
-            "name": "All black swagger",
-            "price": 23.53,
-            "image": "image/men__black-converse.jpeg",
-            "timer": "2017-03-24"
-        },
-        {
-            "id": 23,
-            "name": "Dirty ass shoes",
-            "price": 44.34,
-            "image": "image/men__dirty-shoes.jpeg",
-            "timer": "2017-03-24"
-        },
-        {
-            "id": 24,
-            "name": "On a sunny day",
-            "price": 20.34,
-            "image": "image/men__mad-shades.jpeg",
-            "timer": "2017-03-24"
-        },
-        {
-            "id": 26,
-            "name": "Cool shades",
-            "price": 20.34,
-            "image": "image/men__leather-casual.jpg",
-            "timer": "2017-03-24"
-        },
-        {
-            "id": 27,
-            "name": "Omaru shakur",
-            "price": 40.34,
-            "image": "image/men__tu-pac.jpg",
-            "timer": "2017-03-24"
-        },
-        {
-            "id": 28,
-            "name": "Cool shades",
-            "price": 20.34,
-            "image": "image/men__beach-shades.jpeg",
-            "timer": "2017-03-24"
-        },
-        {
-            "id": 25,
-            "name": "Yeeezzzys yooo",
-            "price": 40.34,
-            "image": "image/ladies__yeezys.jpeg",
-            "timer": "2017-03-24"
-        }
-    ];
 
     $rootScope.inDetail = false;
 
@@ -128,7 +81,7 @@ function homeCtrl($scope, httpService, $rootScope) {
 
     ctrl.$onInit = () => {
         $('.slider').slider();
-        document.addEventListener('scroll', $scope.loadMore);
+        // document.addEventListener('scroll', $scope.loadMore);
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
 

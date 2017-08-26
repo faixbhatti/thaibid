@@ -32,6 +32,7 @@ angular.module('thai')
                 ctrl.user = {};
                 ctrl.newUser = {};
                 ctrl.email = '';
+                ctrl.passwordConfirm = '';
             };
 
             const resetForm = (form) => {
@@ -43,7 +44,9 @@ angular.module('thai')
                 httpService
                     .post('login', ctrl.user)
                     .then((data) => {
-                            let user = data.data.data
+                        let res = data.data;
+                        if (res.meta.code !== 400) {
+                            let user = res.data
                             $user.setUser(user);
                             $('.modal').modal('close');
                             $rootScope.$broadcast('loggedIn');
@@ -53,11 +56,10 @@ angular.module('thai')
                             }, 1000);
                             resetValues();
                             resetForm(form);
-                        },
-                        (err) => {
-                            console.log(err)
-                            Materialize.toast(`${err.data.meta.message}`)
-                        })
+                        } else {
+                            Materialize.toast(`${res.meta.message}`, 3000)
+                        }
+                    })
             };
 
 
@@ -94,13 +96,16 @@ angular.module('thai')
                 httpService
                     .post('register', ctrl.newUser)
                     .then(res => {
-                        Materialize.toast(`Hello ${ctrl.newUser.userName}!. Your new account has been created. 
+                        let data = res.data
+                        if (data.meta.code !== 400) {
+                            Materialize.toast(`Hello ${ctrl.newUser.userName}!. Your new account has been created. 
                         Please login with your details.`, 5000)
-                        resetValues();
-                        resetForm(form);
+                            resetValues();
+                            resetForm(form);
+                        }
                     }, err => {
                         console.log('Error')
-                        Materialize.toast('Error processing');
+                        Materialize.toast('Error processing', 3000);
                     })
             };
 

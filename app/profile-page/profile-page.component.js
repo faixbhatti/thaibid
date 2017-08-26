@@ -15,17 +15,20 @@ angular.module('thai')
             $rootScope.inCart = false;
             ctrl.inMobile = $rootScope.inMobile.matches;
             let user = $user.getUser();
-            ngMeta.setTitle(`${user.um_name}'s Profile`, ' | Bidxel.com');
+            if (user) {
+                ngMeta.setTitle(`${user.um_name}'s Profile`, ' | Bidxel.com');
+            } else {
+                $location.url('/')
+            }
 
             (function get() {
                 httpService
                     .getUserDetails('userprofile', user)
                     .then(res => {
                         let fetched = res.data;
-                        if (fetched.meta.message === "Profile Information Fetched Successfully") {
+                        if (fetched.meta.code === 200) {
                             if (fetched.data) {
                                 $scope.user = fetched.data[0];
-                                console.log(user)
                             }
                         }
                     })
@@ -106,74 +109,6 @@ angular.module('thai')
                 $('#invoice-modal').modal('open')
             };
 
-            ctrl.orders = [{
-                    "id": 6,
-                    "name": "What a view",
-                    "attributes": "Black, XL",
-                    "price": 40.14,
-                    "quantity": 2,
-                    "delivery": "Standard",
-                    "surchage": "40",
-                    "discount": "30",
-                    "total": "500",
-                    "rewards": "3",
-                    "image": "image/sky.jpg",
-                    "timer": "2017-03-25",
-                    "invoice": "BCEDND10",
-                    "track": "BDX0000001",
-                    "comment": "I recived the product in good condition"
-                },
-                {
-                    "id": 7,
-                    "name": "Classic All stars unisex sneakers",
-                    "attributes": "Green, XXL",
-                    "delivery": "Express",
-                    "surchage": "40",
-                    "discount": "30",
-                    "total": "500",
-                    "rewards": "3",
-                    "track": "BDX0000001",
-                    "price": 10.32,
-                    "quantity": 3,
-                    "image": "image/starz.jpg",
-                    "timer": "2017-03-24",
-                    "invoice": "ECSFD11"
-                },
-                {
-                    "id": 8,
-                    "name": "Ties Collection",
-                    "attributes": "Green, XXL",
-                    "delivery": "Express",
-                    "surchage": "40",
-                    "discount": "30",
-                    "total": "500",
-                    "rewards": "3",
-                    "track": "BDX0000001",
-                    "price": 20.34,
-                    "image": "image/men__ties.jpeg",
-                    "timer": "2017-03-24",
-                    "quantity": 1,
-                    "invoice": "BCEDND12",
-                    "comment": "Product was delivered on time and I love it"
-                },
-                {
-                    "id": 9,
-                    "name": "Beauty in diversity",
-                    "attributes": "Green, XXL",
-                    "delivery": "Express",
-                    "surchage": "40",
-                    "discount": "30",
-                    "total": "500",
-                    "rewards": "3",
-                    "track": "BDX0000001",
-                    "price": 25.90,
-                    "image": "image/pocket.jpeg",
-                    "timer": "2017-03-24",
-                    "quantity": 1,
-                    "invoice": "BVNED23"
-                }
-            ];
-
             ctrl.rewards = [{
                     "id": 6,
                     "name": "What a view",
@@ -211,8 +146,6 @@ angular.module('thai')
                     "invoice": "BVNED23"
                 }
             ];
-
-            $scope.profImg = 'image/elliot.jpg';
 
             // While switching tabs, if user is on mobile or tablet, scroll to the display area
             const scrollToDiv = () => {

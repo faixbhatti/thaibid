@@ -11,7 +11,5 @@
             templateUrl: 'app/spinner/spinner.html',
             bindings: {
                 position: '<',
-                top: '<',
-                left: '<'
             },
         });

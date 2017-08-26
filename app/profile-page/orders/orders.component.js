@@ -61,13 +61,11 @@ function orderCtrl($mdDialog, $user, httpService) {
             .getUserDetails(abUrl, userInfo, page)
             .then(res => {
                 let fectched = res.data;
-                if (fectched.meta.message === "Fetched Successfully") {
-                    if (fectched.data) {
-                        let metaData = fectched.data;
-                        ctrl.orders = metaData.data;
-                        ctrl.query.total = metaData.total;
-                        ctrl.query.page = metaData.current_page;
-                    }
+                if (fectched.data) {
+                    let metaData = fectched.data;
+                    ctrl.orders = metaData.data;
+                    ctrl.query.total = metaData.total;
+                    ctrl.query.page = metaData.current_page;
                 }
             })
     }

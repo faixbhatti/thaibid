@@ -69,9 +69,7 @@
                 .get('category')
                 .then(res => {
                     console.log(res.data)
-                    if (res.data.meta.message === "Fetched Successfully") {
-                        $scope.categories = res.data.data
-                    }
+                    $scope.categories = res.data.data
                 })
         })()
 

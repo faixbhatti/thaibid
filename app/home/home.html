@@ -11,10 +11,10 @@
                         <i class="material-icons main-green-text">chevron_right</i>
                     </button>
                     <ul class="slides">
-                        <li>
-                            <img src="image/slideshow/offers1.jpg" alt="Get the latest fashionable wears">
+                        <li ng-repeat="image in $ctrl.slideImages">
+                            <img src="{{image.image}}" alt="{{image.description}}">
                         </li>
-                        <li>
+                        <!-- <li>
                             <img src="image/slideshow/offers2.jpg" alt="Costumes and designers materials">
                         </li>
                         <li>
@@ -22,38 +22,29 @@
                         </li>
                         <li>
                             <img src="image/slideshow/redeem.jpg" alt="Get discounted prices">
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="background: whitesmoke">
         <div class="col l2 m12 s12 hide-on-med-and-down">
             <all-categories data-pin="true"></all-categories>
         </div>
 
         <div class="col l10 m12 s12 prod-list-holder" style="min-height: 400px">
-            <div class="row" id="prod-list" style="min-height: 300px; margin-bottom: 0">
-
-                <product-list products="deals" columns="3" ng-hide="dataLoading"></product-list>
+            <div class="row" id="prod-list" style="margin-bottom: 0">
+                <div style="position: relative; min-height: 400px">
+                    <thai-spinner position="$ctrl.spinnerPosition" ng-show="dataLoading"></thai-spinner>
+                    <product-list products="deals" columns="3" ng-hide="dataLoading"></product-list>
+                </div>
 
                 <th-carousel></th-carousel>
 
-                <product-list products="rest" columns="3" id="home" ng-hide="dataLoading"></product-list>
-
-                <div class="preloader-wrapper loader" ng-class="{active : loading}" ng-if="loading">
-                    <div class="spinner-layer spinner-teal-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div style="position: relative; min-height: 400px">
+                    <thai-spinner position="$ctrl.spinnerPosition" ng-show="dataLoading"></thai-spinner>
+                    <product-list products="rest" columns="3" id="home" ng-hide="dataLoading"></product-list>
                 </div>
             </div>
         </div>

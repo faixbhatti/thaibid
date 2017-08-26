@@ -13,7 +13,7 @@ angular.module('thai')
         }
     });
 
-function editCtrl($http){
+function editCtrl($http) {
     const ctrl = this;
     ctrl.user = {};
 
@@ -25,7 +25,7 @@ function editCtrl($http){
     };
 
 
-    ctrl.$onInit = function () {
+    ctrl.$onInit = function() {
         ctrl.username = ctrl.user.username;
 
         const url = 'https://restcountries.eu/rest/v2/all',
@@ -33,12 +33,12 @@ function editCtrl($http){
 
         $('select.icons').material_select();
 
-        $http.get(url).then(function (response) {
+        $http.get(url).then(function(response) {
             let places = response.data;
 
-            for (let i = 0; i < places.length; i++) {
-                data[places[i].name] = places[i].flag
-            }
+            places.forEach(place => {
+                data[place.name] = place.flag
+            })
 
             $('input.autocomplete').autocomplete({
                 "data": data,

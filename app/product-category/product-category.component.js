@@ -24,15 +24,13 @@ angular.module('thai')
                     .get(`category/${$scope.category}`)
                     .then(res => {
                         let fectched = res.data
-                        if (fectched.meta.message === "Fetched Successfully") {
-                            if (fectched.data) {
-                                $scope.products = res.data.data.data
-                                console.log($scope.products)
-                                ctrl.limit = 35;
-                                $scope.dataLoading = false;
-                            } else {
-                                $scope.dataLoading = false;
-                            }
+                        if (fectched.data) {
+                            $scope.products = res.data.data.data
+                            console.log($scope.products)
+                            ctrl.limit = 35;
+                            $scope.dataLoading = false;
+                        } else {
+                            $scope.dataLoading = false;
                         }
                     })
             })();
@@ -102,7 +100,7 @@ angular.module('thai')
                     delay: 50
                 })
 
-                document.addEventListener('scroll', $scope.loadMore)
+                // document.addEventListener('scroll', $scope.loadMore)
 
                 $(".dropdown-button").dropdown();
 

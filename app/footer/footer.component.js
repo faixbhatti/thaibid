@@ -18,6 +18,7 @@
 
     function footerCtrl($rootScope) {
         var ctrl = this;
+        ctrl.userMail = '';
 
         $rootScope.$watch('showNav', function(newValue, oldValue) {
             ctrl.show = newValue;
@@ -30,6 +31,15 @@
                 ctrl.inMobile = false;
             }
         }
+
+        ctrl.registerEmail = (form) => {
+            if (ctrl.userMail !== '') {
+                Materialize.toast(`${ctrl.userMail} has successfully been registered`, 3000)
+                ctrl.userMail = ''
+            } else {
+                Materialize.toast('Please enter your email address', 3000);
+            }
+        };
 
         mobView()
 
