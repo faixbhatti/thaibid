@@ -13,8 +13,9 @@
                 <p class="description-text modal-headers">Product Details</p>
                 <p class="link-text reduce-text">Length: {{$ctrl.product.length}}</p>
                 <p class="link-text reduce-text">Height: {{$ctrl.product.height}}</p>
-                <p class="link-text reduce-text">Sizes: <span ng-repeat="size in $ctrl.product.sizes">{{size.size_name}}, </span></p>
-                <p class="link-text reduce-text">Colors: <span ng-repeat="color in $ctrl.product.colors">{{color.color_name}}, </span></p>
+                <p class="link-text reduce-text">Sizes: <span ng-repeat="size in $ctrl.product.sizes">{{size.size_name}}<span ng-if="!$first && !$last">,</span> </span>
+                </p>
+                <p class="link-text reduce-text">Colors: <span ng-repeat="color in $ctrl.product.colors">{{color.color_name}} </span></p>
             </div>
             <div class="col l6 m6 s6">
                 <p class="description-text modal-headers">Product Facts</p>
@@ -44,14 +45,15 @@
                 </p>
             </li>
         </ul>
-        <div class="row">
-            <form class="col s12" ng-submit="$ctrl.addreview()">
+        <div class="row" style="position: relative">
+            <thai-spinner position="$ctrl.spinnerPosition" spinner-size="small" ng-if="$ctrl.loading"></thai-spinner>
+            <form class="col s12" ng-submit="$ctrl.addreview()" ng-class="{'form-loading': $ctrl.loading}">
                 <h4 ng-if="!$ctrl.loggedIn">To add a review you need to be <span class="blue-text" ng-click="$ctrl.logIn()">LOGGED IN</span></h4>
                 <div ng-show="$ctrl.loggedIn">
                     <p class="teal-text">Add a review</p>
                     <div class="row">
                         <p style="margin: 10px 5px">How do you rate this product?</p>
-                        <p style="margin: 10px 5px"><i class="material-icons left grey-text stars" ng-repeat="num in [1,2,3,4,5]" style="margin:0 2px" data-value="{{num}}">star</i></p>
+                        <p style="margin: 10px 5px"><i class="material-icons left grey-text stars" ng-repeat="num in [1,2,3,4,5]" style="margin:0 2px" data-value="{{num}}" init-star>star</i></p>
                         <div class="input-field col s12" id="text-area">
                             <textarea id="addreview" class="materialize-textarea" rows="2" ng-model="$ctrl.review.text" required></textarea>
                             <label for="addreview">Add review</label>

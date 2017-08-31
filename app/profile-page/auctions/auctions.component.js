@@ -13,7 +13,7 @@ angular.module('thai')
     });
 
 
-function auctionCtrl() {
+function auctionCtrl(httpService) {
     const ctrl = this;
 
     ctrl.displayInfo = (info) => {
@@ -28,28 +28,32 @@ function auctionCtrl() {
         limit: 10,
         page: 1,
         filter: ''
+    };
+
+    function get(abUrl, userInfo, data, command) {
+        return
     }
 
-    // function get(abUrl, userInfo, page) {
-    //     ctrl.promise = httpService
-    //         .getUserDetails(abUrl, userInfo, page)
-    //         .then(res => {
-    //             let fectched = res.data;
-    //             if (fectched.meta.message === "Fetched Successfully") {
-    //                 if (fectched.data) {
-    //                     let metaData = fectched.data;
-    //                     ctrl.orders = metaData.data;
-    //                     ctrl.query.total = metaData.total;
-    //                     ctrl.query.page = metaData.current_page;
-    //                 }
-    //             }
-    //         })
-    // }
-    // get('order', ctrl.user)
+    ctrl.getAuctions = function (data) {
+        httpService.postUserDetails('auction', ctrl.user, data, 'post')
+            .then(res => {
+                let fetched = res.data;
+                if (fetched.meta.code === 200) {
+                    if (fetched.data) {
+                        let metaData = fetched.data;
+                        ctrl.auctions = metaData.data;
+                        ctrl.query.total = metaData.total;
+                        ctrl.query.page = metaData.current_page;
+                    }
+                }
+            })
+    };
 
-    ctrl.$onInit = function() {
+    ctrl.getAuctions({action: 'ACTIVE', paginate: 5});
+
+    ctrl.$onInit = function () {
         ctrl.auctions = ctrl.user.auctions;
-        $('.tooltipped').tooltip({ delay: 50 });
+        $('.tooltipped').tooltip({delay: 50});
         $('.tabs').tabs()
     }
 }

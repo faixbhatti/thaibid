@@ -13,7 +13,7 @@
             controller: appCtrl
         });
 
-    function appCtrl($scope, $location, $rootScope, $filter, products, deleteModal, $user) {
+    function appCtrl($scope, $location, $rootScope, $filter, deleteModal, $user) {
         const ctrl = this;
         const mql = $rootScope.inMobile;
 

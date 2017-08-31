@@ -15,10 +15,10 @@
 
     <tbody>
         <tr ng-repeat="bid in $ctrl.bids">
-            <td class="table-text reduce-text">{{bid.bidder}}</td>
-            <td class="table-text reduce-text">{{bid.amount | currency : '฿'}}</td>
-            <td class="table-text reduce-text">{{bid.bidTimes}}</td>
-            <td class="table-text reduce-text">{{bid.bidTime | date}}</td>
+            <td class="table-text reduce-text">{{bid.user_name}}</td>
+            <td class="table-text reduce-text">{{bid.bid_amount | currency : '฿'}}</td>
+            <td class="table-text reduce-text">{{bid.total_bid}}</td>
+            <td class="table-text reduce-text">{{bid.bid_placed | date}}</td>
         </tr>
     </tbody>
 </table>

@@ -50,7 +50,7 @@ function orderCtrl($mdDialog, $user, httpService) {
         limit: 5,
         page: 1,
         filter: ''
-    }
+    };
 
     ctrl.showInvoice = (invoice) => {
         ctrl.user.showInvoice(invoice);

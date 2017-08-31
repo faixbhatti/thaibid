@@ -32,7 +32,7 @@ angular.module('thai')
                             }
                         }
                     })
-            })()
+            })();
 
             // Templates to assist in switching between tabs in user profile page;
             $scope.templates = {

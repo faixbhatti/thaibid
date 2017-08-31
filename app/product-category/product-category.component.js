@@ -6,28 +6,26 @@
 angular.module('thai')
     .component('category', {
         templateUrl: 'app/product-category/product-category.html',
-        controller: function($routeParams, $scope, $rootScope, products, ngMeta, httpService) {
+        controller: function($routeParams, $scope, $rootScope, ngMeta, httpService, $misc) {
             $scope.dataLoading = true;
             $rootScope.inDetail = false;
             $rootScope.showNav = true;
             $scope.inMobile = $rootScope.inMobile.matches;
-            $scope.category = $routeParams.category
+            $scope.category = $routeParams.category;
             $rootScope.previousPage = `/category/${$scope.category}`;
             const mql = $rootScope.inMobile;
 
-            ngMeta.setTitle(`${$scope.category} Category`, ' | Bidxel.com')
+            ngMeta.setTitle(`${$misc.capitalizeText($scope.category)} Category`, ' | Bidxel.com');
 
-            var ctrl = this;
+            const ctrl = this;
 
             (function get() {
                 httpService
                     .get(`category/${$scope.category}`)
                     .then(res => {
-                        let fectched = res.data
-                        if (fectched.data) {
-                            $scope.products = res.data.data.data
-                            console.log($scope.products)
-                            ctrl.limit = 35;
+                        let fetched = res.data;
+                        if (fetched.data) {
+                            $scope.products = res.data.data.data;
                             $scope.dataLoading = false;
                         } else {
                             $scope.dataLoading = false;
@@ -40,7 +38,7 @@ angular.module('thai')
                 ctrl.limit = value;
             };
 
-            var extras = [{
+            let extras = [{
                     "id": 21,
                     "name": "Classic beach wear",
                     "price": 20.34,
@@ -70,19 +68,19 @@ angular.module('thai')
                 }
             ];
 
-            var loading = false;
+            let loading = false;
 
             $rootScope.inCart = false;
 
             $scope.loadMores = function(e) {
-                var scroll = window.scrollY,
+                let scroll = window.scrollY,
                     documentHeight = document.body.clientHeight,
                     windowHeight = window.innerHeight;
 
                 if (scroll >= (documentHeight - windowHeight) * 0.70) {
 
                     if (!loading) {
-                        loading = true
+                        loading = true;
                         $scope.loading = true;
 
                         setTimeout(() => {
@@ -93,12 +91,12 @@ angular.module('thai')
 
                 }
 
-            }
+            };
 
             ctrl.$onInit = function() {
                 $('.tooltipped').tooltip({
                     delay: 50
-                })
+                });
 
                 // document.addEventListener('scroll', $scope.loadMore)
 
@@ -108,7 +106,7 @@ angular.module('thai')
                     setTimeout(() => {
                         $(".dropdown-button").dropdown("close");
                     }, 300)
-                })
+                });
 
 
                 function showMobile(e) {

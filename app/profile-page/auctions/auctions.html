@@ -9,9 +9,9 @@
         <div>
             <div class="col s12">
                 <ul class="tabs tabs-fixed-width tabs-transparent main-green z-depth-1">
-                    <li class="tab col s3"><a href="#active" class="active"> Active Auctions</a></li>
-                    <li class="tab col s3"><a href="#won"> Won Auctions</a></li>
-                    <li class="tab col s3"><a href="#lost"> Lost Auctions</a></li>
+                    <li class="tab col s3"><a href="#active" class="active" ng-click="$ctrl.getAuctions({action: 'ACTIVE', paginate: 5})"> Active Auctions</a></li>
+                    <li class="tab col s3"><a href="#won"  ng-click="$ctrl.getAuctions({action: 'WON', paginate: 5})"> Won Auctions</a></li>
+                    <li class="tab col s3"><a href="#lost" ng-click="$ctrl.getAuctions({action: 'LOST', paginate: 5})"> Lost Auctions</a></li>
                 </ul>
             </div>
 

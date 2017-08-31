@@ -5,7 +5,7 @@
 angular.module('thai')
     .component('productDetail', {
         templateUrl: 'app/product-detail/product-detail.html',
-        controller: function($scope, $routeParams, $rootScope, cart, ngMeta, httpService, $user) {
+        controller: function($scope, $routeParams, $rootScope, $misc, ngMeta, httpService, $user, $filter) {
             const ctrl = this;
             $scope.loading = true;
             $scope.showDiv = false;
@@ -19,16 +19,17 @@ angular.module('thai')
             $scope.selected = 1;
             $scope.cart = $rootScope.cart;
             $scope.loggedIn = $user.isAuthenticated();
+            $scope.bids = [];
+            let numFilter = $filter('number');
+            let user;
+            if ($user.getUser()) {
+                user = $user.getUser();
+            }
 
-            $scope.productColor = '';
-            $scope.productSize = '';
+            $scope.bidInfo = {};
             let input = document.querySelector('#amount');
             ctrl.observed = false;
             ctrl.spinnerPosition = 'absolute';
-
-            $scope.$watch('$root.loggedIn', function(oldValue, newValue) {
-                $scope.loggedIn = $rootScope.loggedIn;
-            });
 
             $scope.$watch('$root.cart', function(oldValue, newValue, scope) {
                 $scope.cart = $rootScope.cart;
@@ -39,31 +40,55 @@ angular.module('thai')
                 httpService.get(`product/${id}`).then(function(data) {
                     let product = data.data.data;
                     $scope.product = product;
-                    // $scope.similarProducts = products.slice(0, 4);
-                    // $scope.otherProducts = products.slice(4, 8);
-                    // $scope.related = $scope.similarProducts;
-                    // product.price = Math.round(product.price + 3);
-                    // $scope.product = product;
-                    // $scope.bidPrice = $scope.product.price + 5;
-
-                    ngMeta.setTitle(`${$scope.product.product_title}`, ' | Bidxel.com');
-
+                    $scope.maxBid = $scope.product.minimum_bid;
+                    $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
+                    let title = $misc.capitalizeText($scope.product.product_title);
+                    ngMeta.setTitle(`${title}`, ' | Bidxel.com');
+                    getAuctionDetails();
                     $scope.imgs = $scope.product.images;
                     $scope.productImage = $scope.imgs[0];
                     $scope.sizes = $scope.product.sizes;
                     $scope.colors = $scope.product.colors;
-                    $scope.auctions = [...$scope.product.auctions];
                     $scope.ratings = $scope.product.ratings;
-                    console.log($scope.ratings)
-
-                    $scope.loading = false
-
+                    $scope.loading = false;
                 });
                 $scope.page = 1;
-
             }
 
             get();
+
+            function getAuctionDetails() {
+                let auctionData = {
+                    auctionId: $scope.product.auctions.auctionId,
+                    productId: $scope.product.productId
+                };
+                httpService
+                    .postUserDetails('bidder', user, auctionData, 'patch')
+                    .then(data => {
+                        let res = data.data;
+                        console.log(res);
+                        if (res.meta.code === 200) {
+                            if (res.data) {
+                                let bids = res.data;
+                                console.log(bids)
+                                $scope.bids = bids;
+                                bids.forEach(bid => {
+                                    $scope.maxBid = bid.bid_amount;
+                                    $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
+                                })
+                            } else {
+                                $scope.maxBid = $scope.product.minimum_bid;
+                                $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
+                            }
+                        }
+                    })
+            }
+
+            function getNextbid(amount) {
+                let nextbid = numFilter((10 / 100) * amount, 1);
+                console.log(nextbid)
+                return nextbid
+            }
 
             $scope.slideRight = () => {
                 $scope.page = 2;
@@ -120,36 +145,42 @@ angular.module('thai')
                 $('.cart-button').sideNav('show');
             }
 
+            function updateInfo() {
+
+            }
+
             $scope.bid = () => {
-                if ($rootScope.loggedIn) {
-                    if ($scope.bidPrice > 150) {
-                        $scope.autoBid = true;
-
-                        setTimeout(() => $('.autobid').addClass('animated fadeIn'), 100);
-
+                if ($scope.loggedIn) {
+                    let bid = {
+                        auctionId: $scope.product.auctions.auctionId,
+                        productId: $scope.product.productId,
+                        BidAmount: $scope.nextBid
                     }
-
-                    $scope.product.price = $scope.bidPrice;
-
-                    // If window size is mobile or tablet, call the navigator.vibrate() api.
-                    if (navigator.vibrate) {
-                        navigator.vibrate(200)
-                    }
-                    if (window.innerWidth < 993) {
-
-                        // Hide input field after user presses enter or submits
-                        if (input.classList.contains('show-bid')) {
-                            input.classList.remove('show-bid');
-                            $scope.hideCart = false; //Display cart button after item is added to cart
-                        }
-                    }
-                    Materialize.toast('Bid Placed successfully', 1000);
-
-                    // Hide alert after 4 secs
-                    setTimeout(() => {
-                        $('autobid').removeClass('animated fadeOut');
-                        $scope.autoBid = false;
-                    }, 4000);
+                    httpService
+                        .postUserDetails('bidder', user, bid, 'post')
+                        .then((data) => {
+                            let res = data.data
+                            console.log(res);
+                            Materialize.toast('Bid Placed successfully', 2000);
+                            // If window size is mobile or tablet, call the navigator.vibrate() api.
+                            if (navigator.vibrate) {
+                                navigator.vibrate(200)
+                            }
+                            getAuctionDetails();
+                            // updateInfo();
+                        })
+                        // if (window.innerWidth < 993) {
+                        //     // Hide input field after user presses enter or submits
+                        //     if (input.classList.contains('show-bid')) {
+                        //         input.classList.remove('show-bid');
+                        //         $scope.hideCart = false; //Display cart button after item is added to cart
+                        //     }
+                        // }
+                        // Hide alert after 4 secs
+                        // setTimeout(() => {
+                        //     $('autobid').removeClass('animated fadeOut');
+                        //     $scope.autoBid = false;
+                        // }, 4000);
                 } else {
                     // Open login modal if user isn't logged in
                     $('#login-modal').modal('open');
@@ -166,7 +197,7 @@ angular.module('thai')
                         if (window.innerWidth < 993) {
 
                             Materialize.toast('Item added to cart', 1000); //Display toast when item is added to cart
-                            cart.shake(); //shake to cart button
+                            $misc.shake(); //shake to cart button
                         } else {
                             Materialize.toast('Item added to cart', 1000)
                         }

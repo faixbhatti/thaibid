@@ -1,13 +1,18 @@
     'use strict';
 
     angular.module('thai')
-        .factory('Review', Review);
+        .factory('Review', Review)
+        .directive('initStar', function(Review) {
+            return function(scope, element, attrs) {
+                Review.init();
+            }
+        })
 
-    function Review() {
+    function Review(httpService, $user) {
         var review = {
-            clearStars: clearStars,
-            init: init,
-            addReview: addReview,
+            clearStars,
+            init,
+            addReview,
             clickedStar: 0,
             clicked: false
         };
@@ -15,15 +20,31 @@
         return review;
 
         function addReview(review, ctrl) {
+            ctrl.loading = true;
             var stars = document.querySelectorAll('.stars');
-            review.stars = this.clickedStar;
-            if (review.stars < 1) {
-                Materialize.toast('Please rate this product. Click a star!', 1000)
+            let user = $user.getUser();
+            review.ratings = this.clickedStar;
+            if (review.ratings < 1) {
+                Materialize.toast('Please rate this product. Click a star!', 3000)
             } else {
-                ctrl.reviews.push(review);
-                Materialize.toast('Thank you for reviewing this product!', 1000)
-                ctrl.review = {};
-                this.clearStars(stars)
+                httpService
+                    .postUserDetails('product_ratings', user, review, 'post')
+                    .then(res => {
+                        let data = res.data;
+                        if (data.meta.code === 200) {
+                            if (data.data) {
+                                let rating = data.data;
+                                rating.created = {};
+                                rating.created.date = rating.created_at;
+                                Materialize.toast('Thank you for reviewing this product!', 3000)
+                                ctrl.ratings.push(rating);
+                                ctrl.review = {};
+                                this.clearStars(stars)
+                                ctrl.loading = false;
+                            }
+                        }
+                    })
+
             }
         }
 
@@ -66,7 +87,6 @@
                 }
                 obj.clicked = true;
                 obj.clickedStar = value;
-
             }
 
 

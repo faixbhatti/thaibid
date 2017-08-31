@@ -1,10 +1,11 @@
     'use strict';
     angular.module('thai')
-        .factory('cart', cart);
+        .factory('$misc', misc);
 
-    function cart() {
+    function misc() {
         var cartButton = {
-                shake: shake
+                shake,
+                capitalizeText
             }
             ////////////////
         return cartButton
@@ -17,5 +18,10 @@
                 button.classList.remove('rubberBand')
             }
             button.addEventListener('animationend', removeAnimation);
+        }
+
+        function capitalizeText(text) {
+            let newText = text[0].toUpperCase() + text.slice(1);
+            return newText;
         }
     }

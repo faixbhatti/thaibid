@@ -16,8 +16,10 @@
         });
 
     function tabsCtrl($rootScope, $scope, Review, $user) {
-        var ctrl = this,
-            stars;
+        var ctrl = this;
+        let stars;
+        ctrl.spinnerPosition = "absolute";
+        ctrl.loading = false;
 
         ctrl.loggedIn = $user.isAuthenticated();
 
@@ -35,24 +37,21 @@
 
         ctrl.addreview = function() {
             var review = {
-                "image": "/image/matthew.png",
-                "user": $rootScope.username,
-                "date": new Date(),
-                "text": ctrl.review.text,
+                "product_id": ctrl.product.productId,
+                "comments": ctrl.review.text,
             }
             Review.addReview(review, ctrl)
         }
 
-        ctrl.$onInit = () => {
-            Review.init();
+        ctrl.$onInit = function() {
             $('.tabs').tabs();
 
-            function hideBidsTab() {
-                if (ctrl.product.redeemable) {
-                    $('.tabs').tabs('select_tab', 'prod-detail')
-                }
-            }
-            hideBidsTab()
+            // function hideBidsTab() {
+            //     if (ctrl.product.redeemable) {
+            //         $('.tabs').tabs('select_tab', 'prod-detail')
+            //     }
+            // }
+            // hideBidsTab()
 
         }
 

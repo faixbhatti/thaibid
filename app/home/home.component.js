@@ -9,7 +9,7 @@ angular.module('thai')
 function homeCtrl($scope, httpService, $rootScope) {
     const ctrl = this;
     $scope.dataLoading = true;
-    ctrl.spinnerPosition = 'absolute'
+    ctrl.spinnerPosition = 'absolute';
 
     function get() {
         httpService
@@ -18,7 +18,7 @@ function homeCtrl($scope, httpService, $rootScope) {
                 let fetched = data.data;
                 if (fetched.meta.code !== 400) {
                     if (fetched.data) {
-                        $scope.products = fetched.data.data
+                        $scope.products = fetched.data.data;
                         $scope.dataLoading = false;
                         $scope.deals = $scope.products;
                         // $scope.rest = $scope.products.slice(8);
@@ -27,7 +27,7 @@ function homeCtrl($scope, httpService, $rootScope) {
 
             }, (err) => {
 
-            })
+            });
         httpService
             .get('home-slider')
             .then(data => {

@@ -10,7 +10,7 @@ angular
         controller: redeemCtrl
     });
 
-function redeemCtrl(products, $rootScope, $http, httpService) {
+function redeemCtrl($rootScope, $http, httpService) {
     const ctrl = this;
     ctrl.limit = 35;
     ctrl.loading = true;
