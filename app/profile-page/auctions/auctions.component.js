@@ -13,11 +13,14 @@ angular.module('thai')
     });
 
 
-function auctionCtrl(httpService) {
+function auctionCtrl(httpService,$user) {
     const ctrl = this;
+    if($user.getUser()){
+        ctrl.user = $user.getUser();
+    }
 
     ctrl.displayInfo = (info) => {
-        ctrl.user.displayInfo(info)
+        ctrl.user.displayInfo(info);
     };
 
 
@@ -30,12 +33,13 @@ function auctionCtrl(httpService) {
         filter: ''
     };
 
-    function get(abUrl, userInfo, data, command) {
-        return
-    }
+    // function get(abUrl, userInfo, data, command) {
+    //     return
+    // }
 
     ctrl.getAuctions = function (data) {
-        httpService.postUserDetails('auction', ctrl.user, data, 'post')
+        httpService
+            .postUserDetails('auction', ctrl.user, data, 'post')
             .then(res => {
                 let fetched = res.data;
                 if (fetched.meta.code === 200) {
