@@ -24,6 +24,7 @@ angular.module('thai')
             let user;
             if ($user.getUser()) {
                 user = $user.getUser();
+                $scope.user = $user.getUser()
             }
 
             $scope.bidInfo = {};
@@ -39,6 +40,7 @@ angular.module('thai')
                 let id = $routeParams.productId;
                 httpService.get(`product/${id}`).then(function(data) {
                     let product = data.data.data;
+                    console.log(product)
                     $scope.product = product;
                     $scope.maxBid = $scope.product.minimum_bid;
                     $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
@@ -66,11 +68,9 @@ angular.module('thai')
                     .postUserDetails('bidder', user, auctionData, 'patch')
                     .then(data => {
                         let res = data.data;
-                        console.log(res);
                         if (res.meta.code === 200) {
                             if (res.data) {
                                 let bids = res.data;
-                                console.log(bids)
                                 $scope.bids = bids;
                                 bids.forEach(bid => {
                                     $scope.maxBid = bid.bid_amount;
@@ -86,8 +86,7 @@ angular.module('thai')
 
             function getNextbid(amount) {
                 let nextbid = numFilter((10 / 100) * amount, 1);
-                console.log(nextbid)
-                return nextbid
+                return parseInt(nextbid)
             }
 
             $scope.slideRight = () => {
@@ -160,7 +159,6 @@ angular.module('thai')
                         .postUserDetails('bidder', user, bid, 'post')
                         .then((data) => {
                             let res = data.data
-                            console.log(res);
                             Materialize.toast('Bid Placed successfully', 2000);
                             // If window size is mobile or tablet, call the navigator.vibrate() api.
                             if (navigator.vibrate) {
@@ -168,6 +166,8 @@ angular.module('thai')
                             }
                             getAuctionDetails();
                             // updateInfo();
+                        }, () => {
+                            Materialize.toast('An error occured', 3000)
                         })
                         // if (window.innerWidth < 993) {
                         //     // Hide input field after user presses enter or submits

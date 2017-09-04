@@ -60,9 +60,8 @@
                 </div>
 
                 <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>
-                <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>
 
-                <div class="preloader-wrapper active" style="left: 50%" ng-if="loading">
+                <div class="preloader-wrapper loader" ng-class="{active : dataLoading}">
                     <div class="spinner-layer spinner-teal-only">
                         <div class="circle-clipper left">
                             <div class="circle"></div>
@@ -75,23 +74,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <div class="preloader-wrapper loader" ng-class="{active : dataLoading}">
-            <div class="spinner-layer spinner-teal-only">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="gap-patch">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-        </div>
+
 
     </div>
 

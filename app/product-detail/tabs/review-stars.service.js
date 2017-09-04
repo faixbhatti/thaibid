@@ -43,6 +43,9 @@
                                 ctrl.loading = false;
                             }
                         }
+                    }, () => {
+                        ctrl.loading = false;
+                        Materialize.toast('An error occured', 3000)
                     })
 
             }

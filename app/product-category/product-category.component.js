@@ -25,7 +25,8 @@ angular.module('thai')
                     .then(res => {
                         let fetched = res.data;
                         if (fetched.data) {
-                            $scope.products = res.data.data.data;
+                            let products = res.data.data.data;
+                            $scope.products = products.filter(product => !product.pm_is_redeemable);
                             $scope.dataLoading = false;
                         } else {
                             $scope.dataLoading = false;
@@ -37,36 +38,6 @@ angular.module('thai')
             ctrl.setLimit = (value) => {
                 ctrl.limit = value;
             };
-
-            let extras = [{
-                    "id": 21,
-                    "name": "Classic beach wear",
-                    "price": 20.34,
-                    "image": "image/leather-bag.jpg",
-                    "timer": "2017-03-24"
-                },
-                {
-                    "id": 22,
-                    "name": "All black swagger",
-                    "price": 23.53,
-                    "image": "image/men__black-converse.jpeg",
-                    "timer": "2017-03-24"
-                },
-                {
-                    "id": 23,
-                    "name": "Dirty ass shoes",
-                    "price": 44.34,
-                    "image": "image/men__dirty-shoes.jpeg",
-                    "timer": "2017-03-24"
-                },
-                {
-                    "id": 24,
-                    "name": "On a sunny day",
-                    "price": 20.34,
-                    "image": "image/men__mad-shades.jpeg",
-                    "timer": "2017-03-24"
-                }
-            ];
 
             let loading = false;
 

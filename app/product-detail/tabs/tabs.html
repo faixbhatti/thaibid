@@ -2,7 +2,7 @@
     <ul class="tabs tabs-fixed-width teal tabs-transparent">
         <li class="tab" ng-if="!$ctrl.product.redeemable"><a href="#prod-bids" class="tab-link">Bids</a></li>
         <li class="tab"><a href="#prod-detail" class="tab-link">Detail</a></li>
-        <li class="tab"><a href="#prod-reviews" class="tab-link">Reviews</a></li>
+        <li class="tab"><a href="#prod-reviews" class="tab-link" ng-if="!$ctrl.product.redeemable">Reviews</a></li>
     </ul>
     <div id="prod-bids" class="col s12 white" style="min-height: 222px" ng-if="!$ctrl.product.redeemable">
         <bid-table bids="$ctrl.bids"></bid-table>
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div id="prod-reviews" class="col s12 white" style="min-height: 252px">
+    <div id="prod-reviews" class="col s12 white" style="min-height: 252px" ng-if="!$ctrl.product.redeemable">
         <ul class="collection">
             <li class="collection-item avatar item with-avatar" ng-repeat="rating in $ctrl.ratings" style="padding-left: 57px; opacity: 1">
                 <img src="{{rating.image}}" alt="review" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
