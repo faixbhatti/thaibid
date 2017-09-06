@@ -59,7 +59,7 @@
                     </div>
                 </div>
 
-                <product-list products="products" columns="3" limit="$ctrl.limit"></product-list>
+                <product-list products="$ctrl.products" columns="3" limit="$ctrl.limit"></product-list>
 
                 <div class="preloader-wrapper loader" ng-class="{active : dataLoading}">
                     <div class="spinner-layer spinner-teal-only">
@@ -85,7 +85,7 @@
         <all-categories active="category" class="category hide-on-med-and-down"></all-categories>
 
         <div>
-            <app-search-sidebar limit="$ctrl.limit"></app-search-sidebar>
+            <app-search-sidebar products="$ctrl.products"></app-search-sidebar>
         </div>
     </div>
 </div>

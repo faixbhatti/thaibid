@@ -75,44 +75,6 @@ angular.module('thai')
                 $('#invoice-modal').modal('open')
             };
 
-            ctrl.rewards = [{
-                    "id": 6,
-                    "name": "What a view",
-                    "price": 40.14,
-                    "rewards": 3,
-                    "image": "image/sky.jpg",
-                    "timer": "2017-03-25",
-                    "invoice": "BCEDND10",
-                },
-                {
-                    "id": 7,
-                    "name": "Classic All stars unisex sneakers",
-                    "rewards": 3,
-                    "price": 10.32,
-                    "image": "image/starz.jpg",
-                    "timer": "2017-03-24",
-                    "invoice": "ECSFD11"
-                },
-                {
-                    "id": 8,
-                    "name": "Ties Collection",
-                    "rewards": 3,
-                    "price": 20.34,
-                    "image": "image/men__ties.jpeg",
-                    "timer": "2017-03-24",
-                    "invoice": "BCEDND12",
-                },
-                {
-                    "id": 9,
-                    "name": "Beauty in diversity",
-                    "rewards": 3,
-                    "price": 25.90,
-                    "image": "image/pocket.jpeg",
-                    "timer": "2017-03-24",
-                    "invoice": "BVNED23"
-                }
-            ];
-
             // While switching tabs, if user is on mobile or tablet, scroll to the display area
             const scrollToDiv = () => {
                 if (ctrl.inMobile) {
