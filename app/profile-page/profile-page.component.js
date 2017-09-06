@@ -16,21 +16,23 @@ angular.module('thai')
             ctrl.inMobile = $rootScope.inMobile.matches;
             let user = $user.getUser();
             if (user) {
+                $scope.user = user;
                 ngMeta.setTitle(`${user.um_name}'s Profile`, ' | Bidxel.com');
             } else {
                 $location.url('/')
-            }
+            };
 
-            (function get() {
-                httpService
-                    .getUserDetails('userprofile', user)
-                    .then(res => {
-                        let user = httpService.verifyData(res.data);
-                        if (user) {
-                            $scope.user = user[0];
-                        }
-                    })
-            })();
+
+            // (function get() {
+            //     // httpService
+            //     //     .getUserDetails('userprofile', user)
+            //     //     .then(res => {
+            //     //         let user = httpService.verifyData(res.data);
+            //     //         if (user) {
+            //     //             $scope.user = user[0];
+            //     //         }
+            //     //     })
+            // })();
 
             // Templates to assist in switching between tabs in user profile page;
             $scope.templates = {
@@ -127,6 +129,14 @@ angular.module('thai')
                 $scope.template = $scope.templates[tab];
                 // Trigger scrollToDiv() function
                 // if (ctrl.inMobile) scrollToDiv();
+            };
+
+            $rootScope.$on('loggedIn', checkAuthStatus)
+            $rootScope.$on('loggedOut', checkAuthStatus)
+
+            function checkAuthStatus() {
+                $scope.loggedIn = $user.isAuthenticated();
+                $scope.user = $user.getUser();
             };
 
             ctrl.$onInit = () => {

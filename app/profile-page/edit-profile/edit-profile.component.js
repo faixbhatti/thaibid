@@ -13,9 +13,15 @@ angular.module('thai')
         }
     });
 
-function editCtrl($http, $user, httpService) {
+function editCtrl($http, $user, httpService, Upload, $rootScope) {
     var ctrl = this;
     ctrl.user = $user.getUser();
+    ctrl.profileImage = '';
+    const headers = {
+        "xapi": "jwZryAdcrffggf867DnjhjhfRvsfhjs5667",
+        "Id": `${ctrl.user.um_id}`,
+        "Accesstoken": `${ctrl.user.access_token}`
+    }
 
     ctrl.saveProfile = () => {
         let userData = {};
@@ -51,6 +57,39 @@ function editCtrl($http, $user, httpService) {
                 }
             })
     };
+
+    ctrl.uploadImage = () => {
+        if (ctrl.profileImage) {
+            Upload.upload({
+                    url: 'https://officeadm1n.bidxel.com/api/edit-profile-pic',
+                    data: { profile_pic: ctrl.profileImage },
+                    method: 'POST',
+                    headers: headers,
+                })
+                .then(
+                    res => {
+                        let user = httpService.verifyData(res.data);
+                        if (user) {
+                            ctrl.user.profile_image_large = user.profile_image_large;
+                            ctrl.user.profile_image_small = user.profile_image_small;
+                            $user.setUser(ctrl.user);
+                            ctrl.user = $user.getUser();
+                            $rootScope.$broadcast('loggedIn');
+                            Materialize.toast('Profile Image uploaded successfully', 3000);
+                        } else {
+                            Materialize.toast('Error uploading image', 3000)
+                        }
+                    },
+                    () => {
+                        Materialize.toast('Error uploading image', 3000)
+                    },
+                    (evt) => {
+                        ctrl.profileImage.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total))
+                    }
+                )
+        }
+
+    }
     ctrl.goBack = (location) => {
         ctrl.profile.switchTab(location);
     };

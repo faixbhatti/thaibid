@@ -126,8 +126,6 @@
 
         $scope.logout = function() {
             $user.unauthenticate();
-            $rootScope.$broadcast('loggedOut');
-            Materialize.toast("You've successfully logged out", 1000)
         };
 
 

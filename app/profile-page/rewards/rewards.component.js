@@ -13,11 +13,32 @@ angular.module('thai')
         controller: rewardCtrl
     });
 
-function rewardCtrl() {
+function rewardCtrl(httpService, $user) {
 
     const ctrl = this;
+    ctrl.totalPoints = 0;
+    ctrl.user = $user.getUser();
 
     ctrl.selected = [];
+
+    function get(abUrl, userInfo, page) {
+        ctrl.promise = httpService
+            .getUserDetails(abUrl, userInfo, page)
+            .then(res => {
+                let data = httpService.verifyData(res.data)
+                if (data) {
+                    ctrl.orders = data.filter(order => order.order.status === 'delivered')
+                    console.log(ctrl.orders)
+                    ctrl.orders.forEach(reward => {
+                            $ctrl.totalPoints += reward.product.pm_cashback_point
+                        })
+                        // ctrl.query.total = metaData.total;
+                        // ctrl.query.page = metaData.current_page;
+                }
+            })
+    }
+
+    get('order', ctrl.user);
 
     ctrl.query = {
         'order': 'name',
@@ -27,10 +48,6 @@ function rewardCtrl() {
     }
 
     ctrl.$onInit = () => {
-        ctrl.rewards = ctrl.user.rewards;
-        console.log(ctrl.rewards)
-        ctrl.rewards.forEach((reward) => {
-            ctrl.totalPoints += reward.rewards
-        });
+
     }
 };

@@ -30,12 +30,12 @@
                             </tr>
                         </thead>
                         <tbody md-body>
-                            <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="reward in $ctrl.rewards | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
-                                <td md-cell>{{reward.name}}</td>
-                                <td md-cell>{{reward.price | currencyName: 'baht'}}</td>
-                                <td md-cell>{{reward.rewards + 10}}</td>
-                                <td md-cell>{{reward.timer | date}}</td>
-                                <td md-cell> <a href="">#{{reward.invoice}}</a> </td>
+                            <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="reward in $ctrl.orders | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
+                                <td md-cell>{{reward.product.pm_title}}</td>
+                                <td md-cell>{{reward.order.final_payment_amount | currencyName: 'baht'}}</td>
+                                <td md-cell>{{reward.product.pm_cashback_point}}</td>
+                                <td md-cell>{{reward.order.created_at | date}}</td>
+                                <td md-cell> <a href="">{{reward.order.awd_number}}</a> </td>
                             </tr>
 
                             <tr>

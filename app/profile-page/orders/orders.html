@@ -1,8 +1,7 @@
 <div class="card">
     <div class="card-content" style="min-height: 520px; padding: 24px 10px;">
         <div class="">
-            <span class="card-title left green-steel-text"
-                  style="font-size: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase"><i
+            <span class="card-title left green-steel-text" style="font-size: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase"><i
                     class="material-icons green-steel-text left" style="font-size: 30px">assignment</i>Orders</span>
         </div>
 
@@ -19,22 +18,18 @@
                 <div class="md-toolbar-tools">
                     <h2 class="md-title">Filter Orders</h2>
                     <div flex class="flex"></div>
-                    <button class="md-icon-button md-button md-ink-ripple" ng-click="$ctrl.search = true"
-                            aria-label="Search button" type="button">
+                    <button class="md-icon-button md-button md-ink-ripple" ng-click="$ctrl.search = true" aria-label="Search button" type="button">
                         <md-icon class="material-icons">search</md-icon>
                     </button>
                 </div>
             </md-toolbar>
-            <md-toolbar class="md-table-toolbar md-default" ng-show="$ctrl.search && !$ctrl.selected.length"
-                        aria-hidden="false">
+            <md-toolbar class="md-table-toolbar md-default" ng-show="$ctrl.search && !$ctrl.selected.length" aria-hidden="false">
                 <div class="md-toolbar-tools">
                     <md-icon class="material-icons">search</md-icon>
                     <form flex="" name="filterForm" class="flex">
-                        <input type="text" ng-model="$ctrl.query.filter" ng-model-options="filter.options"
-                               placeholder="search" aria-invalid="false">
+                        <input type="text" ng-model="$ctrl.query.filter" ng-model-options="filter.options" placeholder="search" aria-invalid="false">
                     </form>
-                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="$ctrl.removeFilter()"
-                            aria-label="close">
+                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="$ctrl.removeFilter()" aria-label="close">
                         <md-icon class="material-icons">close</md-icon>
                     </button>
                 </div>
@@ -43,76 +38,65 @@
                 <div class="md-toolbar-tools">
                     <span>{{$ctrl.selected.length}} {{$ctrl.selected.length > 1 ? 'items' : 'item'}} selected</span>
                     <div class="flex" flex></div>
-                    <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Return goods"
-                            ng-click="$ctrl.raiseIssue($event)">
+                    <button class="md-icon-button md-button md-ink-ripple" type="button" aria-label="Return goods" ng-click="$ctrl.raiseIssue($event)">
                         <md-icon>assignment_return</md-icon>
                     </button>
                 </div>
             </md-toolbar>
             <md-table-container>
-                <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected"
-                       md-progress="$ctrl.promise">
+                <table md-table md-row-select="false" multiple="false" ng-model="$ctrl.selected" md-progress="$ctrl.promise">
                     <thead md-head md-order="$ctrl.query.order" md-on-reorder="$ctrl.getOrders">
-                    <tr md-row>
-                        <th md-column md-order-by="name"><span class="main-green-text">Product Name</span></th>
-                        <th md-column><span class="main-green-text">Attributes</span></th>
-                        <th md-column md-numeric md-order-by="quantity"><span class="main-green-text">Delivery</span>
-                        </th>
-                        <th md-column md-numeric><span class="main-green-text">Bid Amount</span></th>
-                        <th md-column md-numeric><span class="main-green-text">Shipping Charge</span></th>
-                        <th md-column md-numeric><span class="main-green-text">Discount</span></th>
-                        <th md-column md-numeric><span class="blue-grey-text">Total</span></th>
-                        <th md-column md-numeric><span class="light-green-text">Rewards</span></th>
-                        <th md-column md-numeric>Timestamp</th>
-                        <th md-column>Invoice #</th>
-                        <th md-column>
-                            Request status
-                        </th>
-                        <th md-column>Review</th>
-                        <th md-column>Track</th>
-                    </tr>
+                        <tr md-row>
+                            <th md-column md-order-by="name"><span class="main-green-text">Product Name</span></th>
+                            <th md-column><span class="main-green-text">Attributes</span></th>
+                            <th md-column md-numeric md-order-by="quantity"><span class="main-green-text">Delivery</span>
+                            </th>
+                            <th md-column md-numeric><span class="main-green-text">Bid Amount</span></th>
+                            <th md-column md-numeric><span class="main-green-text">Shipping Charge</span></th>
+                            <th md-column md-numeric><span class="main-green-text">Discount</span></th>
+                            <th md-column md-numeric><span class="blue-grey-text">Total</span></th>
+                            <th md-column md-numeric><span class="light-green-text">Rewards</span></th>
+                            <th md-column md-numeric>Timestamp</th>
+                            <th md-column>Invoice #</th>
+                            <th md-column>
+                                Request status
+                            </th>
+                            <th md-column>Review</th>
+                            <th md-column>Track</th>
+                        </tr>
                     </thead>
                     <tbody md-body>
-                    <tr md-row md-select="order" md-select-id="name" md-auto-select
-                        ng-repeat="order in $ctrl.orders | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
-                        <td md-cell>{{order.product.pm_title}}</td>
-                        <td md-cell>Color: <span class="{{order.color | lowercase}}">{{order.color}}, Size: {{order.size}}</span>
-                        </td>
-                        <td md-cell>{{order.order.delivery_type}}</td>
-                        <td md-cell>{{order.price | currencyName : 'baht'}}</td>
-                        <td md-cell>{{order.order.shipping_charge | currencyName : 'baht'}}</td>
-                        <td md-cell>{{order.order.discount | currencyName: 'baht'}}</td>
-                        <td md-cell>{{order.order.final_payout_amount | currencyName: 'baht'}}</td>
-                        <td md-cell>{{order.rewards}}</td>
-                        <td md-cell>{{order.order.created_at}}</td>
-                        <td md-cell><a href="" ng-click="$ctrl.showInvoice(order)">#{{order.order.awd_number}}</a></td>
-                        <td md-cell>
-                            <span ng-if="order.order.status === 'delivered'" class="red-text pointer"
-                                  ng-click="$ctrl.raiseIssue($event)">Return</span>
-                            <span ng-if="order.order.status === 'pending'" class="red-text pointer"
-                                  ng-click="$ctrl.cancelOrder()">Cancel</span>
-                            <span ng-if="order.order.status === 'cancelled'" class="red-text">Cancelled</span>
-                        </td>
-                        <td md-cell>
-                            <a href="" ng-click="$ctrl.showReviewPrompt(order)" class="" style="font-size: 10px"
-                               ng-if="!order.comment">
-                                <i class="material-icons left" style="font-size: 17px">mode_edit</i> Add Review
-                            </a>
-                            <a href="" ng-click="$ctrl.showReviewPrompt(order)" style="font-size: 10px" class=""
-                               ng-if="order.comment">View<i class="material-icons left"></i></a>
-                        </td>
-                        <td md-cell><span class="green-steel-text">{{order.track}}</span></td>
-                    </tr>
+                        <tr md-row md-select="order" md-select-id="name" md-auto-select ng-repeat="order in $ctrl.orders | orderBy: $ctrl.query.order | limitTo: $ctrl.query.limit | filter: $ctrl.query.filter">
+                            <td md-cell>{{order.product.pm_title}}</td>
+                            <td md-cell>Color: <span class="{{order.color | lowercase}}">{{order.color || 'None'}} Size: {{order.size || 'None'}}</span>
+                            </td>
+                            <td md-cell>{{order.order.delivery_type || 'None'}}</td>
+                            <td md-cell>{{order.price | currencyName : 'baht'}}</td>
+                            <td md-cell>{{order.order.shipping_charge | currencyName : 'baht'}}</td>
+                            <td md-cell>{{order.order.discount | currencyName: 'baht'}}</td>
+                            <td md-cell>{{order.order.final_payout_amount | currencyName: 'baht'}}</td>
+                            <td md-cell>{{order.product.pm_cashback_point}}</td>
+                            <td md-cell>{{order.order.created_at}}</td>
+                            <td md-cell><a href="" ng-click="$ctrl.showInvoice(order)">#{{order.order.awd_number}}</a></td>
+                            <td md-cell>
+                                <span ng-if="order.order.status === 'delivered'" class="red-text pointer" ng-click="$ctrl.raiseIssue($event)">Return</span>
+                                <span ng-if="order.order.status === 'handover'" class="red-text pointer" ng-click="$ctrl.cancelOrder($event, order)">Cancel</span>
+                                <span ng-if="order.order.status === 'cancelled'" class="red-text">Cancelled</span>
+                            </td>
+                            <td md-cell>
+                                <a href="" ng-click="$ctrl.showReviewPrompt(order)" class="" style="font-size: 10px" ng-if="!order.comment">
+                                    <i class="material-icons left" style="font-size: 17px">mode_edit</i> Add Review
+                                </a>
+                                <a href="" ng-click="$ctrl.showReviewPrompt(order)" style="font-size: 10px" class="" ng-if="order.comment">View<i class="material-icons left"></i></a>
+                            </td>
+                            <td md-cell><span class="green-steel-text">{{order.order.tracking_id || 'None'}}</span></td>
+                        </tr>
                     </tbody>
                 </table>
             </md-table-container>
 
-            <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[5, 10, 15, 20] "
-                                 md-page="$ctrl.query.page " md-total="{{$ctrl.query.total}}"
-                                 md-on-paginate="$ctrl.getOrders" md-page-select></md-table-pagination>
-            <p style="text-align: center " class="hide-on-large-only "><i class="material-icons "
-                                                                          style="vertical-align: middle ">touch_app</i>
-                Swipe to scroll through table</p>
+            <md-table-pagination md-limit=" $ctrl.query.limit " md-limit-options="[5, 10, 15, 20] " md-page="$ctrl.query.page " md-total="{{$ctrl.query.total}}" md-on-paginate="$ctrl.getOrders" md-page-select></md-table-pagination>
+            <p style="text-align: center " class="hide-on-large-only "><i class="material-icons " style="vertical-align: middle ">touch_app</i> Swipe to scroll through table</p>
             <p style="text-align: center " class="grey-text ">*NB We will cancel any pending orders after 7 days</p>
         </div>
 

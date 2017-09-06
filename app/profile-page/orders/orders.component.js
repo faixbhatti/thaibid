@@ -64,6 +64,7 @@ function orderCtrl($mdDialog, $user, httpService) {
                 if (fectched.data) {
                     let metaData = fectched.data;
                     ctrl.orders = metaData.data;
+                    console.log(ctrl.orders)
                     ctrl.query.total = metaData.total;
                     ctrl.query.page = metaData.current_page;
                 }
@@ -105,7 +106,7 @@ function orderCtrl($mdDialog, $user, httpService) {
         }, 400);
     };
 
-    ctrl.cancelOrder = function(ev) {
+    ctrl.cancelOrder = function(ev, order) {
         let header = document.querySelector('.navbar-fixed');
         header.style.zIndex = 76;
         // Appending dialog to document.body to cover sidenav in docs app
@@ -119,7 +120,20 @@ function orderCtrl($mdDialog, $user, httpService) {
                 .cancel('Don\'t Cancel');
 
             $mdDialog.show(cancel).then(function() {
-                ctrl.cancelled = true;
+                let complaint = {};
+                complaint.order_item_id = order.order_id;
+                complaint.message = 'Cancelling order of item';
+                httpService
+                    .postUserDetails('order_cancel', ctrl.user, complaint, 'put')
+                    .then(res => {
+                        let response = httpService.verifyData(res.data);
+                        if (response) {
+                            console.log(response);
+                            Materialize.toast('Order cancelled successfully', 2000);
+                        } else {
+                            Materialize.toast('Error completing request', 2000);
+                        }
+                    })
                 header.style.zIndex = 1000;
 
             }, function() {

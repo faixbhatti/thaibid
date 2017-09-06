@@ -15,23 +15,24 @@
                 <div class="col s12">
                     <form action="" enctype="multipart/form-data" class="center">
                         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
-                            <div style="height: 100px; width: 100px; border-radius: 15px; padding: 10px; margin: 20px 20px" class="grey lighten-3 center" ng-show="!profileImage">
+                            <div style="height: 100px; width: 100px; border-radius: 15px; padding: 10px; margin: 20px 20px" class="grey lighten-3 center" ng-show="!$ctrl.profileImage">
                                 <i class="material-icons" style="line-height: 80px; font-size: 35px;">add</i>
                             </div>
-                            <img ngf-src="profileImage" alt="" class="responsive-img" style="width: 100px; height: 100px; border-radius: 15px; margin: 20px">
+                            <img ngf-src="$ctrl.profileImage" alt="" ng-if="$ctrl.profileImage" class="responsive-img" style="width: 100px; height: 100px; border-radius: 15px; margin: 20px">
                             <div>
-                                <div class="md-button md-raised main-green white-text" ngf-select ng-model="profileImage" name="profileImg" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}">Select Image</div>
-                                <div class="md-button md-raised red white-text" ng-click="profileImage=''">Cancel</div>
+                                <div class="md-button md-raised main-green white-text" ngf-select ng-model="$ctrl.profileImage" name="profileImg" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}">Select Image</div>
+                                <div class="md-button md-raised red white-text" ng-click="$ctrl.uploadImage()">Upload</div>
                             </div>
-                            <div class="progress " ng-show="profileImage.progress>= 0">
-                                <div class="determinate" style="width: {{profileImage.progress}}%"></div>
+                            <div id="progress-container">
+                                <div class="progress " ng-show="$ctrl.profileImage.progress>= 0">
+                                    <div class="determinate" style="width: {{$ctrl.profileImage.progress}}%"></div>
+                                </div>
                             </div>
-                            <span ng-show="profileImage.result">Upload Successful</span>
                         </div>
                     </form>
                 </div>
             </div>
-            <form class="col l8 push-l2 m12 s12 " name="editProfileForm" ng-submit="editProfileForm.$valid && $ctrl.saveProfile()" id="editProfileForm" novalidate>
+            <form class="col l8 push-l2 m12 s12 " name="editProfileForm" ng-submit="$ctrl.saveProfile()" id="editProfileForm" novalidate>
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
                         <input id="first_name" type="text" name="firstName" ng-model="$ctrl.user.um_fname" ng-class="{
@@ -150,7 +151,7 @@
                     </div>
                 </div>
 
-                <button class="btn waves-effect waves-light blue center" style="width: 50%; margin: auto; display: block" ng-disabled="editProfileForm.$invalid">
+                <button class="btn waves-effect waves-light blue center" style="width: 50%; margin: auto; display: block">
                     Save Profile
                 </button>
             </form>
