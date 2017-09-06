@@ -7,10 +7,10 @@ angular.module('thai')
     .component('userProfile', {
         templateUrl: 'app/profile-page/profile-page.html',
         controller: function($scope, $location, $rootScope, $anchorScroll, ngMeta, $user, httpService) {
-            const ctrl = this;
+            var ctrl = this;
             $rootScope.showNav = true;
             $rootScope.inDetail = false;
-            $scope.item = '';
+            // $scope.item = '';
             $rootScope.previousPage = `/user/${$scope.name}`;
             $rootScope.inCart = false;
             ctrl.inMobile = $rootScope.inMobile.matches;
@@ -25,11 +25,9 @@ angular.module('thai')
                 httpService
                     .getUserDetails('userprofile', user)
                     .then(res => {
-                        let fetched = res.data;
-                        if (fetched.meta.code === 200) {
-                            if (fetched.data) {
-                                $scope.user = fetched.data[0];
-                            }
+                        let user = httpService.verifyData(res.data);
+                        if (user) {
+                            $scope.user = user[0];
                         }
                     })
             })();
@@ -68,40 +66,6 @@ angular.module('thai')
                 $('#purchase-modal').modal('open');
             };
 
-            ctrl.auctions = [{
-                    "id": 5,
-                    "name": "When it goes down",
-                    "price": 20.34,
-                    "image": "image/pocket.jpg",
-                    "timer": "2017-03-24",
-                    "won": false
-                },
-                {
-                    "id": 6,
-                    "name": "What a view",
-                    "price": 40.14,
-                    "image": "image/sky.jpg",
-                    "timer": "2017-03-25",
-                    "won": true
-                },
-                {
-                    "id": 7,
-                    "name": "Classic All stars unisex sneakers",
-                    "price": 10.32,
-                    "image": "image/starz.jpg",
-                    "timer": "2017-03-24",
-                    "won": false
-                },
-
-                {
-                    "id": 8,
-                    "name": "Ties Collection",
-                    "price": 20.34,
-                    "image": "image/men__ties.jpeg",
-                    "timer": "2017-03-24",
-                    "won": true
-                }
-            ];
 
             // Function to display info about a particular order in the invoice modal
             ctrl.showInvoice = function(item) {
@@ -162,7 +126,7 @@ angular.module('thai')
             ctrl.switchTab = function(tab) {
                 $scope.template = $scope.templates[tab];
                 // Trigger scrollToDiv() function
-                if (ctrl.inMobile) scrollToDiv();
+                // if (ctrl.inMobile) scrollToDiv();
             };
 
             ctrl.$onInit = () => {

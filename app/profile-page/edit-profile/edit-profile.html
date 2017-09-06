@@ -34,7 +34,7 @@
             <form class="col l8 push-l2 m12 s12 " name="editProfileForm" ng-submit="editProfileForm.$valid && $ctrl.saveProfile()" id="editProfileForm" novalidate>
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
-                        <input id="first_name" type="text" name="firstName" ng-model="$ctrl.user.firstName" ng-class="{
+                        <input id="first_name" type="text" name="firstName" ng-model="$ctrl.user.um_fname" ng-class="{
                                  'input-error': editProfileForm.firstName.$touched && editProfileForm.firstName.$invalid
                                }" required>
                         <label for="first_name">First Name</label>
@@ -42,7 +42,7 @@
                         </p>
                     </div>
                     <div class="input-field col l6 m6 s12">
-                        <input id="last_name" type="text" class="validate" name="lastName" ng-model="$ctrl.user.lastName" ng-class="{
+                        <input id="last_name" type="text" class="validate" name="lastName" ng-model="$ctrl.user.um_lname" ng-class="{
                                    'input-error': editProfileForm.lastName.$touched && editProfileForm.lastName.$invalid
                                }" required>
                         <label for="last_name">Last Name</label>
@@ -53,7 +53,7 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="address" type="text" name="address" ng-model="$ctrl.user.address" ng-class="{
+                        <input id="address" type="text" name="address" ng-model="$ctrl.user.um_address" ng-class="{
                                    'input-error': editProfileForm.address.$touched && editProfileForm.address.$invalid
                                }" required>
                         <label for="address">Address</label>
@@ -65,7 +65,7 @@
 
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
-                        <input id="country" type="text" class="autocomplete" name="country" ng-model="$ctrl.user.country" ng-class="{
+                        <input id="country" type="text" class="autocomplete" name="country" ng-model="$ctrl.user.um_country" ng-class="{
                              'input-error': editProfileForm.country.$touched && editProfileForm.country.$invalid
                         }" required>
                         <label for="country">Country</label>
@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="input-field col l6 m6 s12">
-                        <input id="province" type="text" name="province" ng-model="$ctrl.user.province" ng-class="{
+                        <input id="province" type="text" name="province" ng-model="$ctrl.user.um_state" ng-class="{
                              'input-error': editProfileForm.province.$touched && editProfileForm.province.$invalid
                         }" required>
                         <label for="province">Province</label>
@@ -87,7 +87,7 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="email" type="email" name="email" ng-model="$ctrl.user.email" ng-class="{
+                        <input id="email" type="email" name="email" ng-model="$ctrl.user.um_email" ng-class="{
                                   'input-error': editProfileForm.email.$touched && editProfileForm.email.$invalid
                                }" required>
                         <label for="email">Email</label>
@@ -103,7 +103,7 @@
 
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
-                        <input id="district" type="text" name="district" ng-model="$ctrl.user.district" ng-class="{
+                        <input id="district" type="text" name="district" ng-model="$ctrl.user.um_city" ng-class="{
                                     'input-error': editProfileForm.district.$touched && editProfileForm.district.$invalid
                                }" required>
                         <label for="district">District</label>
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="input-field col l6 m6 s12">
-                        <input id="sub-d" type="text" name="subDistrict" ng-model="$ctrl.user.subDistrict" ng-class="{
+                        <input id="sub-d" type="text" name="subDistrict" ng-model="$ctrl.user.sub_district" ng-class="{
                                     'input-error': editProfileForm.subDistrict.$touched && editProfileForm.subDistrict.$invalid
                                }" required>
                         <label for="sub-d">Sub-district</label>
@@ -126,7 +126,7 @@
 
                 <div class="row">
                     <div class="input-field col l6 m6 s12">
-                        <input id="phone" type="text" name="phone" ng-model="$ctrl.user.phone" ng-class="{
+                        <input id="phone" type="text" name="phone" ng-model="$ctrl.user.um_mobile" ng-class="{
                                     'input-error': editProfileForm.phone.$touched && editProfileForm.phone.$invalid
                                }" required>
                         <label for="phone">Phone</label>
@@ -136,7 +136,7 @@
                     </div>
 
                     <div class="input-field col l6 m6 s12">
-                        <select class="icons" id="language" name="language" ng-model="$ctrl.user.language" ng-class="{
+                        <select class="icons" id="language" name="language" ng-model="$ctrl.user.um_language" ng-class="{
                                     'input-error': editProfileForm.language.$touched && editProfileForm.language.$invalid
                                 }" required>
                             <option value="" disabled selected>Choose your option</option>

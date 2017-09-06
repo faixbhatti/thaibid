@@ -23,7 +23,8 @@
             put,
             getUserDetails,
             postUserDetails,
-            search
+            search,
+            verifyData
         };
 
         function post(url, data) {
@@ -53,6 +54,22 @@
                     return $http.post(`${baseUrl}${abUrl}`, data, userConfig);
                 }
             }
+        }
+
+        function verifyData(response) {
+            //Function to verify that the response from the api is actually useful
+            if (response.meta) {
+                if (response.meta.code === 200) {
+                    if (response.data) {
+                        return response.data
+                    }
+                } else {
+                    return false
+                }
+            } else {
+                return false;
+            }
+
         }
 
         function getUserDetails(abUrl, userInfo, page) {

@@ -13,9 +13,9 @@ angular.module('thai')
     });
 
 
-function auctionCtrl(httpService,$user) {
+function auctionCtrl(httpService, $user) {
     const ctrl = this;
-    if($user.getUser()){
+    if ($user.getUser()) {
         ctrl.user = $user.getUser();
     }
 
@@ -37,27 +37,23 @@ function auctionCtrl(httpService,$user) {
     //     return
     // }
 
-    ctrl.getAuctions = function (data) {
+    ctrl.getAuctions = function(data) {
         httpService
             .postUserDetails('auction', ctrl.user, data, 'post')
             .then(res => {
-                let fetched = res.data;
-                if (fetched.meta.code === 200) {
-                    if (fetched.data) {
-                        let metaData = fetched.data;
-                        ctrl.auctions = metaData.data;
-                        ctrl.query.total = metaData.total;
-                        ctrl.query.page = metaData.current_page;
-                    }
+                let data = httpService.verifyData(res.data);
+                if (data) {
+                    let metaData = data;
+                    ctrl.query.total = metaData.total;
+                    ctrl.query.page = metaData.current_page;
                 }
             })
     };
 
-    ctrl.getAuctions({action: 'ACTIVE', paginate: 5});
+    ctrl.getAuctions({ action: 'ACTIVE', paginate: 5 });
 
-    ctrl.$onInit = function () {
-        ctrl.auctions = ctrl.user.auctions;
-        $('.tooltipped').tooltip({delay: 50});
+    ctrl.$onInit = function() {
+        $('.tooltipped').tooltip({ delay: 50 });
         $('.tabs').tabs()
     }
 }

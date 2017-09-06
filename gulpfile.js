@@ -64,7 +64,8 @@ gulp.task('build-app', () =>
     .pipe(order([
         'app.js',
         'app.component.js',
-        'user-service.js'
+        'user-service.js',
+        'http-service'
     ]))
     .pipe(concat('app.bundle.min.js'))
     .pipe(ngAnnotate())

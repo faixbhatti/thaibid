@@ -9,24 +9,54 @@ angular.module('thai')
         templateUrl: 'app/profile-page/edit-profile/edit-profile.html',
         controller: editCtrl,
         require: {
-            user: '^userProfile'
+            profile: '^userProfile'
         }
     });
 
-function editCtrl($http) {
-    const ctrl = this;
-    ctrl.user = {};
+function editCtrl($http, $user, httpService) {
+    var ctrl = this;
+    ctrl.user = $user.getUser();
 
     ctrl.saveProfile = () => {
-        Materialize.toast('Profile saved successfully', 1000)
+        let userData = {};
+        userData.first_name = ctrl.user.um_fname;
+        userData.last_name = ctrl.user.um_lname;
+        userData.address = ctrl.user.um_address;
+        userData.country = ctrl.user.um_country;
+        userData.state = ctrl.user.um_state;
+        userData.city = ctrl.user.um_city;
+        userData.sub_district = ctrl.user.sub_district;
+        userData.language = ctrl.user.um_language;
+        userData.mobile = ctrl.user.um_mobile;
+
+        httpService
+            .postUserDetails('edit-profile', ctrl.user, userData, 'post')
+            .then(data => {
+                let vData = httpService.verifyData(data.data)
+                if (vData) {
+                    ctrl.user.um_fname = userData.first_name;
+                    ctrl.user.um_lname = userData.last_name;
+                    ctrl.user.um_address = userData.address;
+                    ctrl.user.um_country = userData.country;
+                    ctrl.user.um_state = userData.state;
+                    ctrl.user.um_city = userData.city;
+                    ctrl.user.sub_district = userData.sub_district;
+                    ctrl.user.um_language = userData.language;
+                    ctrl.user.um_mobile = userData.mobile;
+                    $user.setUser(ctrl.user);
+                    ctrl.user = $user.getUser();
+                    Materialize.toast('Profile updated successfully', 3000);
+                } else {
+                    Materialize.toast('Error completing request', 3000);
+                }
+            })
     };
     ctrl.goBack = (location) => {
-        ctrl.user.switchTab(location);
+        ctrl.profile.switchTab(location);
     };
 
 
     ctrl.$onInit = function() {
-        ctrl.username = ctrl.user.username;
 
         const url = 'https://restcountries.eu/rest/v2/all',
             data = {};
@@ -42,9 +72,12 @@ function editCtrl($http) {
 
             $('input.autocomplete').autocomplete({
                 "data": data,
-                limit: 15,
+                limit: 45,
                 minLength: 1
             })
+            Materialize.updateTextFields();
+
         });
+
     }
 };

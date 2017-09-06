@@ -7,7 +7,7 @@
         "build": "gulp",
         "build-vendor": "gulp build-vendor",
         "serve": "live-server",
-        "commit": "git add --all && git commit -m \"Implementing API coupled with facebook login\" && git push origin dev-area",
+        "commit": "git add --all && git commit -m \"Finishing dashboard and editing user profile\" && git push origin dev-area",
         "start": "gulp & live-server",
         "deploy": "npm run commit && cd .. && firebase deploy"
     },
