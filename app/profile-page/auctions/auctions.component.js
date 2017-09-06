@@ -52,7 +52,7 @@ function auctionCtrl(httpService, $user) {
 
     ctrl.getAuctions({ action: 'ACTIVE', paginate: 5 });
 
-    ctrl.$onInit = function() {
+    this.$onInit = function() {
         $('.tooltipped').tooltip({ delay: 50 });
         $('.tabs').tabs()
     }

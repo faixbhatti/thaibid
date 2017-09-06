@@ -56,8 +56,7 @@ function editCtrl($http, $user, httpService) {
     };
 
 
-    ctrl.$onInit = function() {
-
+    $(document).ready(function name(params) {
         const url = 'https://restcountries.eu/rest/v2/all',
             data = {};
 
@@ -78,6 +77,8 @@ function editCtrl($http, $user, httpService) {
             Materialize.updateTextFields();
 
         });
+    })
 
-    }
+
+
 };

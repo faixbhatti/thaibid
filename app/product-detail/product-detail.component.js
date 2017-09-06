@@ -222,7 +222,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         $scope.active = index
     };
 
-    this.$onInit = () => {
+    $(document).ready(function() {
         // ELement Initialisation
         $('.materialboxed').materialbox();
         $('select').material_select();
@@ -238,5 +238,5 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         // Scroll to top when page is loaded
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0
-    };
+    })
 };
