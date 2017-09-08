@@ -43,16 +43,9 @@
             Review.addReview(review, ctrl)
         }
 
-        ctrl.$onInit = function() {
+        $(document).ready(() => {
             $('.tabs').tabs();
 
-            // function hideBidsTab() {
-            //     if (ctrl.product.redeemable) {
-            //         $('.tabs').tabs('select_tab', 'prod-detail')
-            //     }
-            // }
-            // hideBidsTab()
-
-        }
+        })
 
     }

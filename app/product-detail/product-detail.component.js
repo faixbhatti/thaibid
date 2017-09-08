@@ -53,7 +53,6 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
             $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
             let title = $misc.capitalizeText($scope.product.product_title);
             ngMeta.setTitle(`${title}`, ' | Bidxel.com');
-            // getAuctionDetails();
             $scope.imgs = $scope.product.images;
             $scope.productImage = $scope.imgs[0];
             $scope.sizes = $scope.product.sizes;
@@ -141,6 +140,14 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
     }
 
     showCart();
+
+    $rootScope.$on('loggedIn', checkAuthStatus)
+    $rootScope.$on('loggedOut', checkAuthStatus)
+
+
+    function checkAuthStatus() {
+        $scope.loggedIn = $user.isAuthenticated();
+    };
 
     //Scroll to bid history position on window 
     $scope.bidHistory = function() {

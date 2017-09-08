@@ -32,16 +32,11 @@
                     .then(res => {
                         let data = res.data;
                         if (data.meta.code === 200) {
-                            if (data.data) {
-                                let rating = data.data;
-                                rating.created = {};
-                                rating.created.date = rating.created_at;
-                                Materialize.toast('Thank you for reviewing this product!', 3000)
-                                ctrl.ratings.push(rating);
-                                ctrl.review = {};
-                                this.clearStars(stars)
-                                ctrl.loading = false;
-                            }
+                            Materialize.toast(`${data.meta.message}`, 3000)
+                            ctrl.ratings.push(rating);
+                            ctrl.review = {};
+                            this.clearStars(stars)
+                            ctrl.loading = false;
                         }
                     }, () => {
                         ctrl.loading = false;

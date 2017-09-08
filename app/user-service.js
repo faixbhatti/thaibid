@@ -64,7 +64,6 @@
         }
 
         function isAuthenticated() {
-
             return !!localStorage.authUser;
         }
 
