@@ -137,14 +137,10 @@
                     </div>
 
                     <div class="input-field col l6 m6 s12">
-                        <select class="icons" id="language" name="language" ng-model="$ctrl.user.um_language" ng-class="{
-                                    'input-error': editProfileForm.language.$touched && editProfileForm.language.$invalid
-                                }" required>
-                            <option value="" disabled selected>Choose your option</option>
-                            <option value="english" data-icon="image/uk.png" class="circle">English</option>
-                            <option value="thai" data-icon="image/thai.png" class="circle">Thai</option>
-                        </select>
-                        <label for="language">Language</label>
+                        <md-select ng-model="$ctrl.user.um_mobile" placeholder="Language" class="md-no-underline">
+                            <md-option value="english">English</md-option>
+                            <md-option value="thai">Thai</md-option>
+                        </md-select>
                         <p class="field-error" ng-if="editProfileForm.language.$error.required && editProfileForm.language.$touched">
                             Please select a language option
                         </p>

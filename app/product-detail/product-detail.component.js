@@ -25,13 +25,14 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
     $scope.loggedIn = $user.isAuthenticated();
     $scope.bids = [];
     let numFilter = $filter('number');
+    let isBidding = false;
     let user;
     if ($user.getUser()) {
         user = $user.getUser();
         $scope.user = $user.getUser()
     }
 
-    $scope.bidInfo = {};
+    ctrl.bidInfo = {};
     let input = document.querySelector('#amount');
     ctrl.observed = false;
     ctrl.spinnerPosition = 'absolute';
@@ -44,24 +45,44 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         let id = $routeParams.productId;
         httpService.get(`product/${id}`).then(function(data) {
             let product = data.data.data;
-            console.log(product)
             $scope.product = product;
+            ctrl.remaining_time = $scope.product.auctions.remaining_time;
+            ctrl.productId = $scope.product.productId;
+            ctrl.auctionId = $scope.product.auctions.auctionId;
             $scope.maxBid = $scope.product.minimum_bid;
             $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
             let title = $misc.capitalizeText($scope.product.product_title);
             ngMeta.setTitle(`${title}`, ' | Bidxel.com');
-            getAuctionDetails();
+            // getAuctionDetails();
             $scope.imgs = $scope.product.images;
             $scope.productImage = $scope.imgs[0];
             $scope.sizes = $scope.product.sizes;
             $scope.colors = $scope.product.colors;
             $scope.ratings = $scope.product.ratings;
+            $scope.relatedProducts = $scope.product.related_products;
             $scope.loading = false;
         });
         $scope.page = 1;
     }
 
     get();
+
+    function autoBid() {
+        let auctionData = {
+            auctionId: $scope.product.auctions.auctionId,
+            productId: $scope.product.productId
+        };
+        httpService
+            .postUserDetails('product-auto-bid', user, auctionData, 'put')
+            .then(res => {
+                if (res.data.meta) {
+                    if (res.data.meta.code === 200) {
+                        isBidding = false;
+                        getAuctionDetails();
+                    }
+                }
+            })
+    }
 
     function getAuctionDetails() {
         let auctionData = {
@@ -76,10 +97,10 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                     if (res.data) {
                         let bids = res.data;
                         $scope.bids = bids;
-                        bids.forEach(bid => {
-                            $scope.maxBid = bid.bid_amount;
-                            $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
-                        })
+                        $scope.maxBid = bids[0].bid_amount;
+                        $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid
+
+                        if (isBidding) autoBid();
                     } else {
                         $scope.maxBid = $scope.product.minimum_bid;
                         $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
@@ -168,6 +189,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                     if (navigator.vibrate) {
                         navigator.vibrate(200)
                     }
+                    isBidding = true;
                     getAuctionDetails();
                     // updateInfo();
                 }, () => {

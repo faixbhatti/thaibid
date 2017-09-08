@@ -1,4 +1,6 @@
-<timer countdown="$ctrl.time" interval="1000" finish-callback="$ctrl.restartTimer" class="timer right">
+<timer countdown="57" interval="1000" finish-callback="$ctrl.restartTimer()" class="timer right">
     {{millis| date:'mm:ss'}}
     <i class="material-icons left" id="time-icon">timer</i>
 </timer>
+
+<!-- <timer countdown="30" interval="1000">{{countdown}} sec{{secondsS}} </timer> -->

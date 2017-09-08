@@ -8,10 +8,12 @@
         .component('countdownTimer', {
             templateUrl: 'app/product-detail/countdown-timer/countdown-timer.html',
             controller: timerCtrl,
+            require: {
+                product: '^productDetail'
+            },
             bindings: {
                 time: '<',
                 bidInfo: '=',
-                product: '<',
                 clear: '='
             },
         });
@@ -23,26 +25,28 @@
         ctrl.restartTimer = function() {
             ctrl.clear = true;
             // Materialize.toast('Auction has ended. Check your inbox to confirm if you won the auction', 5000, 'rounded')
-            if(ctrl.bidInfo.productSize && ctrl.bidInfo.productColor){
-                let bidInfo = {}
-                bidInfo.color = ctrl.bidInfo.productColor;
-                bidInfo.size = ctrl.bidInfo.productSize;
-                bidInfo.productId = ctrl.product.productId;
-                bidInfo.auctionId = ctrl.product.auctions.auctionId;
-            httpService
-                .postUserDetails('product-end-auction',ctrl.user, bidInfo, 'put')
-                .then(data => {
-                    let res = data.data
-                    console.log(res.data)
-                    Materialize.toast('Auction ended', 2000)
-                }, () => {
-                    Materialize.toast("An error occured. Please try again", 3000);
-                })
-                // ctrl.clear = false;
-                // $scope.$broadcast('timer-reset');
-                // $scope.$broadcast('timer-start');
-            }
-            else{
+            if (ctrl.product.bidInfo.productSize && ctrl.product.bidInfo.productColor) {
+                let bidInfo = {
+                    color: ctrl.product.bidInfo.productColor,
+                    size: ctrl.product.bidInfo.productSize,
+                    productId: ctrl.product.productId,
+                    auctionId: ctrl.product.auctionId
+                }
+
+                httpService
+                    .postUserDetails('product-end-auction', ctrl.user, bidInfo, 'put')
+                    .then(data => {
+                        let res = httpService.verifyData(data.data);
+                        if (res) {
+                            Materialize.toast(`${data.data.meta.message}`, 3000)
+                        } else {
+                            Materialize.toast("An error occured. Please try again", 3000);
+                        }
+                    })
+                    // ctrl.clear = false;
+                    // $scope.$broadcast('timer-reset');
+                    // $scope.$broadcast('timer-start');
+            } else {
                 Materialize.toast("Please select product size and color", 2000)
             }
         };
@@ -79,8 +83,9 @@
         // })
 
         ////////////////
+        ctrl.$onInit = function() {
+            ctrl.timeLeft = ctrl.product.remaining_time
+            console.log(ctrl.product)
+        }
 
-        ctrl.onInit = function() {};
-        ctrl.onChanges = function(changesObj) {};
-        ctrl.onDestory = function() {};
     }
