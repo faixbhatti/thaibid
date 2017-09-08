@@ -33,7 +33,10 @@
                         let data = res.data;
                         if (data.meta.code === 200) {
                             Materialize.toast(`${data.meta.message}`, 3000)
-                            ctrl.ratings.push(rating);
+                            review.created = {
+                                date: new Date()
+                            };
+                            ctrl.ratings.push(review);
                             ctrl.review = {};
                             this.clearStars(stars)
                             ctrl.loading = false;
