@@ -7,7 +7,7 @@
 
     httpService.$inject = ['$http'];
 
-    function httpService($http, $user) {
+    function httpService($http, $user, $rootScope) {
         const config = {
             headers: {
                 "xapi": "jwZryAdcrffggf867DnjhjhfRvsfhjs5667"
@@ -67,8 +67,12 @@
                     return false
                 }
             } else {
+                $user.unauthenticate();
+                $rootScope.broadcast('loggedOut');
+                Materialize.toast('Your session has expired, please log-in', 8000);
                 return false;
             }
+
 
         }
 

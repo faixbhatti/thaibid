@@ -37,8 +37,8 @@
     <div id="prod-reviews" class="col s12 white" style="min-height: 252px" ng-if="!$ctrl.product.redeemable">
         <ul class="collection">
             <li class="collection-item avatar item with-avatar" ng-repeat="rating in $ctrl.ratings" style="padding-left: 57px; opacity: 1">
-                <img src="{{rating.image}}" alt="review" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
-                <span class="black-text" style="font-size: 16px; opacity: 0.7"> <span style="font-size: 15px; font-weight: 700">{{review.user}} </span> <span style="margin-left: 10px"><i class="material-icons teal-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val <= rating.ratings">star</i><i class="material-icons grey-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val > rating.ratings">star</i></span>                </span>
+                <img src="{{rating.user_profile_image}}" alt="review" class="circle" style="opacity: 1; left: 0; height:50px; width:50px">
+                <span class="black-text" style="font-size: 16px; opacity: 0.7"> <span style="font-size: 15px; font-weight: 700">{{review.user_name}} </span> <span style="margin-left: 10px"><i class="material-icons teal-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val <= rating.ratings">star</i><i class="material-icons grey-text review-stars" ng-repeat="val in [1,2,3,4,5]" ng-if="val > rating.ratings">star</i></span>                </span>
                 <blockquote style="border-left: 2px solid teal; padding-left: 0.6rem; margin: 2px 0"><span style="opacity: 0.5; font-size: 12px">{{rating.created.date | date}}</span></blockquote>
                 <p class="item-subtitle grey-text" style="font-size: 15px; opacity: 0.8">
                     {{rating.comments}}

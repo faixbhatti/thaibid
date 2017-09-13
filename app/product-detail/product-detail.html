@@ -62,9 +62,6 @@
 
             <div class="row" style="margin-bottom: 5px">
                 <div class="col l6 m6 s6">
-                    <!---- Product Owner ------>
-                    <p class="prod-owner">by <span style="text-decoration: underline;"><i>Uri Mackov</i></span></p>
-                    <!---- /Product Owner ------>
                     <!---- Ratings -------->
                     <!--
                     <p class="ratings"><i class="material-icons teal-text" ng-repeat="icon in [1,2,3,4,5]">star</i> {{product.price | limitTo: 2}}{{product.price | limitTo: 2 : 3}} Users</p>
@@ -108,7 +105,7 @@
 
                     <div class="col s12" style="padding: 0 0; display: flex" ng-if="!product.redeemable">
                         <!---- Prices (Actual/Leading) ------>
-                        <p class="actual-holder"><span class="price-text">Highest Bid</span><br>
+                        <p class="actual-holder"><span class="price-text">Current Bid</span><br>
                             <span class="price">{{maxBid | currency : '฿'}}</span>
                         </p>
                         <p class="leading-holder"><span class="price-text">Next bid</span><br>
@@ -123,7 +120,8 @@
                             <span class="price pnts">{{product.redeem_point}} <span> points</span> </span>
                         </p>
                         <p class="leading-holder"><span class="price-text">Your Points</span><br>
-                            <span class="price pnts">{{user.um_default_amount}}</span>
+                            <span class="price pnts" ng-if="loggedIn">{{user.um_default_amount}}</span>
+                            <span class="price pnts" ng-if="!loggedIn">Please Log In</span>
                         </p>
                         <!--- /Prices -->
                     </div>
@@ -135,13 +133,14 @@
                         <p class="bid-winner">
                             <i class="material-icons blue-text left">stars</i> Current Winner <br>
                             <div>
-                                John Smith {{product.price + 10 | currency : '฿'}}
+                                {{currentWinner}} {{maxBid | currency : '฿'}}
                             </div>
                         </p>
                     </div>
                     <div ng-if="product.redeemable">
                         <p class="description-text blue-text">User Points</p>
-                        Points: {{user.um_default_amount}}
+                        <span ng-if="loggedIn">Points: {{user.um_default_amount}}</span>
+                        <span ng-if="!loggedIn">Please Log-in</span>
                     </div>
                 </div>
 
@@ -199,7 +198,7 @@
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
 
-                                    <div class="input-field col l3 m3 s6">
+                                    <div class="input-field col l3 m6 s12">
                                         <md-button class="md-raised main-green white-text" ng-if="!product.redeemable" ng-click="bid()" type="submit">Bid</md-button>
                                         <md-button class="md-raised md-primary" ng-if="product.redeemable === 1" ng-click="" type="button">Redeem Now</md-button>
                                         <!--<md-button class="md-raised md-primary" ng-if="product.redeemable === 1" ng-click="addToCart(product)" type="button">Add to Cart</md-button>-->

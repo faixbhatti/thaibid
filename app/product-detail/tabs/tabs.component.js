@@ -43,9 +43,7 @@
             Review.addReview(review, ctrl)
         }
 
-        $(document).ready(() => {
-            $('.tabs').tabs();
-
+        $(document).ready(function() {
+            setTimeout(() => $('.tabs').tabs(), 2000);
         })
-
     }
