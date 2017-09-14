@@ -7,7 +7,7 @@
 angular.module('thai')
     .component('userOrders', {
         require: {
-            user: '^userProfile'
+            userProfile: '^userProfile'
         },
         templateUrl: 'app/profile-page/orders/orders.html',
         controller: orderCtrl,
@@ -15,14 +15,11 @@ angular.module('thai')
     })
     .controller('addItemController', function($mdDialog, $scope, $mdToast) {
 
-
         $scope.hide = () => {
             let header = document.querySelector('.navbar-fixed');
             header.style.zIndex = 997;
             $mdDialog.hide();
         };
-
-
 
         $scope.submitComplaint = () => {
             $scope.hide();
@@ -53,7 +50,7 @@ function orderCtrl($mdDialog, $user, httpService) {
     };
 
     ctrl.showInvoice = (invoice) => {
-        ctrl.user.showInvoice(invoice);
+        ctrl.userProfile.showInvoice(invoice);
     };
 
     function get(abUrl, userInfo, page) {
@@ -64,7 +61,6 @@ function orderCtrl($mdDialog, $user, httpService) {
                 if (fectched.data) {
                     let metaData = fectched.data;
                     ctrl.orders = metaData.data;
-                    console.log(ctrl.orders)
                     ctrl.query.total = metaData.total;
                     ctrl.query.page = metaData.current_page;
                 }
@@ -185,9 +181,7 @@ function orderCtrl($mdDialog, $user, httpService) {
         get('order', ctrl.user, page)
     }
 
-    ctrl.logItem = (item) => {
-        console.log(item, 'was clicked')
-    }
+    ctrl.logItem = (item) => {}
 
     ctrl.$onInit = () => {
         ctrl.loading = false;

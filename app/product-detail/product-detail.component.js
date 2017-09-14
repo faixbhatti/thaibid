@@ -27,6 +27,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
     $scope.bids = [];
     let numFilter = $filter('number');
     let isBidding = false;
+    let auctionCaller;
     let user;
     if ($user.getUser()) {
         user = $scope.user = $user.getUser();
@@ -60,11 +61,21 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
             $scope.ratings = $scope.product.ratings;
             $scope.relatedProducts = $scope.product.related_products;
             $scope.loading = false;
+            ctrl.getAuctionDetails()
+            auctionCaller = setAuctionInterval();
         });
         $scope.page = 1;
     }
 
     get();
+
+    function setAuctionInterval() {
+        if (!$scope.product.redeemable) {
+            return setInterval(() => {
+                ctrl.getAuctionDetails()
+            }, 2000);
+        }
+    }
 
     ctrl.getAuctionDetails = function() {
         let auctionData = {
@@ -78,13 +89,10 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                 if (res.meta.code === 200) {
                     if (res.data) {
                         let bids = res.data;
-
-                        $scope.bids = [...bids];
+                        $scope.bids = containsNewData($scope.bids, bids) ? $scope.bids : bids;
                         $scope.currentWinner = bids[0].user_name;
                         $scope.maxBid = ctrl.maxBid = bids[0].bid_amount;
                         $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid
-
-                        // if (isBidding) autoBid();    
                     } else {
                         $scope.maxBid = $scope.product.minimum_bid;
                         $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
@@ -93,7 +101,12 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
             })
     }
 
-    let auctionCaller = setInterval(() => ctrl.getAuctionDetails(), 2000);
+    function containsNewData(oldData, newData) {
+        newData.$$hashKey = oldData.$$hashKey;
+        console.log(JSON.stringify(oldData) === JSON.stringify(newData))
+        console.log(JSON.stringify(oldData), JSON.stringify(newData))
+        return JSON.stringify(oldData) === JSON.stringify(newData);
+    }
 
     function getNextbid(amount) {
         if (amount < 1) return amount + 10;
@@ -185,6 +198,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                     productId: $scope.product.productId,
                     BidAmount: $scope.nextBid
                 }
+                console.log($scope.nextBid)
                 httpService
                     .postUserDetails('bidder', user, bid, 'post')
                     .then((data) => {
@@ -197,7 +211,6 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                             }
                             isBidding = true;
                             ctrl.getAuctionDetails();
-                            restartTimer();
                         }
                     }, err => {
                         Materialize.toast('An error occured', 3000)

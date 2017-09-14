@@ -11,7 +11,7 @@
         <div class="card-content">
             <p class="card-title black-text truncate" style="font-size: 13px; font-weight: 700"> {{product.pm_title}}</p>
             <span class="subheader grey-text text-darken-2 card-time-text">{{product.pm_minimumbid | currency : '฿'}}
-            <timer class="right prod-timer" countdown="$ctrl.time" interval="1000" finish-callback="$ctrl.restartTimer()">
+            <timer class="right prod-timer" countdown="product.auctions.remaining_time" interval="1000" finish-callback="$ctrl.restartTimer()">
                 <i class="material-icons left red-text hide timer-icon hide-on-small-and-down" style="vertical-align: middle">timer</i>
                 {{millis | date:'mm:ss'}}
                 </timer>

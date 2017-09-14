@@ -18,7 +18,7 @@
             },
         });
 
-    function timerCtrl($scope, httpService, $user) {
+    function timerCtrl($scope, httpService, $user, $rootScope) {
         var ctrl = this;
         ctrl.user = $user.getUser()
         ctrl.timeLeft = 57;
@@ -64,9 +64,8 @@
                     let response = httpService.verifyData(res.data);
                     if (response) {
                         // isBidding = false;
-                        Materialize.toast('New bid been placed. Timer is restarting', 4000);
+                        Materialize.toast('New bid been placed.', 4000);
                         ctrl.product.getAuctionDetails();
-                        restartTimer();
                     }
                 })
         }

@@ -272,7 +272,7 @@
                 <ul class="dropdown-content" id="cart">
                     <li ng-repeat="item in itemsInCart" ng-show="itemsInCart.length" class="cart-items">
                         <a style="display: inline-flex; width: 100%; cursor: unset"><img ng-src="{{item.image}}" alt="" class="circle dropdown-img">
-                            <p class="black-text">{{item.name}} - <span ng-if="item.is_redeemable">{{item.points}}p</span> <span class="blue-grey-text" ng-if="!item.is_redeemable">{{item.price | currency: '฿'}}</span>
+                            <p class="black-text">{{item.product.pm_title}} - <span ng-if="item.is_redeemable">{{item.points}}p</span> <span class="blue-grey-text" ng-if="!item.is_redeemable">{{item.price | currency: '฿'}}</span>
                             </p>
                         </a>
                         <i class="material-icons right waves-effect waves-light cart-del" ng-class="{'red-text': !hasDeleted, 'grey-text': hasDeleted}" ng-click="removeFromCart($index, itemsInCart)">delete_forever</i>

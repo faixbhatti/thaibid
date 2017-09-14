@@ -5,7 +5,7 @@
         .module('thai')
         .factory('httpService', httpService);
 
-    httpService.$inject = ['$http'];
+    httpService.$inject = ['$http', '$user', '$rootScope'];
 
     function httpService($http, $user, $rootScope) {
         const config = {
@@ -37,6 +37,7 @@
 
         function postUserDetails(abUrl, userInfo, data, command) {
             if (userInfo) {
+                console.log(userInfo)
                 let userConfig = {
                     headers: {
                         "xapi": "jwZryAdcrffggf867DnjhjhfRvsfhjs5667",
@@ -68,8 +69,9 @@
                 }
             } else {
                 $user.unauthenticate();
-                $rootScope.broadcast('loggedOut');
+                $rootScope.$broadcast('loggedOut');
                 Materialize.toast('Your session has expired, please log-in', 8000);
+                $('#login-modal').modal('open');
                 return false;
             }
 

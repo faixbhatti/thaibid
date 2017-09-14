@@ -8,7 +8,7 @@ angular.module('thai')
         templateUrl: 'app/profile-page/auctions/auctions.html',
         controller: auctionCtrl,
         require: {
-            user: '^userProfile'
+            userProfile: '^userProfile'
         }
     });
 
@@ -20,7 +20,7 @@ function auctionCtrl(httpService, $user) {
     }
 
     ctrl.displayInfo = (info) => {
-        ctrl.user.displayInfo(info);
+        ctrl.userProfile.displayInfo(info);
     };
 
 
