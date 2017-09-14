@@ -6,22 +6,22 @@
     </li>
     <li class="collection-item">
         <p class="input-field inline">
-            <input name="grp3" type="checkbox" id="new" ng-click="$ctrl.setLimit(4)" ng-checked="$ctrl.clicked" /> <label for="new" class="black-text"> New Product</label>
+            <input name="grp3" type="checkbox" id="new" ng-click="$ctrl.timeFilters('new')" ng-checked="$ctrl.currentFilter === 'new'" /> <label for="new" class="black-text"> New Product</label>
         </p>
     </li>
     <li class="collection-item">
         <p class="input-field inline">
-            <input name="grp2" type="checkbox" id="use" ng-click="$ctrl.setLimit(2)" ng-checked="$ctrl.clicked" /> <label for="use" class="black-text">Latest</label>
+            <input name="grp2" type="checkbox" id="use" ng-click="$ctrl.timeFilters('latest')" ng-checked="$ctrl.currentFilter === 'latest'" /> <label for="use" class="black-text">Latest</label>
         </p>
     </li>
     <li class="collection-item">
         <p class="input-field inline">
-            <input name="group1" type="checkbox" id="dis" ng-click="$ctrl.setLimit(3)" ng-checked="$ctrl.clicked" /> <label for="dis" class="black-text">Popular</label>
+            <input name="group1" type="checkbox" id="dis" ng-click="$ctrl.timeFilters('popular')" ng-checked="$ctrl.currentFilter === 'popular'" /> <label for="dis" class="black-text">Popular</label>
         </p>
     </li>
     <li class="collection-item">
         <p class="input-field inline">
-            <input name="grp4" type="checkbox" id="ship" ng-click="$ctrl.setLimit(1)" ng-checked="$ctrl.clicked" /> <label for="ship" class="black-text">Old</label>
+            <input name="grp4" type="checkbox" id="ship" ng-click="$ctrl.timeFilters('old')" ng-checked="$ctrl.currentFilter === 'old'" /> <label for="ship" class="black-text">Old</label>
         </p>
     </li>
     <li class="collection-header teal-text text-darken-3" style="padding: 5px 10px;">Price Range</li>

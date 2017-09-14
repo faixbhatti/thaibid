@@ -2,11 +2,10 @@
 <div class="card">
     <div class="card-content" style="min-height: 500px">
         <div class="">
-            <span class="card-title left grey-silver-text"
-                  style="font-size: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase"><i
+            <span class="card-title left grey-silver-text" style="font-size: 16px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase"><i
                     class="material-icons grey-silver-text left" style="font-size: 30px">shopping_cart</i>Cart</span>
             <p class="right">
-                <input type="checkbox" class="filled-in center" id="clear-orders"/>
+                <input type="checkbox" class="filled-in center" id="clear-orders" />
                 <label for="clear-orders">Clear all</label>
             </p>
         </div>
@@ -23,19 +22,13 @@
             </div>
             <div ng-if="$ctrl.cart.length">
                 <ul class="collection">
-                    <li class="collection-item avatar item with-avatar" ng-repeat="item in $ctrl.cart | limitTo: 5"
-                        style="padding-left: 55px;">
-                        <img src="{{item.image}}" alt="{{item.product.pm_title}}" class="circle"
-                             style="left: 10px; height:40px; width:40px">
+                    <li class="collection-item avatar item with-avatar" ng-repeat="item in $ctrl.cart | limitTo: 5" style="padding-left: 55px;">
+                        <img src="{{item.product.images[0].image_small}}" alt="{{item.product.pm_title}}" class="circle" style="left: 10px; height:40px; width:40px">
                         <div>
-                            <p class="secondary-content right" style="position: unset; margin: 0 5px;"><i
-                                    class="material-icons red-text lighten-2"
-                                    ng-click="$ctrl.removeFromCart($index)">delete</i></p>
+                            <p class="secondary-content right" style="position: unset; margin: 0 5px;"><i class="material-icons red-text lighten-2" ng-click="$ctrl.removeFromCart($index)">delete</i></p>
 
-                            <span class="black-text truncate"
-                                  style="font-size: 15px; font-weight: 500; letter-spacing: 0; opacity: 0.9">{{item.product.pm_title}}</span>
-                            <p class="item-subtitle black-text"
-                               style="font-size: 13px; font-weight: 400; opacity: 0.80">
+                            <span class="black-text truncate" style="font-size: 15px; font-weight: 500; letter-spacing: 0; opacity: 0.9">{{item.product.pm_title}}</span>
+                            <p class="item-subtitle black-text" style="font-size: 13px; font-weight: 400; opacity: 0.80">
                                 {{item.product.pm_final_price | currency: '฿'}}</p>
                         </div>
                     </li>

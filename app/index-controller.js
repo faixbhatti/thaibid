@@ -68,8 +68,21 @@
             httpService
                 .get('category')
                 .then(res => {
-                    console.log(res.data)
-                    $scope.categories = res.data.data
+                    let data = httpService.verifyData(res.data);
+                    if (data) {
+                        $scope.categories = data;
+                        localStorage.setItem('categories', JSON.stringify($scope.categories))
+
+                    }
+                })
+            httpService
+                .getUserDetails('cart', $scope.user)
+                .then(res => {
+                    let fectched = httpService.verifyData(res.data);
+                    if (fectched) {
+                        $scope.cart = fectched;
+                        localStorage.setItem('cart', JSON.stringify($scope.cart))
+                    }
                 })
         })()
 

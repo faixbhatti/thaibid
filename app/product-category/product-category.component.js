@@ -14,6 +14,7 @@ angular.module('thai')
             $scope.category = $routeParams.category;
             $rootScope.previousPage = `/category/${$scope.category}`;
             const mql = $rootScope.inMobile;
+            $scope.categoryUrl = $rootScope.previousPage;
 
             ngMeta.setTitle(`${$misc.capitalizeText($scope.category)} Category`, ' | Bidxel.com');
 
@@ -26,7 +27,7 @@ angular.module('thai')
                         let fetched = res.data;
                         if (fetched.data) {
                             let products = res.data.data.data;
-                            $scope.products = products.filter(product => !product.pm_is_redeemable);
+                            ctrl.products = products.filter(product => !product.pm_is_redeemable);
                             $scope.dataLoading = false;
                         } else {
                             $scope.dataLoading = false;

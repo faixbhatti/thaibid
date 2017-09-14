@@ -27,10 +27,14 @@ function rewardCtrl(httpService, $user) {
             .then(res => {
                 let data = httpService.verifyData(res.data)
                 if (data) {
-                    ctrl.orders = data.filter(order => order.order.status === 'delivered')
+                    console.log(data)
+                    let meta = data.data;
+                    console.log(meta)
+                    window.orders = meta;
+                    ctrl.orders = meta.filter(order => order.order.status === 'delivered')
                     console.log(ctrl.orders)
                     ctrl.orders.forEach(reward => {
-                            $ctrl.totalPoints += reward.product.pm_cashback_point
+                            ctrl.totalPoints += reward.product.pm_cashback_point
                         })
                         // ctrl.query.total = metaData.total;
                         // ctrl.query.page = metaData.current_page;

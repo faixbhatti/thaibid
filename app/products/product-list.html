@@ -3,7 +3,7 @@
     <div class="card product-shadow hoverable prod-card" style="cursor: pointer;" ng-click="$ctrl.viewProduct(product.pm_slug)">
         <div class="card-image prod-card-img" style="min-height: 117px">
             <!--<a data-thumbnail="{{product.images[0].image_small}}" class="progressive replace">-->
-                <img src="" alt="{{product.pm_title}}" class="responsive-img preview prod-img" style="height: 70%" lazy-load placehold="{{product.images[1].image_small}}">
+            <img src="" alt="{{product.pm_title}}" class="responsive-img preview prod-img" style="height: 70%" lazy-load placehold="{{product.images[0].image_large}}">
             <!--</a>-->
             <a class="btn-floating halfway-fab waves-effect waves-dark main-green" name="{{product.pm_title}}"><i
                         class="material-icons">gavel</i></a>
@@ -11,7 +11,7 @@
         <div class="card-content">
             <p class="card-title black-text truncate" style="font-size: 13px; font-weight: 700"> {{product.pm_title}}</p>
             <span class="subheader grey-text text-darken-2 card-time-text">{{product.pm_minimumbid | currency : '฿'}}
-            <timer class="right prod-timer" countdown="$ctrl.time" interval="1000" finish-callback="$ctrl.restartTimer()">
+            <timer class="right prod-timer" countdown="product.auctions.remaining_time" interval="1000" finish-callback="$ctrl.restartTimer()">
                 <i class="material-icons left red-text hide timer-icon hide-on-small-and-down" style="vertical-align: middle">timer</i>
                 {{millis | date:'mm:ss'}}
                 </timer>

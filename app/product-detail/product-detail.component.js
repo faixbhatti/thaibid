@@ -14,6 +14,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
     $scope.loading = true;
     $scope.showDiv = false;
     $scope.newBid = false;
+    $scope.nextBid = 0;
     $scope.timeLeft = 30;
     $rootScope.showNav = true;
     $rootScope.inCart = false;
@@ -25,13 +26,14 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
     $scope.loggedIn = $user.isAuthenticated();
     $scope.bids = [];
     let numFilter = $filter('number');
+    let isBidding = false;
+    let auctionCaller;
     let user;
     if ($user.getUser()) {
-        user = $user.getUser();
-        $scope.user = $user.getUser()
+        user = $scope.user = $user.getUser();
     }
 
-    $scope.bidInfo = {};
+    ctrl.bidInfo = {};
     let input = document.querySelector('#amount');
     ctrl.observed = false;
     ctrl.spinnerPosition = 'absolute';
@@ -44,26 +46,38 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         let id = $routeParams.productId;
         httpService.get(`product/${id}`).then(function(data) {
             let product = data.data.data;
-            console.log(product)
-            $scope.product = product;
-            $scope.maxBid = $scope.product.minimum_bid;
+            $scope.product = ctrl.product = product;
+            ctrl.remaining_time = $scope.product.auctions.remaining_time;
+            ctrl.productId = $scope.product.productId;
+            ctrl.auctionId = $scope.product.auctions.auctionId;
+            $scope.maxBid = ctrl.maxBid = getNextbid(0)
             $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
             let title = $misc.capitalizeText($scope.product.product_title);
             ngMeta.setTitle(`${title}`, ' | Bidxel.com');
-            getAuctionDetails();
             $scope.imgs = $scope.product.images;
             $scope.productImage = $scope.imgs[0];
             $scope.sizes = $scope.product.sizes;
             $scope.colors = $scope.product.colors;
             $scope.ratings = $scope.product.ratings;
+            $scope.relatedProducts = $scope.product.related_products;
             $scope.loading = false;
+            ctrl.getAuctionDetails()
+            auctionCaller = setAuctionInterval();
         });
         $scope.page = 1;
     }
 
     get();
 
-    function getAuctionDetails() {
+    function setAuctionInterval() {
+        if (!$scope.product.redeemable) {
+            return setInterval(() => {
+                ctrl.getAuctionDetails()
+            }, 2000);
+        }
+    }
+
+    ctrl.getAuctionDetails = function() {
         let auctionData = {
             auctionId: $scope.product.auctions.auctionId,
             productId: $scope.product.productId
@@ -75,11 +89,10 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                 if (res.meta.code === 200) {
                     if (res.data) {
                         let bids = res.data;
-                        $scope.bids = bids;
-                        bids.forEach(bid => {
-                            $scope.maxBid = bid.bid_amount;
-                            $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
-                        })
+                        $scope.bids = containsNewData($scope.bids, bids) ? $scope.bids : bids;
+                        $scope.currentWinner = bids[0].user_name;
+                        $scope.maxBid = ctrl.maxBid = bids[0].bid_amount;
+                        $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid
                     } else {
                         $scope.maxBid = $scope.product.minimum_bid;
                         $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
@@ -88,9 +101,16 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
             })
     }
 
+    function containsNewData(oldData, newData) {
+        newData.$$hashKey = oldData.$$hashKey;
+        console.log(JSON.stringify(oldData) === JSON.stringify(newData))
+        console.log(JSON.stringify(oldData), JSON.stringify(newData))
+        return JSON.stringify(oldData) === JSON.stringify(newData);
+    }
+
     function getNextbid(amount) {
-        let nextbid = numFilter((10 / 100) * amount, 1);
-        return parseInt(nextbid)
+        if (amount < 1) return amount + 10;
+        return parseInt(numFilter((10 / 100) * amount, 1));
     }
 
     $scope.slideRight = () => {
@@ -121,6 +141,27 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
 
     showCart();
 
+    function restartTimer() {
+        $scope.$broadcast('timer-reset');
+        $scope.$broadcast('timer-start');
+    }
+
+    $rootScope.$on('loggedIn', checkAuthStatus)
+    $rootScope.$on('loggedOut', checkAuthStatus)
+    $rootScope.$on('auction-ended', restartAuction)
+
+    function restartAuction() {
+        $scope.bids = [];
+        $scope.maxBid = ctrl.maxBid = getNextbid(0)
+        $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
+
+    }
+
+    function checkAuthStatus() {
+        $scope.loggedIn = $user.isAuthenticated();
+        user = $scope.user = $user.getUser();
+    };
+
     //Scroll to bid history position on window 
     $scope.bidHistory = function() {
         let bids = document.querySelector('#prod-info'),
@@ -148,47 +189,39 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         $('.cart-button').sideNav('show');
     }
 
-    function updateInfo() {
-
-    }
-
     $scope.bid = () => {
         if ($scope.loggedIn) {
-            let bid = {
-                auctionId: $scope.product.auctions.auctionId,
-                productId: $scope.product.productId,
-                BidAmount: $scope.nextBid
+
+            if (($scope.colors.length && $scope.sizes.length && ctrl.bidInfo.productColor && ctrl.bidInfo.productSize) || (!$scope.colors.length && !$scope.size.length)) {
+                let bid = {
+                    auctionId: $scope.product.auctions.auctionId,
+                    productId: $scope.product.productId,
+                    BidAmount: $scope.nextBid
+                }
+                console.log($scope.nextBid)
+                httpService
+                    .postUserDetails('bidder', user, bid, 'post')
+                    .then((data) => {
+                        let res = httpService.verifyData(data.data);
+                        if (res) {
+                            Materialize.toast('Bid Placed successfully', 2000);
+                            // If window size is mobile or tablet, call the navigator.vibrate() api.
+                            if (navigator.vibrate) {
+                                navigator.vibrate(200)
+                            }
+                            isBidding = true;
+                            ctrl.getAuctionDetails();
+                        }
+                    }, err => {
+                        Materialize.toast('An error occured', 3000)
+                    })
+            } else {
+                Materialize.toast('Please select color and size of product before bidding', 4000)
             }
-            httpService
-                .postUserDetails('bidder', user, bid, 'post')
-                .then((data) => {
-                    let res = data.data
-                    Materialize.toast('Bid Placed successfully', 2000);
-                    // If window size is mobile or tablet, call the navigator.vibrate() api.
-                    if (navigator.vibrate) {
-                        navigator.vibrate(200)
-                    }
-                    getAuctionDetails();
-                    // updateInfo();
-                }, () => {
-                    Materialize.toast('An error occured', 3000)
-                })
-                // if (window.innerWidth < 993) {
-                //     // Hide input field after user presses enter or submits
-                //     if (input.classList.contains('show-bid')) {
-                //         input.classList.remove('show-bid');
-                //         $scope.hideCart = false; //Display cart button after item is added to cart
-                //     }
-                // }
-                // Hide alert after 4 secs
-                // setTimeout(() => {
-                //     $('autobid').removeClass('animated fadeOut');
-                //     $scope.autoBid = false;
-                // }, 4000);
         } else {
             // Open login modal if user isn't logged in
             $('#login-modal').modal('open');
-            Materialize.toast('Please log in or sign up', 1000)
+            Materialize.toast('Please log in or sign up before bidding', 3000)
         }
     }
 
@@ -216,7 +249,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
             }
 
         }
-        //          Change images in gallery
+        //Change images in gallery
     $scope.chgSrc = function(img, index) {
         $scope.productImage = img;
         $scope.active = index
@@ -239,4 +272,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0
     })
+    ctrl.$onDestroy = function() {
+        window.clearInterval(auctionCaller)
+    }
 };

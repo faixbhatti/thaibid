@@ -4,7 +4,7 @@
         <thai-spinner position="$ctrl.spinnerPosition" ng-if="loading"></thai-spinner>
     </div>
 
-    <div class="row" id="detail-container" ng-show="!loading">
+    <div class="row" id="detail-container" ng-show="!loading" style="background: whitesmoke">
 
         <div class="col l5 m12 s12" style="padding: 0 0">
 
@@ -22,13 +22,13 @@
 
                 <div class="row" id="gallery" style="margin-bottom: 0">
                     <div class="col s12" style="padding: 0 0; background: lightgray">
-                        <img src="{{productImage.image_medium}}" class="materialboxed responsive-img hoverable z-depth-1" data-caption="{{product.product_title}}" style="border-radius: 1px; width: 100%">
+                        <img src="{{productImage.image_large}}" class="materialboxed responsive-img hoverable z-depth-1" data-caption="{{product.product_title}}" style="border-radius: 1px; width: 100%">
                     </div>
                 </div>
 
                 <div class="row" style="margin-top: 8px">
-                    <div class="col l3 m3 s3" ng-repeat="img in imgs" style="padding-left: 0;">
-                        <img src="{{img.image_small}}" class="responsive-img waves-effect waves-teal hoverable z-depth-1" ng-click="chgSrc(img, $index)" ng-class="{'img-active': active === $index}">
+                    <div class="col l3 m3 s3" ng-repeat="img in imgs | limitTo: 4" style="padding-left: 0;">
+                        <img src="{{img.image_large}}" class="responsive-img waves-effect waves-teal hoverable z-depth-1" ng-click="chgSrc(img, $index)" ng-class="{'img-active': active === $index}">
                     </div>
                 </div>
             </div>
@@ -62,18 +62,16 @@
 
             <div class="row" style="margin-bottom: 5px">
                 <div class="col l6 m6 s6">
-                    <!---- Product Owner ------>
-                    <p class="prod-owner">by <span style="text-decoration: underline;"><i>Uri Mackov</i></span></p>
-                    <!---- /Product Owner ------>
                     <!---- Ratings -------->
-
+                    <!--
                     <p class="ratings"><i class="material-icons teal-text" ng-repeat="icon in [1,2,3,4,5]">star</i> {{product.price | limitTo: 2}}{{product.price | limitTo: 2 : 3}} Users</p>
+                     -->
                     <!------ /Ratings ------>
                 </div>
                 <div class="col l6 m6 s6 pull-s2" id="timer-holder" ng-if="!product.redeemable">
                     <!-- Time remaining -->
                     <span class="right timer-text">Time remaining</span>
-                    <countdown-timer time="product.auctions.remaining_time" bidInfo="bidInfo" product="product" clear="showDiv"></countdown-timer>
+                    <countdown-timer time="product.auctions.remaining_time" bidInfo="$ctrl.bidInfo" product="product" clear="showDiv"></countdown-timer>
                     <!-- End Time -->
                 </div>
             </div>
@@ -107,10 +105,10 @@
 
                     <div class="col s12" style="padding: 0 0; display: flex" ng-if="!product.redeemable">
                         <!---- Prices (Actual/Leading) ------>
-                        <p class="actual-holder"><span class="price-text">Highest Bid</span><br>
+                        <p class="actual-holder"><span class="price-text">Current Bid</span><br>
                             <span class="price">{{maxBid | currency : '฿'}}</span>
                         </p>
-                        <p class="leading-holder"><span class="price-text">Next possible bid</span><br>
+                        <p class="leading-holder"><span class="price-text">Next bid</span><br>
                             <span class="price">{{nextBid | currency : '฿'}}</span>
                         </p>
                         <!--- /Prices -->
@@ -121,8 +119,9 @@
                         <p class="actual-holder"><span class="price-text">Price</span><br>
                             <span class="price pnts">{{product.redeem_point}} <span> points</span> </span>
                         </p>
-                        <p class="leading-holder"><span class="price-text">Available Points</span><br>
-                            <span class="price pnts">40 points</span>
+                        <p class="leading-holder"><span class="price-text">Your Points</span><br>
+                            <span class="price pnts" ng-if="loggedIn">{{user.um_default_amount}}</span>
+                            <span class="price pnts" ng-if="!loggedIn">Please Log In</span>
                         </p>
                         <!--- /Prices -->
                     </div>
@@ -134,13 +133,14 @@
                         <p class="bid-winner">
                             <i class="material-icons blue-text left">stars</i> Current Winner <br>
                             <div>
-                                John Smith {{product.price + 10 | currency : '฿'}}
+                                {{currentWinner}} {{maxBid | currency : '฿'}}
                             </div>
                         </p>
                     </div>
                     <div ng-if="product.redeemable">
                         <p class="description-text blue-text">User Points</p>
-                        Points: {{user.um_default_amount}}
+                        <span ng-if="loggedIn">Points: {{user.um_default_amount}}</span>
+                        <span ng-if="!loggedIn">Please Log-in</span>
                     </div>
                 </div>
 
@@ -156,14 +156,14 @@
                         <form class="col s12" style="padding: 0">
                             <div class="col s12 hide-on-med-and-up" style="padding: 0">
                                 <div class="input-field col s6">
-                                    <select ng-model="bidInfo.productColor">
+                                    <select ng-model="$ctrl.bidInfo.productColor">
                                         <option value="" disabled selected>Color</option>
                                         <option ng-repeat="color in colors" value="{{color.color_name}}">{{color.color_name}}</option>
                                     </select>
                                     <label>Color</label>
                                 </div>
                                 <div class="input-field col s6">
-                                    <select ng-model="bidInfo.productSize">
+                                    <select ng-model="$ctrl.bidInfo.productSize">
                                         <option value="" disabled selected>Size</option>
                                         <option ng-repeat="size in sizes" value="{{size.size_name}}">{{size.size_name}}</option>
                                     </select>
@@ -174,14 +174,14 @@
                             <div class="col l6 m6 s12 prod-info hide-on-small-and-down">
                                 <span class="details-header blue-text">Color</span><br>
                                 <div class="colors">
-                                    <div ng-repeat="color in colors" class="{{color.color_name | lowercase}} z-depth-1" ng-click="bidInfo.productColor = color.color_name" ng-class="{'selected': bidInfo.productColor === color.color_name}"></div>
+                                    <div ng-repeat="color in colors" class="{{color.color_name | lowercase}} z-depth-1" ng-click="$ctrl.bidInfo.productColor = color.color_name" ng-class="{'selected': $ctrl.bidInfo.productColor === color.color_name}"></div>
                                 </div>
 
                                 <div class="row" style="margin-top: 15px">
-                                    <div class="col s12" style="padding: 0 0" ng-init="selected = 1">
+                                    <div class="col s12" style="padding: 0 0">
                                         <span class="description-text teal-text">Size</span><br>
                                         <div class="sizes">
-                                            <div ng-repeat="size in sizes" ng-click="bidInfo.productSize = size.size_name" ng-class="{'selected': bidInfo.productSize === size.size_name}"> {{size.size_name}} </div>
+                                            <div ng-repeat="size in sizes" ng-click="$ctrl.bidInfo.productSize = size.size_name" ng-class="{'selected': $ctrl.bidInfo.productSize === size.size_name}"> {{size.size_name}} </div>
                                         </div>
                                     </div>
                                 </div>
@@ -190,23 +190,23 @@
                             <div class="col l6 m6 s12" style="padding: 0 0 0 10px;">
                                 <p class="details-header grey-text" ng-if="!product.redeemable">Place Bid</p>
                                 <p class="details-header grey-text" ng-if="product.redeemable">Redeem Item</p>
-                                <!--<p ng-if="product.price > 40 && !$ctrl.observed" class="use-points-alert">This product is worth {{product.price - 5}} points and you have {{product.price}} points, so you can add this item to cart without bidding <span class="accept" ng-click="$ctrl.observed = true">Okay</span></p>-->
+                                <p ng-if="product.redeemable && user.um_default_amount < product.redeem_point && !$ctrl.observed" class="use-points-alert">This product is worth {{product.redeem_point}} points and you have {{user.um_default_amount}} points, so you will have to pay with cash if you want to redeem the item<span class="accept" ng-click="$ctrl.observed = true">Okay</span></p>
 
                                 <div class="row" style="margin-bottom: 0">
                                     <div class="input-field col l6 m5 s4" ng-if="!product.redeemable">
-                                        <input class="active" type="number" id="amount" ng-model="nextBid" style="font-size: 30px; margin: 0; max-width: 100px" class="teal-text active" ng-class="focus()">
+                                        <input class="active" type="number" id="amount" ng-model="nextBid" style="font-size: 30px; margin: 0; max-width: 100px" class="teal-text active">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
 
-                                    <div class="input-field col l3 m3 s6">
+                                    <div class="input-field col l3 m6 s12">
                                         <md-button class="md-raised main-green white-text" ng-if="!product.redeemable" ng-click="bid()" type="submit">Bid</md-button>
                                         <md-button class="md-raised md-primary" ng-if="product.redeemable === 1" ng-click="" type="button">Redeem Now</md-button>
-                                        <md-button class="md-raised md-primary" ng-if="product.redeemable === 1" ng-click="addToCart(product)" type="button">Add to Cart</md-button>
+                                        <!--<md-button class="md-raised md-primary" ng-if="product.redeemable === 1" ng-click="addToCart(product)" type="button">Add to Cart</md-button>-->
                                         <!--<a href="/checkout" class="btn waves-effect blue-grey" style="margin: 10px 5px" type="button">Go to cart</a>-->
                                         <div class="buttons-holder z-depth-3">
                                             <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn && product.redeemable === 1" type="button">Redeem Now</button>
                                             <button class="btn orange bid-button orange hide-on-med-and-up" ng-show="loggedIn && product.redeemable !== 1" ng-click="placeBid(product)" type="button">Bid now</button>
-                                            <button class="btn white alternative-cart-button hide-on-med-and-up black-text" type="button" ng-hide="!loggedIn || hideCart" ng-click="showCart()">
+                                            <button class="btn white alternative-cart-button hide-on-med-and-up black-text" type="button" ng-hide="!loggedIn || hideCart || product.redeemable" ng-click="showCart()">
                                             Go to cart
                                             <span>({{cart.length}})</span>
                                         </button>
@@ -229,9 +229,9 @@
 
 <div class="row" style="position: relative;" ng-hide="loading">
 
-    <button class="btn-floating btn-large white left hide-on-med-and-down" ng-class="{'waves-effect': page === 2}" ng-disabled="page === 1" ng-click="slideOut()" style="position: absolute; top: 45%; left: 2px;"><i
+    <button class="btn-floating btn-large white left hide-on-med-and-down" ng-if="relatedProducts.length > 4" ng-class="{'waves-effect': page === 2}" ng-disabled="page === 1" ng-click="slideOut()" style="position: absolute; top: 45%; left: 2px;"><i
             class="material-icons black-text">chevron_left</i></button>
-    <button class="btn-floating btn-large white right hide-on-med-and-down" ng-class="{'waves-effect': page === 1}" ng-disabled="page === 2" ng-click="slideRight()" style="position: absolute; top: 45%; right: 2px;"><i
+    <button class="btn-floating btn-large white right hide-on-med-and-down" ng-if="relatedProducts.length > 4" ng-class="{'waves-effect': page === 1}" ng-disabled="page === 2" ng-click="slideRight()" style="position: absolute; top: 45%; right: 2px;"><i
             class="material-icons black-text">chevron_right</i></button>
     <div id="others">
 
@@ -239,7 +239,7 @@
 
         <div style="display: flex">
             <div class="row" style="height: 350px; margin-bottom: 50px">
-                <product-list products="related" columns="3" ng-if="page === 1" id="similar1"></product-list>
+                <product-list products="relatedProducts" columns="3" ng-if="page === 1" id="similar1"></product-list>
                 <product-list products="otherProducts" columns="3" ng-if="page === 2" id="similar2"></product-list>
             </div>
         </div>
