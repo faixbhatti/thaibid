@@ -37,7 +37,6 @@
 
         function postUserDetails(abUrl, userInfo, data, command) {
             if (userInfo) {
-                console.log(userInfo)
                 let userConfig = {
                     headers: {
                         "xapi": "jwZryAdcrffggf867DnjhjhfRvsfhjs5667",

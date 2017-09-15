@@ -48,13 +48,19 @@ angular.module('thai')
             }
 
             (function get() {
-                httpService
-                    .get('category')
-                    .then(res => {
-                        ctrl.loading = false;
-                        ctrl.categories = res.data.data
+                let categories = localStorage.getItem('categories');
+                if (categories) {
+                    ctrl.loading = false;
+                    ctrl.categories = JSON.parse(categories);
+                } else {
+                    httpService
+                        .get('category')
+                        .then(res => {
+                            ctrl.loading = false;
+                            ctrl.categories = res.data.data
 
-                    })
+                        })
+                }
             })()
 
             ctrl.$onInit = () => {

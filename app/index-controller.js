@@ -80,8 +80,8 @@
                 .then(res => {
                     let fectched = httpService.verifyData(res.data);
                     if (fectched) {
-                        $scope.cart = fectched;
-                        localStorage.setItem('cart', JSON.stringify($scope.cart))
+                        $scope.itemsInCart = fectched;
+                        localStorage.setItem('cart', JSON.stringify($scope.itemsInCart))
                     }
                 })
         })()

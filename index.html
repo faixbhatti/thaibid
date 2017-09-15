@@ -271,8 +271,8 @@
 
                 <ul class="dropdown-content" id="cart">
                     <li ng-repeat="item in itemsInCart" ng-show="itemsInCart.length" class="cart-items">
-                        <a style="display: inline-flex; width: 100%; cursor: unset"><img ng-src="{{item.image}}" alt="" class="circle dropdown-img">
-                            <p class="black-text">{{item.product.pm_title}} - <span ng-if="item.is_redeemable">{{item.points}}p</span> <span class="blue-grey-text" ng-if="!item.is_redeemable">{{item.price | currency: '฿'}}</span>
+                        <a style="display: inline-flex; width: 100%; cursor: unset"><img ng-src="{{item.product.images[0].image_small}}" alt="{{item.product.pm_title}}" class="circle dropdown-img">
+                            <p class="black-text">{{item.product.pm_title}} - <span ng-if="item.is_redeemable">{{item.redeem_points}}p</span> <span class="blue-grey-text" ng-if="!item.is_redeemable">{{item.product.pm_final_price | currency: '฿'}}</span>
                             </p>
                         </a>
                         <i class="material-icons right waves-effect waves-light cart-del" ng-class="{'red-text': !hasDeleted, 'grey-text': hasDeleted}" ng-click="removeFromCart($index, itemsInCart)">delete_forever</i>
@@ -334,7 +334,7 @@
 
                     <div class="nav-content" style="padding: 0 20px;">
                         <ul class="head tabs tabs-transparent hide-on-med-and-down" ng-if="!inMobile">
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" ng-repeat="category in categories" data-tooltip="{{category.cm_name}}" ng-click="location(category.cm_slug)"><a href="" class=""><i class="material-icons left icons">timer</i>{{category.cm_name}}</a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" ng-repeat="category in categories" data-tooltip="{{category.cm_name}}" ng-click="location(category.cm_slug)"><a href="" class="hide" ng-class="{'show': loaded}"><i class="material-icons left icons">timer</i>{{category.cm_name}}</a></li>
                             <!-- <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Men" ng-click="location('/gentlemen')"><a href="" class=""><i
                             class="material-icons left icons">accessibility</i>Men</a></li>
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Ladies" ng-click="location('/ladies')"><a href="" class=""><i
@@ -353,7 +353,7 @@
                             </li>
                             <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Tools" ng-click="location('/tools')"><a href="" class=""><i
                             class="material-icons left icons">build</i>Tools</a></li> -->
-                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('redeem-shop')"><a href="" class=""><i class="material-icons left icons">loyalty</i>Redeem Shop</a></li>
+                            <li class="tab tooltipped" data-delay="50" data-position="bottom" data-tooltip="Redeem Shop" ng-click="location('redeem-shop')"><a href="" class="hide" ng-class="{'show': loaded}"><i class="material-icons left icons">loyalty</i>Redeem Shop</a></li>
                         </ul>
 
                         <div ng-if="inMobile" class="hide-on-med-and-up">

@@ -1,9 +1,9 @@
     'use strict';
 
     // Usage:
-    // 
+    //
     // Creates:
-    // 
+    //
     angular.module('thai')
         .component('countdownTimer', {
             templateUrl: 'app/product-detail/countdown-timer/countdown-timer.html',
@@ -38,14 +38,12 @@
                 .then(data => {
                     let res = httpService.verifyData(data.data);
                     if (res) {
-                        Materialize.toast(`${data.data.meta.message}`, 3000)
                         $rootScope.$broadcast('auction-ended');
                         restartTimer()
                     } else {
                         Materialize.toast("An error occured. Please try again", 3000);
                     }
                 })
-                // ctrl.clear = false;
         };
 
         function restartTimer() {
@@ -75,11 +73,12 @@
                 if (!$('.timer').hasClass('red-text') && !$('#time-icon').hasClass('red-text')) {
                     $('.timer').addClass('red-text');
                     $('#time-icon').addClass('animated flash infinite red-text');
-                    if (ctrl.product.maxBid < ctrl.product.product.minimum_bid) {
-                        ctrl.autoBid();
+                    if (args.millis === 9000) {
+                        if (ctrl.product.maxBid < ctrl.product.product.minimum_bid) {
+                            ctrl.autoBid();
+                        }
                     }
                 }
-
             } else {
                 if ($('.timer').hasClass('red-text') && $('#time-icon').hasClass('red-text')) {
                     $('.timer').removeClass('red-text');
@@ -91,5 +90,4 @@
         ctrl.$onInit = function() {
             setTimeout(() => ctrl.timeLeft = ctrl.product.remaining_time, 3000);
         }
-
     }

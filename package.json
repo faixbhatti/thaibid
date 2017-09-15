@@ -7,7 +7,7 @@
         "build": "gulp build-vendor && gulp",
         "serve": "live-server",
         "commit": "git add --all && git commit -m \"Finalising bidding api and starting work on checkout\" && git push origin dev-area",
-        "start": "npm run build & live-server",
+        "start": "npm run serve & npm run build",
         "deploy": "npm run commit && cd .. && firebase deploy"
     },
     "repository": {
@@ -43,6 +43,7 @@
     },
     "dependencies": {
         "gulp-purifycss": "^0.2.0",
+        "intersection-observer": "^0.4.2",
         "md-steppers": "^0.3.4",
         "tinify": "^1.5.0"
     }

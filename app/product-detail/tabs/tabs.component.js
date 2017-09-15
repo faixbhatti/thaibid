@@ -1,9 +1,9 @@
     'use strict';
 
     // Usage:
-    // 
+    //
     // Creates:
-    // 
+    //
     angular.module('thai')
         .component('detailTabs', {
             templateUrl: 'app/product-detail/tabs/tabs.html',
@@ -44,6 +44,12 @@
         }
 
         $(document).ready(function() {
-            setTimeout(() => $('.tabs').tabs(), 2000);
+            setTimeout(() => {
+                $('.tabs').tabs()
+                if (ctrl.product.redeemable) {
+                    $('.tabs').tabs('select_tab', 'prod-detail')
+                }
+            }, 2000);
+
         })
     }

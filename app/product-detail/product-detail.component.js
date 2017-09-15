@@ -15,7 +15,6 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
     $scope.showDiv = false;
     $scope.newBid = false;
     $scope.nextBid = 0;
-    $scope.timeLeft = 30;
     $rootScope.showNav = true;
     $rootScope.inCart = false;
     $rootScope.previousPage = `/product/${$routeParams.productId}`;
@@ -26,14 +25,15 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
     $scope.loggedIn = $user.isAuthenticated();
     $scope.bids = [];
     let numFilter = $filter('number');
-    let isBidding = false;
     let auctionCaller;
     let user;
     if ($user.getUser()) {
         user = $scope.user = $user.getUser();
     }
 
-    ctrl.bidInfo = {};
+    ctrl.bidInfo = {
+        bidAmount: 0
+    };
     let input = document.querySelector('#amount');
     ctrl.observed = false;
     ctrl.spinnerPosition = 'absolute';
@@ -51,7 +51,8 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
             ctrl.productId = $scope.product.productId;
             ctrl.auctionId = $scope.product.auctions.auctionId;
             $scope.maxBid = ctrl.maxBid = getNextbid(0)
-            $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
+            $scope.nextBid = getNextbid($scope.maxBid)
+            ctrl.bidInfo.bidAmount = $scope.nextBid;
             let title = $misc.capitalizeText($scope.product.product_title);
             ngMeta.setTitle(`${title}`, ' | Bidxel.com');
             $scope.imgs = $scope.product.images;
@@ -62,7 +63,7 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
             $scope.relatedProducts = $scope.product.related_products;
             $scope.loading = false;
             ctrl.getAuctionDetails()
-            auctionCaller = setAuctionInterval();
+                // auctionCaller = setAuctionInterval();
         });
         $scope.page = 1;
     }
@@ -89,28 +90,25 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                 if (res.meta.code === 200) {
                     if (res.data) {
                         let bids = res.data;
-                        $scope.bids = containsNewData($scope.bids, bids) ? $scope.bids : bids;
+                        $scope.bids = [...bids];
                         $scope.currentWinner = bids[0].user_name;
                         $scope.maxBid = ctrl.maxBid = bids[0].bid_amount;
-                        $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid
+                        $scope.nextBid = getNextbid($scope.maxBid);
+                        ctrl.bidInfo.bidAmount = $scope.nextBid;
                     } else {
-                        $scope.maxBid = $scope.product.minimum_bid;
-                        $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
+                        $scope.maxBid = 0
+                        $scope.nextBid = getNextbid($scope.maxBid)
                     }
                 }
             })
     }
 
-    function containsNewData(oldData, newData) {
-        newData.$$hashKey = oldData.$$hashKey;
-        console.log(JSON.stringify(oldData) === JSON.stringify(newData))
-        console.log(JSON.stringify(oldData), JSON.stringify(newData))
-        return JSON.stringify(oldData) === JSON.stringify(newData);
-    }
-
     function getNextbid(amount) {
-        if (amount < 1) return amount + 10;
-        return parseInt(numFilter((10 / 100) * amount, 1));
+        if (amount < 1) {
+            return amount + 10
+        }
+        let numPercent = (30 / 100) * amount;
+        return Math.floor(amount + numPercent);
     }
 
     $scope.slideRight = () => {
@@ -121,19 +119,6 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         $scope.page = 1;
     };
 
-    // $scope.closeInput = function() {
-    //     if (window.innerWidth < 601) { //Close input on click outside
-    //         if (input.classList.contains('show-bid')) {
-    //             if ($rootScope.hideCart) {
-    //                 alert('here');
-    //                 input.classList.remove('show-bid');
-    //                 $scope.hideCart = false;
-    //             }
-    //         }
-    //     }
-    // }
-
-
     //Show or hide cart button depending on screen size
     function showCart() {
         $rootScope.inDetail = window.matchMedia('(min-width: 601px)').matches
@@ -141,20 +126,18 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
 
     showCart();
 
-    function restartTimer() {
-        $scope.$broadcast('timer-reset');
-        $scope.$broadcast('timer-start');
-    }
-
     $rootScope.$on('loggedIn', checkAuthStatus)
     $rootScope.$on('loggedOut', checkAuthStatus)
     $rootScope.$on('auction-ended', restartAuction)
 
     function restartAuction() {
         $scope.bids = [];
-        $scope.maxBid = ctrl.maxBid = getNextbid(0)
-        $scope.nextBid = getNextbid($scope.maxBid) + $scope.maxBid;
-
+        $scope.maxBid = 0
+        $scope.nextBid = getNextbid($scope.maxBid);
+        ctrl.bidInfo.bidAmount = $scope.nextBid;
+        ctrl.auctionEnded = true;
+        setTimeout(() => ctrl.auctionEnded = false, 4000);
+        get()
     }
 
     function checkAuthStatus() {
@@ -162,15 +145,16 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         user = $scope.user = $user.getUser();
     };
 
-    //Scroll to bid history position on window 
+    //Scroll to bid history position on window
     $scope.bidHistory = function() {
         let bids = document.querySelector('#prod-info'),
             top = bids.offsetTop;
         $('.tabs').tabs('select_tab', 'prod-bids');
         document.body.scrollTop = top;
         document.documentElement.scrollTop = top;
+    }
 
-    };
+
     //When in mobile view, if user clicks on bid button, display amount input field
     $scope.placeBid = function(product) {
             if (input.classList.contains('show-bid')) {
@@ -189,6 +173,11 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         $('.cart-button').sideNav('show');
     }
 
+    function showNewBid() {
+        ctrl.newBid = true;
+        setTimeout(() => ctrl.newBid = false, 4000);
+    }
+
     $scope.bid = () => {
         if ($scope.loggedIn) {
 
@@ -196,21 +185,19 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                 let bid = {
                     auctionId: $scope.product.auctions.auctionId,
                     productId: $scope.product.productId,
-                    BidAmount: $scope.nextBid
+                    BidAmount: ctrl.bidInfo.bidAmount
                 }
-                console.log($scope.nextBid)
                 httpService
                     .postUserDetails('bidder', user, bid, 'post')
                     .then((data) => {
                         let res = httpService.verifyData(data.data);
                         if (res) {
-                            Materialize.toast('Bid Placed successfully', 2000);
+                            ctrl.getAuctionDetails();
+                            showNewBid();
                             // If window size is mobile or tablet, call the navigator.vibrate() api.
                             if (navigator.vibrate) {
                                 navigator.vibrate(200)
                             }
-                            isBidding = true;
-                            ctrl.getAuctionDetails();
                         }
                     }, err => {
                         Materialize.toast('An error occured', 3000)
@@ -232,16 +219,12 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
                     navigator.vibrate(200)
                 }
                 if (window.innerWidth < 993) {
-
                     Materialize.toast('Item added to cart', 1000); //Display toast when item is added to cart
                     $misc.shake(); //shake to cart button
                 } else {
                     Materialize.toast('Item added to cart', 1000)
                 }
-
                 $rootScope.cart.push(product);
-
-
             } else {
                 // Open login modal if user isn't logged in
                 $('#login-modal').modal('open');
@@ -263,11 +246,9 @@ function detailCtrl($scope, $routeParams, $rootScope, $misc, ngMeta, httpService
         $('.tooltipped').tooltip({
             delay: 50
         });
-
         setTimeout(() => {
             Materialize.updateTextFields();
         }, 4000);
-
         // Scroll to top when page is loaded
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0

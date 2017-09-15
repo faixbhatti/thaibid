@@ -78,12 +78,12 @@
 
             <div class="row" style="margin-bottom: 0" ng-if="!product.redeemable">
                 <div class="col l12 s12 m12">
-                    <div class="grey darken-3 white-text alert-area timeout" ng-show="showDiv">
-                        Auction has ended! NOTE: If you're the winner make sure to checkout and pay within 24 hours. If you don't your account will be closed! It can take up to 5 min before your order appears in the basket.
+                    <div class="grey darken-3 white-text alert-area timeout" ng-show="$ctrl.auctionEnded">
+                        Auction has ended! NOTE: If you're the winner make sure to checkout and pay within 24 hours. If you don't your account will be closed! It can take up to 5 min before your order appears in the cart.
                     </div>
 
-                    <div class="red lighten-1 white-text alert-area newbid" ng-show="newBid">
-                        New bid on product. New product price {{product.price | currency: '฿'}}
+                    <div class="grey white-text alert-area newbid" ng-show="$ctrl.newBid">
+                        Your new bid has been placed successfully.
                     </div>
 
                     <div class="blue-grey lighten-1 white-text alert-area autobid" ng-show="autoBid">
@@ -194,7 +194,7 @@
 
                                 <div class="row" style="margin-bottom: 0">
                                     <div class="input-field col l6 m5 s4" ng-if="!product.redeemable">
-                                        <input class="active" type="number" id="amount" ng-model="nextBid" style="font-size: 30px; margin: 0; max-width: 100px" class="teal-text active">
+                                        <input class="active" type="number" id="amount" ng-model="$ctrl.bidInfo.bidAmount" style="font-size: 30px; margin: 0; max-width: 100px" class="teal-text active">
                                         <label class="active" for="amount">Bid Amount</label>
                                     </div>
 

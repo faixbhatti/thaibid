@@ -2,7 +2,7 @@
 
     <div class="card product-shadow hoverable pointer" ng-click="$ctrl.viewProduct(product.pm_slug)">
         <div class="card-image prod-card-img" style="min-height: 117px">
-            <img alt="{{product.pm_title}}" src="" class="responsive-img" style="height: 70%" lazy-load placehold="{{product.images[0].image_small}}">
+            <img alt="{{product.pm_title}}" src="" class="responsive-img" style="height: 70%" lazy-load placehold="{{product.images[0].image_large}}">
             <a class="btn-floating halfway-fab waves-effect waves-dark main-green" ng-click="$ctrl.addToCart(product)" name="{{product.pm_title}}"><i
                     class="material-icons">shopping_cart</i></a>
         </div>

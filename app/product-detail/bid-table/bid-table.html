@@ -14,7 +14,7 @@
     </thead>
 
     <tbody>
-        <tr ng-repeat="bid in $ctrl.bids">
+        <tr ng-repeat="bid in $ctrl.bids track by $index">
             <td class="table-text reduce-text">{{bid.user_name}}</td>
             <td class="table-text reduce-text">{{bid.bid_amount | currency : '฿'}}</td>
             <td class="table-text reduce-text">{{bid.total_bid}}</td>
